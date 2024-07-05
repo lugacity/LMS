@@ -4,10 +4,10 @@ import Navbar from '../Navbar/Navbar';
 
 const Home = () => {
   return (
-    <div >
-      <div className='App' id='app_padding'>
+    <div className='App' id='app_padding'>
+      <div className='home_bg'>
       
-      <MainContent/>
+        <MainContent/>
 
       </div>
 
