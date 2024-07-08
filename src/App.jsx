@@ -1,30 +1,37 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './Components/Navbar/Navbar';
-import Home from './Components/pages/Home'; // Ensure these components exist
-import About from './Components/pages/About';
-import Contact from './Components/pages/Contact';
-import Services from './Components/pages/Services';
+// import Home from './Components/pages/Home'; // Ensure these components exist
+// import About from './Components/pages/About';
+// import Contact from './Components/pages/Contact';
 
 import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AppLayout from "./layouts/AppLayout";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 function App() {
-	return (
-		<div id="app_padding">
-			<Routes>
-				<Route path="/" element={<Home />} />
-				<Route path="/about" element={<About category="about" />} />
-				<Route path="/contact" element={<Contact category="contact" />} />
-				<Route path="/services" element={<Services category="services" />} />
-			</Routes>
-		</div>
-	);
+	const routes = createBrowserRouter([
+		{
+			path: "/",
+			element: <AppLayout />,
+			children: [
+				{
+					index: true,
+					element: <Home />,
+				},
+				{
+					path: "/about",
+					element: <About />,
+				},
+				{
+					path: "/contact",
+					element: <Contact />,
+				},
+			],
+		},
+	]);
+
+	return <RouterProvider router={routes} />;
 }
 
-const AppWrapper = () => (
-	<BrowserRouter>
-		<App />
-	</BrowserRouter>
-);
-
-export default AppWrapper;
+export default App;
