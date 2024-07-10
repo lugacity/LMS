@@ -13,7 +13,7 @@ const Hero = ({ videoSrc, children }) => {
 					id="video-bg"
 					className="w-full h-screen object-cover"></video>
 			</div>
-			<div className="w-full absolute top-1/4 left-0 py-0 px-12 text-left ">
+			<div className="w-full absolute top-0 left-0  px-12 text-left py-16 h-screen  ">
 				{children}
 			</div>
 		</div>
