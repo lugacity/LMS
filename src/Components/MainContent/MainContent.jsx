@@ -3,7 +3,7 @@ import "./MainContent.css";
 import bgVideo from "../../assets/video/homeBG.mp4";
 import Hero from "../Hero";
 import HeroHeading from "./HeroHeading";
-import arrow from "../../assets/images/arrow-up.png";
+// import arrow from "../../assets/images/arrow-up.png";
 import Button from "../Button";
 const MainContent = () => {
 	return (
