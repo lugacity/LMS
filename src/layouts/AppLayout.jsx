@@ -3,7 +3,7 @@ import Navbar from "../Components/Navbar/Navbar";
 
 const AppLayout = () => {
 	return (
-		<div>
+		<div className="font-poppins">
 			<Navbar />
 			<Outlet />
 		</div>

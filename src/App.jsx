@@ -8,6 +8,7 @@ import AppLayout from "./layouts/AppLayout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import DigitalSolution from "./pages/DigitalSolution";
 
 function App() {
 	const routes = createBrowserRouter([
@@ -26,6 +27,10 @@ function App() {
 				{
 					path: "/contact",
 					element: <Contact />,
+				},
+				{
+					path: "/digital-solution",
+					element: <DigitalSolution />,
 				},
 			],
 		},

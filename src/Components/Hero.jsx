@@ -3,7 +3,7 @@ import React from "react";
 
 const Hero = ({ videoSrc, children }) => {
 	return (
-		<div className="text-center bg-whit/80 relative">
+		<div className="text-center bg-white/80 relative">
 			<div className="w-full h-screen bg-black/40 absolute top-0 left-0 "></div>
 			<div>
 				<video
