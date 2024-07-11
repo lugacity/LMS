@@ -1,9 +1,12 @@
 
 import React, { useState } from 'react';
 import styles from './Slider.module.css';
-import img1 from '../../assets/images/big-team.png';
-import img2 from '../../assets/images/slider-img2.png'; // Update with your actual image paths
-import img3 from '../../assets/images/slider-img3.png';
+import img1 from '../../assets/images/Slider_1.jpg';
+import img2 from '../../assets/images/Slider_2.jpg'; 
+import img3 from '../../assets/images/Slider_3.jpg';
+import img4 from '../../assets/images/Slider_4.jpg';
+import img5 from '../../assets/images/Slider_5.jpg';
+import img6 from '../../assets/images/Slider_6.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,17 +22,42 @@ const Slider = () => {
       title: (
         <> Become a <br /> Data Analyst </>
       ),
-      content: 'Content for image 1 goes here.',
+      content: 'Unlock the power of data with our comprehensive program designed to equip you with the skills needed to excel as a Data Analyst.',
     },
     {
       img: img2,
-      title: 'Become a Scrum Master',
-      content: 'Content for image 2 goes here.',
+      title: (
+        <> Become a <br /> Scrum Master </>
+      ),
+      content: 'Advance your career with our Scrum Master program, designed to empower you with the expertise needed to lead Agile teams to success.',
     },
     {
       img: img3,
-      title: 'Become a Product Owner',
-      content: 'Content for image 3 goes here.',
+      title: (
+        <> Become a <br/> Product Owner </>
+      ),
+      content: 'Transform your career by mastering the role of a Product Owner with our specialized program. ',
+    },
+    {
+      img: img4,
+      title: (
+        <> Become a <br/> Product Manager </>
+      ),
+      content: 'Elevate your career by becoming a Product Manager with our comprehensive program. ',
+    },
+    {
+      img: img5,
+      title: (
+        <> Become an Agile <br/> Product Manager </>
+      ),
+      content: 'Advance your career with our Scrum Master program, designed to empower you with the expertise needed to lead Agile teams to success.',
+    },
+    {
+      img: img6,
+      title: (
+        <> Become a <br /> Product Analyst </>
+      ),
+      content: 'Transform your career by mastering the role of a Product Owner with our specialized program.',
     },
   ];
 
@@ -57,7 +85,7 @@ const Slider = () => {
           </div>
 
           <div className={styles.contentContainer}>
-            <h2 className='font-bold'>{slide.title}</h2>
+            <h2 className='font-bold text-2xl text-black pb-3'>{slide.title}</h2>
             <p>{slide.content}</p>
           </div>
         </div>

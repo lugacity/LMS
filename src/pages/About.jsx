@@ -5,6 +5,8 @@ import AvenueImage from "../assets/images/professional_man_woman.png";
 import BulletList from "../Components/BulletList";
 import SliderImage from "../Components/Slider/Slider"; // Ensure this path is correct
 import AboutHero from "../Components/about/AboutHero";
+import ImageOverlay from "../Components/ImageOverlay";
+import GetInTouch from "../Components/GetInTouch/GetInTouch";
 
 const About = () => {
 	return (
@@ -87,7 +89,7 @@ const About = () => {
 					</div>
 				</div>
 
-				{/* We are Experts in Career Mentoring */}
+				{/* Skills */}
 				<div className={styles.career_mentoring}>
 					<div className="lg:pt-16 lg:px-14 lg:px-10 pt-10 px-8">
 						<div className={styles.welcome_avenue}>
@@ -106,6 +108,13 @@ const About = () => {
 						</div>
 					</div>
 				</div>
+
+				{/* Elevate YOur Business */}
+				<ImageOverlay>
+
+					<GetInTouch/>
+
+				</ImageOverlay>
 			</section>
 		</>
 	);

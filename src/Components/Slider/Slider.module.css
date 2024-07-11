@@ -11,6 +11,7 @@
 .slide {
   display: none; /* Hide all slides by default */
   flex: 1;
+  /* align-items: center; */
 }
 
 .slide .imageContainer {
@@ -36,12 +37,12 @@
 
 button.prev, button.next {
   position: absolute;
-  top: 20px; /* Move to the upper right corner */
+  top: 35px; /* Move to the upper right corner */
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
-  padding: 8px 14px;
+  padding: 5px 12px;
   cursor: pointer;
   z-index: 2;
   border-radius: 50%;
