@@ -6,7 +6,7 @@ import Card from "../Components/digital-transformation/Card";
 import { digitalData } from "../assets/lib/data";
 import ImpactCard from "../Components/digital-transformation/ImpactCard";
 
-const DigitalSolution = () => {
+const DigitalTransformation = () => {
 	return (
 		<>
 			<ImageHero imageSrc={img}>
@@ -88,4 +88,4 @@ const DigitalSolution = () => {
 	);
 };
 
-export default DigitalSolution;
+export default DigitalTransformation;
