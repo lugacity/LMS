@@ -1,0 +1,55 @@
+/* .welcome_avenue h2{
+    font-size: 40px;
+}
+
+   */
+
+.welcome_avenue_flex{
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    text-align: justify;
+    gap: 2rem;
+}
+
+.career_mentoring_flex{
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    text-align: justify;
+    gap: 4rem;
+}
+
+.career_content{
+    font-size: 1rem;
+}
+
+.career_content:nth-of-type(2){
+    line-height: 2;
+}
+
+
+/* Tablet view */
+@media only screen and (max-width: 1100px){
+    .welcome_avenue h2 {
+        font-size: 1.75rem; /* Font size for tablet */
+      }
+    
+      .welcome_avenue p {
+        font-size: 1.25rem; /* Font size for tablet */
+        padding: 0 1.5rem; /* Padding for tablet */
+      }
+  
+      .welcome_avenue_flex, .career_mentoring_flex{
+          display: grid;
+          grid-template-columns: 1fr ;
+          gap: 1rem;
+      }
+      
+}
+
+
+@media only screen and (max-width: 450px) {
+    .career_content:nth-last-of-type(1){
+        text-align: left;
+        font-size: .8rem;
+    }
+}

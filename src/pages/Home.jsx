@@ -1,4 +1,4 @@
-import img1 from "../assets/images/slider-img1.png";
+import img1 from "../assets/images/slider-img1.png"; 
 import img2 from "../assets/images/slider-img2.png";
 import img3 from "../assets/images/slider-img3.png";
 import img4 from "../assets/images/slider-img4.png";
@@ -29,7 +29,7 @@ const Home = () => {
 					diverse range of government and private sector clients.
 				</p>
 				<div className="flex flex-nowrap overflow-hidden w-full p-0 mt-11">
-					<img src={img1} alt="" />
+					<img src={img1} alt="" /> 
 					<img src={img2} alt="" />
 					<img src={img3} alt="" />
 					<img src={img4} alt="" />
@@ -69,7 +69,7 @@ const Home = () => {
 							Our certified professionals in various disciplines
 						</h3>
 						<div className="flex items-center space-x-[34px]">
-							<div className="space-y-3">
+							<div className="space-y-3"> 
 								<AvenueList src={iconLight} textColor={"#f4f5f7"}>
 									Agile and Digital Business Analysis{" "}
 								</AvenueList>
@@ -159,10 +159,10 @@ const Home = () => {
 			</div>
 			<ImageOverlay>
 				<section className="px-20 py-24">
-					<h3 className="font-poppins text-8xl font-light text-[#f4f5f7]">
+					<h3 className="font-poppins text-7xl font-light text-[#f4f5f7]">
 						Ready to Connect with an Expert at Avenue Impact?
 					</h3>
-					<p className="font-poppins text-2xl font-light text-[#f4f5f7] mt-3 mb-10">
+					<p className="font-poppins text-1xl font-light text-[#f4f5f7] mt-3 mb-10">
 						Receive bespoke support from our experienced consultants and elevate
 						your business to new heights.
 					</p>
