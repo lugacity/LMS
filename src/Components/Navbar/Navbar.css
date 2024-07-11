@@ -28,6 +28,6 @@
 	width: 80%; /* Maintain aspect ratio */
 }
 
-.nav-menu li.active {
+.nav-menu li a .active {
 	border-bottom: 2px solid red;
 }

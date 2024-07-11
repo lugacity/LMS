@@ -14,14 +14,6 @@ const Navbar = () => {
 			path: "/about",
 			label: "About Us",
 		},
-		{
-			path: "/service",
-			label: "Services",
-		},
-		{
-			path: "/contact",
-			label: "Contact",
-		},
 	];
 
 	return (
@@ -30,48 +22,29 @@ const Navbar = () => {
 				<WhiteLogo />
 				<DarkLogo />
 			</div>
-
-			<ul className="nav-menu">
-				{menus.map((menu) => {
-					return (
-						<li
-							key={menu}
-							className="transition-all duration-150 hover:border-b-[2px] hover:border-b-red-600">
-							<NavLink to={menu.path} className={"group-hover:text-[#23314A]"}>
-								{menu.label}
-							</NavLink>
-						</li>
-					);
-				})}
-				{/* <li
-					onClick={() => setMenu("Home")}
-					className={menu === "Home" ? "active" : ""}>
-					<Link style={{ textDecoration: "none", color: "white" }} to="/">
-						Home
-					</Link>
-				</li>
-				<li
-					onClick={() => setMenu("About")}
-					className={menu === "About" ? "active" : ""}>
-					<Link style={{ textDecoration: "none" }} to="/about">
-						About us
-					</Link>
-				</li>
-				<li
-					onClick={() => setMenu("Services")}
-					className={menu === "Services" ? "active" : ""}>
-					<Link style={{ textDecoration: "none" }} to="/services">
+			<div className="flex gap-4">
+				<ul className="nav-menu">
+					{menus.map((menu) => {
+						return (
+							<li
+								key={menu}
+								className="transition-all duration-150 hover:border-b-[2px] hover:border-b-red-600">
+								<NavLink
+									to={menu.path}
+									className={"group-hover:text-[#23314A]"}>
+									{menu.label}
+								</NavLink>
+							</li>
+						);
+					})}
+					<li className="transition-all duration-150 hover:border-b-[2px] hover:border-b-red-600 text-white group-hover:text-[#23314A]">
 						Services
-					</Link>
-				</li>
-				<li
-					onClick={() => setMenu("Contact")}
-					className={menu === "Contact" ? "active" : ""}>
-					<Link style={{ textDecoration: "none" }} to="/contact">
-						Contact us
-					</Link>
-				</li> */}
-			</ul>
+					</li>
+				</ul>
+				<button className="bg-[#f4f5f7] text-[#23314A] rounded-lg px-4 py-2 capitalize group-hover:text-[#FFEBF0] group-hover:bg-[#CC1747] ">
+					contact
+				</button>
+			</div>
 		</div>
 	);
 };
