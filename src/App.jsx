@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import DigitalTransformation from "./pages/DigitalTransformation";
 import DataSolution from "./pages/DataSolution";
+import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
 
 function App() {
 	const routes = createBrowserRouter([
@@ -36,6 +37,10 @@ function App() {
 				{
 					path: "/data-solution",
 					element: <DataSolution />,
+				},
+				{
+					path: "/avenue-impact-development",
+					element: <AvenueImpactDevelopment />,
 				},
 			],
 		},

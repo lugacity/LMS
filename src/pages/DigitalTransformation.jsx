@@ -10,7 +10,7 @@ const DigitalTransformation = () => {
 	return (
 		<>
 			<ImageHero imageSrc={img}>
-				<div className="flex gap-8 items-center lg:mt-0 mt-32 ">
+				<div className="flex gap-8 items-center lg:mt-20  mt-32 ">
 					<div className="w-36 h-px bg-white hidden lg:block" />
 					<HeroHeading>
 						digital <br /> transformation
