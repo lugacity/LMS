@@ -1,4 +1,3 @@
-import React from "react";
 import ImageHero from "../Components/ImageHero";
 import img from "../assets/images/digital-hero.png";
 import HeroHeading from "../Components/MainContent/HeroHeading";
@@ -49,8 +48,8 @@ const DigitalTransformation = () => {
 				</div>
 			</section>
 			<section className="md:py-24 md:px-20">
-				<h2 className="text-[#3A4C6C] text-[2.5rem] font-bold font-poppins">
-					Our Digital Transformation <br /> Offerings{" "}
+				<h2 className="text-[#3A4C6C] text-center md:text-center text-2xl md:text-[2.5rem] font-light font-poppins">
+					Why Choose Avenue <br className="hidden md:block" /> Impact?
 				</h2>
 				<div className="grid md:grid-cols-2 gap-0 mt-10">
 					<ImpactCard
