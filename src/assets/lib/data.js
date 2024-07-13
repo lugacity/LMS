@@ -25,3 +25,41 @@ export const digitalData = [
   },
 ]
 
+export const strategies = [
+  {
+    heading: 'Predictive Analytics',
+    paragraph: "Harnessing the power of data to make informed predictions about future trends"
+  },
+  {
+    heading: 'Descriptive Analytics',
+    paragraph: "Gaining valuable insights into historical data patterns for strategic decision-making."
+  },
+  {
+    heading: 'Prescriptive Analytics',
+    paragraph: "Providing actionable recommendations based on data analysis."
+  },
+  {
+    heading: 'Data Visualization',
+    paragraph: "Creating compelling visualizations to make complex data easily understandable"
+  },
+]
+
+export const solutions = [
+  {
+    heading: 'BI Dashboards',
+    paragraph: "Customized dashboards for real-time monitoring of key performance indicators"
+  },
+  {
+    heading: 'Ad Hoc Reporting',
+    paragraph: "On-demand reporting capabilities for immediate insights"
+  },
+  {
+    heading: 'Data Warehousing',
+    paragraph: "Centralized repositories for structured data, enabling efficient analysis"
+  },
+  {
+    heading: 'Self-Service BI',
+    paragraph: "Empowering users with the tools to explore and analyze data independently"
+  },
+]
+

@@ -111,9 +111,7 @@ const About = () => {
 
 				{/* Elevate YOur Business */}
 				<ImageOverlay>
-
-					<GetInTouch/>
-
+					<GetInTouch />
 				</ImageOverlay>
 			</section>
 		</>

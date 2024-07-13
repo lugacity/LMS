@@ -10,18 +10,18 @@
 	width: 100%;
 }
 
-.nav-menu {
+/* .nav-menu {
 	display: flex;
 	align-items: center;
 	list-style: none;
 	gap: 1rem;
-}
+} */
 
-.nav-menu li a {
+/* .nav-menu li a {
 	cursor: pointer;
 	color: white;
 	padding: 0rem 0.5rem;
-}
+} */
 
 .nav-logo img {
 	height: auto; /* Adjust the height as needed */
