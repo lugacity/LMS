@@ -8,6 +8,8 @@ import mission from "../assets/images/mission.png";
 import whatWeDo1 from "../assets/images/what-wedo1.png";
 import whatWeDo2 from "../assets/images/what-wedo2.png";
 import impact from "../assets/images/impact.png";
+import involve from "../assets/images/involve.png";
+import Container from "../Components/Container";
 
 const AvenueImpactDevelopment = () => {
 	return (
@@ -30,31 +32,34 @@ const AvenueImpactDevelopment = () => {
 					and success.
 				</p>
 			</ImageHero>
-			<Grid2Layout className={"py-24 gap-32 items-center"}>
-				<div>
-					<img
-						src={mission}
-						alt="two ladies sitting round a table"
-						className="max-w-lg"
-					/>
-				</div>
+			<Container>
+				<Grid2Layout className={" gap-10 lg:gap-32 items-center"}>
+					<div className="md:-order-1 order-5">
+						<img
+							src={mission}
+							alt="two ladies sitting round a table"
+							className="w-9/12 block mx-auto md:w-full lg:max-w-lg "
+						/>
+					</div>
 
-				<div>
-					<H3 className={"mb-6"}>Our Mission</H3>
-					<P className={"text-justify"}>
-						We aim to empower young people via education, training, mentoring,
-						and community involvement. We think every young person deserves the
-						opportunity to grow and make meaningful societal contributions. We
-						hope to inspire future leaders and change-makers by giving them the
-						tools, resources, and support they need to realize their full
-						potential.
-					</P>
-				</div>
-			</Grid2Layout>
-			<section className="py-24">
-				<H3 className={"px-20 mb-6"}> what we do</H3>
-				<Grid2Layout className={"gap-[62px]"}>
-					<article className="space-y-8">
+					<div className="order-1 md:order-5">
+						<H3 className={"mb-6"}>Our Mission</H3>
+						<P className={"text-justify"}>
+							We aim to empower young people via education, training, mentoring,
+							and community involvement. We think every young person deserves
+							the opportunity to grow and make meaningful societal
+							contributions. We hope to inspire future leaders and change-makers
+							by giving them the tools, resources, and support they need to
+							realize their full potential.
+						</P>
+					</div>
+				</Grid2Layout>
+			</Container>
+			<Container>
+				<H3 className={" mb-6"}> what we do</H3>
+
+				<Grid2Layout className={"gap-y-6 md:gap-10 lg:gap-[62px]"}>
+					<article className=" md:space-y-6 lg:space-y-8 space-y-4">
 						<img
 							src={whatWeDo1}
 							alt=" two and two women sitting round a table doing a meeting"
@@ -94,108 +99,112 @@ const AvenueImpactDevelopment = () => {
 						<img src={whatWeDo2} alt="" />
 					</article>
 				</Grid2Layout>
-			</section>
-			<Grid2Layout className={"gap-32 py-24 items-center"}>
-				<section className="space-y-6">
-					<H3>Our Impact</H3>
-					<P>
-						At Avenue Impact Development CIC, we define success as the impact we
-						have on the lives of young people. Through our programmes and
-						efforts, we have:
-					</P>
+			</Container>
+			<Container>
+				<Grid2Layout className={"gap-y-6 md:gap-10 lg:gap-32 items-center"}>
+					<section className="space-y-6">
+						<H3>Our Impact</H3>
+						<P>
+							At Avenue Impact Development CIC, we define success as the impact
+							we have on the lives of young people. Through our programmes and
+							efforts, we have:
+						</P>
 
-					<ul className="list-disc ml-6 marker:text-[#667185]">
-						<li>
-							<P>
-								Encouraged hundreds of young people to pursue their aspirations
-								and achieve their goals
-							</P>
-						</li>
-						<li>
-							<P>
-								Underprivileged adolescents gained access to education,
-								training, and mentorship opportunities.
-							</P>
-						</li>
-						<li>
-							<P>
-								Supported youth-led initiatives and community projects to solve
-								social concerns.
-							</P>
-						</li>
-						<li>
-							<P>
-								Developed a culture of cooperation, invention, and resilience
-								among young people.
-							</P>
-						</li>
-						<li>
-							<P>
-								Inspired young leaders are generating positive change in their
-								communities.
-							</P>
-						</li>
-					</ul>
-				</section>
-				<div>
-					<img
-						src={impact}
-						alt=" an old man and three ladies sitting round a table"
-						className="max-w-lg"
-					/>
-				</div>
-			</Grid2Layout>
-			<Grid2Layout className={"gap-32 py-24 items-center"}>
-				<div>
-					<img
-						src={impact}
-						alt=" an old man and three ladies sitting round a table"
-						className="max-w-lg"
-					/>
-				</div>
-				<section className="space-y-6">
-					<H3>Get involved</H3>
-					<P>
-						Join us in our mission to empower youngsters and create a more
-						promising future for the next generation. {"Here's"} how to get
-						involved:
-					</P>
+						<ul className="list-disc ml-6 marker:text-[#667185]">
+							<li>
+								<P>
+									Encouraged hundreds of young people to pursue their
+									aspirations and achieve their goals
+								</P>
+							</li>
+							<li>
+								<P>
+									Underprivileged adolescents gained access to education,
+									training, and mentorship opportunities.
+								</P>
+							</li>
+							<li>
+								<P>
+									Supported youth-led initiatives and community projects to
+									solve social concerns.
+								</P>
+							</li>
+							<li>
+								<P>
+									Developed a culture of cooperation, invention, and resilience
+									among young people.
+								</P>
+							</li>
+							<li>
+								<P>
+									Inspired young leaders are generating positive change in their
+									communities.
+								</P>
+							</li>
+						</ul>
+					</section>
+					<div>
+						<img
+							src={impact}
+							alt=" an old man and three ladies sitting round a table"
+							className="w-9/12 block mx-auto md:w-full lg:max-w-lg"
+						/>
+					</div>
+				</Grid2Layout>
+			</Container>
+			<Container>
+				<Grid2Layout className={"gap-y-6 md:gap-10 lg:gap-32 items-center"}>
+					<div className="md:-order-1 order-5">
+						<img
+							src={involve}
+							alt=" an old man and three ladies sitting round a table"
+							className="w-9/12 block mx-auto md:w-full lg:max-w-lg "
+						/>
+					</div>
+					<section className="space-y-6 order-1 md:order-5">
+						<H3>Get involved</H3>
+						<P>
+							Join us in our mission to empower youngsters and create a more
+							promising future for the next generation. {"Here's"} how to get
+							involved:
+						</P>
 
-					<ul className="list-disc ml-6 marker:text-[#667185]">
-						<li>
-							<P>
-								Volunteer: Consider becoming a mentor, coach, or volunteer for
-								one of our programmes and initiatives.
-							</P>
-						</li>
-						<li>
-							<P>
-								Donate: Please support our efforts by donating or supporting a
-								young {"person's"} education or training.
-							</P>
-						</li>
-						<li>
-							<P>
-								Partner: Work with us on projects, events, or initiatives that
-								support our mission and values.
-							</P>
-						</li>
-						<li>
-							<P>
-								Spread the Word: Please share our message to help raise
-								awareness about the need of youth empowerment.
-							</P>
-						</li>
-						<li>
-							<P>
-								Together, we can make a difference and create a world in which
-								every young person has a chance to succeed. Join us on our path
-								of empowerment and transformation!
-							</P>
-						</li>
-					</ul>
-				</section>
-			</Grid2Layout>
+						<ul className="list-disc ml-6 marker:text-[#667185]">
+							<li>
+								<P>
+									Volunteer: Consider becoming a mentor, coach, or volunteer for
+									one of our programmes and initiatives.
+								</P>
+							</li>
+							<li>
+								<P>
+									Donate: Please support our efforts by donating or supporting a
+									young {"person's"} education or training.
+								</P>
+							</li>
+							<li>
+								<P>
+									Partner: Work with us on projects, events, or initiatives that
+									support our mission and values.
+								</P>
+							</li>
+							<li>
+								<P>
+									Spread the Word: Please share our message to help raise
+									awareness about the need of youth empowerment.
+								</P>
+							</li>
+							<li>
+								<P>
+									Together, we can make a difference and create a world in which
+									every young person has a chance to succeed. Join us on our
+									path of empowerment and transformation!
+								</P>
+							</li>
+						</ul>
+					</section>
+				</Grid2Layout>
+			</Container>
 		</>
 	);
 };

@@ -3,6 +3,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.slick-track {
+	@apply *:divide-x *:divide-[#667185];
+}
+
+@keyframes slides {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-100%);
+	}
+}
+
 /* body {
 	font-family: "Poppins", sans-serif;
 	margin: 0;

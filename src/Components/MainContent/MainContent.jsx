@@ -11,13 +11,14 @@ const MainContent = () => {
 			<div className="flex items-end justify-end h-full ">
 				<div className="h-max align-bottom justify-self-end">
 					<HeroHeading>
-						Expert Consultants for <br /> Sustainable Success
+						Expert Consultants <br className="md:hidden" /> for{" "}
+						<br className="hidden md:block" /> Sustainable Success
 					</HeroHeading>
 
-					<div className="w-full h-[1px] mt-16 mb-6 bg-white" />
+					<div className="w-full h-[1px] my-4 md:mt-16 md:mb-6 bg-white" />
 
-					<div className="grid items-center grid-cols-[5fr_1fr] place-items-center ">
-						<p className="text-white text-2xl font-light">
+					<div className="grid items-center lg:grid-cols-[5fr_1fr] place-items-center gap-y-6 ">
+						<p className="text-white md:text-2xl font-light">
 							We provide customised solutions to address commercial, technical,
 							and operational challenges for sustained profitability. Our
 							certified professionals cover various disciplines, including
