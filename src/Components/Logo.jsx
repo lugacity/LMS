@@ -6,7 +6,7 @@ export const WhiteLogo = () => {
 		<img
 			src={whiteLogo}
 			alt=""
-			className="group-hover:hidden block cursor-pointer"
+			className="group-hover:hidden block cursor-pointer lg:w-1/6"
 		/>
 	);
 };
