@@ -4,6 +4,7 @@ import footerImg from "../assets/images/footer-img.jpg";
 import HeroHeading from "./MainContent/HeroHeading";
 import Button from "./Button";
 import { WhiteLogo } from "./Logo";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Footer = () => {
 	return (
@@ -25,7 +26,11 @@ const Footer = () => {
 						<Button>send us a message</Button>
 					</div>
 					<div className="flex items-center justify-between text-white mt-14 gap-y-3 flex-wrap">
-						<div>socials</div>
+						<div>
+							<span>
+								<i></i>
+							</span>
+						</div>
 						<small className="text-sm font-poppins">
 							© 2024 Avenue Impact Limited. All rights reserved
 						</small>
