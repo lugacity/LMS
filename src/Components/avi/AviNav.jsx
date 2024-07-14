@@ -9,7 +9,7 @@ const AviNav = () => {
 			<div>
 				<DarkLogo />
 			</div>
-			<button>
+			<button className="md:hidden">
 				<FontAwesomeIcon icon={faHamburger} />
 			</button>
 			<div className="md:flex items-center gap-4 hidden">

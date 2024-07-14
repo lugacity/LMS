@@ -7,7 +7,8 @@ const ColorHero = () => {
 			<h1 className=" md:text-6xl text-[2.5rem] lg:text-8xl font-poppins font-light z-10 leading-snug ">
 				<span className="text-[rgb(204,23,71)]">
 					{" "}
-					Jumpstart Your Career <br /> with{" "}
+					Jumpstart Your Career <br className="hidden lg:block" /> with{" "}
+					<br className="lg:hidden" />
 				</span>
 				<span className="text-[#23314A] italic"> Avenue Impact</span>
 			</h1>

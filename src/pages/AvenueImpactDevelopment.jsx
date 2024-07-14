@@ -15,7 +15,7 @@ const AvenueImpactDevelopment = () => {
 	return (
 		<>
 			<ImageHero imageSrc={img}>
-				<div className="flex gap-8 items-center lg:mt-20  mt-32 ">
+				<div className="flex gap-8 items-center lg:mt-16  mt-32 ">
 					<div className="w-36 h-px bg-white hidden lg:block" />
 					<HeroHeading>
 						Avenue Impact <br />
@@ -23,7 +23,7 @@ const AvenueImpactDevelopment = () => {
 					</HeroHeading>
 				</div>
 				<div className="w-full h-px bg-white lg:hidden block mt-6 mb-8" />
-				<p className="text-white md:text-xl text-base  lg:text-2xl max-w-[45.375rem] ml-auto mt-0 lg:mt-32 font-light font-poppins ">
+				<p className="text-white md:text-xl text-base  lg:text-2xl max-w-[45.375rem] ml-auto mt-0 lg:mt-20 font-light font-poppins ">
 					Avenue Impact Development CIC promotes good change and inspires young
 					people to realise their greatest potential. As Avenue Impact{" "}
 					{"Limited's"}
