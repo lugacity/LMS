@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { DarkLogo, WhiteLogo } from "../Logo";
 import navImg from "../../assets/images/navImg.png";
+import mobile from "../../assets/images/mobile-dark.png";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHamburger } from "@fortawesome/free-solid-svg-icons/faHamburger";
@@ -10,6 +11,11 @@ import { faHamburger } from "@fortawesome/free-solid-svg-icons/faHamburger";
 const Navbar = () => {
 	// const [enterNav, setEnterNa] = useState("Home");
 	const [dropdown, setDropDown] = useState(false);
+	const [showNav, setShowNav] = useState(false);
+	const handleNav = () => {
+		setShowNav((prev) => !prev);
+		setDropDown((prev) => !prev);
+	};
 	const menus = [
 		{
 			path: "/",
@@ -28,13 +34,28 @@ const Navbar = () => {
 					<WhiteLogo className={"group-hover:hidden lg:w-1/6 block"} />
 					<DarkLogo className={"group-hover:block hidden "} />
 				</div>
-				<div className=" hidden  md:flex gap-6">
-					<ul className="flex items-center gap-6 *:text-white">
+				<div
+					className={` absolute w-full md:w-auto ${
+						showNav
+							? "translate-x-0 transition-transform duration-150 ease-linear"
+							: "translate-x-full transition-transform duration-150 ease-linear"
+					} md:translate-x-0 md:pb-0 pb-12 bg-white md:bg-transparent top-0 left-0 md:relative  md:flex gap-6`}>
+					<div className="md:hidden flex justify-between py-6 px-12 ">
+						<img src={mobile} alt="mobile logo" />
+						<button className=" block md:hidden rounded-lg px-4 py-2 capitalize text-[#FFEBF0] bg-[#CC1747] ">
+							contact
+						</button>
+					</div>
+					<ul className="flex md:flex-row flex-col px-12 md:px-0 items-start md:items-center gap-6 md:*:text-white text-[#23314A]">
 						{menus.map((menu) => {
 							return (
 								<li
 									key={menu}
-									className="transition-all duration-150 relative after:absolute after:contents-[''] after:bg-red-500 after:w-0 after:block after:h-[2px] after:left-0 hover:after:w-full after:transition-[width] after:ease-in after:duration-100 after:m-auto">
+									className="transition-all duration-150 relative after:absolute after:contents-[''] after:bg-red-500 after:w-0 after:block after:h-[2px] after:left-0 hover:after:w-full after:transition-[width] after:ease-in after:duration-100 after:m-auto"
+									onClick={() => {
+										setDropDown(false);
+										setShowNav(false);
+									}}>
 									<NavLink
 										to={menu.path}
 										className={"group-hover:text-[#23314A]"}>
@@ -45,33 +66,59 @@ const Navbar = () => {
 						})}
 						<div>
 							<li
-								className="transition-all duration-150  text-white group-hover:text-[#23314A] service cursor-pointer space-x-2 flex items-center"
+								className="transition-all duration-150  md:text-white text-[#23314A] group-hover:text-[#23314A] service  cursor-pointer space-x-2 flex items-center "
 								onClick={() => setDropDown((prev) => !prev)}>
-								<span className="relative after:absolute after:contents-[''] after:bg-red-500 after:w-0 after:block after:h-[2px] after:left-0 hover:after:w-full after:transition-[width] after:ease-in after:duration-100 after:m-auto ">
+								<span className="relative after:absolute after:contents-[''] after:bg-red-500 after:w-0 after:block after:h-[2px] after:left-0 hover:after:w-full after:transition-[width] after:ease-in after:duration-100 after:m-auto m-auto ">
 									Services
 								</span>
 								<span
-									className={
-										dropdown
-											? "inline-flex rotate-180 transition-transform ease-linear duration-150"
-											: "inline-flex  transition-transform ease-in duration-150"
-									}>
+									className={`inline-flex   transition-transform ease-linear duration-150  mr-auto ${
+										dropdown ? " rotate-180  w-min" : " ease-in  w-min"
+									}`}>
 									<FontAwesomeIcon icon={faChevronDown} />
 								</span>
 							</li>
 						</div>
+						{dropdown && (
+							<div className="md:hidden mt-5 py-3 text-left transition-all duration-150 ease-linear border-t border-t-[#D6E3FA] w-full">
+								<ul className=" space-y-3 pl-12 mt-8 *:cursor-pointer *:text-[#23314A] font-poppins *:capitalize">
+									<li onClick={handleNav}>
+										<Link to={"/digital-transformation"}>
+											digital transformation
+										</Link>
+									</li>
+									<li onClick={handleNav}>
+										<Link to={"/data-solution"}> data solution</Link>
+									</li>
+									<li onClick={handleNav}>
+										<Link to={"/avenue-impact-development"}>
+											avenue impact development CIC
+										</Link>
+									</li>
+									<li onClick={handleNav}>
+										<Link to={"/avi"}>Digital learning hub</Link>
+									</li>
+								</ul>
+							</div>
+						)}
+						<div className="mt-3 md:hidden">
+							<img src={navImg} alt="" />
+						</div>
 					</ul>
-					<button className="bg-[#f4f5f7] text-[#23314A] rounded-lg px-4 py-2 capitalize group-hover:text-[#FFEBF0] group-hover:bg-[#CC1747] ">
+					<button className="bg-[#f4f5f7] text-[#23314A] hidden md:block rounded-lg px-4 py-2 capitalize group-hover:text-[#FFEBF0] group-hover:bg-[#CC1747] ">
 						contact
 					</button>
 				</div>
-				<div className="md:hidden">
+				<span
+					className="md:hidden text-white group-hover:text-[#23314A] inline-flex items-center"
+					role="show and hide menu"
+					onClick={() => setShowNav((prev) => !prev)}>
 					<FontAwesomeIcon icon={faHamburger} />
-				</div>
+				</span>
 			</div>
 			{dropdown && (
 				<div
-					className="bg-white px-12 mb-16  dropdown "
+					className="bg-white px-12 mb-16  dropdown md:block hidden "
 					onMouseLeave={() => setDropDown(false)}>
 					<div className="border-t border-[#D6E3FA] grid grid-cols-2 divide-x divide-[#D6E3FA] pb-10">
 						<div className="mt-3">
@@ -79,21 +126,21 @@ const Navbar = () => {
 						</div>
 						<div>
 							<ul className=" space-y-3 pl-12 mt-8 *:cursor-pointer *:text-[#23314A] font-poppins *:capitalize">
-								<li onClick={() => setDropDown((prev) => !prev)}>
+								<li onClick={handleNav}>
 									<Link to={"/digital-transformation"}>
 										digital transformation
 									</Link>
 								</li>
-								<li onClick={() => setDropDown((prev) => !prev)}>
+								<li onClick={handleNav}>
 									<Link to={"/data-solution"}> data solution</Link>
 								</li>
-								<li onClick={() => setDropDown((prev) => !prev)}>
+								<li onClick={handleNav}>
 									<Link to={"/avenue-impact-development"}>
 										avenue impact development CIC
 									</Link>
 								</li>
-								<li onClick={() => setDropDown((prev) => !prev)}>
-									Digital learning hub
+								<li onClick={handleNav}>
+									<Link to={"/avi"}>Digital learning hub</Link>
 								</li>
 							</ul>
 						</div>

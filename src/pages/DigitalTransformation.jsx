@@ -9,14 +9,14 @@ const DigitalTransformation = () => {
 	return (
 		<>
 			<ImageHero imageSrc={img}>
-				<div className="flex gap-8 items-center lg:mt-20  mt-32 ">
+				<div className="flex gap-8 items-center lg:mt-16  mt-32 ">
 					<div className="w-36 h-px bg-white hidden lg:block" />
 					<HeroHeading>
 						digital <br /> transformation
 					</HeroHeading>
 				</div>
 				<div className="w-full h-px bg-white lg:hidden block mt-6 mb-8" />
-				<p className="text-white md:text-xl text-base  lg:text-2xl max-w-[45.375rem] ml-auto mt-0 lg:mt-32 ">
+				<p className="text-white md:text-xl text-base  lg:text-2xl max-w-[45.375rem] ml-auto mt-0 lg:mt-20 ">
 					<span className="font-medium">
 						Navigating the Future with Avenue Impact Consulting
 					</span>
