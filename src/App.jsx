@@ -12,6 +12,8 @@ import DigitalTransformation from "./pages/DigitalTransformation";
 import DataSolution from "./pages/DataSolution";
 import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
 import AVI from "./pages/AVI";
+import PreviewCourse from "./pages/previewCourse";
+
 
 function App() {
 	const routes = createBrowserRouter([
@@ -48,6 +50,10 @@ function App() {
 				{
 					path: "/AVI",
 					element: <AVI />,
+				},
+				{
+					path: "/previewCourse",
+					element: <PreviewCourse />,
 				},
 	]);
 
