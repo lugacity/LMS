@@ -2,6 +2,7 @@ import img1 from "../assets/images/slider-img1.png";
 import img2 from "../assets/images/slider-img2.png";
 import img3 from "../assets/images/slider-img3.png";
 import img4 from "../assets/images/slider-img4.png";
+import card from "../assets/images/footer-img.jpg";
 import professional from "../assets/images/proffessional.png";
 import group from "../assets/images/big-team.png";
 import MainContent from "../Components/MainContent/MainContent";
@@ -18,6 +19,7 @@ import slider4 from "../assets/images/slider-pic4.png";
 import HeroHeading from "../Components/MainContent/HeroHeading";
 import Container from "../Components/Container";
 import ImageSwiper from "../Components/home/ImageSwiper";
+import Avenue from "../Components/AvenueImpact/Avenue";
 
 const Home = () => {
 	return (
@@ -71,11 +73,34 @@ const Home = () => {
 						business and achieve your full potential.
 					</p>
 				</section>
-				<div className="grid lg:grid-cols-3 gap-10 mt-12">
+				<div className="grid lg:grid-cols-3 md:grid-cols-2 gap-10 mt-12">
 					{/* <img src={card} alt="" />
 					<img src={card} alt="" />
 					<img src={card} alt="" /> */}
-					<AvenueImpact />
+					<Avenue
+						number={1}
+						heading={"Analysis"}
+						text={
+							"The first step in our services is to work closely with you to understand your business needs and goals."
+						}
+						img={card}
+					/>
+					<Avenue
+						number={2}
+						heading={"Providing Tailored Solutions"}
+						text={
+							"The first step in our services is to work closely with you to understand your business needs and goals."
+						}
+						img={card}
+					/>
+					<Avenue
+						number={3}
+						heading={"Implementation"}
+						text={
+							"The first step in our services is to work closely with you to understand your business needs and goals."
+						}
+						img={card}
+					/>
 				</div>
 			</Container>
 			<img src={group} alt="" />

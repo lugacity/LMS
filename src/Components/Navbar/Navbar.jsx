@@ -103,6 +103,14 @@ const Navbar = () => {
 						)}
 						<div className="mt-3 md:hidden">
 							<img src={navImg} alt="" />
+							<div className="space-y-1 mt-4">
+								<p className="text-[#98A2B3] font-light">+4480005410720</p>
+								<p className="text-[#98A2B3] font-light">London, UK</p>
+								<p className="text-[#98A2B3] font-light">
+									Mon - Sat 8:00 - 18:0
+								</p>
+								<div>socials</div>
+							</div>
 						</div>
 					</ul>
 					<button className="bg-[#f4f5f7] text-[#23314A] hidden md:block rounded-lg px-4 py-2 capitalize group-hover:text-[#FFEBF0] group-hover:bg-[#CC1747] ">
@@ -123,6 +131,14 @@ const Navbar = () => {
 					<div className="border-t border-[#D6E3FA] grid grid-cols-2 divide-x divide-[#D6E3FA] pb-10">
 						<div className="mt-3">
 							<img src={navImg} alt="" />
+							<div className="space-y-1 mt-4">
+								<p className="text-[#98A2B3] font-light">+4480005410720</p>
+								<p className="text-[#98A2B3] font-light">London, UK</p>
+								<p className="text-[#98A2B3] font-light">
+									Mon - Sat 8:00 - 18:0
+								</p>
+								<div>socials</div>
+							</div>
 						</div>
 						<div>
 							<ul className=" space-y-3 pl-12 mt-8 *:cursor-pointer *:text-[#23314A] font-poppins *:capitalize">
