@@ -27,6 +27,66 @@
 }
 
 
+
+
+.checkoutCoursesFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0px;
+    /* background-color: #f9f9f9; */
+    border-radius: 8px;
+}
+
+.checkoutCourses1 {
+    flex: 1;
+}
+
+.checkoutCourses2 {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.searchLabel {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #CC1747;
+}
+
+.inputField {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.2s;
+}
+
+.inputField:focus {
+    border-color: #23314A;
+    outline: none;
+}
+
+
+.previewCoursesFlex{
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    gap: 2rem;
+}
+
+
+.team_skills{
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    align-items: center;
+    gap: 2rem;
+}
+
+
 /* Tablet view */
 @media only screen and (max-width: 1100px){
     .welcome_avenue h2 {
@@ -43,6 +103,32 @@
           grid-template-columns: 1fr ;
           gap: 1rem;
       }
+
+      .checkoutCoursesFlex {
+        display: block;
+        padding: 0px;
+      }
+
+      .searchLabel {display: none;}
+
+      .checkoutCourses2 {display: block;}
+
+      .inputField {max-width: 100%; }
+      .checkoutCourses2{margin: 1rem 0rem;}
+      
+      .previewCoursesFlex{
+        display: grid;
+        grid-template-columns: 2fr 2fr;      
+     }
+
+      
+     .team_skills_content h3{
+        font-size: 1.3rem;
+        font-weight: 500;
+        padding-bottom: 1rem;
+     }
+     
+    
       
 }
 
@@ -52,4 +138,14 @@
         text-align: left;
         font-size: .8rem;
     }
+
+    .previewCoursesFlex{
+        display: grid;    
+        grid-template-columns: 2fr;
+    }
+
+    .team_skills{
+        display: flex;
+        flex-direction: column-reverse;
+      }
 }

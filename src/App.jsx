@@ -11,7 +11,11 @@ import Contact from "./pages/Contact";
 import DigitalTransformation from "./pages/DigitalTransformation";
 import DataSolution from "./pages/DataSolution";
 import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
+AVI
+import AVI from "./pages/AVI";
+
 import Component from "./Components/Component";
+
 
 function App() {
 	const routes = createBrowserRouter([
@@ -49,6 +53,10 @@ function App() {
 				},
 			],
 		},
+				{
+					path: "/AVI",
+					element: <AVI />,
+				},
 	]);
 
 	return <RouterProvider router={routes} />;

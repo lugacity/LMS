@@ -25,8 +25,8 @@ const Navbar = () => {
 		<div className="absolute top-0 left-0 z-10 w-full  group">
 			<div className="flex justify-between px-12 py-4   transition-all ease-linear duration-300 group-hover:bg-white">
 				<div className="nav-logo">
-					<WhiteLogo />
-					<DarkLogo />
+					<WhiteLogo className={"group-hover:hidden lg:w-1/6 block"} />
+					<DarkLogo className={"group-hover:block hidden "} />
 				</div>
 				<div className=" hidden  md:flex gap-6">
 					<ul className="flex items-center gap-6 *:text-white">
