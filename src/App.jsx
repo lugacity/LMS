@@ -13,6 +13,8 @@ import DataSolution from "./pages/DataSolution";
 import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
 AVI
 import AVI from "./pages/AVI";
+import PreviewCourse from "./pages/previewCourse";
+
 
 import Component from "./Components/Component";
 
@@ -56,6 +58,10 @@ function App() {
 				{
 					path: "/AVI",
 					element: <AVI />,
+				},
+				{
+					path: "/previewCourse",
+					element: <PreviewCourse />,
 				},
 	]);
 

@@ -5,6 +5,33 @@ import styles from '../pages/pages.module.css'; // Ensure this imports the corre
 import PreviewButton from './PreviewButton'; 
 import joinTeam from "../assets/images/join_team.png";
 
+
+export const renderStars = () => {
+    const stars = [];
+    for (let i = 0; i < 5; i++) {
+        stars.push(<FontAwesomeIcon key={i} icon={faStar} className="text-[#F53366]" />);
+    }
+    return stars;
+};
+
+
+export const CourseCardPreview = ({ imgSrc, previewButtonText }) => {
+    return (
+        <div className={`${styles.previewCourses1}  py-14`}>
+            <div className={`${styles.courseImg} `}>
+                <img className="rounded-lg" src={imgSrc} alt="Course" />
+            </div>
+            <div className="text-center pt-4">
+                <PreviewButton className="bg-[#C7D7F4]">{previewButtonText}</PreviewButton>
+            </div>
+        </div>
+    );
+};
+
+
+
+
+
 const CourseCard = ({ imgSrc, altText, title, rating, numRatings, previewButtonText }) => {
     const renderStars = () => {
         const stars = [];

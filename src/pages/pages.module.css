@@ -78,13 +78,37 @@
     gap: 2rem;
 }
 
-
 .team_skills{
     display: grid;
     grid-template-columns: 2fr 2fr;
     align-items: center;
     gap: 2rem;
 }
+
+.project_consultFlex{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    gap: 2rem;
+}
+
+.overviewFlex{
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 3rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Tablet view */
@@ -104,10 +128,20 @@
           gap: 1rem;
       }
 
+      .project_consultFlex{
+        grid-template-columns: 1fr 1fr;
+      }
+
       .checkoutCoursesFlex {
         display: block;
         padding: 0px;
       }
+
+      .overviewFlex{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
 
       .searchLabel {display: none;}
 
@@ -147,5 +181,9 @@
     .team_skills{
         display: flex;
         flex-direction: column-reverse;
+      }
+
+      .project_consultFlex{
+        display: block;
       }
 }
