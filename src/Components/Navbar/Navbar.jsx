@@ -4,9 +4,14 @@ import "./Navbar.css";
 import { DarkLogo, WhiteLogo } from "../Logo";
 import navImg from "../../assets/images/navImg.png";
 import mobile from "../../assets/images/mobile-dark.png";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHamburger } from "@fortawesome/free-solid-svg-icons/faHamburger";
+import {
+	faFacebook,
+	faTwitter,
+	faInstagram,
+	faLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
 
 const Navbar = () => {
 	// const [enterNav, setEnterNa] = useState("Home");
@@ -109,7 +114,36 @@ const Navbar = () => {
 								<p className="text-[#98A2B3] font-light">
 									Mon - Sat 8:00 - 18:0
 								</p>
-								<div>socials</div>
+								<div className="flex gap-3">
+									<a
+										href="#"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="flex items-center text-[#F53366] p-2 rounded-full bg-[#ffebf0]">
+										<FontAwesomeIcon icon={faFacebook} className=" text-xl" />
+									</a>
+									<a
+										href="#"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="flex items-center text-[#F53366] p-2 rounded-full bg-[#ffebf0]">
+										<FontAwesomeIcon icon={faTwitter} className=" text-xl" />
+									</a>
+									<a
+										href="#"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="flex items-center text-[#F53366] p-2 rounded-full bg-[#ffebf0]">
+										<FontAwesomeIcon icon={faInstagram} className=" text-xl" />
+									</a>
+									<a
+										href="#"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="flex items-center text-[#F53366] p-2 rounded-full bg-[#ffebf0]">
+										<FontAwesomeIcon icon={faLinkedin} className=" text-xl" />
+									</a>
+								</div>
 							</div>
 						</div>
 					</ul>
@@ -118,10 +152,10 @@ const Navbar = () => {
 					</button>
 				</div>
 				<span
-					className="md:hidden text-white group-hover:text-[#23314A] inline-flex items-center"
+					className="md:hidden text-white text-2xl group-hover:text-[rgb(35,49,74)] inline-flex items-center"
 					role="show and hide menu"
 					onClick={() => setShowNav((prev) => !prev)}>
-					<FontAwesomeIcon icon={faHamburger} />
+					<FontAwesomeIcon icon={faBars} />
 				</span>
 			</div>
 			{dropdown && (
@@ -137,7 +171,36 @@ const Navbar = () => {
 								<p className="text-[#98A2B3] font-light">
 									Mon - Sat 8:00 - 18:0
 								</p>
-								<div>socials</div>
+								<div className="flex gap-3">
+									<a
+										href="#"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="flex items-center text-[#F53366] p-2 rounded-full bg-[#ffebf0]">
+										<FontAwesomeIcon icon={faFacebook} className=" text-xl" />
+									</a>
+									<a
+										href="#"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="flex items-center text-[#F53366] p-2 rounded-full bg-[#ffebf0]">
+										<FontAwesomeIcon icon={faTwitter} className=" text-xl" />
+									</a>
+									<a
+										href="#"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="flex items-center text-[#F53366] p-2 rounded-full bg-[#ffebf0]">
+										<FontAwesomeIcon icon={faInstagram} className=" text-xl" />
+									</a>
+									<a
+										href="#"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="flex items-center text-[#F53366] p-2 rounded-full bg-[#ffebf0]">
+										<FontAwesomeIcon icon={faLinkedin} className=" text-xl" />
+									</a>
+								</div>
 							</div>
 						</div>
 						<div>

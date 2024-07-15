@@ -1,16 +1,18 @@
-import React from "react";
 import { DarkLogo } from "../Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHamburger } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const AviNav = () => {
 	return (
 		<nav className="flex items-center justify-between py-4 px-6 lg:px-20 ">
 			<div>
-				<DarkLogo />
+				<Link to={"/"} className="cursor-pointer">
+					<DarkLogo />
+				</Link>
 			</div>
 			<button className="md:hidden">
-				<FontAwesomeIcon icon={faHamburger} />
+				<FontAwesomeIcon icon={faBars} className="text-2xl text-[#23314A]" />
 			</button>
 			<div className="md:flex items-center gap-4 hidden">
 				<ul className="*:text-[#23314A] flex items-center gap-4 *:capitalize *:cursor-pointer ">
