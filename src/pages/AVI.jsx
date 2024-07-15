@@ -19,11 +19,13 @@ import SocialMediaLinks, {
 } from "../Components/SocialMediaLink";
 import ColorHero from "../Components/ColorHero";
 import AviNav from "../Components/avi/AviNav";
+import { ScrollRestoration } from "react-router-dom";
 // import img from "../assets/images/data-solution.jpg";
 
 const AVI = () => {
 	return (
 		<>
+			<ScrollRestoration />
 			<AviNav />
 			<ColorHero />
 

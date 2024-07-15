@@ -11,13 +11,11 @@ import Contact from "./pages/Contact";
 import DigitalTransformation from "./pages/DigitalTransformation";
 import DataSolution from "./pages/DataSolution";
 import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
-AVI
+AVI;
 import AVI from "./pages/AVI";
 import PreviewCourse from "./pages/previewCourse";
 
-
 import Component from "./Components/Component";
-
 
 function App() {
 	const routes = createBrowserRouter([
@@ -55,14 +53,14 @@ function App() {
 				},
 			],
 		},
-				{
-					path: "/AVI",
-					element: <AVI />,
-				},
-				{
-					path: "/previewCourse",
-					element: <PreviewCourse />,
-				},
+		{
+			path: "/AVI",
+			element: <AVI />,
+		},
+		{
+			path: "/preview-course",
+			element: <PreviewCourse />,
+		},
 	]);
 
 	return <RouterProvider router={routes} />;
