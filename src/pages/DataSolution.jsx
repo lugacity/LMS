@@ -56,9 +56,7 @@ const DataSolution = () => {
 					<img src={arr} alt="arrow down" className="w-9" />
 				</div>
 			</Container>
-			{/* <Container>
-				<Accordion />
-			</Container> */}
+			<Accordion />
 			<Container className=" text-center">
 				<h2 className="text-2xl md:text-[2.5rem] text-[#3A4C6C] font-light">
 					Data Analytics Services

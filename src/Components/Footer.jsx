@@ -26,7 +26,7 @@ const Footer = () => {
 						</p>
 						<Button>send us a message</Button>
 					</div>
-					<div className="flex items-center justify-between text-white mt-14 gap-y-3 flex-wrap">
+					<div className="flex items-center justify-between text-white mt-14 gap-y-10 flex-wrap">
 						<div>
 							<SocialMediaLinks data={socialMediaData} />
 						</div>

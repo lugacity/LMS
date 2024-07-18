@@ -1,3 +1,5 @@
+
+
 export const digitalData = [
   {
     heading: 'Strategic Planning',
@@ -63,36 +65,3 @@ export const solutions = [
   },
 ]
 
-export const dataManagement = [
-  {
-    heading: 'data governance ',
-    description: 'Establishing robust framework for data ownership, quality and compliance',
-    img: '',
-    isOpen: false
-  },
-  {
-    heading: 'data architecture ',
-    description: 'Designing scalable and agile data architectures that align with your business goals',
-    img: '',
-    isOpen: false
-  },
-  {
-    heading: 'master data management  ',
-    description: 'Ensuring consistency and accuracy across key business entities',
-    img: '',
-    isOpen: false
-  },
-  {
-    heading: 'Data quality management ',
-    description: 'Implementing processes and tools to enhance data accuracy and reliability',
-    img: '',
-    isOpen: false
-  },
-  {
-    heading: 'data strategy and roadmap ',
-    description: 'developing customized strategies aligned with your organization',
-    img: '',
-    isOpen: false
-  },
-
-]
