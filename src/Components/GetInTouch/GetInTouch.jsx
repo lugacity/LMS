@@ -25,7 +25,7 @@ const GetInTouch = () => {
   };
 
   return (
-    <div className={`${styles.get_in_touch} lg:pt-16 lg:px-14 lg:px-10 py-10 px-8`}>
+    <div className={`${styles.get_in_touch} lg:pt-16 lg:px-14 lg:px-10 py-10 pt-20 px-8`}>
       <div className={styles.get_in_touch_info}>
         <h4>Elevate Your Business with Avenue Impact</h4>
         <p>Let us be your partner in elevating your business to new levels of success. Our team of knowledgeable experts will collaborate with you to comprehend your specific needs and aspirations, and furnish customised solutions that promote growth and achievement. Get in touch with us today to embark on this exciting journey towards a thriving business.</p>

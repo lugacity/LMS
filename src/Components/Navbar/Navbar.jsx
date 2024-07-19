@@ -34,7 +34,7 @@ const Navbar = () => {
 	];
 
 	return (
-		<div className="absolute top-0 left-0 z-10 w-full  group">
+		<div className="absolute top-0 left-0 z-20 w-full  group">
 			<div className="flex justify-between px-12 py-4   transition-all ease-linear duration-300 group-hover:bg-white">
 				<div className="nav-logo">
 					<WhiteLogo className={"group-hover:hidden lg:w-1/6 block"} />
@@ -48,11 +48,22 @@ const Navbar = () => {
 					} md:translate-x-0 md:pb-0 pb-12 bg-white md:bg-transparent top-0 left-0 md:relative  md:flex gap-6`}>
 					<div className="md:hidden flex justify-between py-6 px-12 ">
 						<img src={mobile} alt="mobile logo" />
-						<button
-							className="  md:hidden  text-2xl text-[rgb(35,49,74)] inline-flex items-center bg-transparent "
-							onClick={() => setShowNav((prev) => !prev)}>
-							<FontAwesomeIcon icon={faClose} />
-						</button>
+<<<<<<
+						
+
+
+
+
+						<Link to={"/contact"}>
+							<button onClick={() => {
+										setDropDown(false);
+										setShowNav(false);
+									}} 
+							className=" block md:hidden rounded-lg px-4 py-2 capitalize text-[#FFEBF0] bg-[#CC1747] ">
+								contact
+							</button>
+						</Link>
+
 					</div>
 					<ul className="flex md:flex-row flex-col px-12 md:px-0 items-start md:items-center gap-6 md:*:text-white text-[#23314A]">
 						{menus.map((menu) => {
@@ -158,12 +169,19 @@ const Navbar = () => {
 							</div>
 						</div>
 					</ul>
-					<button className="bg-[#f4f5f7] text-[#23314A] hidden md:block rounded-lg px-4 py-2 capitalize group-hover:text-[#FFEBF0] group-hover:bg-[#CC1747] ">
-						contact
-					</button>
+					
+					<Link to={'/contact'}>
+						<button className="bg-[#f4f5f7] text-[#23314A] hidden md:block rounded-lg px-4 py-2 capitalize group-hover:text-[#FFEBF0] group-hover:bg-[#CC1747] ">
+							contact
+						</button>
+					</Link>
 				</div>
+<<<<<<
 				<button
 					className="md:hidden text-white text-2xl group-hover:text-[rgb(35,49,74)] inline-flex items-center"
+				<span
+					className="md:hidden cursor-pointer text-white text-2xl group-hover:text-[rgb(35,49,74)] inline-flex items-center"
+
 					role="show and hide menu"
 					onClick={() => setShowNav((prev) => !prev)}>
 					<FontAwesomeIcon icon={faBars} />

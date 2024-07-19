@@ -7,7 +7,7 @@ const ImageHero = ({ children, imageSrc }) => {
 			<div>
 				<img src={imageSrc} className="w-full h-screen object-cover" />
 			</div>
-			<div className="w-full absolute top-0 left-0 py-20 lg:px-12 px-6 h-full  text-left ">
+			<div className="w-full absolute top-0 left-0 py-8 lg:px-12 px-6 h-full  text-left ">
 				{children}
 			</div>
 		</div>

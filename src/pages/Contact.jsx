@@ -1,12 +1,14 @@
-import MainContent from "../Components/MainContent/MainContent";
+import React from "react";
+import ImageOverlay from "../Components/ImageOverlay";
+import GetInTouch from "../Components/GetInTouch/GetInTouch";
 
 const Contact = () => {
 	return <>
 	
-			<MainContent />
-		<div>
-			hello
-		</div>
+		{/* Elevate YOur Business */}
+		<ImageOverlay>
+			<GetInTouch/>
+		</ImageOverlay>
 	</>;
 };
 
