@@ -2,7 +2,7 @@ import overlay from "../../assets/images/overlay-img.png";
 
 const Avenue = ({ img, number, heading, text }) => {
 	return (
-		<div className="relative rounded-3xl overflow-hidden group">
+		<div className="relative rounded-3xl h-[350px] w-[350px] overflow-hidden group">
 			<img src={img} alt={heading} />
 			<div className="group-hover:bg-[#CC1747] bg-[#FAFCFF] rounded-l-3xl rounded-tr-3xl absolute bottom-0 left-0  max-w-[320px] overflow-hidden">
 				<div className="relative ">

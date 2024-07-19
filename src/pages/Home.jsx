@@ -2,7 +2,9 @@ import img1 from "../assets/images/slider-img1.png";
 import img2 from "../assets/images/slider-img2.png";
 import img3 from "../assets/images/slider-img3.png";
 import img4 from "../assets/images/slider-img4.png";
-import card from "../assets/images/footer-img.jpg";
+import card from "../assets/images/card-img.png";
+import card2 from "../assets/images/card-img_2.png";
+import card3 from "../assets/images/card-img_3.png";
 import professional from "../assets/images/proffessional.png";
 import group from "../assets/images/big-team.png";
 import MainContent from "../Components/MainContent/MainContent";
@@ -83,21 +85,21 @@ const Home = () => {
 						text={
 							"The first step in our services is to work closely with you to understand your business needs and goals."
 						}
-						img={card}
+						img={card2}
 					/>
 					<Avenue
 						number={2}
 						heading={"Providing Tailored Solutions"}
 						text={
-							"The first step in our services is to work closely with you to understand your business needs and goals."
+							"Next, we will provide customi- sed solutions that are specifically designed to drive growth and success."
 						}
-						img={card}
+						img={card3}
 					/>
 					<Avenue
 						number={3}
 						heading={"Implementation"}
 						text={
-							"The first step in our services is to work closely with you to understand your business needs and goals."
+							"The final step in our services is to provide support during the implementation process."
 						}
 						img={card}
 					/>
