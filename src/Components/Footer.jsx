@@ -10,10 +10,10 @@ import SocialMediaLinks, { socialMediaData } from "./SocialMediaLink";
 const Footer = () => {
 	return (
 		<ImageHero imageSrc={footerImg}>
-			<div className="h-full flex justify-end items-end">
+			<div className="h-full flex lg:justify-end lg:items-end">
 				<footer className="h-max">
 					<HeroHeading>
-						Interested in a Free <br /> Introductory Call?
+						Interested in a Free <br className="hidden md:block " /> Introductory Call?
 					</HeroHeading>
 
 					<div className="w-full h-[1px] my-6 lg:my-16 bg-white" />

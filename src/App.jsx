@@ -11,7 +11,6 @@ import Contact from "./pages/Contact";
 import DigitalTransformation from "./pages/DigitalTransformation";
 import DataSolution from "./pages/DataSolution";
 import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
-AVI;
 import AVI from "./pages/AVI";
 import PreviewCourse from "./pages/previewCourse";
 

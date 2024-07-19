@@ -13,12 +13,12 @@ const DataSolution = () => {
 		<>
 			<ImageHero imageSrc={img}>
 				<div>
-					<div className="flex gap-8 items-center lg:mt-20 mt-32 ">
+					<div className="flex gap-8 items-center lg:mt-16 mt-32 ">
 						<div className="w-36 h-px bg-white hidden lg:block" />
 						<HeroHeading>Data Solutions</HeroHeading>
 					</div>
-					<div className="w-full h-px bg-white lg:hidden block mt-6 mb-8" />
-					<ul className="*:text-[#f4f5f7] *:font-poppins *:font-light space-y-6 *:md:text-xl *:text-base  *:lg:text-xl *:ml-6 max-w-[45.375rem] ml-auto mt-0 lg:mt-32 list-disc ">
+					<div className="w-full h-px bg-white lg:hidden block mt-4 mb-8" />
+					<ul className="*:text-[#f4f5f7] *:font-poppins *:font-light space-y-3 *:md:text-xl *:text-base  *:lg:text-xl *:ml-6 max-w-[45.375rem] ml-auto mt-0 lg:mt-32 list-disc ">
 						<li>
 							Discover how our tailored Data Management solutions can turn your
 							data challenges into opportunities for growth and innovation
