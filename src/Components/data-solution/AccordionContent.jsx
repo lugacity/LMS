@@ -2,12 +2,12 @@ import ImageHero from "../ImageHero";
 
 const AccordionContent = ({ src, heading, description }) => {
 	return (
-		<div className="text-center bg-white/80 relative accordion-content">
-			<div className="w-full h-full bg-black/50 absolute top-0 left-0 overflow-hidden"></div>
-			<div>
+		<div className="text-center bg-white/80 relative accordion-content h-[400px] md:h-[547px] md:w-[500px] w-[450px] flex-grow">
+			<div className="w-full h-full bg-black/50 absolute top-0 left-0 "></div>
+			<div className="overflow-hidden">
 				<img
 					src={src}
-					className=" accordion-img object-cover h-[400px] w-full md:w-[400px] lg:h-[500px] lg:w-[500px]"
+					className=" accordion-img object-cover h-[400px] md:h-[547px] w-full"
 					width={500}
 					height={500}
 				/>

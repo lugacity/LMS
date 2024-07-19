@@ -7,7 +7,7 @@ export const dataManagement = [
   {
     heading: 'data governance ',
     description: 'Establishing robust framework for data ownership, quality and compliance',
-    img: img2,
+    img: img1,
     isOpen: false
   },
   {

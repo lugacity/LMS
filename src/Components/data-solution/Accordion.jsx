@@ -1,7 +1,6 @@
 import { useState } from "react";
 import AccordionButton from "./AccordionButton";
 import { dataManagement } from "./accordion";
-import AccordionSlide from "./AccordionSlide";
 import AccordionContent from "./AccordionContent";
 
 function Accordion() {
@@ -16,18 +15,18 @@ function Accordion() {
 		setData(newdata);
 	};
 	return (
-		<div className="parent h-fit ">
-			<div className="baby lg:px-52 lg:p-0">
+		<div className="parent h-fit overflow-x-hidden ">
+			<div className="baby lg:px-52 lg:p-0 overflow-x-scroll lg:overflow-x-hidden px-6">
 				<div className=" accordion md:flex items-center justify-center  flex-nowrap   m-auto  py-0">
 					<div className=" ">
 						{/* <AccordionSlide> */}
-						<div className="flex gap-4 flex-col ">
+						<div className="flex gap-4 lg:gap-6  ">
 							{datas.map((data) => (
 								<div
 									key={data.heading}
 									className={`${
 										data.isOpen &&
-										"flex-grow w-full md:w-max accord-button flex items-center justify-center"
+										"h-[400px] md:h-[547px] w-full max-w-6xl accord-button flex items-center justify-center"
 									}`}>
 									{!data.isOpen && (
 										<AccordionButton
