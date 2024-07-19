@@ -7,6 +7,7 @@ import { solutions, strategies } from "../assets/lib/data";
 import Slide from "../Components/data-solution/Slide";
 import Swiper from "../Components/data-solution/Swiper";
 import Accordion from "../Components/data-solution/Accordion";
+import VerticalAccordion from "../Components/veritical/VerticalAccordion";
 
 const DataSolution = () => {
 	return (
@@ -56,9 +57,8 @@ const DataSolution = () => {
 					<img src={arr} alt="arrow down" className="w-9" />
 				</div>
 			</Container>
-			{/* <Container>
-				<Accordion />
-			</Container> */}
+			<Accordion />
+			{/* <VerticalAccordion /> */}
 			<Container className=" text-center">
 				<h2 className="text-2xl md:text-[2.5rem] text-[#3A4C6C] font-light">
 					Data Analytics Services

@@ -12,6 +12,7 @@ import {
 	faInstagram,
 	faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
+import { faClose } from "@fortawesome/free-solid-svg-icons/faClose";
 
 const Navbar = () => {
 	// const [enterNav, setEnterNa] = useState("Home");
@@ -47,6 +48,11 @@ const Navbar = () => {
 					} md:translate-x-0 md:pb-0 pb-12 bg-white md:bg-transparent top-0 left-0 md:relative  md:flex gap-6`}>
 					<div className="md:hidden flex justify-between py-6 px-12 ">
 						<img src={mobile} alt="mobile logo" />
+<<<<<<
+						
+
+
+
 
 						<Link to={"/contact"}>
 							<button onClick={() => {
@@ -57,6 +63,7 @@ const Navbar = () => {
 								contact
 							</button>
 						</Link>
+
 					</div>
 					<ul className="flex md:flex-row flex-col px-12 md:px-0 items-start md:items-center gap-6 md:*:text-white text-[#23314A]">
 						{menus.map((menu) => {
@@ -94,20 +101,28 @@ const Navbar = () => {
 						{dropdown && (
 							<div className="md:hidden mt-5 py-3 text-left transition-all duration-150 ease-linear border-t border-t-[#D6E3FA] w-full">
 								<ul className=" space-y-3 pl-12 mt-8 *:cursor-pointer *:text-[#23314A] font-poppins *:capitalize">
-									<li onClick={handleNav}>
+									<li
+										onClick={handleNav}
+										className="transition-all duration-150 relative after:absolute after:contents-[''] after:bg-red-500 after:w-0 after:block after:h-[2px] after:left-0 hover:after:w-full after:transition-[width] after:ease-in after:duration-100 after:m-auto w-max">
 										<Link to={"/digital-transformation"}>
 											digital transformation
 										</Link>
 									</li>
-									<li onClick={handleNav}>
+									<li
+										onClick={handleNav}
+										className="transition-all duration-150 relative after:absolute after:contents-[''] after:bg-red-500 after:w-0 after:block after:h-[3px] after:left-0 hover:after:w-full after:transition-[width] after:ease-in after:duration-100 after:m-auto w-max">
 										<Link to={"/data-solution"}> data solution</Link>
 									</li>
-									<li onClick={handleNav}>
+									<li
+										onClick={handleNav}
+										className="transition-all duration-150 relative after:absolute after:contents-[''] after:bg-red-500 after:w-0 after:block after:h-[2px] after:left-0 hover:after:w-full after:transition-[width] after:ease-in after:duration-100 after:m-auto w-max">
 										<Link to={"/avenue-impact-development"}>
 											avenue impact development CIC
 										</Link>
 									</li>
-									<li onClick={handleNav}>
+									<li
+										onClick={handleNav}
+										className="transition-all duration-150 relative after:absolute after:contents-[''] after:bg-red-500 after:w-0 after:block after:h-[2px] after:left-0 hover:after:w-full after:transition-[width] after:ease-in after:duration-100 after:m-auto w-max">
 										<Link to={"/avi"}>Digital learning hub</Link>
 									</li>
 								</ul>
@@ -161,12 +176,16 @@ const Navbar = () => {
 						</button>
 					</Link>
 				</div>
+<<<<<<
+				<button
+					className="md:hidden text-white text-2xl group-hover:text-[rgb(35,49,74)] inline-flex items-center"
 				<span
 					className="md:hidden cursor-pointer text-white text-2xl group-hover:text-[rgb(35,49,74)] inline-flex items-center"
+
 					role="show and hide menu"
 					onClick={() => setShowNav((prev) => !prev)}>
 					<FontAwesomeIcon icon={faBars} />
-				</span>
+				</button>
 			</div>
 			{dropdown && (
 				<div
@@ -215,20 +234,28 @@ const Navbar = () => {
 						</div>
 						<div>
 							<ul className=" space-y-3 pl-12 mt-8 *:cursor-pointer *:text-[#23314A] font-poppins *:capitalize">
-								<li onClick={handleNav}>
+								<li
+									onClick={handleNav}
+									className="transition-all duration-150 relative after:absolute after:contents-[''] after:bg-red-500 after:w-0 after:block after:h-[2px] after:left-0 hover:after:w-full after:transition-[width] after:ease-in after:duration-100 after:m-auto w-max">
 									<Link to={"/digital-transformation"}>
 										digital transformation
 									</Link>
 								</li>
-								<li onClick={handleNav}>
+								<li
+									onClick={handleNav}
+									className="transition-all duration-150 relative after:absolute after:contents-[''] after:bg-red-500 after:w-0 after:block after:h-[3px] after:left-0 hover:after:w-full after:transition-[width] after:ease-in after:duration-100 after:m-auto w-max">
 									<Link to={"/data-solution"}> data solution</Link>
 								</li>
-								<li onClick={handleNav}>
+								<li
+									onClick={handleNav}
+									className="transition-all duration-150 relative after:absolute after:contents-[''] after:bg-red-500 after:w-0 after:block after:h-[2px] after:left-0 hover:after:w-full after:transition-[width] after:ease-in after:duration-100 after:m-auto w-max">
 									<Link to={"/avenue-impact-development"}>
 										avenue impact development CIC
 									</Link>
 								</li>
-								<li onClick={handleNav}>
+								<li
+									onClick={handleNav}
+									className="transition-all duration-150 relative after:absolute after:contents-[''] after:bg-red-500 after:w-0 after:block after:h-[2px] after:left-0 hover:after:w-full after:transition-[width] after:ease-in after:duration-100 after:m-auto w-max">
 									<Link to={"/avi"}>Digital learning hub</Link>
 								</li>
 							</ul>
