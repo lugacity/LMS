@@ -48,7 +48,7 @@ const Navbar = () => {
 					} md:translate-x-0 md:pb-0 pb-12 bg-white md:bg-transparent top-0 left-0 md:relative  md:flex gap-6`}>
 					<div className="md:hidden flex justify-between py-6 px-12 ">
 						<img src={mobile} alt="mobile logo" />
-<<<<<<
+
 						
 
 
@@ -176,15 +176,16 @@ const Navbar = () => {
 						</button>
 					</Link>
 				</div>
-<<<<<<
+
 				<button
 					className="md:hidden text-white text-2xl group-hover:text-[rgb(35,49,74)] inline-flex items-center"
-				<span
-					className="md:hidden cursor-pointer text-white text-2xl group-hover:text-[rgb(35,49,74)] inline-flex items-center"
 
+					
 					role="show and hide menu"
 					onClick={() => setShowNav((prev) => !prev)}>
-					<FontAwesomeIcon icon={faBars} />
+						<span className="md:hidden cursor-pointer text-white text-2xl group-hover:text-[rgb(35,49,74)] inline-flex items-center">
+							<FontAwesomeIcon icon={faBars} />
+						 </span>
 				</button>
 			</div>
 			{dropdown && (

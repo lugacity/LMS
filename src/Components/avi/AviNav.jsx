@@ -1,9 +1,10 @@
 import { DarkLogo } from "../Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useNavigation } from "react-router-dom";
 
 const AviNav = () => {
+	const navigate = useNavigate()
 	return (
 		<nav className="flex items-center justify-between py-4 px-6 lg:px-20 ">
 			<div>
@@ -21,7 +22,7 @@ const AviNav = () => {
 					</li>
 					<li>login</li>
 				</ul>
-				<button className=" rounded-lg px-4 py-2 capitalize text-[#FFEBF0] bg-[#CC1747] ">
+				<button onClick={()=>navigate('/contact')} className=" rounded-lg px-4 py-2 capitalize text-[#FFEBF0] bg-[#CC1747] ">
 					contact
 				</button>
 			</div>

@@ -7,7 +7,7 @@ import { solutions, strategies } from "../assets/lib/data";
 import Slide from "../Components/data-solution/Slide";
 import Swiper from "../Components/data-solution/Swiper";
 import Accordion from "../Components/data-solution/Accordion";
-import VerticalAccordion from "../Components/veritical/VerticalAccordion";
+// import VerticalAccordion from "../Components/veritical/VerticalAccordion";
 
 const DataSolution = () => {
 	return (
