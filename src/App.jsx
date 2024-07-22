@@ -15,6 +15,7 @@ import AVI from "./pages/AVI";
 import PreviewCourse from "./pages/previewCourse";
 
 import Component from "./Components/Component";
+import Login from "./pages/auth/Login";
 
 function App() {
 	const routes = createBrowserRouter([
@@ -60,6 +61,10 @@ function App() {
 			path: "/preview-course",
 			element: <PreviewCourse />,
 		},
+		{
+			path: 'login',
+			element:<Login/>
+		}
 	]);
 
 	return <RouterProvider router={routes} />;
