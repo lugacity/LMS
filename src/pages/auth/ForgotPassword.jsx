@@ -1,19 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 import { z } from "zod";
-import AviNav from "@/Components/avi/AviNav";
-import BorderCard from "@/Components/BorderCard";
-import { Heading, Paragraph } from "./components/Text";
+import { CommonButton } from "@/Components/ui/button";
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
-import { PasswordInput } from "@/Components/ui/password-input";
-import { CommonButton } from "@/Components/ui/button";
-import Modal from "./components/Modal";
-import RegisterSuccess from "./components/RegisterSuccess";
-import RegisterFail from "./components/RegisterFail";
-import PasswordResetSucess from "./components/PasswordResetSucess";
+import { Link } from "react-router-dom";
+import { Heading, Paragraph } from "./components/Text";
+import BorderCard from "@/Components/BorderCard";
+import AviNav from "@/Components/avi/AviNav";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -22,9 +17,7 @@ const loginSchema = z.object({
     .min(4, { message: "Name must be at least 4 characters long" }),
 });
 
-const Login = () => {
-  const [password, setPassword] = useState("");
-
+const ForgotPassword = () => {
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -52,29 +45,12 @@ const Login = () => {
                 type="text"
                 control={form.control}
               />
-              <PasswordInput
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete="new-password"
-                label="password"
-                name="password"
-                control={form.control}
-                placeholder=""
-              />
-
-              <Link
-                to={"/forgot-password"}
-                className="text-primary-color-600 block text-sm font-semibold capitalize"
-              >
-                forgot password?
-              </Link>
 
               <CommonButton
                 className="bg-primary-color-600 font-poppins hover:bg-primary-color-600 mt-8 w-full text-xl font-semibold capitalize text-white"
                 type="submit"
               >
-                sign in
+                reset
               </CommonButton>
             </form>
           </Form>
@@ -91,13 +67,8 @@ const Login = () => {
           </Link>
         </p>
       </div>
-      {/* modals */}
-
-      <Modal>
-        <PasswordResetSucess />
-      </Modal>
     </>
   );
 };
 
-export default Login;
+export default ForgotPassword;

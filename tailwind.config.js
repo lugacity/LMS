@@ -17,9 +17,18 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif']
+      },
       colors: {
         "lms-border": "#D0D5DD",
         heading: "#1B1818",
+        desc: '#645D5D',
+        label: '#101928',
+        "tertiary-color-700": "#667185",
+        'primary-color-100': "#FFEBF0",
+        'primary-color-600': "#CC1747",
+        'primary-color-500': "#F53366",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -77,3 +86,4 @@ module.exports = {
   },
   plugins: [require("tailwindcss-animate")],
 }
+

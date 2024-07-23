@@ -47,7 +47,11 @@ export default function FormInput({
       render={({ field }) => (
         <FormItem className="w-full">
           {label && (
-            <FormLabel className={cn("font-medium capitalize")}>
+            <FormLabel
+              className={cn(
+                "font-poppins text-label text-sm font-semibold capitalize",
+              )}
+            >
               {label}
             </FormLabel>
           )}
