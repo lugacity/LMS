@@ -1,4 +1,5 @@
 import AviNav from "@/Components/avi/AviNav";
+import DashboardNav from "@/Components/dashboard/DashboardNav";
 import { Sidebar, SidebarItem } from "@/Components/dashboard/SideNav";
 import { faBell, faHeart, faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,7 +27,7 @@ const DashboardLayout = () => {
         />
       </Sidebar>
       <div>
-        <AviNav />
+        <DashboardNav />
         <Outlet />
       </div>
     </div>
