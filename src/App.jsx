@@ -15,54 +15,81 @@ import AVI from "./pages/AVI";
 import PreviewCourse from "./pages/previewCourse";
 
 import Component from "./Components/Component";
+import Login from "./pages/auth/Login";
+import SignUp from "./pages/auth/Signup";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import DashboardLayout from "./layouts/DashboardLayout";
+import EmptyPage from "./pages/dashboard/EmptyPage";
 
 function App() {
-	const routes = createBrowserRouter([
-		{
-			path: "/",
-			element: <AppLayout />,
-			children: [
-				{
-					index: true,
-					element: <Home />,
-				},
-				{
-					path: "/about",
-					element: <About />,
-				},
-				{
-					path: "/contact",
-					element: <Contact />,
-				},
-				{
-					path: "/digital-transformation",
-					element: <DigitalTransformation />,
-				},
-				{
-					path: "/data-solution",
-					element: <DataSolution />,
-				},
-				{
-					path: "/avenue-impact-development",
-					element: <AvenueImpactDevelopment />,
-				},
-				{
-					path: "/components",
-					element: <Component />,
-				},
-			],
-		},
-		{
-			path: "/AVI",
-			element: <AVI />,
-		},
-		{
-			path: "/preview-course",
-			element: <PreviewCourse />,
-		},
-	]);
+  const routes = createBrowserRouter([
+    {
+      path: "/",
+      element: <AppLayout />,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: "/about",
+          element: <About />,
+        },
+        {
+          path: "/contact",
+          element: <Contact />,
+        },
+        {
+          path: "/digital-transformation",
+          element: <DigitalTransformation />,
+        },
+        {
+          path: "/data-solution",
+          element: <DataSolution />,
+        },
+        {
+          path: "/avenue-impact-development",
+          element: <AvenueImpactDevelopment />,
+        },
+        {
+          path: "/components",
+          element: <Component />,
+        },
+      ],
+    },
+    {
+      path: "/AVI",
+      element: <AVI />,
+    },
+    {
+      path: "/preview-course",
+      element: <PreviewCourse />,
+    },
+    {
+      path: "login",
+      element: <Login />,
+    },
+    {
+      path: "/signup",
+      element: <SignUp />,
+    },
+    {
+      path: "/forgot-password",
+      element: <ForgotPassword />,
+    },
+    {
+      path: "/dashboard",
+      element: <DashboardLayout />,
+      children: [
+        {
+          index: true,
+          element: <EmptyPage />,
+        },
+      ],
+    },
+  ]);
 
-	return <RouterProvider router={routes} />;
+  return <RouterProvider router={routes} />;
 }
 
 export default App;

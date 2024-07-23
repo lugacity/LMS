@@ -8,7 +8,6 @@ import card3 from "../assets/images/card-img_3.png";
 import professional from "../assets/images/proffessional.png";
 import group from "../assets/images/big-team.png";
 import MainContent from "../Components/MainContent/MainContent";
-import AvenueImpact from "../Components/AvenueImpact/AvenueImpact";
 import AvenueList from "../Components/Assets/AvenueList";
 import iconLight from "../assets/icons/icon.png";
 import iconDark from "../assets/icons/icon-dark.png";
