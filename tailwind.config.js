@@ -26,6 +26,7 @@ module.exports = {
         desc: '#645D5D',
         label: '#101928',
         "tertiary-color-700": "#667185",
+        "tertiary-color-800": "#3A4C6C",
         'primary-color-100': "#FFEBF0",
         'primary-color-600': "#CC1747",
         'primary-color-500': "#F53366",

@@ -20,6 +20,7 @@ import SignUp from "./pages/auth/Signup";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import DashboardLayout from "./layouts/DashboardLayout";
 import EmptyPage from "./pages/dashboard/EmptyPage";
+import Notification from "./pages/dashboard/Notification";
 
 function App() {
   const routes = createBrowserRouter([
@@ -84,6 +85,10 @@ function App() {
         {
           index: true,
           element: <EmptyPage />,
+        },
+        {
+          path: "notification",
+          element: <Notification />,
         },
       ],
     },
