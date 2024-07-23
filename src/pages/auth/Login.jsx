@@ -65,13 +65,13 @@ const Login = () => {
 
               <Link
                 to={"/forgot-password"}
-                className="text-primary-color-600 block text-sm font-semibold capitalize"
+                className="block text-sm font-semibold capitalize text-primary-color-600"
               >
                 forgot password?
               </Link>
 
               <CommonButton
-                className="bg-primary-color-600 font-poppins hover:bg-primary-color-600 mt-8 w-full text-xl font-semibold capitalize text-white"
+                className="mt-8 w-full bg-primary-color-600 font-poppins text-xl font-semibold capitalize text-white hover:bg-primary-color-600"
                 type="submit"
               >
                 sign in
@@ -85,7 +85,7 @@ const Login = () => {
           </span>
           <Link
             to={"/signup"}
-            className="text-primary-color-600 text-sm font-semibold capitalize"
+            className="text-sm font-semibold capitalize text-primary-color-600"
           >
             sign up
           </Link>
@@ -93,9 +93,9 @@ const Login = () => {
       </div>
       {/* modals */}
 
-      <Modal>
-        <PasswordResetSucess />
-      </Modal>
+      {/*  <Modal>
+      {showModal &&  <PasswordResetSucess />}
+      </Modal> */}
     </>
   );
 };
