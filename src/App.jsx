@@ -20,6 +20,8 @@ import SignUp from "./pages/auth/Signup";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import DashboardLayout from "./layouts/DashboardLayout";
 import EmptyPage from "./pages/dashboard/EmptyPage";
+import Notification from "./pages/dashboard/Notification";
+import Wishlist from "./pages/dashboard/Wishlist";
 
 function App() {
   const routes = createBrowserRouter([
@@ -84,6 +86,14 @@ function App() {
         {
           index: true,
           element: <EmptyPage />,
+        },
+        {
+          path: "notification",
+          element: <Notification />,
+        },
+        {
+          path: "wishlists",
+          element: <Wishlist />,
         },
       ],
     },

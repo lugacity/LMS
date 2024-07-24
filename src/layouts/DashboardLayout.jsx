@@ -28,7 +28,9 @@ const DashboardLayout = () => {
       </Sidebar>
       <div>
         <DashboardNav />
-        <Outlet />
+        <div className="h-full bg-[#FDFDFD] p-6">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
