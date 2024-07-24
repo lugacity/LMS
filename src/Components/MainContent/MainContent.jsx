@@ -6,30 +6,30 @@ import HeroHeading from "./HeroHeading";
 // import arrow from "../../assets/images/arrow-up.png";
 import Button from "../Button";
 const MainContent = () => {
-	return (
-		<Hero videoSrc={bgVideo}>
-			<div className="flex items-end justify-end h-full ">
-				<div className="h-max align-bottom justify-self-end">
-					<HeroHeading>
-						Expert Consultants <br className="md:hidden" /> for{" "}
-						<br className="hidden md:block" /> Sustainable Success
-					</HeroHeading>
+  return (
+    <Hero videoSrc={bgVideo}>
+      <div className="flex h-full items-end justify-end">
+        <div className="h-max justify-self-end align-bottom">
+          <HeroHeading>
+            Expert Consultants <br className="md:hidden" /> for{" "}
+            <br className="hidden md:block" /> Sustainable Success
+          </HeroHeading>
 
-					<div className="w-full h-[1px] my-4 md:mt-16 md:mb-6 bg-white" />
+          <div className="my-4 h-[1px] w-full bg-white md:mb-6 md:mt-16" />
 
-					<div className="grid items-center lg:grid-cols-[5fr_1fr] place-items-center gap-y-6 ">
-						<p className="text-white md:text-2xl font-light">
-							We provide customised solutions to address commercial, technical,
-							and operational challenges for sustained profitability. Our
-							certified professionals cover various disciplines, including
-							Product Management, Data Analytics, and more.
-						</p>
-						<Button>Contact Us</Button>
-					</div>
-				</div>
-			</div>
-		</Hero>
-	);
+          <div className="grid place-items-center items-center gap-y-6 lg:grid-cols-[5fr_1fr]">
+            <p className="text-justify font-light text-white md:text-left md:text-2xl">
+              We provide customized solutions to address commercial, technical,
+              and operational challenges for sustained profitability. Our
+              certified professionals cover various disciplines, including
+              Product Management, Data Analytics, and more.
+            </p>
+            <Button>Contact Us</Button>
+          </div>
+        </div>
+      </div>
+    </Hero>
+  );
 };
 
 export default MainContent;
