@@ -11,13 +11,13 @@ const DashboardLayout = () => {
       <Sidebar>
         <SidebarItem
           icon={<FontAwesomeIcon icon={faHome} />}
-          text={"dashboard"}
+          text={"Dashboard"}
           active={true}
           // alert={"alert"}
         />
         <SidebarItem
           icon={<FontAwesomeIcon icon={faBell} />}
-          text={"notification"}
+          text={"Notification"}
           alert={"alert"}
         />
         <SidebarItem
@@ -28,7 +28,9 @@ const DashboardLayout = () => {
       </Sidebar>
       <div>
         <DashboardNav />
-        <Outlet />
+        <div className="h-full bg-[#FDFDFD] p-6">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

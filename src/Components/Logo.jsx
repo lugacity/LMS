@@ -8,6 +8,6 @@ export const WhiteLogo = ({ className }) => {
 
 export const DarkLogo = ({ className }) => {
   return (
-    <img src={darkLogo} alt="" className={`${className} cursor-pointer`} />
+    <img src={darkLogo} alt="" className={`${className} w cursor-pointer`} />
   );
 };

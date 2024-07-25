@@ -13,6 +13,7 @@ import {
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 import { faClose } from "@fortawesome/free-solid-svg-icons/faClose";
+import MobileDropdown from "../MobileDropdown";
 
 const Navbar = () => {
   // const [enterNav, setEnterNa] = useState("Home");
@@ -35,150 +36,123 @@ const Navbar = () => {
 
   return (
     <div className="group absolute left-0 top-0 z-20 w-full">
-      <div className="flex justify-between px-12 py-4 transition-all duration-300 ease-linear group-hover:bg-white">
+      <div className="flex justify-between overflow-x-hidden px-8 py-4 transition-all duration-300 ease-linear group-hover:bg-white md:px-12">
         <div className="nav-logo">
-          <WhiteLogo className={"block group-hover:hidden lg:w-1/6"} />
-          <DarkLogo className={"hidden group-hover:block lg:w-1/6"} />
+          <WhiteLogo className={"block w-10 group-hover:hidden lg:w-24"} />
+          <DarkLogo className={"hidden w-10 group-hover:block lg:w-24"} />
         </div>
-        <div
-          className={`absolute w-full md:w-auto ${
-            showNav
-              ? "translate-x-0 transition-transform duration-150 ease-linear"
-              : "translate-x-full transition-transform duration-150 ease-linear"
-          } left-0 top-0 gap-6 bg-white pb-12 md:relative md:flex md:translate-x-0 md:bg-transparent md:pb-0`}
-        >
-          <div className="flex justify-between px-12 py-6 md:hidden">
-            <img src={mobile} alt="mobile logo" />
+        <div>
+          <div
+            className={`fixed h-screen w-full md:h-fit md:w-auto ${
+              showNav
+                ? "translate-x-0 duration-150 ease-linear"
+                : "translate-x-full duration-150 ease-linear"
+            } left-0 top-0 gap-6 bg-white pb-12 md:relative md:flex md:translate-x-0 md:bg-transparent md:pb-0`}
+          >
+            <div className="flex justify-between px-12 py-6 md:hidden">
+              <img src={mobile} alt="mobile logo" />
 
-            <button
-              onClick={() => setShowNav((prev) => !prev)}
-              className="block text-2xl text-[#23314a] md:hidden"
-            >
-              <FontAwesomeIcon icon={faClose} />
-            </button>
-          </div>
-          <ul className="flex flex-col items-start gap-6 px-12 text-[#23314A] md:flex-row md:items-center md:px-0 md:*:text-white">
-            {menus.map((menu) => {
-              return (
-                <li
-                  key={menu}
-                  className="after:contents-[''] relative transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
-                  onClick={() => {
-                    setDropDown(false);
-                    setShowNav(false);
-                  }}
-                >
-                  <NavLink
-                    to={menu.path}
-                    className={"group-hover:text-[#23314A]"}
-                  >
-                    {menu.label}
-                  </NavLink>
-                </li>
-              );
-            })}
-            <div>
-              <li
-                className="service flex cursor-pointer items-center space-x-2 text-[#23314A] transition-all duration-150 group-hover:text-[#23314A] md:text-white"
-                onClick={() => setDropDown((prev) => !prev)}
+              <button
+                onClick={() => setShowNav((prev) => !prev)}
+                className="block text-2xl text-[#23314a] md:hidden"
               >
-                <span className="after:contents-[''] relative m-auto after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full">
-                  Services
-                </span>
-                <span
-                  className={`mr-auto inline-flex transition-transform duration-150 ease-linear ${
-                    dropdown ? "w-min rotate-180" : "w-min ease-in"
-                  }`}
-                >
-                  <FontAwesomeIcon icon={faChevronDown} />
-                </span>
-              </li>
+                <FontAwesomeIcon icon={faClose} />
+              </button>
             </div>
-            {dropdown && (
-              <div className="mt-5 w-full border-t border-t-[#D6E3FA] py-3 text-left transition-all duration-150 ease-linear md:hidden">
-                <ul className="font-poppins mt-8 space-y-3 pl-12 *:cursor-pointer *:capitalize *:text-[#23314A]">
+            <ul className="flex flex-col items-start gap-6 px-12 text-[#23314A] md:flex-row md:items-center md:px-0 md:*:text-white">
+              {menus.map((menu) => {
+                return (
                   <li
-                    onClick={handleNav}
-                    className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
+                    key={menu}
+                    // className="after:contents-[''] relative transition-all duration-150 after:absolute after:left-0 after:mx-auto after:my-0 after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
+                    onClick={() => {
+                      setDropDown(false);
+                      setShowNav(false);
+                    }}
                   >
-                    <Link to={"/digital-transformation"}>
-                      digital transformation
-                    </Link>
+                    <NavLink
+                      to={menu.path}
+                      className={"group-hover:text-[#23314A]"}
+                    >
+                      {menu.label}
+                    </NavLink>
                   </li>
-                  <li
-                    onClick={handleNav}
-                    className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[3px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
+                );
+              })}
+              <div>
+                <li
+                  className="service flex cursor-pointer items-center space-x-2 text-[#23314A] transition-all duration-150 group-hover:text-[#23314A] md:text-white"
+                  onClick={() => setDropDown((prev) => !prev)}
+                >
+                  <span className="after:contents-[''] relative m-auto after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full">
+                    Services
+                  </span>
+                  <span
+                    className={`mr-auto inline-flex transition-transform duration-150 ease-linear ${
+                      dropdown ? "w-min rotate-180" : "w-min ease-in"
+                    }`}
                   >
-                    <Link to={"/data-solution"}> data solution</Link>
-                  </li>
-                  <li
-                    onClick={handleNav}
-                    className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
-                  >
-                    <Link to={"/avenue-impact-development"}>
-                      avenue impact development CIC
-                    </Link>
-                  </li>
-                  <li
-                    onClick={handleNav}
-                    className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
-                  >
-                    <Link to={"/avi"}>Digital learning hub</Link>
-                  </li>
-                </ul>
+                    <FontAwesomeIcon icon={faChevronDown} />
+                  </span>
+                </li>
               </div>
-            )}
-            <div className="mt-3 md:hidden">
-              <img src={navImg} alt="" />
-              <div className="mt-4 space-y-1">
-                <p className="font-light text-[#98A2B3]">+4480005410720</p>
-                <p className="font-light text-[#98A2B3]">London, UK</p>
-                <p className="font-light text-[#98A2B3]">
-                  Mon - Sat 8:00 - 18:0
-                </p>
-                <div className="flex gap-3">
-                  <a
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center rounded-full bg-[#ffebf0] p-2 text-[#F53366]"
-                  >
-                    <FontAwesomeIcon icon={faFacebook} className="text-xl" />
-                  </a>
-                  <a
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center rounded-full bg-[#ffebf0] p-2 text-[#F53366]"
-                  >
-                    <FontAwesomeIcon icon={faTwitter} className="text-xl" />
-                  </a>
-                  <a
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center rounded-full bg-[#ffebf0] p-2 text-[#F53366]"
-                  >
-                    <FontAwesomeIcon icon={faInstagram} className="text-xl" />
-                  </a>
-                  <a
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center rounded-full bg-[#ffebf0] p-2 text-[#F53366]"
-                  >
-                    <FontAwesomeIcon icon={faLinkedin} className="text-xl" />
-                  </a>
+              {dropdown && <MobileDropdown handleNav={handleNav} />}
+              <div className="mt-3 md:hidden">
+                <img
+                  src={navImg}
+                  alt=""
+                  className={`${dropdown ? "invisible h-0" : "visible"}`}
+                />
+                <div className="mt-4 space-y-1">
+                  <p className="font-light text-[#98A2B3]">+4480005410720</p>
+                  <p className="font-light text-[#98A2B3]">London, UK</p>
+                  <p className="font-light text-[#98A2B3]">
+                    Mon - Sat 8:00 - 18:0
+                  </p>
+                  <div className="flex gap-3">
+                    <a
+                      href="#"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center rounded-full bg-[#ffebf0] p-2 text-[#F53366]"
+                    >
+                      <FontAwesomeIcon icon={faFacebook} className="text-xl" />
+                    </a>
+                    <a
+                      href="#"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center rounded-full bg-[#ffebf0] p-2 text-[#F53366]"
+                    >
+                      <FontAwesomeIcon icon={faTwitter} className="text-xl" />
+                    </a>
+                    <a
+                      href="#"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center rounded-full bg-[#ffebf0] p-2 text-[#F53366]"
+                    >
+                      <FontAwesomeIcon icon={faInstagram} className="text-xl" />
+                    </a>
+                    <a
+                      href="#"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center rounded-full bg-[#ffebf0] p-2 text-[#F53366]"
+                    >
+                      <FontAwesomeIcon icon={faLinkedin} className="text-xl" />
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </ul>
+            </ul>
 
-          <Link to={"/contact"}>
-            <button className="hidden rounded-lg bg-[#f4f5f7] px-4 py-2 capitalize text-[#23314A] group-hover:bg-[#CC1747] group-hover:text-[#FFEBF0] md:block">
-              contact
-            </button>
-          </Link>
+            <Link to={"/contact"}>
+              <button className="hidden rounded-lg bg-[#f4f5f7] px-4 py-2 capitalize text-[#23314A] group-hover:bg-[#CC1747] group-hover:text-[#FFEBF0] md:block">
+                contact
+              </button>
+            </Link>
+          </div>
         </div>
 
         <button
@@ -242,32 +216,32 @@ const Navbar = () => {
               </div>
             </div>
             <div>
-              <ul className="font-poppins mt-8 space-y-3 pl-12 *:cursor-pointer *:capitalize *:text-[#23314A]">
+              <ul className="mt-8 space-y-3 pl-12 font-poppins *:cursor-pointer *:capitalize *:text-[#23314A]">
                 <li
                   onClick={handleNav}
-                  className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
+                  // className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
                 >
-                  <Link to={"/digital-transformation"}>
+                  <NavLink to={"/digital-transformation"}>
                     digital transformation
-                  </Link>
+                  </NavLink>
                 </li>
                 <li
                   onClick={handleNav}
-                  className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[3px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
+                  // className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[3px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
                 >
-                  <Link to={"/data-solution"}> data solution</Link>
+                  <NavLink to={"/data-solution"}> data solution</NavLink>
                 </li>
                 <li
                   onClick={handleNav}
-                  className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
+                  // className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
                 >
-                  <Link to={"/avenue-impact-development"}>
+                  <NavLink to={"/avenue-impact-development"}>
                     avenue impact development CIC
-                  </Link>
+                  </NavLink>
                 </li>
                 <li
                   onClick={handleNav}
-                  className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
+                  // className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"
                 >
                   <Link to={"/avi"}>Digital learning hub</Link>
                 </li>
