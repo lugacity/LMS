@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 
-const Hero = ({ videoSrc, children }) => {
+import { cn } from "@/lib/utils";
+
+const Hero = ({ videoSrc, children, className }) => {
   return (
     <div className="relative min-h-screen w-full text-center">
       <div>
@@ -13,7 +15,12 @@ const Hero = ({ videoSrc, children }) => {
         ></video>
       </div>
       {/* <div className="absolute left-0 top-0 -z-[5] h-full w-full bg-black/40"></div> */}
-      <div className="z-20 min-h-screen w-full bg-black/70 px-6 pb-24 pt-12 text-left md:px-12 md:py-16">
+      <div
+        className={cn(
+          "z-20 min-h-screen w-full bg-black/70 px-6 pb-24 text-left md:px-12 md:py-16",
+          className,
+        )}
+      >
         <div className="flex min-h-screen w-full items-end md:items-center">
           {children}
         </div>

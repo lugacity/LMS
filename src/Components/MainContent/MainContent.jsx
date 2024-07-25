@@ -7,7 +7,7 @@ import HeroHeading from "./HeroHeading";
 import Button from "../Button";
 const MainContent = () => {
   return (
-    <Hero videoSrc={bgVideo}>
+    <Hero videoSrc={bgVideo} className={"pt-12"}>
       <div className="flex h-fit items-end justify-end">
         <div className="h-max justify-self-end align-bottom">
           <HeroHeading className={"leading-snug"}>
