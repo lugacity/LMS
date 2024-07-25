@@ -4,8 +4,7 @@ import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 import { Link, NavLink, useNavigate, useNavigation } from "react-router-dom";
 import { useState } from "react";
 
-const AviNav = () => {
-  const [showNav, setShowNav] = useState(false);
+const AviNav = ({ showNav, setShowNav }) => {
   const navigate = useNavigate();
   return (
     <nav className="flex items-center justify-between px-6 py-4 lg:px-20">
@@ -32,10 +31,10 @@ const AviNav = () => {
         </button>
         <ul className="flex flex-col items-center gap-8 *:cursor-pointer *:capitalize *:text-[#23314A] md:flex-row md:gap-4">
           {/* className="contents-[''] relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-[#CC1747]" */}
-          <li>
+          <li onClick={() => setShowNav(true)}>
             <NavLink to={"/avi"}>home</NavLink>
           </li>
-          <li>
+          <li onClick={() => setShowNav(true)}>
             <NavLink to={"/login"}>login</NavLink>
           </li>
         </ul>
