@@ -24,13 +24,13 @@ import Modal from "./auth/components/Modal";
 // import img from "../assets/images/data-solution.jpg";
 
 const AVI = () => {
-  const [showNav, setShowNav] = useState(false);
+  const [showNav, setShowNav] = useState(true);
   return (
     <>
       <ScrollRestoration />
       <AviNav showNav={showNav} setShowNav={setShowNav} />
       <ColorHero />
-      {showNav && <Modal />}
+      {/* {showNav && <Modal />} */}
 
       <section>
         {/* AVI IMAGE */}

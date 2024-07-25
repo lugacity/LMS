@@ -4,12 +4,12 @@ import bgVideo from "../../assets/video/about-bg.mp4";
 
 const AboutHero = () => {
   return (
-    <Hero videoSrc={bgVideo}>
-      <div className="flex h-full items-end justify-end">
+    <Hero videoSrc={bgVideo} className={""}>
+      <div className="flex h-full">
         <div className="h-max justify-self-end align-bottom">
           <HeroHeading>About Us</HeroHeading>
 
-          <div className="mb-6 mt-16 h-[1px] w-full bg-white" />
+          <div className="mb-4 mt-10 h-[1px] w-full bg-white md:mb-6 md:mt-16" />
 
           <div className="">
             <p className="text-justify text-2xl font-light text-white md:text-left">
