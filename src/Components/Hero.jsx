@@ -1,23 +1,32 @@
 /* eslint-disable react/prop-types */
-import React from "react";
 
-const Hero = ({ videoSrc, children }) => {
-	return (
-		<div className="text-center bg-white/80 relative">
-			<div className="w-full h-screen bg-black/40 absolute top-0 left-0 "></div>
-			<div>
-				<video
-					src={videoSrc}
-					autoPlay
-					loop
-					id="video-bg"
-					className="w-full h-screen object-cover"></video>
-			</div>
-			<div className="w-full absolute top-0 left-0 px-6 md:px-12 text-left py-16 h-screen  ">
-				{children}
-			</div>
-		</div>
-	);
+import { cn } from "@/lib/utils";
+
+const Hero = ({ videoSrc, children, className }) => {
+  return (
+    <div className="relative min-h-screen w-full text-center">
+      <div>
+        <video
+          src={videoSrc}
+          autoPlay
+          loop
+          id="video-bg"
+          className="absolute left-0 top-0 -z-10 h-full w-full object-cover"
+        ></video>
+      </div>
+      {/* <div className="absolute left-0 top-0 -z-[5] h-full w-full bg-black/40"></div> */}
+      <div
+        className={cn(
+          "z-20 min-h-screen w-full bg-black/70 px-6 pb-24 text-left md:px-12 md:py-16",
+          className,
+        )}
+      >
+        <div className="flex min-h-screen w-full items-end md:items-center">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Hero;

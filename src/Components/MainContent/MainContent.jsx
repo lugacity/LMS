@@ -7,12 +7,11 @@ import HeroHeading from "./HeroHeading";
 import Button from "../Button";
 const MainContent = () => {
   return (
-    <Hero videoSrc={bgVideo}>
-      <div className="flex h-full items-end justify-end">
+    <Hero videoSrc={bgVideo} className={"pt-12"}>
+      <div className="flex h-fit items-end justify-end">
         <div className="h-max justify-self-end align-bottom">
-          <HeroHeading>
-            Expert Consultants <br className="md:hidden" /> for{" "}
-            <br className="hidden md:block" /> Sustainable Success
+          <HeroHeading className={"leading-snug"}>
+            Expert Consultants for Sustainable Success
           </HeroHeading>
 
           <div className="my-4 h-[1px] w-full bg-white md:mb-6 md:mt-16" />
