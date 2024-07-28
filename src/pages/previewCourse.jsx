@@ -59,10 +59,10 @@ const PreviewCourse = ({ features }) => {
 						<div className="bg-[#C7D7F4] lg:block hidden w-full h-[1px] mt-2" />
 
 						{/* Project Consultant */}
-						<div className={styles.project_consult}>
+						<div className={`${styles.project_consult} text-white`}>
 							<div className={`${styles.project_consultFlex} px-2 `}>
 								<div className={`${styles.project_consult1} lg:w-2/4`}>
-									<p className="text-[#23314A] sm:text-2xl font-normal">
+									<p className=" sm:text-2xl font-normal">
 										Project Consultant Training Programme (Bundle)
 									</p>
 
@@ -72,11 +72,11 @@ const PreviewCourse = ({ features }) => {
 										<p>43,55</p>
 									</div>
 
-									<div>
+									<div className="text-white">
 										<p className="text-2xl py-2">This course Includes:</p>
 										<ul className="list-none p-0 m-0">
 											{courseFeatures.map((feature, index) => (
-												<li key={index} className=" text-gray-700 mb-2">
+												<li key={index} className=" mb-2">
 													<FontAwesomeIcon
 														icon={faCheckCircle}
 														className=" mr-2"
@@ -244,6 +244,13 @@ const PreviewCourse = ({ features }) => {
 				{/* Checkout our top courses */}
 				<div className={styles.checkout_courses}>
 					<div className="lg:py-0 lg:px-14 pt-2 px-8">
+						
+							<div className={styles.checkoutCourses1}>
+								<p className="text-[#23314A] text-2xl font-normal">
+									Checkout related courses
+								</p>
+							</div>
+						
 						<div
 							className={`${styles.career_content} py-8 text-[#667185] lg:w-1/2 w-full`}>
 							<p>
@@ -343,7 +350,7 @@ const PreviewCourse = ({ features }) => {
 					</div>
 
 					{/* Certificate */}
-					<div className={styles.certificate_courses}>
+					<div className={`${styles.certificate_courses} pt-10`}>
 						<div className="lg:py-4 lg:px-14 pt-10 px-8">
 							<div className={styles.certificateCourses1}>
 								<p className="text-[#23314A] text-2xl font-normal capitalize">

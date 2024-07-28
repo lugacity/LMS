@@ -28,7 +28,7 @@ const DashboardLayout = () => {
       </Sidebar>
       <div>
         <DashboardNav />
-        <div className="h-full bg-[#FDFDFD] p-6">
+        <div className="h-full bg-[#FDFDFD] px-6">
           <Outlet />
         </div>
       </div>

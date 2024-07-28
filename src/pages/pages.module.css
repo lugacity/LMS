@@ -90,7 +90,10 @@
     grid-template-columns: 2fr 1fr;
     align-items: center;
     gap: 2rem;
+    background-color: #23314A;
 }
+
+
 
 .overviewFlex{
     display: grid;
