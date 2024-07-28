@@ -16,7 +16,7 @@ function DashboardNav() {
       </div>
       <div className="flex items-center gap-6 justify-self-end">
         <div className="flex items-center gap-4">
-          <p className="text-[#667185]">View all Courses</p>
+          <p className="text-[#667185] text-nowrap">View all Courses</p>
           <FontAwesomeIcon icon={faBell} />
         </div>
         <div className="relative">
