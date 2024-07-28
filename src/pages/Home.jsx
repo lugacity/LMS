@@ -215,9 +215,11 @@ const Home = () => {
       </ImageOverlay>
       <Container>
         <div className="grid gap-3 gap-y-6 md:grid-cols-2">
-          <h3 className="text-4xl text-[#23314A]">About Avenue Impact</h3>
+          <h3 className="text-2xl text-[#23314A] md:text-3xl">
+            About Avenue Impact
+          </h3>
 
-          <p className="text-justify text-xl text-[#667185]">
+          <p className="text-justify text-sm text-[#667185] md:text-xl">
             Our drive is to make a noticeable difference in everything we
             undertake. At Avenue Impact, our focus is on supporting established
             and growing companies in the best possible way. Our team of business
