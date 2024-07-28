@@ -22,7 +22,7 @@ export function Sidebar({ children }) {
   const [expanded, setExpanded] = useState(true);
   // fixed left-0 top-0 z-10
   return (
-    <aside className="h-screen w-min">
+    <aside className="fixed left-0 top-0 h-screen w-min">
       <nav className="flex h-full flex-col border-r bg-white shadow-sm">
         <div className="flex items-center justify-between p-4 pb-2">
           {/* <img

@@ -1,7 +1,7 @@
 import React from "react";
 
-function Refferal() {
-  return <div>refferal</div>;
+function Referral() {
+  return <div>referral</div>;
 }
 
-export default Refferal;
+export default Referral;
