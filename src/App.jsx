@@ -22,6 +22,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import EmptyPage from "./pages/dashboard/EmptyPage";
 import Notification from "./pages/dashboard/Notification";
 import Wishlist from "./pages/dashboard/Wishlist";
+import StudentSettings from "./pages/dashboard/StudentSettings";
 
 function App() {
   const routes = createBrowserRouter([
@@ -94,6 +95,10 @@ function App() {
         {
           path: "wishlists",
           element: <Wishlist />,
+        },
+        {
+          path: "student-settings",
+          element: <StudentSettings />,
         },
       ],
     },

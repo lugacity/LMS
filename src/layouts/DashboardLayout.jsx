@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
-    <div className="grid grid-cols-[1fr_10fr] gap-0">
+    <div className="">
       <Sidebar>
         <SidebarItem
           icon={<FontAwesomeIcon icon={faHome} />}
@@ -28,7 +28,11 @@ const DashboardLayout = () => {
       </Sidebar>
       <div>
         <DashboardNav />
+
+       
+
         <div className="h-full bg-[#FDFDFD] px-6">
+
           <Outlet />
         </div>
       </div>
