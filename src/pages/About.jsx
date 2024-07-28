@@ -19,7 +19,7 @@ const About = () => {
           <div className="px-8 pt-10 lg:px-10 lg:px-14 lg:pt-16">
             <div className={styles.welcome_avenue}>
               <h2 className="text-3xl font-bold capitalize text-[#23314A]">
-                We deliver real results
+                welcome to avenue impact
               </h2>
               <div className="mt-2 h-[1px] w-full bg-[#C7D7F4]" />
             </div>

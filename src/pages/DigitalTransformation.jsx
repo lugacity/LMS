@@ -4,6 +4,7 @@ import HeroHeading from "../Components/MainContent/HeroHeading";
 import Card from "../Components/digital-transformation/Card";
 import { digitalData } from "../assets/lib/data";
 import ImpactCard from "../Components/digital-transformation/ImpactCard";
+import DigitalSwiper from "@/Components/digital-transformation/DigitalSwiper";
 
 const DigitalTransformation = () => {
   return (
@@ -47,6 +48,7 @@ const DigitalTransformation = () => {
               </Card>
             ))}
           </div>
+          <DigitalSwiper data={digitalData} />
         </div>
       </section>
       <section className="md:px-20 md:py-24">
