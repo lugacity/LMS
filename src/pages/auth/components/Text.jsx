@@ -9,7 +9,7 @@ const elementProps = {
 export const Heading = ({ children, className }) => (
   <h1
     className={cn(
-      "text-nowrap text-center font-poppins text-base text-heading md:text-xl lg:text-2xl",
+      "text-nowrap text-center font-poppins text-base text-heading md:text-xl lg:text-xl",
       className,
     )}
   >

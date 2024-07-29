@@ -2,16 +2,12 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import mobileLogo from "../../assets/images/mobile-dark.png";
 
-import {
-  MoreVertical,
-  ChevronLast,
-  ChevronFirst,
-  MenuIcon,
-  ShieldCloseIcon,
-} from "lucide-react";
+import { MoreVertical } from "lucide-react";
 import { useContext, createContext, useState } from "react";
 import { DarkLogo } from "../Logo";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Link, NavLink } from "react-router-dom";
+import { cn } from "@/lib/utils";
 // import { FaHamburger } from "react-icons/fa";
 // import { RiEyeCloseLine } from "react-icons/ri";
 // import { MdOutlineClose } from "react-icons/md";
@@ -19,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 const SidebarContext = createContext();
 
 export function Sidebar({ children }) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
   // fixed left-0 top-0 z-10
   return (
     <aside className="fixed left-0 top-0 h-screen w-min">
@@ -82,44 +78,47 @@ export function Sidebar({ children }) {
   );
 }
 
-export function SidebarItem({ icon, text, active, alert }) {
+export function SidebarItem({ icon, text, alert, path, onClick, active }) {
   const { expanded } = useContext(SidebarContext);
-
+  // ${
+  //         active
+  //           ? "border-l-4 border-l-primary-color-600 bg-primary-color-100/30"
+  //           : "text-gray-600 hover:bg-indigo-50"
+  //       }
   return (
-    <li
-      className={`group relative my-1 flex cursor-pointer items-center px-3 py-2 font-medium transition-colors ${
-        active
-          ? "border-l-4 border-l-primary-color-600 bg-primary-color-100/30"
-          : "text-gray-600 hover:bg-indigo-50"
-      } `}
-    >
-      <span
-        className={`${active ? "text-primary-color-600" : "text-gray-500"}`}
+    <li className={"dashboard"} onClick={onClick}>
+      <NavLink
+        to={path}
+        className={cn(
+          "group relative my-1 flex cursor-pointer items-center border-l-4 border-l-transparent px-3 py-2 font-medium text-gray-600 transition-colors hover:border-l-primary-color-600 hover:bg-primary-color-100/30 hover:text-primary-color-600",
+        )}
       >
-        {icon}
-      </span>
-      <span
-        className={`overflow-hidden transition-all ${
-          expanded ? "ml-3 w-52" : "w-0"
-        }`}
-      >
-        {text}
-      </span>
-      {alert && (
-        <div
-          className={`absolute right-2 h-2 w-2 rounded bg-indigo-400 ${
-            expanded ? "" : "top-2"
+        <span className={""}>
+          <FontAwesomeIcon icon={icon} />
+        </span>
+        <span
+          className={`overflow-hidden transition-all ${
+            expanded ? "ml-3 w-52" : "w-0"
           }`}
-        />
-      )}
-
-      {!expanded && (
-        <div
-          className={`absolute left-full ml-6 hidden w-0 -translate-x-3 rounded-md bg-indigo-100 px-2 py-1 text-sm text-indigo-800 opacity-20 transition-all group-hover:visible group-hover:translate-x-0 group-hover:opacity-100`}
         >
           {text}
-        </div>
-      )}
+        </span>
+        {alert && (
+          <div
+            className={`absolute right-2 h-2 w-2 rounded bg-indigo-400 ${
+              expanded ? "" : "top-2"
+            }`}
+          />
+        )}
+
+        {!expanded && (
+          <div
+            className={`invisible absolute left-full ml-6 -translate-x-3 rounded-md bg-primary-color-100/30 px-2 py-1 text-sm text-primary-color-600 opacity-20 transition-all group-hover:visible group-hover:translate-x-0 group-hover:opacity-100`}
+          >
+            {text}
+          </div>
+        )}
+      </NavLink>
     </li>
   );
 }

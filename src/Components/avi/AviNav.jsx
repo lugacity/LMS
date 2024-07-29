@@ -29,7 +29,7 @@ const AviNav = ({ showNav, setShowNav }) => {
             className="text-xl text-tertiary-color-800"
           />
         </button>
-        <ul className="flex flex-col items-center gap-8 *:cursor-pointer *:capitalize *:text-[#23314A] md:flex-row md:gap-4">
+        <ul className="nav flex flex-col items-center gap-8 *:cursor-pointer *:capitalize *:text-[#23314A] md:flex-row md:gap-4">
           {/* className="contents-[''] relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-[#CC1747]" */}
           <li onClick={() => setShowNav(true)}>
             <NavLink to={"/avi"}>home</NavLink>
