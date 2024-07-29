@@ -10,6 +10,7 @@ import DashSelect from '../auth/components/DashSelect';
 
 
 
+
 const Referral = () => {
   const [selectedOption, setSelectedOption] = useState('referral');
 
@@ -189,5 +190,6 @@ const Referral = () => {
     </div>
   );
 };
+
 
 export default Referral;

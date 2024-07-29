@@ -72,10 +72,10 @@
   }
 }
 @layer {
-  ul li a {
+  .nav li a {
     position: relative;
   }
-  ul li a::after {
+  .nav li a::after {
     content: "";
     position: absolute;
     display: block;
@@ -87,7 +87,7 @@
     transition: width;
     transition: linear 0.3s;
   }
-  ul li a.active::after {
+  .nav li a.active::after {
     content: "";
     position: absolute;
     display: block;
@@ -100,52 +100,27 @@
     transition: linear 0.3s;
   }
 
-  ul li a:hover::after {
+  .nav li a:hover::after {
     width: 100%;
     margin: 0 auto;
   }
-  /* .footer {
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-      url("./assets/images/footer-img.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+  /* .dashboard a.active {
+    @apply border-l-4 border-l-primary-color-600 bg-primary-color-100/30 *:text-primary-color-600;
   } */
 
-  /* ul li a.active::after {
-    content: "";
+  .slick-track {
+    @apply *:divide-x *:divide-[#667185];
   }
-
-  ul li a:hover::after {
-    content: "";
+  .parent {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-  ul li a.active {
-    @apply after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-[#CC1747];
+  .baby::-webkit-scrollbar {
+    overflow-x: hidden !important;
+    display: none;
   }
-
-  ul li a {
-    @apply relative transition-all duration-150 after:absolute after:left-0 after:mx-auto after:my-0 after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in;
+  .baby {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-  ul li a:hover::after {
-    width: 100%;
-  } */
-  /* ul li a.active:hover::after {
-    width: 0;
-  } */
-}
-
-.slick-track {
-  @apply *:divide-x *:divide-[#667185];
-}
-.parent {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.baby::-webkit-scrollbar {
-  overflow-x: hidden !important;
-  display: none;
-}
-.baby {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 }

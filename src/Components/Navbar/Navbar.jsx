@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+// import styles from "./Navbar.module.css";
 import { Link, NavLink } from "react-router-dom";
-import "./Navbar.css";
 import { DarkLogo, WhiteLogo } from "../Logo";
 import navImg from "../../assets/images/navImg.png";
 import mobile from "../../assets/images/mobile-dark.png";
@@ -59,7 +59,7 @@ const Navbar = () => {
                 <FontAwesomeIcon icon={faClose} />
               </button>
             </div>
-            <ul className="flex flex-col items-start gap-6 px-12 text-[#23314A] md:flex-row md:items-center md:px-0 md:*:text-white">
+            <ul className="nav flex flex-col items-start gap-6 px-12 text-[#23314A] md:flex-row md:items-center md:px-0 md:*:text-white">
               {menus.map((menu, id) => {
                 return (
                   <li
@@ -216,7 +216,7 @@ const Navbar = () => {
               </div>
             </div>
             <div>
-              <ul className="mt-8 space-y-3 pl-12 font-poppins *:cursor-pointer *:capitalize *:text-[#23314A]">
+              <ul className="nav mt-8 space-y-3 pl-12 font-poppins *:cursor-pointer *:capitalize *:text-[#23314A]">
                 <li
                   onClick={handleNav}
                   // className="after:contents-[''] relative w-max transition-all duration-150 after:absolute after:left-0 after:m-auto after:block after:h-[2px] after:w-0 after:bg-red-500 after:transition-[width] after:duration-100 after:ease-in hover:after:w-full"

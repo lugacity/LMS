@@ -23,6 +23,7 @@ import EmptyPage from "./pages/dashboard/EmptyPage";
 import Notification from "./pages/dashboard/Notification";
 import Wishlist from "./pages/dashboard/Wishlist";
 import Referral from "./pages/dashboard/Referral";
+import StudentSettings from "./pages/dashboard/StudentSettings";
 
 function App() {
   const routes = createBrowserRouter([
@@ -97,8 +98,13 @@ function App() {
           element: <Wishlist />,
         },
         {
+
           path: "referral",
           element: <Referral />,
+
+          path: "student-settings",
+          element: <StudentSettings />,
+
         },
       ],
     },
