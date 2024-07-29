@@ -8,7 +8,7 @@ function Wishlists({ wishlist, setWishlists }) {
   };
 
   return (
-    <div className="mt-10 grid grid-cols-4 gap-4">
+    <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
       {wishlist.map((item) => (
         <Courses
           key={item.id}
