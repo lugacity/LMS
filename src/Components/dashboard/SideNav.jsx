@@ -18,9 +18,9 @@ export function Sidebar({ children }) {
   const [expanded, setExpanded] = useState(false);
   // fixed left-0 top-0 z-10
   return (
-    <aside className="fixed left-0 top-0 h-screen w-min">
-      <nav className="flex h-full flex-col border-r bg-white shadow-sm">
-        <div className="flex items-center justify-between p-4 pb-2">
+    <aside className="fixed left-0 top-0 h-screen w-min lg:w-[272px]">
+      <nav className="flex h-full w-full flex-col border-r bg-white shadow-sm">
+        <div className="mb-3 flex items-center justify-center p-4 pb-2">
           {/* <img
             src="https://img.logoipsum.com/243.svg"
             className={`overflow-hidden transition-all ${
@@ -28,24 +28,15 @@ export function Sidebar({ children }) {
             }`}
             alt=""
           /> */}
+          <img src={mobileLogo} alt="" className="w-8 lg:hidden" />
           <DarkLogo
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-40" : "w-0"
-            }`}
+            className={`hidden overflow-hidden transition-all lg:block lg:w-40`}
           />
-          <button
+          {/* <button
             onClick={() => setExpanded((curr) => !curr)}
             className="rounded-lg p-1.5"
           >
-            {expanded ? (
-              <FontAwesomeIcon
-                icon={faClose}
-                className="transition-transform ease-linear hover:scale-110"
-              />
-            ) : (
-              <img src={mobileLogo} alt="" className="w-8" />
-            )}
-          </button>
+          </button> */}
         </div>
 
         <SidebarContext.Provider value={{ expanded }}>
@@ -90,16 +81,14 @@ export function SidebarItem({ icon, text, alert, path, onClick, active }) {
       <NavLink
         to={path}
         className={cn(
-          "group relative my-1 flex cursor-pointer items-center border-l-4 border-l-transparent px-3 py-2 font-medium text-gray-600 transition-colors hover:border-l-primary-color-600 hover:bg-primary-color-100/30 hover:text-primary-color-600",
+          "group relative my-1 flex cursor-pointer items-center border-4 border-transparent px-3 py-2 text-gray-600 transition-colors hover:border-l-primary-color-600 hover:bg-primary-color-100/30 hover:text-primary-color-600",
         )}
       >
         <span className={""}>
           <FontAwesomeIcon icon={icon} />
         </span>
         <span
-          className={`overflow-hidden transition-all ${
-            expanded ? "ml-3 w-52" : "w-0"
-          }`}
+          className={`hidden overflow-hidden transition-all md:ml-3 lg:block`}
         >
           {text}
         </span>
@@ -111,13 +100,13 @@ export function SidebarItem({ icon, text, alert, path, onClick, active }) {
           />
         )}
 
-        {!expanded && (
+        {/* {!expanded && (
           <div
             className={`invisible absolute left-full ml-6 -translate-x-3 rounded-md bg-primary-color-100/30 px-2 py-1 text-sm text-primary-color-600 opacity-20 transition-all group-hover:visible group-hover:translate-x-0 group-hover:opacity-100`}
           >
             {text}
           </div>
-        )}
+        )} */}
       </NavLink>
     </li>
   );

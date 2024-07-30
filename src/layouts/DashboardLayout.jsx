@@ -7,10 +7,10 @@ const DashboardLayout = () => {
   return (
     <div className="">
       <DashboardSideNav />
-      <div>
+      <div className="ml-[58px] lg:ml-[272px]">
         <DashboardNav />
 
-        <div className="h-full bg-[#FDFDFD] px-6 pl-24">
+        <div className="h-full bg-[#FDFDFD] p-6">
           <Outlet />
         </div>
       </div>

@@ -43,7 +43,7 @@ const Login = () => {
             <Paragraph>Use your email to sign in to your dashboard</Paragraph>
           </div>
           <Form {...form}>
-            <form action="" className="space-y-4">
+            <form action="" className="space-y-2">
               <FormInput
                 name="username"
                 label="Username/Email"
@@ -79,7 +79,7 @@ const Login = () => {
             </form>
           </Form>
         </BorderCard>
-        <p className="mt-10 flex items-center justify-center gap-4 text-center">
+        <p className="mt-6 flex items-center justify-center gap-4 text-center">
           <span className="text-sm text-[#514A4A]">
             Already have an account?
           </span>
