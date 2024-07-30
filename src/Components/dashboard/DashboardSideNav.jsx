@@ -1,11 +1,13 @@
-import { faBell, faHeart, faHome } from "@fortawesome/free-solid-svg-icons";
+import { GrHomeRounded } from "react-icons/gr";
+// import { BiBell } from "react-icons/bi";
+import { FaRegHeart, FaRegBell } from "react-icons/fa";
 import React, { useState } from "react";
 import { Sidebar, SidebarItem } from "./SideNav";
 const navItem = [
   {
     id: 1,
     text: "Dashboard",
-    icon: faHome,
+    icon: <GrHomeRounded />,
     active: true,
     alert: "alert",
     path: "/dashboard",
@@ -13,7 +15,7 @@ const navItem = [
   {
     id: 2,
     text: "Notification",
-    icon: faBell,
+    icon: <FaRegBell />,
     active: false,
     alert: "alert",
     path: "notification",
@@ -21,7 +23,7 @@ const navItem = [
   {
     id: 3,
     text: "Wishlist",
-    icon: faHeart,
+    icon: <FaRegHeart />,
     active: false,
     alert: "alert",
     path: "wishlists",
