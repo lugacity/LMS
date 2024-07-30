@@ -12,7 +12,7 @@ const AboutHero = () => {
           <div className="mb-4 mt-10 h-[1px] w-full bg-white md:mb-6 md:mt-16" />
 
           <div className="">
-            <p className="m:text-2xl text-base font-light text-white md:text-left">
+            <p className="lg:text-[18px] text-[14px] text-base font-light text-white md:text-left">
               We are a highly dedicated team of business and technology
               consultants offering expert guidance and practical support to
               established and growing companies.

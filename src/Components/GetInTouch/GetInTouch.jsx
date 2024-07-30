@@ -26,7 +26,7 @@ const GetInTouch = () => {
 
   return (
     <div
-      className={`${styles.get_in_touch} px-8 py-10 pt-20 lg:px-10 lg:px-14 lg:pt-16`}
+      className={`${styles.get_in_touch} px-8 py-10 pt-20  lg:px-14 lg:pt-16`}
     >
       <div className={styles.get_in_touch_info}>
         <h4>Elevate Your Business with Avenue Impact</h4>

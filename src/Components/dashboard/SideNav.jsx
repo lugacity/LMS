@@ -22,10 +22,12 @@ export function Sidebar({ children }) {
   // fixed left-0 top-0 z-10
 
   return (
+
     <aside className="fixed left-0 top-0 h-screen w-min lg:w-[272px]">
       <nav className="flex h-full w-full flex-col border-r bg-white shadow-sm">
         <div className="mb-3 flex items-center justify-center p-4 pb-2 lg:ml-4 lg:justify-start">
           <img src={mobileLogo} alt="" className="w-8 lg:hidden" />
+
           <DarkLogo
             className={`hidden overflow-hidden transition-all lg:block lg:w-40`}
           />

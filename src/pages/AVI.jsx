@@ -35,7 +35,7 @@ const AVI = () => {
       <section>
         {/* AVI IMAGE */}
         <div className={`${styles.AVI_img} py-14`}>
-          <img src={AVIbg} alt="" />
+          <img src={AVIbg} alt="" className="w-full"/>
         </div>
 
         {/* Checkout our top courses */}
@@ -57,7 +57,7 @@ const AVI = () => {
               </div>
             </div>
 
-            <div className="mt-2 h-[1px] w-full bg-[#C7D7F4]" />
+        <div className="mt-2 h-[1px] w-full bg-[#C7D7F4]" />
 
             <div
               className={`${styles.career_content} w-full py-8 text-[#667185] lg:w-1/2`}
@@ -168,10 +168,10 @@ const AVI = () => {
               </div>
 
               <div className={styles.team_skills_content}>
-                <h3 className="text-2xl font-normal capitalize text-[#23314A]">
+                <h3 className="lg:text-[40px] text-[24px] leading-9 font-normal capitalize text-[#385d9e]">
                   Enhance your team's skills <br /> with Avenue Impact Academy.
                 </h3>
-                <p className="text-justify">
+                <p className="text-justify py-7">
                   {" "}
                   Gain unlimited access to over 25,000 top courses anytime,
                   anywhere. Discover our international course collection
@@ -215,7 +215,7 @@ const AVI = () => {
         {/* Our Certified Professionals */}
         <div className={styles.certified_pro}>
           <div className={styles.certified_img}>
-            <img src={professionalBG} alt="" />
+            <img src={professionalBG} alt="" className="w-full"/>
           </div>
 
           <ImageOverlay>

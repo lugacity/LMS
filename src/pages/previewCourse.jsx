@@ -1,13 +1,19 @@
 import React from "react";
 import MainContent from "../Components/MainContent/MainContent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faArrowLeft, faStar } from "@fortawesome/free-solid-svg-icons";
 // import { faStar } from '@fortawesome/free-solid-svg-icons';
 import styles from "./pages.module.css";
 import { CourseCardPreview, renderStars } from "../Components/CourseCard";
 import joinTeam from "../assets/images/join_team.png";
 import CourseCard from "../Components/CourseCard";
 import ImageOverlay from "../Components/ImageOverlay";
+import iconDark from "../assets/icons/icon-dark.png";
+import AvenueList from "../Components/Assets/AvenueList";
+
+
+
+
 import {
 	ProfessionalList,
 	professionalItems,
@@ -21,8 +27,16 @@ import certificate from "../assets/images/certificate.png";
 import professionalBG from "../assets/images/proffessional.png";
 import AviNav from "../Components/avi/AviNav";
 import { ScrollRestoration } from "react-router-dom";
+// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { cn } from "@/lib/utils";
+
 
 const PreviewCourse = ({ features }) => {
+
+	const navigate = useNavigate();
+	// const history = useHistory(); // Hook to navigate back
+
 	// Ensure features is defined, falling back to default courseFeatures
 	const courseFeatures = features || [
 		"18 hours on-demand video",
@@ -35,15 +49,25 @@ const PreviewCourse = ({ features }) => {
 		<>
 			<ScrollRestoration />
 
-			<AviNav />
+			<div className=" hidden lg:block">
+				<AviNav />
+			</div>
 
-			{/* Search for more courses */}
+			{/* Search for more {`${styles.checkout_courses}`} #23314A courses */}
 			<section>
-				<div className={styles.checkout_courses}>
-					<div className="lg:py-4 lg:px-14 pt-10 px-4">
-						<div className={styles.checkoutCoursesFlex}>
-							<div className={styles.checkoutCourses1}>
-								<p className="text-[#23314A] text-2xl font-normal">
+				<div className={cn(styles.checkout_courses, 'bg-[#23314A]')}>
+					<div className="pt-10">
+						{/* Back Button for Mobile View */}
+						<div className="sm:hidden flex items-center mb-4 py-4 px-4">
+							<button onClick={() => navigate('/avi')} className="text-white">
+							<FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+							
+							</button>
+						</div>
+						
+						<div className={`${styles.checkoutCoursesFlex} lg:flex hidden py-4 px-5 lg:py-4 lg:px-12`}>
+							<div className={`${styles.checkoutCourses1} hidden sm:block`}>
+							<p className="text-[#23314A] text-2xl font-normal">
 									Search for more courses
 								</p>
 							</div>
@@ -60,51 +84,50 @@ const PreviewCourse = ({ features }) => {
 
 						{/* Project Consultant */}
 						<div className={`${styles.project_consult} text-white`}>
-							<div className={`${styles.project_consultFlex} px-2 `}>
-								<div className={`${styles.project_consult1} lg:w-2/4`}>
-									<p className=" sm:text-2xl font-normal">
-										Project Consultant Training Programme (Bundle)
-									</p>
+							<div className={`${styles.project_consultFlex} py-4 px-5 lg:py-4 lg:px-12`}>
+							<div className={`${styles.project_consult1} lg:w-3/4`}>
+								<p className="lg:text-[40px] text-[24px] font-normal">
+									Project Consultant Training Programme (Bundle)
+								</p>
 
-									<div className="text-lg flex items-center py-2">
-										<p>4.3</p>
-										<p>{renderStars()}</p>
-										<p>43,55</p>
-									</div>
-
-									<div className="text-white">
-										<p className="text-2xl py-2">This course Includes:</p>
-										<ul className="list-none p-0 m-0">
-											{courseFeatures.map((feature, index) => (
-												<li key={index} className=" mb-2">
-													<FontAwesomeIcon
-														icon={faCheckCircle}
-														className=" mr-2"
-													/>
-													<span>{feature}</span>
-												</li>
-											))}
-										</ul>
-									</div>
+								<div className="text-lg flex items-center py-2">
+								<p>4.3</p>
+								<p>{renderStars()}</p>
+								<p>43,55</p>
 								</div>
 
-								<div className={styles.project_consult1}>
-									<CourseCardPreview
-										imgSrc={joinTeam}
-										previewButtonText="Enroll now"
-									/>
+								<div className="text-white">
+								<p className="text-2xl py-2">This course Includes:</p>
+								<ul className="list-none p-0 m-0">
+									{courseFeatures.map((feature, index) => (
+									<li key={index} className="mb-2">
+										<FontAwesomeIcon
+										icon={faCheckCircle}
+										className="mr-2"
+										/>
+										<span>{feature}</span>
+									</li>
+									))}
+								</ul>
 								</div>
+							</div>
+
+							<div className={styles.project_consult1}>
+								<CourseCardPreview
+								imgSrc={joinTeam}
+								previewButtonText="Enroll now"
+								/>
+							</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				{/* overview */}
-				<div className="lg:py-4 lg:px-14 pt-10 px-4">
+				<div className="lg:px-14 px-4 pt-[100px]">
 					<div className={styles.overviewFlex}>
-						<div
-							className={`${styles.overviewCourses1} text-[#667185] text-justify`}>
-							<p className=" text-2xl font-normal capitalize">Overview</p>
+						<div className={`${styles.overviewCourses1} text-[#667185] text-justify`}>
+							<p className=" lg:text-[40px] text-[24px] font-[300] capitalize">Overview</p>
 
 							<div className="bg-[#C7D7F4] lg:block hidden w-full h-[1px] mt-2" />
 
@@ -120,9 +143,13 @@ const PreviewCourse = ({ features }) => {
 						</div>
 
 						<div className={`${styles.overviewCourses1} text-[#667185]`}>
-							<p className=" text-2xl font-normal">Tools and Technologies:</p>
+							<p className=" lg:text-[40px] text-[24px] font-[300] ">Tools and Technologies:</p>
 
 							<div className="bg-[#C7D7F4] lg:block hidden w-full h-[1px] mt-2" />
+
+							<AvenueList className=" lg:text-[18px] text-[16px] font-[400] " src={iconDark} textColor={"#667185"}>
+								Business Transormation & Advisory{" "}
+							</AvenueList>
 
 							<p className="pt-2">
 								<FontAwesomeIcon className="mr-2" icon={faCheckCircle} />
@@ -147,7 +174,7 @@ const PreviewCourse = ({ features }) => {
 					<div className={`${styles.overviewFlex} py-8`}>
 						<div
 							className={`${styles.overviewCourses1} text-[#667185] text-justify`}>
-							<p className="text-2xl font-normal capitalize">Benefit</p>
+							<p className="lg:text-[40px] text-[24px] font-[300] capitalize">Benefit</p>
 
 							<div className="bg-[#C7D7F4] lg:block hidden w-full h-[1px] mt-2" />
 
@@ -179,7 +206,7 @@ const PreviewCourse = ({ features }) => {
 						{/* Programme Highlight */}
 
 						<div className={`${styles.overviewCourses1} text-[#667185]`}>
-							<p className="text-2xl font-normal capitalize">
+							<p className="lg:text-[40px] text-[24px] font-[300] capitalize">
 								Programme Highlights:
 							</p>
 
@@ -246,13 +273,13 @@ const PreviewCourse = ({ features }) => {
 					<div className="lg:py-0 lg:px-14 pt-2 px-8">
 						
 							<div className={styles.checkoutCourses1}>
-								<p className="text-[#23314A] text-2xl font-normal">
+								<p className="text-[#23314A] lg:text-[40px] text-[24px] font-[300]">
 									Checkout related courses
 								</p>
 							</div>
 						
 						<div
-							className={`${styles.career_content} py-8 text-[#667185] lg:w-1/2 w-full`}>
+							className={`${styles.career_content} py-8 text-[#667185]  lg:w-3/4 w-full`}>
 							<p>
 								{" "}
 								Discover our most popular courses, carefully curated to enhance
