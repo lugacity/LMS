@@ -31,6 +31,9 @@ function Courses({ wishlist, handleWishlist }) {
 
         <div className="mt-3 flex items-center justify-between">
           <span className="text-xs text-tertiary-color-900 md:text-sm">
+
+            
+
             {price}
           </span>
           <button
