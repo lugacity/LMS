@@ -9,10 +9,10 @@ const Card = ({ heading, children, className }) => {
         className,
       )}
     >
-      <h3 className="text-lg capitalize text-[#667185] md:text-3xl">
+      <h3 className="lg:text-[20px] text-[18px] capitalize text-[#667185] ">
         {heading}
       </h3>
-      <ul className="list-disc space-x-3 *:text-base *:text-[#667185] md:space-y-4 md:*:text-lg">
+      <ul className="list-disc space-x-3 *:text-base *:text-[#667185] md:space-y-4 lg:text-[20px] text-[17px]">
         {children}
       </ul>
     </article>

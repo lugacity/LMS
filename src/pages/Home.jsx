@@ -63,11 +63,11 @@ const Home = () => {
         </div>
       </section>
       <Container>
-        <section className="grid gap-3 md:grid-cols-2">
-          <h2 className="text-2xl font-light text-[#cc1747] md:text-3xl">
+        <section className="grid gap-3 md:grid-cols-2  font-[300] ">
+          <h2 className="lg:text-[40px]  text-[#cc1747] text-[24px]">
             Avenue Impact Empowers Your Business Growth
           </h2>
-          <p className="text-justify text-base text-[#667185] md:text-xl">
+          <p className="text-justify lg:text-[20px] text-[#667185] md:text-xl">
             Whether you are looking to expand into new markets, streamline
             operations, or simply need support navigating {"today's"} complex
             business landscape, we are here to help. Let us help you grow your
@@ -108,10 +108,10 @@ const Home = () => {
       <div>
         <ImageOverlay>
           <Container className="z-50">
-            <h3 className="mb-8 text-2xl font-light text-[#f4f5f7] md:text-3xl lg:text-4xl">
+            <h3 className="mb-8 font-light text-[#f4f5f7] lg:text-[40px] text-[24px]">
               Our certified professionals in various disciplines
             </h3>
-            <div className="flex flex-wrap items-center justify-between lg:space-x-[34px]">
+            <div className="flex text-[] gap-3 flex-wrap items-center  lg:space-x-[34px] ">
               <div className="space-y-3">
                 <AvenueList src={iconLight} textColor={"#f4f5f7"}>
                   Agile and Digital Business Analysis{" "}
@@ -131,7 +131,7 @@ const Home = () => {
                 <AvenueList src={iconLight} textColor={"#f4f5f7"}>
                   Software Development{" "}
                 </AvenueList>
-              </div>
+              </div> 
               <div className="space-y-3">
                 <AvenueList src={iconLight} textColor={"#f4f5f7"}>
                   Digital Transformation Solution{" "}
@@ -159,11 +159,11 @@ const Home = () => {
       <img src={professional} alt="people sitting round a table" />
       <Container className="bg-#f4f5f7">
         <div className="ml-auto max-w-4xl">
-          <h3 className="mb-8 text-2xl font-light text-[#23314A] md:text-3xl lg:text-4xl">
+          <h3 className="mb-4 font-light text-[#23314A] lg:text-[40px] text-[24px]">
             Industries we serve
           </h3>
-          <div className="flex flex-wrap items-center justify-between lg:space-x-[34px]">
-            <div className="space-y-3">
+          <div className="flex lg:gap-0 gap-3 flex-wrap items-center justify-between lg:space-x-[34px]">
+            <div className="space-y-3 lg:text-[24px] text-[26px]">
               <AvenueList src={iconDark} textColor={"#667185"}>
                 Business Transormation & Advisory{" "}
               </AvenueList>
@@ -202,11 +202,11 @@ const Home = () => {
       </Container>
       <ImageOverlay>
         <Container>
-          <HeroHeading className={"max-w-[373px] md:max-w-[1286px]"}>
+          <HeroHeading className={"font-[300]"}>
             Ready to Connect with an Expert at Avenue Impact?
           </HeroHeading>
-          <p className="text-1xl mb-10 mt-3 font-poppins font-light text-[#f4f5f7]">
-            Receive bespoke support from our experienced consultants and elevate
+          <p className="lg:text-[24px] text-[14px] lg:max-w-3xl mb-10 mt-3 font-poppins font-[300] text-[#f4f5f7]">
+            Receive bespoke support from our experienced consultants and  elevate
             your business to new heights.
           </p>
 
@@ -215,11 +215,11 @@ const Home = () => {
       </ImageOverlay>
       <Container>
         <div className="grid gap-3 gap-y-6 md:grid-cols-2">
-          <h3 className="text-2xl text-[#23314A] md:text-3xl">
+          <h3 className="lg:text-[40px] text-[24px] text-[#23314A]">
             About Avenue Impact
           </h3>
 
-          <p className="text-justify text-sm text-[#667185] md:text-xl">
+          <p className="text-justify  text-[#667185] lg:text-[18px] text-[14px]">
             Our drive is to make a noticeable difference in everything we
             undertake. At Avenue Impact, our focus is on supporting established
             and growing companies in the best possible way. Our team of business
@@ -232,10 +232,11 @@ const Home = () => {
         </div>
         <div className="mt-6">
           <ImageSwiper slideMobile={1.3} slideDesk={2.2}>
-            <img src={slider1} alt="" className="mx-3 block h-full" />
-            <img src={slider2} alt="" className="mx-3 block h-full" />
-            <img src={slider3} alt="" className="mx-3 block h-full" />
-            <img src={slider4} alt="" className="mx-3 block h-full" />
+          <img src={slider1} alt="" className="mx-3 block lg:h-[320px] h-[201px] w-[325px]" />
+          <img src={slider2} alt="" className="mx-3 block lg:h-[320px] h-[201px] w-[325px]" />
+          <img src={slider3} alt="" className="mx-3 block lg:h-[320px] h-[201px] w-[325px]" />
+          <img src={slider4} alt="" className="mx-3 block lg:h-[320px] h-[201px] w-[325px]" />
+
           </ImageSwiper>
         </div>
       </Container>

@@ -33,7 +33,7 @@ const DigitalTransformation = () => {
         </div>
       </ImageHero>
       <section className="px-0 py-24 lg:px-20">
-        <h2 className="px-6 font-poppins text-2xl font-light text-[#3A4C6C] md:text-3xl lg:px-0 lg:text-[2.5rem] lg:font-bold">
+        <h2 className="px-6 font-poppins font-[300] lg:text-[40px] text-[24px] text-[#3A4C6C] md:text-3xl lg:px-0 ">
           Our Digital Transformation <br /> Offerings{" "}
         </h2>
         <div className="mt-10">
@@ -52,7 +52,7 @@ const DigitalTransformation = () => {
         </div>
       </section>
       <section className="md:px-20 md:py-24">
-        <h2 className="text-center font-poppins text-2xl font-light text-[#3A4C6C] md:text-center md:text-[2.5rem]">
+        <h2 className="text-center lg:text-left font-poppins  font-light text-[#3A4C6C] leading-9 md:text-center lg:text-[40px] text-[24px]">
           Why Choose Avenue <br className="hidden md:block" /> Impact?
         </h2>
         <div className="mt-10 grid gap-0 md:grid-cols-2">

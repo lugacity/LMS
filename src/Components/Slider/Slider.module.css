@@ -67,7 +67,7 @@ button i {
 
 
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 768px) {
   .slide {
     flex-direction: column;
   }
