@@ -79,16 +79,16 @@ const EmptyPage = () => {
 
     { modal && 
       <Modal>
-      <BorderCard className='bg-white'>
-        <button onClick={()=>setShowModal(prev=>!prev)}>
-          <FontAwesomeIcon icon={faTimes} />
-        </button>
-        
-        
-        <div>
-          {modal && <ModalContent setShowModal={setShowModal} />}
-        </div>
-      </BorderCard>
+        <BorderCard className='bg-white'>
+          <button onClick={()=>setShowModal(prev=>!prev)}>
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
+          
+          
+          <div>
+            {modal && <ModalContent setShowModal={setShowModal} />}
+          </div>
+        </BorderCard>
     </Modal>
     }
 
