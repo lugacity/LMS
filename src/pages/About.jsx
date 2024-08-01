@@ -56,7 +56,7 @@ const About = () => {
           </div>
 
           <div className={`${styles.welcome_avenue_img} pb-10`}>
-            <img src={AvenueImage} alt="" />
+            <img src={AvenueImage} alt="" className="w-full"/>
           </div>
         </div>
 
