@@ -74,8 +74,8 @@
 
 .previewCoursesFlex{
     display: grid;
-    grid-template-columns: 2fr 2fr 2fr;
-    gap: 2rem;
+    grid-template-columns: 2fr 2fr 2fr 2fr;
+    gap: 1rem;
 }
 
 .team_skills{
@@ -103,13 +103,9 @@
 }
 
 
-
-
-
-
-
-
-
+.overviewCourses1 .AvenueList{
+    padding: .5rem 0rem;
+}
 
 
 
@@ -154,7 +150,8 @@
       
       .previewCoursesFlex{
         display: grid;
-        grid-template-columns: 2fr 2fr;      
+        grid-template-columns: 2fr 2fr;  
+            
      }
 
       
@@ -180,9 +177,10 @@
     }
 
     .previewCoursesFlex{
-        display: grid;    
-        grid-template-columns: 2fr;
-    }
+        display: grid;
+        grid-template-columns: 2fr 2fr;  
+            
+     }
 
     .team_skills{
         display: flex;

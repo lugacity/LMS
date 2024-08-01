@@ -55,19 +55,12 @@ const PreviewCourse = ({ features }) => {
 
 			{/* Search for more {`${styles.checkout_courses}`} #23314A courses */}
 			<section>
-				<div className={cn(styles.checkout_courses, 'bg-[#23314A]')}>
-					<div className="pt-10">
-						{/* Back Button for Mobile View */}
-						<div className="sm:hidden flex items-center mb-4 py-4 px-4">
-							<button onClick={() => navigate('/avi')} className="text-white">
-							<FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-							
-							</button>
-						</div>
-						
-						<div className={`${styles.checkoutCoursesFlex} lg:flex hidden py-4 px-5 lg:py-4 lg:px-12`}>
+				<div className={cn(styles.checkout_courses, '')}>
+					<div className="lg:pt-10">
+
+						<div className={`${styles.checkoutCoursesFlex} lg:flex  hidden py-4 px-5 lg:py-4 lg:px-12`}>
 							<div className={`${styles.checkoutCourses1} hidden sm:block`}>
-							<p className="text-[#23314A] text-2xl font-normal">
+								<p className="text-[#23314A] text-2xl font-normal">
 									Search for more courses
 								</p>
 							</div>
@@ -82,56 +75,67 @@ const PreviewCourse = ({ features }) => {
 
 						<div className="bg-[#C7D7F4] lg:block hidden w-full h-[1px] mt-2" />
 
-						{/* Project Consultant */}
-						<div className={`${styles.project_consult} text-white`}>
-							<div className={`${styles.project_consultFlex} py-4 px-5 lg:py-4 lg:px-12`}>
-							<div className={`${styles.project_consult1} lg:w-3/4`}>
-								<p className="lg:text-[40px] text-[24px] font-normal">
-									Project Consultant Training Programme (Bundle)
-								</p>
+						<div className="bg-[#23314A]">
 
-								<div className="text-lg flex items-center py-2">
-								<p>4.3</p>
-								<p>{renderStars()}</p>
-								<p>43,55</p>
-								</div>
+							{/* Back Button for Mobile View */}
+							<div className="sm:hidden flex items-center mb-4 pt-9 px-4">
+								<button onClick={() => navigate('/avi')} className="text-white">
+								<FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+								</button>
+							</div>
 
-								<div className="text-white">
-								<p className="text-2xl py-2">This course Includes:</p>
-								<ul className="list-none p-0 m-0">
-									{courseFeatures.map((feature, index) => (
-									<li key={index} className="mb-2">
-										<FontAwesomeIcon
-										icon={faCheckCircle}
-										className="mr-2"
+							{/* Project Consultant */}
+							<div className={`${styles.project_consult} text-white `}>
+								<div className={`${styles.project_consultFlex}  px-5 lg:py-4 lg:px-12`}>
+									<div className={`${styles.project_consult1} lg:w-3/4`}>
+										<p className="lg:text-[40px] text-[24px] font-normal">
+											Project Consultant Training Programme (Bundle)
+										</p>
+
+										<div className="text-lg flex items-center py-2">
+										<p>4.3</p>
+										<p>{renderStars()}</p>
+										<p>43,55</p>
+										</div>
+
+										<div className="text-white">
+										<p className="text-2xl py-2">This course Includes:</p>
+										<ul className="list-none p-0 m-0">
+											{courseFeatures.map((feature, index) => (
+											<li key={index} className="mb-2">
+												<FontAwesomeIcon
+												icon={faCheckCircle}
+												className="mr-2"
+												/>
+												<span>{feature}</span>
+											</li>
+											))}
+										</ul>
+										</div>
+									</div>
+
+									<div className={styles.project_consult1}>
+										<CourseCardPreview
+										imgSrc={joinTeam}
+										previewButtonText="Enroll now"
 										/>
-										<span>{feature}</span>
-									</li>
-									))}
-								</ul>
+									</div>
 								</div>
 							</div>
 
-							<div className={styles.project_consult1}>
-								<CourseCardPreview
-								imgSrc={joinTeam}
-								previewButtonText="Enroll now"
-								/>
-							</div>
-							</div>
 						</div>
 					</div>
 				</div>
 
 				{/* overview */}
-				<div className="lg:px-14 px-4 pt-[100px]">
+				<div className="lg:px-14 px-4 pt-[50px]">
 					<div className={styles.overviewFlex}>
 						<div className={`${styles.overviewCourses1} text-[#667185] text-justify`}>
 							<p className=" lg:text-[40px] text-[24px] font-[300] capitalize">Overview</p>
 
 							<div className="bg-[#C7D7F4] lg:block hidden w-full h-[1px] mt-2" />
 
-							<p className="pt-2">
+							<p className="lg:pt-9 pt-3 lg:text-[18px] text-[16px] font-[300]">
 								The 3.5 Months Project Consultant Training Programme (Bundle) is
 								a comprehensive and intensive course designed for aspiring
 								project consultants who aim to excel in the dynamic field of
@@ -146,61 +150,68 @@ const PreviewCourse = ({ features }) => {
 							<p className=" lg:text-[40px] text-[24px] font-[300] ">Tools and Technologies:</p>
 
 							<div className="bg-[#C7D7F4] lg:block hidden w-full h-[1px] mt-2" />
+							
+							<div className="lg:pt-9 pt-3">
+								<div className={`${styles.AvenueList} flex gap-4 items-start`}>
+									<AvenueList src={iconDark} textColor={"#667185"}></AvenueList>
+									<p className="lg:text-[18px] text-[16px] font-[300]">Business Transormation & Advisory</p>
+								</div>
 
-							<AvenueList className=" lg:text-[18px] text-[16px] font-[400] " src={iconDark} textColor={"#667185"}>
-								Business Transormation & Advisory{" "}
-							</AvenueList>
+								<div className={`${styles.AvenueList} flex gap-4 items-start`}>
+									<AvenueList src={iconDark} textColor={"#667185"}></AvenueList>
+									<p className="lg:text-[18px] text-[16px] font-[300]">Mastery of project management software (e.g., MS Project, Jira,
+										Asana)</p>
+								</div>
 
-							<p className="pt-2">
-								<FontAwesomeIcon className="mr-2" icon={faCheckCircle} />
-								Mastery of project management software (e.g., MS Project, Jira,
-								Asana)
-							</p>
+								<div className={`${styles.AvenueList} flex gap-4 items-start`}>
+									<AvenueList src={iconDark} textColor={"#667185"}></AvenueList>
+									<p className="lg:text-[18px] text-[16px] font-[300]">Data analysis and reporting tools</p>
+								</div>
 
-							<p className="pt-2">
-								<FontAwesomeIcon className="mr-2" icon={faCheckCircle} />
-								Data analysis and reporting tools
-							</p>
-
-							<p className="pt-2">
-								<FontAwesomeIcon className="mr-2" icon={faCheckCircle} />
-								Emerging technologies in project management
-							</p>
+								<div className={`${styles.AvenueList} flex gap-4 items-start`}>
+									<AvenueList src={iconDark} textColor={"#667185"}></AvenueList>
+									<p className="lg:text-[18px] text-[16px] font-[300]">Emerging technologies in project management</p>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 
 					{/* Benefit & Programme Highlights: */}
 
 					<div className={`${styles.overviewFlex} py-8`}>
-						<div
-							className={`${styles.overviewCourses1} text-[#667185] text-justify`}>
+						<div className={`${styles.overviewCourses1} text-[#667185] text-justify`}>
+							
 							<p className="lg:text-[40px] text-[24px] font-[300] capitalize">Benefit</p>
 
 							<div className="bg-[#C7D7F4] lg:block hidden w-full h-[1px] mt-2" />
 
-							<p className="pt-2">
-								<FontAwesomeIcon className="mr-2" icon={faCheckCircle} />
-								Career Advancement: Open doors to new career opportunities and
-								promotions.
-							</p>
+							<div className="lg:pt-9 pt-3">
+								<div className={`${styles.AvenueList} flex gap-4 items-start`}>
+									<AvenueList src={iconDark} textColor={"#667185"}></AvenueList>
+									<p className="lg:text-[18px] text-[16px] font-[300]">Career Advancement: Open doors to new career opportunities and
+									promotions.</p>
+								</div>
 
-							<p className="pt-2">
-								<FontAwesomeIcon className="mr-2" icon={faCheckCircle} />
-								Industry Recognition: Gain credibility and recognition as a
-								certified project consultant.
-							</p>
+								<div className={`${styles.AvenueList} flex gap-4 items-start`}>
+									<AvenueList src={iconDark} textColor={"#667185"}></AvenueList>
+									<p className="lg:text-[18px] text-[16px] font-[300]">Industry Recognition: Gain credibility and recognition as a
+									certified project consultant.</p>
+								</div>
 
-							<p className="pt-2">
-								<FontAwesomeIcon className="mr-2" icon={faCheckCircle} />
-								Networking Opportunities: Connect with peers, mentors, and
-								industry experts.
-							</p>
+								<div className={`${styles.AvenueList} flex gap-4 items-start`}>
+									<AvenueList src={iconDark} textColor={"#667185"}></AvenueList>
+									<p className="lg:text-[18px] text-[16px] font-[300]">Networking Opportunities: Connect with peers, mentors, and
+									industry experts.</p>
+								</div>
 
-							<p className="pt-2">
-								<FontAwesomeIcon className="mr-2" icon={faCheckCircle} />
-								Lifetime Access: Continue to access course materials and updates
-								even after the programme ends.
-							</p>
+								<div className={`${styles.AvenueList} flex gap-4 items-start`}>
+									<AvenueList src={iconDark} textColor={"#667185"}></AvenueList>
+									<p className="lg:text-[18px] text-[16px] font-[300]">Lifetime Access: Continue to access course materials and updates
+									even after the programme ends.</p>
+								</div>
+							</div>
+							
 						</div>
 
 						{/* Programme Highlight */}
@@ -212,14 +223,16 @@ const PreviewCourse = ({ features }) => {
 
 							<div className="bg-[#C7D7F4] lg:block hidden w-full h-[1px] mt-2" />
 
-							<div className="mt-4">
+							<div className="lg:pt-9 pt-3">
+								
 								<div className="flex items-start">
 									<FontAwesomeIcon className="mr-2 mt-1" icon={faCheckCircle} />
 									<div className="flex-1">
-										<p className="font-semibold">Format:</p>
+										<p className="font-bold">Format:</p>
 										<p>Blended learning with online and in-person sessions</p>
 									</div>
 								</div>
+								
 
 								<div className="flex items-start mt-2">
 									<FontAwesomeIcon className="mr-2 mt-1" icon={faCheckCircle} />
@@ -264,6 +277,7 @@ const PreviewCourse = ({ features }) => {
 									</div>
 								</div>
 							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -278,9 +292,8 @@ const PreviewCourse = ({ features }) => {
 								</p>
 							</div>
 						
-						<div
-							className={`${styles.career_content} py-8 text-[#667185]  lg:w-3/4 w-full`}>
-							<p>
+						<div className={`${styles.career_content} lg:py-8 py-3 text-[#667185]  lg:w-3/4 w-full`}>
+							<p className="leading-6">
 								{" "}
 								Discover our most popular courses, carefully curated to enhance
 								your skills and advance your career. Join thousands of learners

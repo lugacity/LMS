@@ -104,7 +104,9 @@ const Home = () => {
           />
         </div>
       </Container>
-      <img src={group} alt="" />
+
+      <img src={group} alt="" className="w-full"/>
+      
       <div>
         <ImageOverlay>
           <Container className="z-50">
@@ -156,7 +158,7 @@ const Home = () => {
           </Container>
         </ImageOverlay>
       </div>
-      <img src={professional} alt="people sitting round a table" />
+      <img src={professional} alt="people sitting round a table" className="w-full"/>
       <Container className="bg-#f4f5f7">
         <div className="ml-auto max-w-4xl">
           <h3 className="mb-4 font-light text-[#23314A] lg:text-[40px] text-[24px]">
@@ -232,10 +234,10 @@ const Home = () => {
         </div>
         <div className="mt-6">
           <ImageSwiper slideMobile={1.3} slideDesk={2.2}>
-          <img src={slider1} alt="" className="mx-3 block lg:h-[320px] h-[201px] w-[325px]" />
-          <img src={slider2} alt="" className="mx-3 block lg:h-[320px] h-[201px] w-[325px]" />
-          <img src={slider3} alt="" className="mx-3 block lg:h-[320px] h-[201px] w-[325px]" />
-          <img src={slider4} alt="" className="mx-3 block lg:h-[320px] h-[201px] w-[325px]" />
+          <img src={slider1} alt="" className="mx-3 block " />
+          <img src={slider2} alt="" className="mx-3 block " />
+          <img src={slider3} alt="" className="mx-3 block " />
+          <img src={slider4} alt="" className="mx-3 block " />
 
           </ImageSwiper>
         </div>

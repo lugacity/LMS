@@ -66,10 +66,10 @@ export function Sidebar({ children }) {
               onClick={() => console.log(location.pathname)}
             >
               <NavLink
-                to={"student-settings"}
+                to={"referral"}
                 className={cn(
                   "group relative my-1 flex cursor-pointer items-center border-4 border-transparent px-3 py-2 text-gray-600 transition-colors hover:border-l-primary-color-600 hover:bg-primary-color-100/30 hover:text-primary-color-600",
-                  location.pathname === "/dashboard/student-settings"
+                  location.pathname === "/dashboard/referral"
                     ? "border-l-4 border-l-primary-color-600 bg-primary-color-100/30 font-medium text-primary-color-600"
                     : "",
                 )}
