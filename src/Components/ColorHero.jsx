@@ -4,7 +4,7 @@ const ColorHero = () => {
 	return (
 		<section className="py-12 md:py-24 px-6 lg:px-20 relative">
 			<div className=" w-[256px] h-[256px]   lg:w-[356px] lg:h-[356px] rounded-full bg-[#FFEBF080] absolute top-0 -right-5 md:right-[244px] -z-10"></div>
-			<h1 className=" md:text-6xl text-[2.5rem] lg:text-8xl font-poppins font-light z-10 leading-snug ">
+			<h1 className=" md:text-6xl text-[2.5rem] lg:text-7xl font-poppins font-light z-10 leading-snug ">
 				<span className="text-[rgb(204,23,71)]">
 					{" "}
 					Jumpstart Your Career <br className="hidden lg:block" /> with{" "}

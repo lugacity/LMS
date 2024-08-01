@@ -36,7 +36,7 @@ const ForgotPassword = () => {
             <Paragraph>Use your email to sign in to your dashboard</Paragraph>
           </div>
           <Form {...form}>
-            <form action="" className="space-y-4">
+            <form action="" className="space-y-2">
               <FormInput
                 name="username"
                 label="Username/Email"
@@ -47,7 +47,7 @@ const ForgotPassword = () => {
               />
 
               <CommonButton
-                className="bg-primary-color-600 font-poppins hover:bg-primary-color-600 mt-8 w-full text-xl font-semibold capitalize text-white"
+                className="mt-8 w-full bg-primary-color-600 font-poppins text-xl font-semibold capitalize text-white hover:bg-primary-color-600"
                 type="submit"
               >
                 reset
@@ -61,7 +61,7 @@ const ForgotPassword = () => {
           </span>
           <Link
             to={"/signup"}
-            className="text-primary-color-600 text-sm font-semibold capitalize"
+            className="text-sm font-semibold capitalize text-primary-color-600"
           >
             sign up
           </Link>

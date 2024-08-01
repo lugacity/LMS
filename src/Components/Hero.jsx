@@ -21,7 +21,7 @@ const Hero = ({ videoSrc, children, className }) => {
           className,
         )}
       >
-        <div className="flex min-h-screen w-full items-end md:items-center">
+        <div className="flex min-h-screen w-full items-center md:items-center">
           {children}
         </div>
       </div>

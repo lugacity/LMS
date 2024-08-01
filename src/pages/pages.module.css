@@ -74,15 +74,15 @@
 
 .previewCoursesFlex{
     display: grid;
-    grid-template-columns: 2fr 2fr 2fr;
-    gap: 2rem;
+    grid-template-columns: 2fr 2fr 2fr 2fr;
+    gap: 1rem;
 }
 
 .team_skills{
     display: grid;
     grid-template-columns: 2fr 2fr;
     align-items: center;
-    gap: 2rem;
+    /* gap: 1rem; */
 }
 
 .project_consultFlex{
@@ -90,7 +90,7 @@
     grid-template-columns: 2fr 1fr;
     align-items: center;
     gap: 2rem;
-    background-color: #23314A;
+    /* background-color: #23314A; */
 }
 
 
@@ -98,17 +98,14 @@
 .overviewFlex{
     display: grid;
     grid-template-columns: 2fr 2fr;
+    /* justify-content: end; */
     gap: 3rem;
 }
 
 
-
-
-
-
-
-
-
+.overviewCourses1 .AvenueList{
+    padding: .5rem 0rem;
+}
 
 
 
@@ -116,9 +113,7 @@
 
 /* Tablet view */
 @media only screen and (max-width: 1100px){
-    .welcome_avenue h2 {
-        font-size: 1.75rem; /* Font size for tablet */
-      }
+    
     
       .welcome_avenue p {
         font-size: 1.25rem; /* Font size for tablet */
@@ -155,16 +150,21 @@
       
       .previewCoursesFlex{
         display: grid;
-        grid-template-columns: 2fr 2fr;      
+        grid-template-columns: 2fr 2fr;  
+            
      }
 
       
-     .team_skills_content h3{
-        font-size: 1.3rem;
+     /* .team_skills_content h3{
+        font-size: 40px;
         font-weight: 500;
         padding-bottom: 1rem;
-     }
+     } */
+
      
+     .team_skills{
+        display: block;
+      }
     
       
 }
@@ -177,9 +177,10 @@
     }
 
     .previewCoursesFlex{
-        display: grid;    
-        grid-template-columns: 2fr;
-    }
+        display: grid;
+        grid-template-columns: 2fr 2fr;  
+            
+     }
 
     .team_skills{
         display: flex;
@@ -189,4 +190,5 @@
       .project_consultFlex{
         display: block;
       }
+
 }

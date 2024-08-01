@@ -85,8 +85,8 @@ const Slider = () => {
           </div>
 
           <div className={styles.contentContainer}>
-            <h2 className='font-bold text-2xl text-black pb-3'>{slide.title}</h2>
-            <p>{slide.content}</p>
+            <h2 className='font-bold text-2xl text-[#23314A] pb-3'>{slide.title}</h2>
+            <p className='lg:text-[20px] text-[16px] font-[300] text-justify'>{slide.content}</p>
           </div>
         </div>
       ))}

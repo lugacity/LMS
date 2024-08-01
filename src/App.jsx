@@ -13,7 +13,6 @@ import DataSolution from "./pages/DataSolution";
 import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
 import AVI from "./pages/AVI";
 import PreviewCourse from "./pages/previewCourse";
-
 import Component from "./Components/Component";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/Signup";
@@ -22,10 +21,16 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import EmptyPage from "./pages/dashboard/EmptyPage";
 import Notification from "./pages/dashboard/Notification";
 import Wishlist from "./pages/dashboard/Wishlist";
+
 import StudentSettings from "./pages/dashboard/StudentSettings";
+import Referral from "./pages/dashboard/Referral";
 
 function App() {
   const routes = createBrowserRouter([
+    {
+      path: "/preview-course",
+      element: <PreviewCourse />,
+    },
     {
       path: "/",
       element: <AppLayout />,
@@ -65,10 +70,6 @@ function App() {
       element: <AVI />,
     },
     {
-      path: "/preview-course",
-      element: <PreviewCourse />,
-    },
-    {
       path: "login",
       element: <Login />,
     },
@@ -95,6 +96,12 @@ function App() {
         {
           path: "wishlists",
           element: <Wishlist />,
+        },
+        {
+
+          path: "referral",
+          element: <Referral />,
+
         },
         {
           path: "student-settings",
