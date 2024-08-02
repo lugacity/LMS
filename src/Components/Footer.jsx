@@ -9,7 +9,7 @@ import SocialMediaLinks, { socialMediaData } from "./SocialMediaLink";
 
 const Footer = () => {
   return (
-    <ImageHero imageSrc={footerImg}>
+    <ImageHero imageSrc={footerImg} className={"items-start md:items-end"}>
       <div className="flex h-full lg:items-end lg:justify-end">
         <footer className="h-max">
           <HeroHeading>
@@ -17,17 +17,17 @@ const Footer = () => {
             Call?
           </HeroHeading>
 
-          <div className="my-6 h-[1px] w-full bg-white lg:my-16" />
+          <div className="my-6 h-[2px] w-full bg-white lg:mb-8 lg:mt-12" />
 
-          <div className="grid place-items-center items-center gap-y-7 lg:grid-cols-[5fr_1fr]">
-            <p className="text-sm font-light text-white lg:text-2xl">
+          <div className="grid place-items-center items-start gap-y-5 md:mb-0 lg:grid-cols-[5fr_1fr]">
+            <p className="text-sm font-light text-white md:text-lg">
               Please provide your email address. During this call, we will
               discuss your business requirements and goals, and determine how we
               can support you in reaching your objectives
             </p>
             <Button>send us a message</Button>
           </div>
-          <div className="mt-14 flex flex-wrap items-center justify-between gap-y-10 text-white">
+          <div className="mt-28 flex flex-wrap items-center justify-between gap-y-4 text-white md:mt-10">
             <div>
               <SocialMediaLinks data={socialMediaData} />
             </div>
