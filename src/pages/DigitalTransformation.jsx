@@ -5,20 +5,21 @@ import Card from "../Components/digital-transformation/Card";
 import { digitalData } from "../assets/lib/data";
 import ImpactCard from "../Components/digital-transformation/ImpactCard";
 import DigitalSwiper from "@/Components/digital-transformation/DigitalSwiper";
+import ServiceHeading from "@/Components/ServiceHeading";
 
 const DigitalTransformation = () => {
   return (
     <>
       <ImageHero imageSrc={img} className={"items-end lg:items-start"}>
         <div className="mt-28">
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-8 lg:my-20 2xl:my-32">
             <div className="hidden h-[3px] w-36 bg-white lg:block" />
-            <HeroHeading>
-              digital <br /> transformation
-            </HeroHeading>
+            <ServiceHeading className={"lg:w-[641px]"}>
+              digital transformation
+            </ServiceHeading>
           </div>
           <div className="mb-8 mt-6 block h-px w-full bg-white lg:hidden" />
-          <p className="ml-auto mt-0 max-w-[45.375rem] text-base text-white md:text-lg lg:mt-20 lg:text-lg">
+          <p className="ml-auto mt-0 max-w-[45.375rem] text-base text-white md:text-lg lg:text-lg 2xl:text-2xl">
             <span className="font-medium">
               Navigating the Future with Avenue Impact Consulting
             </span>
@@ -39,9 +40,13 @@ const DigitalTransformation = () => {
         <div className="mt-10">
           <div className="hidden overflow-hidden md:grid md:grid-cols-2 md:gap-6 lg:grid-cols-3">
             {digitalData.map((item) => (
-              <Card key={item.heading} heading={item.heading}>
+              <Card
+                key={item.heading}
+                heading={item.heading}
+                className={"w-full"}
+              >
                 {item.lists.map((list, i) => (
-                  <li key={i} className="font-poppins">
+                  <li key={i} className="ml-7 font-poppins text-lg 2xl:text-xl">
                     {list}
                   </li>
                 ))}
