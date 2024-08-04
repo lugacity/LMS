@@ -22,7 +22,7 @@ const MainContent = () => {
             certified professionals cover various disciplines, including Product
             Management, Data Analytics, and more.
           </p>
-          <Button>Contact Us</Button>
+          <Button className={"2xl:w-[200px]"}>Contact Us</Button>
         </div>
       </div>
     </Hero>

@@ -12,7 +12,7 @@ const DigitalTransformation = () => {
     <>
       <ImageHero imageSrc={img} className={"items-end lg:items-start"}>
         <div className="mt-28">
-          <div className="flex items-center gap-8 lg:my-20 2xl:my-32">
+          <div className="flex items-center gap-8 lg:my-20 2xl:mb-32 2xl:mt-[225px]">
             <div className="hidden h-[3px] w-36 bg-white lg:block" />
             <ServiceHeading className={"lg:w-[641px]"}>
               digital transformation

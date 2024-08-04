@@ -36,7 +36,7 @@ const Navbar = () => {
 
   return (
     <div className="group absolute left-0 top-0 z-20 w-full">
-      <div className="flex justify-between overflow-x-hidden px-8 py-4 transition-all duration-300 ease-linear group-hover:bg-white md:px-12 2xl:px-20">
+      <div className="flex justify-between overflow-x-hidden px-8 py-4 transition-all duration-300 ease-linear group-hover:bg-white md:px-12 lg:py-[25.72px] 2xl:px-20">
         <div className="nav-logo">
           <WhiteLogo className="block h-[34.45px] w-[155.05px] group-hover:hidden lg:h-[40.55px] lg:w-[200px]" />
           <DarkLogo

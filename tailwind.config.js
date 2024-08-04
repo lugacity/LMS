@@ -19,7 +19,8 @@ module.exports = {
     },
     extend: {
       screens: {
-        "2xl": '1440px'
+        "2xl": '1440px',
+        "xll": '1366px'
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif']

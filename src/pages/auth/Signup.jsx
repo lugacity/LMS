@@ -112,8 +112,13 @@ const SignUp = () => {
             </form>
           </Form>
 
-          <div className="mt-[18px] flex gap-4">
-            <input type="checkbox" name="" id="" />
+          <div className="mt-[18px] flex items-center gap-4">
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              className="h-6 w-6 accent-[#D0D5DD]"
+            />
             <p className="text-sm text-label">
               Send me exclusive offers, tailored recommendations, and
               educational tips.

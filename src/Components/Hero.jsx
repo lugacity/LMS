@@ -6,7 +6,7 @@ const Hero = ({ videoSrc, children, className }) => {
   return (
     <div
       className={cn(
-        "relative flex min-h-screen w-full bg-black/70 text-center",
+        "relative flex min-h-screen w-full bg-black/45 text-center",
         className,
       )}
     >
