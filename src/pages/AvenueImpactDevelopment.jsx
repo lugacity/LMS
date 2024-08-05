@@ -111,7 +111,7 @@ const AvenueImpactDevelopment = () => {
               projects and activities encourage cooperation, networking, and
               collective action.
             </P>
-            <img src={whatWeDo2} alt="" className="h-[225px] w-[618px]" />
+            <img src={whatWeDo2} alt="" className="w-full" />
           </article>
         </Grid2Layout>
       </Container>

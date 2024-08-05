@@ -42,6 +42,7 @@ const DataSolution = () => {
       <Container className="grid gap-16 md:grid-cols-2 lg:gap-28">
         <div>
           <h2 className="font-poppins text-[24px] font-[300] leading-normal text-[#3A4C6C] lg:text-[35px] lg:leading-[35px] 2xl:text-[40px] 2xl:leading-[40px]">
+
             Data Management and Strategy Services
           </h2>
           <p className="my-6 font-poppins text-[16px] leading-[36px] text-[#667185] lg:text-[20px] 2xl:text-2xl">

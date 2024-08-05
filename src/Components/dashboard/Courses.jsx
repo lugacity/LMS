@@ -19,7 +19,7 @@ function Courses({ wishlist, handleWishlist }) {
     <div className="overflow-hidden rounded-lg">
       <img src={img} alt={title} />
       <div className="bg-[#FCFCFC] px-[10px] py-3">
-        <p className="text-xs text-tertiary-color-900 md:max-w-[166px] md:text-sm">
+        <p className="text-xs text-tertiary-color-900 md:max-w-[190px] md:text-[14px]">
           {title}
         </p>
         <div className="my-3 flex items-center gap-2 md:gap-3">

@@ -49,7 +49,7 @@ const GetInTouch = () => {
         <input
           type="text"
           name="name"
-          placeholder="Enter Your Name"
+          // placeholder="Enter Your Name"
           value={formData.name}
           onChange={handleChange}
         />
@@ -61,7 +61,7 @@ const GetInTouch = () => {
         <input
           type="text"
           name="phone"
-          placeholder="Enter Your Phone Number"
+          // placeholder="Enter Your Phone Number"
           value={formData.phone}
           onChange={handleChange}
         />
@@ -73,7 +73,7 @@ const GetInTouch = () => {
         <input
           type="email"
           name="email"
-          placeholder="Enter Your Email"
+          // placeholder="Enter Your Email"
           value={formData.email}
           onChange={handleChange}
         />
@@ -85,7 +85,7 @@ const GetInTouch = () => {
         <input
           type="text"
           name="message"
-          placeholder="Write a message here"
+          // placeholder="Write a message here"
           value={formData.message}
           onChange={handleChange}
         />

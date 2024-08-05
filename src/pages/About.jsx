@@ -65,12 +65,13 @@ const About = () => {
 
         {/* We are Experts in Career Mentoring */}
         <div className={styles.career_mentoring}>
+
           <section className="px-6 pt-10 lg:px-20 lg:pt-16 2xl:py-[100px]">
+
             <div className={styles.welcome_avenue}>
               <h2 className="text-[24px] font-[300] capitalize text-[#23314A] lg:text-[40px]">
                 We are Experts in Career Mentoring
               </h2>
-              <div className="mt-2 h-[1px] w-full bg-[#C7D7F4]" />
             </div>
 
             <div
@@ -100,10 +101,16 @@ const About = () => {
               <h2 className="text-[24px] font-[300] capitalize text-[#23314A] lg:text-[40px]">
                 Skills
               </h2>
+
+            </div>
+
+            <div className="py-2 lg:text-[20px] text-[16px]  text-[#667185]">
+
               <div className="mt-2 h-[1px] w-full bg-[#C7D7F4] 2xl:mb-3 2xl:mt-[18px]" />
             </div>
 
             <div className="text-[16px] text-[#667185] lg:text-[20px]">
+
               <p>Professional Training + Life Project Experience (Online)</p>
 
               <div className={styles.career_content}>

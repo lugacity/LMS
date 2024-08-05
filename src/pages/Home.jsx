@@ -63,8 +63,10 @@ const Home = () => {
         </div>
       </section>
       <Container>
+
         <section className="grid gap-3 font-[300] md:grid-cols-2 2xl:gap-0">
           <h2 className="text-[24px] text-[#23314A] lg:text-[40px] 2xl:w-[558px]">
+
             Avenue Impact Empowers Your Business Growth
           </h2>
           <p className="text-justify text-[#667185] md:text-xl lg:text-[20px]">
@@ -208,8 +210,8 @@ const Home = () => {
       </Container>
       <ImageOverlay>
         <Container>
-          <HeroHeading className={"font-[300]"}>
-            Ready to Connect with an Expert at Avenue Impact?
+          <HeroHeading >
+           <h1 className={"font-[300] text-[40px] lg:text-[80px]"}>Ready to Connect with an Expert at Avenue Impact?</h1> 
           </HeroHeading>
           <p className="mb-10 mt-3 font-poppins text-[14px] font-[300] text-[#f4f5f7] lg:max-w-3xl lg:text-[24px]">
             Receive bespoke support from our experienced consultants and elevate
@@ -226,6 +228,7 @@ const Home = () => {
           </h3>
 
           <p className="text-justify text-[14px] text-[#667185] lg:text-[18px]">
+
             Our drive is to make a noticeable difference in everything we
             undertake. At Avenue Impact, our focus is on supporting established
             and growing companies in the best possible way. Our team of business
@@ -238,10 +241,10 @@ const Home = () => {
         </div>
         <div className="mt-6">
           <ImageSwiper slideMobile={1.3} slideDesk={2.2}>
-            <img src={slider1} alt="" className="mx-3 block" />
-            <img src={slider2} alt="" className="mx-3 block" />
-            <img src={slider3} alt="" className="mx-3 block" />
-            <img src={slider4} alt="" className="mx-3 block" />
+          <img src={slider1} alt="" className="mx-3 block rounded-tl-3xl rounded-tr-3xl px-2" />
+          <img src={slider2} alt="" className="mx-3 block rounded-tl-3xl rounded-tr-3xl px-2" />
+          <img src={slider3} alt="" className="mx-3 block rounded-tl-3xl rounded-tr-3xl px-2" />
+          <img src={slider4} alt="" className="mx-3 block rounded-tl-3xl rounded-tr-3xl px-2" />
           </ImageSwiper>
         </div>
       </Container>
