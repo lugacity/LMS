@@ -6,7 +6,7 @@ const ImageHero = ({ children, imageSrc, className }) => {
     <>
       <div
         className={cn(
-          "relative flex min-h-screen bg-black/60 px-6 py-8 text-left lg:px-12",
+          "relative flex min-h-screen bg-black/45 px-6 py-8 pb-[80px] text-left lg:px-12 2xl:px-20",
           className,
         )}
       >
