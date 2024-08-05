@@ -26,11 +26,13 @@ const GetInTouch = () => {
 
   return (
     <div
-      className={`${styles.get_in_touch} px-8 py-10 pt-20  lg:px-14 lg:pt-16`}
+      className={`${styles.get_in_touch} px-8 py-10 pt-20 lg:px-14 lg:pt-16 2xl:px-20 2xl:py-[100px]`}
     >
       <div className={styles.get_in_touch_info}>
-        <h4>Elevate Your Business with Avenue Impact</h4>
-        <p>
+        <h4 className="text-2xl font-light 2xl:text-[40px] 2xl:leading-[40px]">
+          Elevate Your Business with Avenue Impact
+        </h4>
+        <p className="2xl:text-xl 2xl:font-light">
           Let us be your partner in elevating your business to new levels of
           success. Our team of knowledgeable experts will collaborate with you
           to comprehend your specific needs and aspirations, and furnish
@@ -88,7 +90,9 @@ const GetInTouch = () => {
           onChange={handleChange}
         />
 
-        <Button>Send a message</Button>
+        <Button className={"mt-8 lg:mt-11"} type="submit">
+          Send a message
+        </Button>
       </form>
     </div>
   );
