@@ -63,8 +63,8 @@ const Home = () => {
         </div>
       </section>
       <Container>
-        <section className="grid gap-3 md:grid-cols-2  font-[300] ">
-          <h2 className="lg:text-[40px]  text-[#cc1747] text-[24px]">
+        <section className="grid gap-8 md:grid-cols-2  font-[300] px-4">
+          <h2 className="lg:text-[40px]  text-[#23314A] text-[24px]">
             Avenue Impact Empowers Your Business Growth
           </h2>
           <p className="text-justify lg:text-[20px] text-[#667185] md:text-xl">
@@ -204,8 +204,8 @@ const Home = () => {
       </Container>
       <ImageOverlay>
         <Container>
-          <HeroHeading className={"font-[300]"}>
-            Ready to Connect with an Expert at Avenue Impact?
+          <HeroHeading >
+           <h1 className={"font-[300] text-[40px] lg:text-[80px]"}>Ready to Connect with an Expert at Avenue Impact?</h1> 
           </HeroHeading>
           <p className="lg:text-[24px] text-[14px] lg:max-w-3xl mb-10 mt-3 font-poppins font-[300] text-[#f4f5f7]">
             Receive bespoke support from our experienced consultants and  elevate
@@ -221,7 +221,7 @@ const Home = () => {
             About Avenue Impact
           </h3>
 
-          <p className="text-justify  text-[#667185] lg:text-[18px] text-[14px]">
+          <p className="text-justify font-[300] text-[#667185] lg:text-[20px] text-[14px]">
             Our drive is to make a noticeable difference in everything we
             undertake. At Avenue Impact, our focus is on supporting established
             and growing companies in the best possible way. Our team of business
@@ -234,10 +234,10 @@ const Home = () => {
         </div>
         <div className="mt-6">
           <ImageSwiper slideMobile={1.3} slideDesk={2.2}>
-          <img src={slider1} alt="" className="mx-3 block " />
-          <img src={slider2} alt="" className="mx-3 block " />
-          <img src={slider3} alt="" className="mx-3 block " />
-          <img src={slider4} alt="" className="mx-3 block " />
+          <img src={slider1} alt="" className="mx-3 block rounded-tl-3xl rounded-tr-3xl px-2" />
+          <img src={slider2} alt="" className="mx-3 block rounded-tl-3xl rounded-tr-3xl px-2" />
+          <img src={slider3} alt="" className="mx-3 block rounded-tl-3xl rounded-tr-3xl px-2" />
+          <img src={slider4} alt="" className="mx-3 block rounded-tl-3xl rounded-tr-3xl px-2" />
 
           </ImageSwiper>
         </div>

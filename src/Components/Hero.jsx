@@ -18,7 +18,7 @@ const Hero = ({ videoSrc, children, className }) => {
         className="absolute left-0 top-0 -z-10 h-full w-full object-cover"
       ></video>
       {/* <div className="absolute left-0 top-0 -z-[5] h-full w-full bg-black/40"></div> */}
-      <div className={cn("z-20 w-full px-6 text-left md:px-12")}>
+      <div className={cn("z-10 w-full px-6 text-left md:px-12")}>
         {children}
       </div>
     </div>

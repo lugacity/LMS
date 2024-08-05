@@ -356,7 +356,7 @@ const PreviewCourse = ({ features }) => {
             </div>
 
             {/* Preview this Course */}
-            <div className="grid grid-cols-2 gap-5 md:gap-5 lg:grid-cols-3 lg:gap-[18.34px]">
+            <div className="grid grid-cols-2 gap-5 md:gap-5 lg:grid-cols-4 lg:gap-[18.34px]">
               <CourseCard
                 imgSrc={joinTeam}
                 altText="joinTeam"

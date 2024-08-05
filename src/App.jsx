@@ -24,6 +24,13 @@ import Wishlist from "./pages/dashboard/Wishlist";
 
 import StudentSettings from "./pages/dashboard/StudentSettings";
 import Referral from "./pages/dashboard/Referral";
+import DashboardDiscover from "./pages/dashboard/DashboardDiscover";
+import JoinProjectTeam from "./pages/dashboard/JoinProjectTeam";
+import EmptyJoinProjectTeam from "./pages/dashboard/EmptyJoinProjectTeam";
+import EmptyGetCertificate from "./pages/dashboard/EmptyGetCertificate";
+import GetCertificate from "./pages/dashboard/GetCertificate";
+import LeaveRating from "./pages/dashboard/LeaveRating";
+
 
 function App() {
   const routes = createBrowserRouter([
@@ -106,6 +113,30 @@ function App() {
         {
           path: "student-settings",
           element: <StudentSettings />,
+        },
+        {
+          path: "Dashboard_Discover",
+          element: <DashboardDiscover />,
+        },
+        {
+          path: "joinProjectTeam",
+          element: <JoinProjectTeam />,
+        },
+        {
+          path: "EmptyJoinProjectTeam",
+          element: <EmptyJoinProjectTeam />,
+        },
+         {
+          path: "EmptyGetCertificate",
+          element: <EmptyGetCertificate />,
+        },
+        {
+          path: "GetCertificate",
+          element: <GetCertificate />,
+        },
+        {
+          path: "LeaveRating",
+          element: <LeaveRating />,
         },
       ],
     },

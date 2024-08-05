@@ -62,12 +62,11 @@ const About = () => {
 
         {/* We are Experts in Career Mentoring */}
         <div className={styles.career_mentoring}>
-          <div className="px-8 pt-10 lg:px-14 lg:pt-16">
+          <div className="px-8 leading-6 lg:px-14 lg:pt-16">
             <div className={styles.welcome_avenue}>
               <h2 className="lg:text-[40px] text-[24px] font-[300] capitalize text-[#23314A]">
                 We are Experts in Career Mentoring
               </h2>
-              <div className="mt-2 h-[1px] w-full bg-[#C7D7F4]" />
             </div>
 
             <div className={`${styles.career_mentoring_flex} py-8 lg:text-[18px] text-[14px] text-[#667185]`}>
@@ -95,10 +94,9 @@ const About = () => {
               <h2 className="lg:text-[40px] text-[24px] font-[300]  capitalize text-[#23314A]">
                 Skills
               </h2>
-              <div className="mt-2 h-[1px] w-full bg-[#C7D7F4]" />
             </div>
 
-            <div className="py-8 lg:text-[20px] text-[16px]  text-[#667185]">
+            <div className="py-2 lg:text-[20px] text-[16px]  text-[#667185]">
               <p>Professional Training + Life Project Experience (Online)</p>
 
               <div className={styles.career_content}>

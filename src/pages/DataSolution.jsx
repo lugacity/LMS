@@ -41,7 +41,7 @@ const DataSolution = () => {
       </ImageHero>
       <Container className="grid gap-16 md:grid-cols-2 lg:gap-28">
         <div>
-          <h2 className="font-poppins text-[24px] font-[300] leading-normal text-[#3A4C6C] lg:text-[35px]">
+          <h2 className="font-poppins text-[24px] font-[300] text-[#3A4C6C] leading-9 lg:text-[40px]">
             Data Management and Strategy Services
           </h2>
           <p className="my-6 font-poppins text-[16px] text-[#667185] lg:text-[20px]">
