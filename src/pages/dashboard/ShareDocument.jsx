@@ -1,7 +1,9 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import liveSession from "../../assets/images/dashboard/live-session.png";
 import CourseSection from "@/Components/dashboard/CourseSection";
+import { cn } from "@/lib/utils";
 function ShareDocument() {
+  const location = useLocation();
   return (
     <div className="grid gap-4 bg-[#FDFDFD] px-3 py-[35px] md:px-5 lg:grid-cols-[2.8fr_1fr]">
       <section>
@@ -20,13 +22,34 @@ function ShareDocument() {
         </h1>
         <div className="border-b-[2px] border-b-[#E4E7EC] px-4">
           <ul className="flex gap-4 *:text-nowrap">
-            <li className="after:contents-[''] relative h-full cursor-pointer py-4 text-sm font-medium capitalize text-[#344054] transition-colors duration-150 after:absolute after:-bottom-[2px] after:left-0 after:m-auto after:h-[2px] after:w-0 after:bg-primary-color-600 after:transition-all after:duration-150 hover:text-primary-color-600 hover:after:w-full">
+            <li
+              className={cn(
+                "after:contents-[''] relative h-full cursor-pointer py-4 text-sm font-medium capitalize text-[#344054] transition-colors duration-150 after:absolute after:-bottom-[2px] after:left-0 after:m-auto after:h-[2px] after:w-0 after:bg-primary-color-600 after:transition-all after:duration-150 hover:text-primary-color-600 hover:after:w-full",
+                location.pathname === "/dashboard/share-documents"
+                  ? "text-primary-color-600 after:w-full"
+                  : "",
+              )}
+            >
               <Link to={"share-documents"}>share documents</Link>
             </li>
-            <li className="after:contents-[''] relative h-full cursor-pointer py-4 text-sm font-medium capitalize text-[#344054] transition-colors duration-150 after:absolute after:-bottom-[2px] after:left-0 after:m-auto after:h-[2px] after:w-0 after:bg-primary-color-600 after:transition-all after:duration-150 hover:text-primary-color-600 hover:after:w-full">
+            <li
+              className={cn(
+                "after:contents-[''] relative h-full cursor-pointer py-4 text-sm font-medium capitalize text-[#344054] transition-colors duration-150 after:absolute after:-bottom-[2px] after:left-0 after:m-auto after:h-[2px] after:w-0 after:bg-primary-color-600 after:transition-all after:duration-150 hover:text-primary-color-600 hover:after:w-full",
+                location.pathname === "/dashboard/assignments"
+                  ? "text-primary-color-600 after:w-full"
+                  : "",
+              )}
+            >
               <Link to={"assignments"}>assignments</Link>
             </li>
-            <li className="after:contents-[''] relative h-full cursor-pointer py-4 text-sm font-medium capitalize text-[#344054] transition-colors duration-150 after:absolute after:-bottom-[2px] after:left-0 after:m-auto after:h-[2px] after:w-0 after:bg-primary-color-600 after:transition-all after:duration-150 hover:text-primary-color-600 hover:after:w-full">
+            <li
+              className={cn(
+                "after:contents-[''] relative h-full cursor-pointer py-4 text-sm font-medium capitalize text-[#344054] transition-colors duration-150 after:absolute after:-bottom-[2px] after:left-0 after:m-auto after:h-[2px] after:w-0 after:bg-primary-color-600 after:transition-all after:duration-150 hover:text-primary-color-600 hover:after:w-full",
+                location.pathname === "/dashboard/overview"
+                  ? "text-primary-color-600 after:w-full"
+                  : "",
+              )}
+            >
               <Link to={"overview"}>overview</Link>
             </li>
             {/* <ul className="flex gap-4">
