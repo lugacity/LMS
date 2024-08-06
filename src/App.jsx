@@ -24,6 +24,11 @@ import Wishlist from "./pages/dashboard/Wishlist";
 
 import StudentSettings from "./pages/dashboard/StudentSettings";
 import Referral from "./pages/dashboard/Referral";
+import OtherLayout from "./layouts/OtherLayout";
+import ShareDocument from "./pages/dashboard/ShareDocument";
+import Documents from "./pages/dashboard/Documents";
+import Assignment from "./pages/dashboard/Assignment";
+import Overview from "./pages/dashboard/Overview";
 
 function App() {
   const routes = createBrowserRouter([
@@ -98,14 +103,36 @@ function App() {
           element: <Wishlist />,
         },
         {
-
           path: "referral",
           element: <Referral />,
-
         },
         {
           path: "student-settings",
           element: <StudentSettings />,
+        },
+      ],
+    },
+    {
+      element: <OtherLayout />,
+      path: "/dashboard",
+      children: [
+        {
+          element: <ShareDocument />,
+          path: "/dashboard",
+          children: [
+            {
+              path: "share-documents",
+              element: <Documents />,
+            },
+            {
+              path: "assignments",
+              element: <Assignment />,
+            },
+            {
+              path: "overview",
+              element: <Overview />,
+            },
+          ],
         },
       ],
     },
