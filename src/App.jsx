@@ -38,9 +38,7 @@ import EmptyGetCertificate from "./pages/dashboard/EmptyGetCertificate";
 import GetCertificate from "./pages/dashboard/GetCertificate";
 import LeaveRating from "./pages/dashboard/LeaveRating";
 
-
 import ServiceLayout from "./layouts/ServiceLayout";
-
 
 function App() {
   const routes = createBrowserRouter([
@@ -136,22 +134,16 @@ function App() {
           path: "Dashboard_Discover",
           element: <DashboardDiscover />,
         },
-        {
-          path: "joinProjectTeam",
-          element: <JoinProjectTeam />,
-        },
+
         {
           path: "EmptyJoinProjectTeam",
           element: <EmptyJoinProjectTeam />,
         },
-         {
+        {
           path: "EmptyGetCertificate",
           element: <EmptyGetCertificate />,
         },
-        {
-          path: "GetCertificate",
-          element: <GetCertificate />,
-        },
+
         {
           path: "LeaveRating",
           element: <LeaveRating />,
@@ -179,6 +171,14 @@ function App() {
               element: <Overview />,
             },
           ],
+        },
+        {
+          path: "certificate",
+          element: <GetCertificate />,
+        },
+        {
+          path: "projects",
+          element: <JoinProjectTeam />,
         },
       ],
     },

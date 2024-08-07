@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 function ShareDocument() {
   const location = useLocation();
   return (
-    <div className="grid gap-4 bg-[#FDFDFD] px-3 py-[35px] md:px-5 lg:grid-cols-[2.8fr_1fr]">
+    <div className="grid gap-4 bg-[#FDFDFD] lg:grid-cols-[2.8fr_1fr]">
       <section>
         <div className="overflow-hidden rounded-[10px] lg:h-[400px] lg:w-[700px]">
           <img
