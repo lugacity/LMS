@@ -32,7 +32,7 @@ const Button = ({ children, className, type = "button", hover = false }) => {
           <path
             d="M2.09654 32.5991L37.3002 5.32015M37.3002 5.32015C32.5269 9.019 25.1994 19.2807 34.0766 30.7368M37.3002 5.32015C32.3727 8.82011 20.3909 13.0753 11.8836 2.09654"
             stroke="white"
-            stroke-width="4"
+            strokeWidth="4"
           />
         </svg>
       </span>
