@@ -33,6 +33,7 @@ function StudentSettings() {
           Delete Account
         </button>
       </header>
+
       <div className="h-full border-b-[2px] border-b-[#E4E7EC] px-4">
         <ul className="flex gap-4 *:text-nowrap">
           <li
@@ -59,6 +60,7 @@ function StudentSettings() {
       </div>
       <BorderCard className="mt-4 h-full bg-white py-3">
         {page === "edit" ? <EditProfile /> : <ChangePassword />}
+
       </BorderCard>
     </div>
   );

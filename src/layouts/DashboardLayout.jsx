@@ -9,6 +9,7 @@ const DashboardLayout = () => {
       <DashboardSideNav />
 
       <div className="ml-[58px] h-full lg:ml-[272px]">
+
         <DashboardNav />
 
         <div className="h-full bg-[#FDFDFD] p-6">
