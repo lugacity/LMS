@@ -1,18 +1,35 @@
-import React from 'react'
+import React, { useState } from "react";
 // import DashButton from '../auth/ButtonDash';
 import certificate from "../../assets/images/certificate.png";
 import AVIbg from "../../assets/images/live_coaching.png";
-import DashButton from '../auth/ButtonDash';
+import DashButton from "../auth/ButtonDash";
+import { cn } from "@/lib/utils";
 
 export const GetCertificate = () => {
+  const [certificateReady, setCertificateReady] = useState(false);
   return (
     <div>
+
 
 <div className="lg:grid lg:grid-cols-12 gap-6 rounded-lg w-full">
     {/* Certificate Image */}
     <div className="col-span-7 text-justify mb-4 md:mb-0 order-1">
         <div className="relative">
-            <img src={certificate} alt="certificate" className="w-full" />
+        <img
+                src={certificate}
+                alt="certificate"
+                className={cn("w-full", certificateReady ? "" : "blur-sm")}
+              />
+              {!certificateReady && (
+                <div className="absolute inset-0 mx-auto flex items-center justify-center p-4">
+                  <div className="rounded-lg bg-[#FFEBF0] text-center text-[#CC1747] lg:px-10 lg:py-14">
+                    <p>
+                      Certificate not ready yet. Complete <br /> course to get
+                      certificate.
+                    </p>
+                  </div>
+                </div>
+              )}
         </div>
     </div>
 
@@ -57,8 +74,19 @@ export const GetCertificate = () => {
 </div>
 
 
+
+          <div>
+            <DashButton
+              className="mt-4 h-[40px] w-[100%] text-white"
+              onClick={() => setCertificateReady((prev) => !prev)}
+            >
+              Download Certificate
+            </DashButton>
+          </div>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default GetCertificate;

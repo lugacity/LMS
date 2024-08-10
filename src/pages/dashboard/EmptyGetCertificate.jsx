@@ -1,12 +1,13 @@
-import React from 'react'
+import React from "react";
 // import DashButton from '../auth/ButtonDash';
 import certificate from "../../assets/images/certificate.png";
 import AVIbg from "../../assets/images/live_coaching.png";
-import DashButton from '../auth/ButtonDash';
+import DashButton from "../auth/ButtonDash";
 
 export const EmptyGetCertificate = () => {
   return (
     <div>
+
 
         <div className="lg:grid grid-cols-12 gap-6 rounded-lg w-full">
             {/* Certificate Image */}
@@ -19,7 +20,10 @@ export const EmptyGetCertificate = () => {
                         </div>
                     </div>
                 </div>
+
             </div>
+          </div>
+
 
             {/* Live Session */}
             <div className="col-span-5 mb-4 md:mb-0 lg:border-2 h-[480.95px] lg:bg-white lg:border-gray-100 lg:px-8 py-4 rounded-lg order-3 lg:order-2">
@@ -55,11 +59,20 @@ export const EmptyGetCertificate = () => {
                         reflects at the time of completion.
                     </p>
                 </div>
-            </div>
-        </div>
 
+            </div>
+            <p className="mt-2 text-gray-600">Every Monday to Friday 7PM</p>
+          </div>
+
+          <div>
+            <DashButton className="mt-4 h-[40px] w-[100%] bg-[#91a6ca] text-white hover:bg-[#a0b2d2]">
+              Download Certificate
+            </DashButton>
+          </div>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default EmptyGetCertificate;
