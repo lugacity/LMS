@@ -6,8 +6,9 @@ import { Outlet } from "react-router-dom";
 const OtherLayout = () => {
   return (
     <div>
-      <OtherSideNav />
-      <div className="ml-[76px]">
+      {/* <OtherSideNav /> */}
+      {/* className="ml-[76px]" */}
+      <div className=" p-6">
         <OtherTopNav />
         <Outlet />
       </div>

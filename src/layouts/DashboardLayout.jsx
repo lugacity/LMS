@@ -6,9 +6,10 @@ import { Outlet } from "react-router-dom";
 const DashboardLayout = () => {
   return (
     <div className="">
-      <DashboardSideNav />
+      {/* <DashboardSideNav />  */}
 
-      <div className="ml-[58px] h-full lg:ml-[272px]">
+      {/* ml-[58px] */}
+      <div className=" h-full lg:ml-[272px]">
 
         <DashboardNav />
 
