@@ -31,7 +31,7 @@ const Referral = () => {
     <div>
 
     {/* Dashboard Balance */}
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center ">
         <div className="flex space-x-4 ">
           <button
             className={`py-2 text-[14px] font-[500] lg:text-[16px] px-4  ${selectedOption === 'referral' ? 'border-b-2 border-[#CC1747]' : 'text-gray-500'}`}
@@ -50,32 +50,32 @@ const Referral = () => {
         <div className="py-6 rounded w-full">
             {selectedOption === 'referral' && (
               <div>
-                  <div className="flex flex-wrap md:flex-nowrap text-sm justify-around">
-
-                    <div className="w-full lg:mx-2 md:flex-1 lg:border shadow-sm border-gray-300 p-4 rounded-lg mb-4 md:mb-0 bg-[#CC1747] md:bg-transparent text-white md:text-black">
-                      <p>Available balance</p>
-                      <h1 className="lg:text-4xl text-3xl pt-4">£100k</h1>
+                 <div className="flex lg:gap-2 flex-wrap md:flex-nowrap text-sm justify-around">
+                    <div className="w-full md:flex-1 lg:border shadow-sm border-gray-300 px-6 py-12 lg:p-4 rounded-lg mb-4 md:mb-0 bg-[#CC1747] md:bg-transparent text-white md:text-black lg:flex lg:flex-col lg:justify-between">
+                      <p className="lg:text-gray-600 text-[14px] font-[400] lg:text-sm">Available balance</p>
+                      <h1 className="lg:text-4xl text-[75px] font-[600] lg:mt-2 mt-10">£100k</h1>
                     </div>
 
-                    <div className="flex-1 border shadow-sm border-gray-300 p-4 rounded-lg mb-4 md:mb-0">
-                      <p className="text-gray-600 lg:text-sm ">Total number of referrals</p>
-                      <h1 className="lg:text-4xl text-3xl pt-4">09</h1>
+                    <div className="flex-1 border shadow-sm border-gray-300 p-2 lg:p-4 rounded-lg mb-4 md:mb-0 flex flex-col justify-between">
+                      <p className="text-gray-600 lg:text-[14px] font-[400] text-[12px] lg:text-sm">Total number of referrals</p>
+                      <h1 className="lg:text-4xl text-[24px] font-[600]  mt-2 ">09</h1>
                     </div>
 
-                    <div className="flex-1 border shadow-sm border-gray-300 p-4 rounded-lg mb-4 md:mb-0 mx-2">
-                      <p className="text-gray-600">Total amount</p>
-                      <h1 className="lg:text-4xl text-3xl pt-4">£129k</h1>
+                    <div className="flex-1 border shadow-sm border-gray-300 p-2 lg:p-4 rounded-lg mb-4 md:mb-0 mx-2 flex flex-col justify-between">
+                      <p className="text-gray-600 lg:text-[14px] font-[400] text-[12px]">Total amount</p>
+                      <h1 className="lg:text-4xl text-[24px] font-[600]  mt-2 ">£129k</h1>
                     </div>
 
-                    <div className="flex-1 border shadow-sm border-gray-300 p-4 rounded-lg mb-4 md:mb-0 mx-2">
-                      <p className="text-gray-600">Total amount withdrawn</p>
-                      <h1 className="lg:text-4xl text-3xl pt-4">£129k</h1>
+                    <div className="flex-1 border shadow-sm border-gray-300 p-2 lg:p-4 rounded-lg mb-4 md:mb-0 mx-2 flex flex-col justify-between">
+                      <p className="text-gray-600 lg:text-[14px] font-[400] text-[12px]">Total amount withdrawn</p>
+                      <h1 className="lg:text-4xl text-[24px] font-[600]  mt-2 ">£129k</h1>
                     </div>
 
-                    <div className="md:flex-1 w-full md:w-auto">
-                        <DashButton onClick={()=>setShowModal(prev=>!prev)}  className="bg-[#CC1747] text-white py-2 px-4 rounded shadow-md w-full md:w-auto">Request to withdraw</DashButton>
+                    <div className="md:flex-1 w-full md:w-auto flex items-start">
+                      <DashButton onClick={() => setShowModal(prev => !prev)} className="bg-[#CC1747] text-white py-3 lg:py-2 px-4 rounded shadow-md w-full md:w-auto">Request to withdraw</DashButton>
                     </div>
                   </div>
+
 
                   {/*  */}
                 <div className='lg:border-2 lg:border-white-300 text-center my-6 lg:bg-white lg:p-6 rounded-lg'>
@@ -184,8 +184,6 @@ const Referral = () => {
         }
           
       </div>
-      
-
 
     </div>
   );
