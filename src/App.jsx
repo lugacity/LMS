@@ -40,6 +40,7 @@ import LeaveRating from "./pages/dashboard/LeaveRating";
 
 import ServiceLayout from "./layouts/ServiceLayout";
 import NewPassword from "./pages/auth/NewPassword";
+import SliderNav from "./pages/dashboard/SliderNav";
 
 function App() {
   const routes = createBrowserRouter([
@@ -102,6 +103,10 @@ function App() {
     {
       path: "/signup",
       element: <SignUp />,
+    },
+    {
+      path: "/slider",
+      element: <SliderNav />,
     },
     {
       path: "/new-password",

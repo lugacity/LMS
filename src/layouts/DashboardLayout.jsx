@@ -9,15 +9,6 @@ const DashboardLayout = () => {
   const [toggleNav, setToggleNav] = useState(true);
 
   return (
-<<<<<<< Updated upstream
-    <div className="">
-      {/* <DashboardSideNav />  */}
-
-      {/* ml-[58px] */}
-      <div className=" h-full lg:ml-[272px]">
-
-        <DashboardNav />
-=======
     <div className="relative">
       <ScrollRestoration />
       <div
@@ -30,7 +21,6 @@ const DashboardLayout = () => {
 
       <div className="ml-0 h-full lg:ml-[272px] lg:px-0">
         <DashboardNav setToggleNav={setToggleNav} />
->>>>>>> Stashed changes
 
         <div className="h-full bg-[#FDFDFD] p-6">
           <Outlet />
