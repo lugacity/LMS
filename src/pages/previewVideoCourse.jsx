@@ -15,7 +15,8 @@ import DashButton from "./auth/ButtonDash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-// import AviNav from "./Components/avi/AviNav";
+import { Link } from "react-router-dom";
+// import DiscoverCourses from "../pages/dashboard/DashboardDiscover";
 
 const PreviewVideoCourse = () => {
   const navigate = useNavigate();
@@ -113,13 +114,16 @@ const PreviewVideoCourse = () => {
                 </div>
 
                 <div className="grid w-full grid-cols-12 gap-3 py-4">
-                  <DashButton className="col-span-10 mt-4 text-white">
-                    Make Payment
-                  </DashButton>
+
+                  <Link className="col-span-10 mt-4 text-center rounded  transition duration-300  bg-[#CC1747] text-white hover:bg-[#B3123F] " to={"/dashboard/Dashboard_Discover"}>
+                        <DashButton  className=" text-white bg-transparent hover:bg-transparent" >
+                          Make Payment
+                        </DashButton>
+                    </Link>
+
 
                   <div className="col-span-2 pt-4">
-                    <div
-                      className="flex h-10 w-10 items-center justify-center rounded-full border-[1px]"
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full border-[1px]"
                       style={{ borderColor: "#CC1747" }}
                     >
                       <FontAwesomeIcon
@@ -129,6 +133,7 @@ const PreviewVideoCourse = () => {
                       />
                     </div>
                   </div>
+
                 </div>
               </div>
 
@@ -144,7 +149,7 @@ const PreviewVideoCourse = () => {
                 </h3>
 
                 {/* Radio Button */}
-                <div className="space-y-4 py-6">
+                <div className="space-y-1 py-6">
                   <label className="flex items-center space-x-2 rounded border border-gray-300 px-4 py-3">
                     <input
                       type="radio"
@@ -194,10 +199,31 @@ const PreviewVideoCourse = () => {
                   </label>
                 </div>
 
-                <div className="w-full">
+                <div className=" space-y-2">
+                  <p className="font-semibold">Enter a promo code</p>
+                  <div className="flex">
+                    <input
+                      type="text"
+                      className="w-full border border-gray-300 px-4 py-2 focus:outline-none"
+                      placeholder="Promo code"
+                    />
+                    <DashButton className="rounded-none rounded-r-sm px-4 py-2 text-white">
+                      Apply
+                    </DashButton>
+                  </div>
+                </div>
+
+                <div className="w-full mt-6">
+
+                <Link to={"/dashboard/Dashboard_Discover"}>
+                  
                   <DashButton className="w-full text-white">
                     Make Payment
                   </DashButton>
+
+                  
+                  </Link>
+
                 </div>
               </div>
             </div>

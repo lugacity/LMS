@@ -219,7 +219,7 @@ const SignUp = () => {
                 "You have successfully registered and can now start using your account. Enjoy your experience with us!"
               }
               setModal={setModal}
-              path={"/dashboard"}
+              path={"/PreviewVideoCourse"}
             />
           ) : (
             <RegisterSuccess />

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FaRegBell } from "react-icons/fa";
 import { DarkLogo } from "../Logo";
+import { Link} from "react-router-dom";
 
 function DashboardNav({ setToggleNav }) {
   return (
@@ -32,10 +33,16 @@ function DashboardNav({ setToggleNav }) {
           <span className="lg:hidden">
             <FontAwesomeIcon icon={faSearch} className="text-[#475367]" />
           </span>
+          
+          <Link to={"/dashboard/notification"} >
+                <span className="text-xl">
+                  <FaRegBell />
+                </span>
+              </Link>
 
-          <span className="text-xl">
-            <FaRegBell />
-          </span>
+
+
+
         </div>
         <div className="relative">
           <div className="absolute right-0 top-0 z-10 h-2 w-2 rounded-full bg-[#008000] md:h-3 md:w-3"></div>
