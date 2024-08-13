@@ -70,6 +70,7 @@ const DiscoverCourses = () => {
             rating="4.3"
             numRatings="45,345"
             previewButtonText="Preview this course"
+            path="/PreviewVideoCourse"
           />
           <CourseCard
             imgSrc={joinTeam}
@@ -83,6 +84,7 @@ const DiscoverCourses = () => {
             rating="4.3"
             numRatings="45,345"
             previewButtonText="Preview this course"
+            path="/PreviewVideoCourse"
           />
           <CourseCard
             imgSrc={joinTeam}
@@ -96,6 +98,7 @@ const DiscoverCourses = () => {
             rating="4.3"
             numRatings="45,345"
             previewButtonText="Preview this course"
+            path="/PreviewVideoCourse"
           />
           <CourseCard
             imgSrc={joinTeam}
@@ -109,6 +112,7 @@ const DiscoverCourses = () => {
             rating="4.3"
             numRatings="45,345"
             previewButtonText="Preview this course"
+            path="/PreviewVideoCourse"
           />
           <CourseCard
             imgSrc={joinTeam}
@@ -122,6 +126,7 @@ const DiscoverCourses = () => {
             rating="4.3"
             numRatings="45,345"
             previewButtonText="Preview this course"
+            path="/PreviewVideoCourse"
           />
           <CourseCard
             imgSrc={joinTeam}
@@ -135,6 +140,7 @@ const DiscoverCourses = () => {
             rating="4.3"
             numRatings="45,345"
             previewButtonText="Preview this course"
+            path="/PreviewVideoCourse"
           />
           <CourseCard
             imgSrc={joinTeam}
@@ -148,6 +154,7 @@ const DiscoverCourses = () => {
             rating="4.3"
             numRatings="45,345"
             previewButtonText="Preview this course"
+            path="/PreviewVideoCourse"
           />
           <CourseCard
             imgSrc={joinTeam}
@@ -161,6 +168,7 @@ const DiscoverCourses = () => {
             rating="4.3"
             numRatings="45,345"
             previewButtonText="Preview this course"
+            path="/PreviewVideoCourse"
           />
           <CourseCard
             imgSrc={joinTeam}
@@ -174,58 +182,7 @@ const DiscoverCourses = () => {
             rating="4.3"
             numRatings="45,345"
             previewButtonText="Preview this course"
-          />
-          <CourseCard
-            imgSrc={joinTeam}
-            altText="joinTeam"
-            title={
-              <>
-                {" "}
-                Project Consultant <br /> Training Programme (Bundle)
-              </>
-            }
-            rating="4.3"
-            numRatings="45,345"
-            previewButtonText="Preview this course"
-          />
-          <CourseCard
-            imgSrc={joinTeam}
-            altText="joinTeam"
-            title={
-              <>
-                {" "}
-                Project Consultant <br /> Training Programme (Bundle)
-              </>
-            }
-            rating="4.3"
-            numRatings="45,345"
-            previewButtonText="Preview this course"
-          />
-          <CourseCard
-            imgSrc={joinTeam}
-            altText="joinTeam"
-            title={
-              <>
-                {" "}
-                Project Consultant <br /> Training Programme (Bundle)
-              </>
-            }
-            rating="4.3"
-            numRatings="45,345"
-            previewButtonText="Preview this course"
-          />
-          <CourseCard
-            imgSrc={joinTeam}
-            altText="joinTeam"
-            title={
-              <>
-                {" "}
-                Project Consultant <br /> Training Programme (Bundle)
-              </>
-            }
-            rating="4.3"
-            numRatings="45,345"
-            previewButtonText="Preview this course"
+            path="/PreviewVideoCourse"
           />
         </div>
         <div className="mb-12 mt-5 h-px w-full bg-[#C7D7F4]" />
