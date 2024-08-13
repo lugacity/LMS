@@ -27,7 +27,7 @@ export const CourseCardPreview = ({ imgSrc, previewButtonText }) => {
         <img className="rounded-lg" src={imgSrc} alt="Course" />
       </div>
       <div className="pt-4 text-center">
-        <Link to="/previewVideoCourse">
+        <Link to="/signup">
           <EnrollPreviewButton className="bg-[#b84646]">
             {previewButtonText}
           </EnrollPreviewButton>
@@ -133,7 +133,7 @@ const CourseCard = ({
           <p className="">{numRatings}</p>
         </div>
 
-        <Link to={"/PreviewVideoCourse"}>
+        <Link to={"/preview-course"}>
           <PreviewButton className="w-full bg-[#CC1747] py-3 text-[12px] lg:text-[14px]">
             {previewButtonText}
           </PreviewButton>
