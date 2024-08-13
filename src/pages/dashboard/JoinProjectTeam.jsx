@@ -1,4 +1,3 @@
-import React from "react";
 import DashButton from "../auth/ButtonDash";
 // import styles from "../pages.module.css";
 

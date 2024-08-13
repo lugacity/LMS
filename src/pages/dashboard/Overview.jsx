@@ -1,5 +1,3 @@
-import React from "react";
-
 const Overview = () => {
   return (
     <section className="bg-white px-[25px] pb-6 pt-0 md:px-8 lg:mt-2 lg:px-10 lg:py-8">
