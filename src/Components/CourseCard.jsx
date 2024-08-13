@@ -102,6 +102,7 @@ const CourseCard = ({
   rating,
   numRatings,
   previewButtonText,
+  path = "/preview-course",
 }) => {
   const renderStars = () => {
     const stars = [];
@@ -133,7 +134,7 @@ const CourseCard = ({
           <p className="">{numRatings}</p>
         </div>
 
-        <Link to={"/preview-course"}>
+        <Link to={path}>
           <PreviewButton className="w-full bg-[#CC1747] py-3 text-[12px] lg:text-[14px]">
             {previewButtonText}
           </PreviewButton>
