@@ -1,6 +1,3 @@
-import React from "react";
-import { mobileNav } from "./DashboardSliderNav";
-import Courses from "./Courses";
 import CourseSection from "./CourseSection";
 import JoinProjectTeam from "@/pages/dashboard/JoinProjectTeam";
 import Documents from "@/pages/dashboard/Documents";

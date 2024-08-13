@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Courses from "./Courses";
 

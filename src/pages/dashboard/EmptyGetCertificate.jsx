@@ -1,5 +1,3 @@
-import React from "react";
-// import DashButton from '../auth/ButtonDash';
 import certificate from "../../assets/images/certificate.png";
 import AVIbg from "../../assets/images/live_coaching.png";
 import DashButton from "../auth/ButtonDash";
@@ -68,7 +66,7 @@ export const EmptyGetCertificate = () => {
               <span className="text-[#F53366]">Maxwell Samantha</span>{" "}
               successfully completed the course
               <span className="text-[#F53366]">
-                "Project Consultant Training Programme (Bundle)"
+                {"Project Consultant Training Programme (Bundle)"}
               </span>{" "}
               on 12/06/2024, taught by Avenue Impact Academy. It confirms that
               the student completed the entire course. The course duration

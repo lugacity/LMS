@@ -1,17 +1,13 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import liveSession from "../../assets/images/dashboard/live-session.png";
 import CourseSection from "@/Components/dashboard/CourseSection";
-import { cn } from "@/lib/utils";
-import SliderNav from "./SliderNav";
-import JoinProjectTeam from "./JoinProjectTeam";
+
 import DashboardSliderNav, {
-  mobileNav,
   MobileSlideNave,
 } from "@/Components/dashboard/DashboardSliderNav";
 import { useState } from "react";
 import MobileContent from "@/Components/dashboard/MobileContent";
 function ShareDocument() {
-  const location = useLocation();
   const [comp, setcomp] = useState("course sections");
 
   return (
