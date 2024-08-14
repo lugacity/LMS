@@ -23,7 +23,7 @@ const EmptyPage = () => {
             <div className="w-full md:w-1/3 lg:bg-transparent bg-[#B3123F] lg:text-black lg:p-0 p-6 rounded-lg text-[#fff] text-justify mb-4 md:mb-0">
                 <h3 className="text-xl font-semibold mb-2">Learning Reminders</h3>
                 <p className="mb-4 text-sm">Use push notifications or calendar events to stay on top of your learning goals.</p>
-                <DashButton onClick={()=>setShowModal(prev=>!prev)} className="mt-2 text-sm lg:bg-[#B3123F] bg-[#fff] text-[#854154] lg:text-[#fff] font-[500]">Add a learning reminder</DashButton>
+                <DashButton onClick={()=>setShowModal(prev=>!prev)} className="mt-2 text-sm lg:bg-[#B3123F] lg:text-[#fff] bg-[#fff] text-[#B3123F] font-[500]">Add a learning reminder</DashButton>
             </div>
             <div className="flex gap-2 w-full md:w-3/5 justify-around">
               <div className="flex-1 border-2 bg-white border-gray-300 p-4 rounded-lg lg:mx-2">

@@ -5,8 +5,8 @@ import DashSelect from '../auth/components/DashSelect';
 import Modal from '../auth/components/Modal';
 import BorderCard from '@/Components/BorderCard';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faTimes } from "@fortawesome/free-solid-svg-icons";
 import ModalContent from '../lms-pages/ReminderModalContent';
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import joinTeam from "../../assets/images/join_team.png";
 import styles from "../pages.module.css";
 import CourseCard, {DashboardDiscover} from "../../Components/CourseCard";
@@ -71,6 +71,7 @@ const Dashboard_Discover = () => {
                 leaveRating="Leaving a rating"
               />
 
+              
               <DashboardDiscover
                 imgSrc={joinTeam}
                 altText="joinTeam"
@@ -82,8 +83,8 @@ const Dashboard_Discover = () => {
                 }
                 rating="4.3"
                 numRatings="45,345"
-                courseProgress="20% completed"
-                continueLearning="Continue"
+                courseProgress="0% in progress"
+                getStarted="Get Started"
               />
 
               <DashboardDiscover
@@ -97,6 +98,38 @@ const Dashboard_Discover = () => {
                 }
                 rating="4.3"
                 numRatings="45,345"
+                courseProgress="20% in progress"
+                continueLearning="Continue"
+              />
+
+
+              <DashboardDiscover
+                imgSrc={joinTeam}
+                altText="joinTeam"
+                title={
+                  <>
+                    {" "}
+                    Project Consultant <br /> Training Programme (Bundle)
+                  </>
+                }
+                rating="4.3"
+                numRatings="45,345"
+                courseProgress="0% in progress"
+                getStarted="Get Started"
+              />
+
+              <DashboardDiscover
+                imgSrc={joinTeam}
+                altText="joinTeam"
+                title={
+                  <>
+                    {" "}
+                    Project Consultant <br /> Training Programme (Bundle)
+                  </>
+                }
+                rating="4.3"
+                numRatings="45,345"
+                // leaavingRateStar={<FontAwesomeIcon icon={faStar} />}
                 courseProgress="100% completed"
                 leaveRating="Leaving a rating"
               />
@@ -112,38 +145,8 @@ const Dashboard_Discover = () => {
                 }
                 rating="4.3"
                 numRatings="45,345"
-                courseProgress="20% completed"
-                leaveRating="Leaving a rating"
-              />
-
-              <DashboardDiscover
-                imgSrc={joinTeam}
-                altText="joinTeam"
-                title={
-                  <>
-                    {" "}
-                    Project Consultant <br /> Training Programme (Bundle)
-                  </>
-                }
-                rating="4.3"
-                numRatings="45,345"
-                courseProgress="20% completed"
-                leaveRating="Leaving a rating"
-              />
-
-              <DashboardDiscover
-                imgSrc={joinTeam}
-                altText="joinTeam"
-                title={
-                  <>
-                    {" "}
-                    Project Consultant <br /> Training Programme (Bundle)
-                  </>
-                }
-                rating="4.3"
-                numRatings="45,345"
-                courseProgress="20% completed"
-                leaveRating="Leaving a rating"
+                courseProgress="20% in progress"
+                continueLearning="Continue"
               />
 
               <DashboardDiscover

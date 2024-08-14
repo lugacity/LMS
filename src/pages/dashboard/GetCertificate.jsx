@@ -53,7 +53,10 @@ export const GetCertificate = () => {
           </div>
 
           <div>
-            <DashButton className="mt-4 h-[40px] w-full text-white">
+              <DashButton
+              className="mt-4 h-[40px] w-[100%] text-white"
+              onClick={() => setCertificateReady((prev) => !prev)}
+            >
               Download Certificate
             </DashButton>
           </div>
@@ -78,14 +81,14 @@ export const GetCertificate = () => {
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <DashButton
           className="mt-4 h-[40px] w-[100%] text-white"
           onClick={() => setCertificateReady((prev) => !prev)}
         >
           Download Certificate
         </DashButton>
-      </div>
+      </div> */}
     </div>
   );
 };
