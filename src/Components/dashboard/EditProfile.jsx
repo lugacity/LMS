@@ -72,7 +72,7 @@ const EditProfile = () => {
             src="https://github.com/shadcn.png"
             className="m-auto block rounded-full"
           />
-          <AvatarFallback className="mx-auto w-fit rounded-full bg-primary-color-100 p-2 text-sm text-primary-color-600 md:p-4">
+          <AvatarFallback className="mx-auto w-full rounded-full bg-primary-color-100 p-2 text-sm text-primary-color-600 md:p-4">
             MS
           </AvatarFallback>
         </Avatar>

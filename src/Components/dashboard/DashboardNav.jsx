@@ -4,6 +4,7 @@ import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FaRegBell } from "react-icons/fa";
 import { DarkLogo } from "../Logo";
 import { Link, useNavigate } from "react-router-dom";
+import PopUp from "./PopUp";
 
 function DashboardNav({ setToggleNav }) {
   const navigate = useNavigate();
@@ -47,12 +48,19 @@ function DashboardNav({ setToggleNav }) {
         </div>
         <div className="relative">
           <div className="absolute right-0 top-0 z-10 h-2 w-2 rounded-full bg-[#008000] md:h-3 md:w-3"></div>
-          <Avatar className="h-8 w-8 md:h-10 md:w-10">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback className="bg-primary-color-100 text-sm text-primary-color-600 md:text-lg">
-              CN
-            </AvatarFallback>
-          </Avatar>
+              <PopUp className="relative cursor-pointer">
+              <Avatar
+                className="h-8 w-8 cursor-pointer md:h-10 md:w-10"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback className="bg-primary-color-100 text-sm text-primary-color-600 md:text-lg">
+                  MS
+                </AvatarFallback>
+              </Avatar>
+
+              {/* {dropdownOpen && <ProfilePopUp />} */}
+            </PopUp>
         </div>
       </div>
     </nav>
