@@ -26,7 +26,7 @@ const ProfilePopUp = () => {
 
         <div className="flex-1 font-[300] text-[#667185]">
           <p className="text-[24px]">Yinka ABeeb</p>
-          <p className="text-[14px]">Yinkaabeeb@gmail.com</p>
+          <p className="text-[14px]">Yinkaabeeb1@gmail.com</p>
         </div>
       </div>
 
