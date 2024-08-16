@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 export const GetCertificate = () => {
   const [certificateReady, setCertificateReady] = useState(false);
+  
   return (
     <div>
       <div className="w-full gap-6 rounded-lg lg:grid lg:grid-cols-12">

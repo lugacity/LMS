@@ -10,6 +10,9 @@ import ModalContent from '../lms-pages/ReminderModalContent';
 import joinTeam from "../../assets/images/join_team.png";
 import styles from "../pages.module.css";
 import CourseCard, {DashboardDiscover} from "../../Components/CourseCard";
+import { Filter } from '@/Components/dashboard/Filter';
+
+
 
 // import ReminderModal from '../auth/components/ReminderModal';
 
@@ -47,10 +50,15 @@ const Dashboard_Discover = () => {
                 <div className="flex-1 lg:mb-4 md:mb-0">
                     <h3 className="text-l font-semibold text-gray-800">Live Session + Mentoring</h3>
                 </div>
-                <div className="hidden lg:flex space-x-2">
+                <div className="hidden items-center lg:flex space-x-2">
                   <p className="text-gray-600">Filter by</p>
                   <DashSelect />
               </div>
+
+              <div className="lg:hidden items-center  space-x-2">
+                  <Filter/>
+              </div>
+
           </div>
 
         <div>
@@ -189,15 +197,21 @@ const Dashboard_Discover = () => {
 
       {/* ON DEMAND */}
       <div className='border-2 border-white-300 my-6 bg-white p-6 rounded-lg'>
-          <div className="flex flex-col md:flex-row items-center justify-between p-2 bg-white rounded-lg">
-              <div className="flex-1 mb-4 md:mb-0">
-                  <h3 className="text-l font-semibold text-gray-800">On Demand Courses (Pre Recorded Sessions)</h3>
-              </div>
-              <div className="flex items-center space-x-2">
-                  <p className="text-gray-600">Sort by</p>
-                  <DashSelect />
-              </div>
+        <div className="flex flex-row pb-6 items-center justify-between lg:p-2 bg-white rounded-lg">
+            <div className="flex-1 lg:mb-4 md:mb-0">
+                <h3 className="text-l font-semibold text-gray-800">On Demand Courses  (Pre Recorded Sessions)</h3>
+            </div>
+            <div className="hidden items-center lg:flex space-x-2">
+              <p className="text-gray-600">Filter by</p>
+              <DashSelect />
+          </div>
+
+          <div className="lg:hidden items-center  space-x-2">
+              <Filter/>
+          </div>
+
         </div>
+
 
         <div>
             {/* Preview this Course */}

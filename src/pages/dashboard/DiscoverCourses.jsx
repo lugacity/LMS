@@ -110,6 +110,51 @@ const DiscoverCourses = () => {
             previewButtonText="Preview this course"
             path="/PreviewVideoCourse"
           />
+
+          <CourseCard
+            imgSrc={joinTeam}
+            altText="joinTeam"
+            title={
+              <>
+                {" "}
+                Project Consultant <br /> Training Programme (Bundle)
+              </>
+            }
+            rating="4.3"
+            numRatings="45,345"
+            previewButtonText="Preview this course"
+            path="/PreviewVideoCourse"
+          />
+
+          <CourseCard
+            imgSrc={joinTeam}
+            altText="joinTeam"
+            title={
+              <>
+                {" "}
+                Project Consultant <br /> Training Programme (Bundle)
+              </>
+            }
+            rating="4.3"
+            numRatings="45,345"
+            previewButtonText="Preview this course"
+            path="/PreviewVideoCourse"
+          />
+
+          <CourseCard
+            imgSrc={joinTeam}
+            altText="joinTeam"
+            title={
+              <>
+                {" "}
+                Project Consultant <br /> Training Programme (Bundle)
+              </>
+            }
+            rating="4.3"
+            numRatings="45,345"
+            previewButtonText="Preview this course"
+            path="/PreviewVideoCourse"
+          />
           <CourseCard
             imgSrc={joinTeam}
             altText="joinTeam"
