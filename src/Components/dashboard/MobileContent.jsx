@@ -6,7 +6,7 @@ import GetCertificate from "@/pages/dashboard/GetCertificate";
 import Overview from "@/pages/dashboard/Overview";
 import LeaveRating from "@/pages/dashboard/LeaveRating";
 
-const MobileContent = ({ name }) => {
+export const MobileContent = ({ name }) => {
   if (name === "course sections") return <CourseSection />;
   if (name === "project area") return <JoinProjectTeam />;
   if (name === "share documents") return <Documents />;
@@ -16,4 +16,8 @@ const MobileContent = ({ name }) => {
   if (name === "leave a review") return <LeaveRating />;
 };
 
-export default MobileContent;
+export const DesktopContent = ({ section }) => {
+  if (section === "share documents") return <Documents />;
+  if (section === "assignments") return <Assignment />;
+  if (section === "overview") return <Overview />;
+};

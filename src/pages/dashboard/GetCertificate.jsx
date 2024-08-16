@@ -53,9 +53,10 @@ export const GetCertificate = () => {
           </div>
 
           <div>
-              <DashButton
-              className="mt-4 h-[40px] w-[100%] text-white"
+            <DashButton
+              className="mt-4 h-[40px] w-[100%] text-white disabled:bg-slate-200"
               onClick={() => setCertificateReady((prev) => !prev)}
+              disabled={!certificateReady}
             >
               Download Certificate
             </DashButton>
