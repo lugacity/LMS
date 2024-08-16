@@ -1,4 +1,7 @@
-function LiveSession() {
+import { MobileSlideNav } from "./DashboardSliderNav";
+import { MobileContent } from "./MobileContent";
+
+function LiveSession({ sections, setSections, setSectionDetails, setSession }) {
   return (
     <div>
       <div className="border-b border-b-[#E4E7EC] pb-4">
@@ -32,6 +35,16 @@ function LiveSession() {
           Meeting hasn’t started yet
         </button>
       </section>
+      <div className="lg:hidden">
+        <MobileSlideNav active={sections.mobile} setactive={setSections} />
+      </div>
+      <div className="lg:hidden">
+        <MobileContent
+          name={sections.mobile}
+          setSession={setSession}
+          setSectionDetails={setSectionDetails}
+        />
+      </div>
     </div>
   );
 }

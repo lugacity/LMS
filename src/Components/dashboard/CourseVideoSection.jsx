@@ -3,11 +3,13 @@ import DashboardSliderNav, { MobileSlideNav } from "./DashboardSliderNav";
 import { DesktopContent, MobileContent } from "./MobileContent";
 import liveSession from "../../assets/images/dashboard/live-session.png";
 
-function CourseVideoSection({ sectionDetails }) {
-  const [sections, setSections] = useState({
-    mobile: "course sections",
-    desktop: "share documents",
-  });
+function CourseVideoSection({
+  sectionDetails,
+  setSession,
+  setSectionDetails,
+  sections,
+  setSections,
+}) {
   return (
     <section>
       <div className="overflow-hidden rounded-[10px] lg:h-[400px] lg:w-[700px]">
@@ -36,7 +38,11 @@ function CourseVideoSection({ sectionDetails }) {
         <DesktopContent section={sections.desktop} />
       </div>
       <div className="lg:hidden">
-        <MobileContent name={sections.mobile} />
+        <MobileContent
+          name={sections.mobile}
+          setSession={setSession}
+          setSectionDetails={setSectionDetails}
+        />
       </div>
     </section>
   );
