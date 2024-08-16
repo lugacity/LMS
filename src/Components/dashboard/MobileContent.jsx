@@ -6,8 +6,22 @@ import GetCertificate from "@/pages/dashboard/GetCertificate";
 import Overview from "@/pages/dashboard/Overview";
 import LeaveRating from "@/pages/dashboard/LeaveRating";
 
-export const MobileContent = ({ name }) => {
-  if (name === "course sections") return <CourseSection />;
+export const MobileContent = ({
+  name,
+  setSession,
+  setSectionDetails,
+  active,
+  setActive,
+}) => {
+  if (name === "course sections")
+    return (
+      <CourseSection
+        setSession={setSession}
+        setSectionDetails={setSectionDetails}
+        active={active}
+        setActive={setActive}
+      />
+    );
   if (name === "project area") return <JoinProjectTeam />;
   if (name === "share documents") return <Documents />;
   if (name === "assignments") return <Assignment />;

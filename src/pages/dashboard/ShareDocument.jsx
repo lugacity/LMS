@@ -11,13 +11,32 @@ function ShareDocument() {
     section: "",
     topic: "",
   });
+
+  const [sections, setSections] = useState({
+    mobile: "course sections",
+    desktop: "share documents",
+  });
+
   return (
     <>
       <ScrollRestoration />
       <div className="w-full gap-4 lg:grid lg:grid-cols-[2.8fr_1fr]">
-        {session === "live" && <LiveSession />}
+        {session === "live" && (
+          <LiveSession
+            sections={sections}
+            setSections={setSections}
+            setSectionDetails={setSectionDetails}
+            setSession={setSession}
+          />
+        )}
         {session === "recorded" && (
-          <CourseVideoSection sectionDetails={sectionDetails} />
+          <CourseVideoSection
+            sectionDetails={sectionDetails}
+            setSession={setSession}
+            setSectionDetails={setSectionDetails}
+            sections={sections}
+            setSections={setSections}
+          />
         )}
 
         <aside className="hidden rounded-[12px] border border-[#E4E7EC] bg-white px-4 py-6 lg:block">
