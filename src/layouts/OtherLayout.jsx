@@ -10,7 +10,7 @@ const OtherLayout = () => {
   return (
     <div>
       <OtherSideNav />
-      <div className="ml-[76px]">
+      <div className="lg:ml-[76px] ml-6">
         <OtherTopNav setShowModal={setShowModal} />
         <div className="bg-[#FDFDFD] px-3 py-[35px] md:px-5">
           <Outlet />
