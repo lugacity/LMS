@@ -1,7 +1,3 @@
-// import Home from './Components/pages/Home'; // Ensure these components exist
-// import About from './Components/pages/About';
-// import Contact from './Components/pages/Contact';
-
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppLayout from "./layouts/AppLayout";
@@ -13,7 +9,7 @@ import DataSolution from "./pages/DataSolution";
 import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
 import AVI from "./pages/AVI";
 import PreviewCourse from "./pages/previewCourse";
-
+import PreviewVideoCourse from "./pages/previewVideoCourse";
 import Component from "./Components/Component";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/Signup";
@@ -23,8 +19,38 @@ import EmptyPage from "./pages/dashboard/EmptyPage";
 import Notification from "./pages/dashboard/Notification";
 import Wishlist from "./pages/dashboard/Wishlist";
 
+import StudentSettings from "./pages/dashboard/StudentSettings";
+import Referral from "./pages/dashboard/Referral";
+import OtherLayout from "./layouts/OtherLayout";
+import ShareDocument from "./pages/dashboard/ShareDocument";
+import Documents from "./pages/dashboard/Documents";
+import Assignment from "./pages/dashboard/Assignment";
+import Overview from "./pages/dashboard/Overview";
+
+import DashboardDiscover from "./pages/dashboard/DashboardDiscover";
+import JoinProjectTeam from "./pages/dashboard/JoinProjectTeam";
+import EmptyJoinProjectTeam from "./pages/dashboard/EmptyJoinProjectTeam";
+import EmptyGetCertificate from "./pages/dashboard/EmptyGetCertificate";
+import GetCertificate from "./pages/dashboard/GetCertificate";
+import LeaveRating from "./pages/dashboard/LeaveRating";
+
+import ServiceLayout from "./layouts/ServiceLayout";
+import NewPassword from "./pages/auth/NewPassword";
+import SliderNav from "./pages/dashboard/SliderNav";
+import DiscoverCourses from "./pages/dashboard/DiscoverCourses";
+import AuthLayout from "./layouts/AuthLayout";
+
 function App() {
   const routes = createBrowserRouter([
+    {
+      path: "/preview-course",
+      element: <PreviewCourse />,
+    },
+    {
+      path: "/PreviewVideoCourse",
+      element: <PreviewVideoCourse />,
+    },
+
     {
       path: "/",
       element: <AppLayout />,
@@ -41,6 +67,13 @@ function App() {
           path: "/contact",
           element: <Contact />,
         },
+      ],
+    },
+
+    {
+      path: "/",
+      element: <ServiceLayout />,
+      children: [
         {
           path: "/digital-transformation",
           element: <DigitalTransformation />,
@@ -60,24 +93,39 @@ function App() {
       ],
     },
     {
-      path: "/AVI",
-      element: <AVI />,
+      path: "",
+      element: <AuthLayout />,
+      children: [
+        {
+          path: "/AVI",
+          element: <AVI />,
+        },
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "/signup",
+          element: <SignUp />,
+        },
+      ],
+    },
+
+    {
+      path: "/slider",
+      element: <SliderNav />,
     },
     {
-      path: "/preview-course",
-      element: <PreviewCourse />,
-    },
-    {
-      path: "login",
-      element: <Login />,
-    },
-    {
-      path: "/signup",
-      element: <SignUp />,
+      path: "/new-password",
+      element: <NewPassword />,
     },
     {
       path: "/forgot-password",
       element: <ForgotPassword />,
+    },
+    {
+      path: "/discover-courses",
+      element: <DiscoverCourses />,
     },
     {
       path: "/dashboard",
@@ -94,6 +142,64 @@ function App() {
         {
           path: "wishlists",
           element: <Wishlist />,
+        },
+        {
+          path: "referral",
+          element: <Referral />,
+        },
+        {
+          path: "student-settings",
+          element: <StudentSettings />,
+        },
+        {
+          path: "Dashboard_Discover",
+          element: <DashboardDiscover />,
+        },
+
+        {
+          path: "EmptyJoinProjectTeam",
+          element: <EmptyJoinProjectTeam />,
+        },
+        {
+          path: "EmptyGetCertificate",
+          element: <EmptyGetCertificate />,
+        },
+
+        {
+          path: "LeaveRating",
+          element: <LeaveRating />,
+        },
+      ],
+    },
+    {
+      element: <OtherLayout />,
+      path: "/dashboard",
+      children: [
+        {
+          element: <ShareDocument />,
+          path: "/dashboard",
+          children: [
+            {
+              path: "share-documents",
+              element: <Documents />,
+            },
+            {
+              path: "assignments",
+              element: <Assignment />,
+            },
+            {
+              path: "overview",
+              element: <Overview />,
+            },
+          ],
+        },
+        {
+          path: "certificate",
+          element: <GetCertificate />,
+        },
+        {
+          path: "projects",
+          element: <JoinProjectTeam />,
         },
       ],
     },

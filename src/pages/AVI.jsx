@@ -24,18 +24,16 @@ import Modal from "./auth/components/Modal";
 // import img from "../assets/images/data-solution.jpg";
 
 const AVI = () => {
-  const [showNav, setShowNav] = useState(true);
   return (
     <>
       <ScrollRestoration />
-      <AviNav showNav={showNav} setShowNav={setShowNav} />
       <ColorHero />
       {/* {showNav && <Modal />} */}
 
       <section>
         {/* AVI IMAGE */}
         <div className={`${styles.AVI_img} py-14`}>
-          <img src={AVIbg} alt="" />
+          <img src={AVIbg} alt="" className="w-full" />
         </div>
 
         {/* Checkout our top courses */}
@@ -71,7 +69,35 @@ const AVI = () => {
             </div>
 
             {/* Preview this Course */}
-            <div className={styles.previewCoursesFlex}>
+            <div className={`${styles.previewCoursesFlex} overflow-visible`}>
+              <CourseCard
+                imgSrc={joinTeam}
+                altText="joinTeam"
+                title={
+                  <>
+                    {" "}
+                    Project Consultant <br /> Training Programme (Bundle)
+                  </>
+                }
+                rating="4.3"
+                numRatings="45,345"
+                previewButtonText="Preview this course"
+              />
+
+              <CourseCard
+                imgSrc={joinTeam}
+                altText="joinTeam"
+                title={
+                  <>
+                    {" "}
+                    Project Consultant <br /> Training Programme (Bundle)
+                  </>
+                }
+                rating="4.3"
+                numRatings="45,345"
+                previewButtonText="Preview this course"
+              />
+
               <CourseCard
                 imgSrc={joinTeam}
                 altText="joinTeam"
@@ -168,10 +194,10 @@ const AVI = () => {
               </div>
 
               <div className={styles.team_skills_content}>
-                <h3 className="text-2xl font-normal capitalize text-[#23314A]">
+                <h3 className="text-[24px] font-[300] capitalize leading-9 text-[#3A4C6C] lg:text-[40px]">
                   Enhance your team's skills <br /> with Avenue Impact Academy.
                 </h3>
-                <p className="text-justify">
+                <p className="py-7 text-justify">
                   {" "}
                   Gain unlimited access to over 25,000 top courses anytime,
                   anywhere. Discover our international course collection
@@ -208,6 +234,9 @@ const AVI = () => {
               <div>
                 <img src={certificate} alt="" />
               </div>
+              <div>
+                <img src={certificate} alt="" />
+              </div>
             </div>
           </div>
         </div>
@@ -215,7 +244,7 @@ const AVI = () => {
         {/* Our Certified Professionals */}
         <div className={styles.certified_pro}>
           <div className={styles.certified_img}>
-            <img src={professionalBG} alt="" />
+            <img src={professionalBG} alt="" className="w-full" />
           </div>
 
           <ImageOverlay>

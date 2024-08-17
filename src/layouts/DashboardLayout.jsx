@@ -1,33 +1,27 @@
-import AviNav from "@/Components/avi/AviNav";
 import DashboardNav from "@/Components/dashboard/DashboardNav";
-import { Sidebar, SidebarItem } from "@/Components/dashboard/SideNav";
-import { faBell, faHeart, faHome } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Outlet } from "react-router-dom";
+import DashboardSideNav from "@/Components/dashboard/DashboardSideNav";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+
+import { Outlet, ScrollRestoration } from "react-router-dom";
 
 const DashboardLayout = () => {
+  const [toggleNav, setToggleNav] = useState(true);
+
   return (
-    <div className="grid grid-cols-[1fr_10fr] gap-0">
-      <Sidebar>
-        <SidebarItem
-          icon={<FontAwesomeIcon icon={faHome} />}
-          text={"Dashboard"}
-          active={true}
-          // alert={"alert"}
-        />
-        <SidebarItem
-          icon={<FontAwesomeIcon icon={faBell} />}
-          text={"Notification"}
-          alert={"alert"}
-        />
-        <SidebarItem
-          icon={<FontAwesomeIcon icon={faHeart} />}
-          text={"Wishlist"}
-          // alert={"alert"}
-        />
-      </Sidebar>
-      <div>
-        <DashboardNav />
+    <div className="relative">
+      <ScrollRestoration />
+      <div
+        className={cn(
+          "fixed left-0 top-0 z-10 flex h-screen w-full items-center justify-center bg-black/25 px-6 transition-transform duration-100 ease-linear lg:hidden",
+          toggleNav ? "-translate-x-full" : "translate-x-0",
+        )}
+      ></div>
+      <DashboardSideNav toggleNav={toggleNav} setTogglNav={setToggleNav} />
+
+      <div className="ml-0 h-full lg:ml-[272px] lg:px-0">
+        <DashboardNav setToggleNav={setToggleNav} />
+
         <div className="h-full bg-[#FDFDFD] p-6">
           <Outlet />
         </div>

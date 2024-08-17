@@ -1,12 +1,19 @@
-const AvenueList = ({ children, src, textColor }) => {
-	return (
-		<div className="flex gap-2 items-center">
-			<img src={src} alt="a checkbox icon" />
-			<p className={`font-normal text-[${textColor}] text-lg md:text-2xl `}>
-				{children}
-			</p>
-		</div>
-	);
+import { cn } from "@/lib/utils";
+
+const AvenueList = ({ children, src, textColor, className, imgClass }) => {
+  return (
+    <div className="flex items-center gap-2">
+      <img src={src} alt="a checkbox icon block  " className={cn(imgClass)} />
+      <p
+        className={cn(
+          `font-[400] text-[${textColor}] text-[16px] lg:text-[24px]`,
+          className,
+        )}
+      >
+        {children}
+      </p>
+    </div>
+  );
 };
 
 export default AvenueList;

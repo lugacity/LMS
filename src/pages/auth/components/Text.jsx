@@ -8,14 +8,17 @@ const elementProps = {
 
 export const Heading = ({ children, className }) => (
   <h1
-    className={cn("font-poppins text-center text-2xl text-heading", className)}
+    className={cn(
+      "text-center font-poppins text-base text-heading md:text-nowrap md:text-xl lg:text-xl",
+      className,
+    )}
   >
     {children}
   </h1>
 );
 
 export const Paragraph = ({ children, className }) => (
-  <p className={cn("text-desc text-center text-sm", className)}>{children}</p>
+  <p className={cn("text-center text-sm text-desc", className)}>{children}</p>
 );
 Heading.propTypes = { ...elementProps };
 Paragraph.propTypes = { ...elementProps };

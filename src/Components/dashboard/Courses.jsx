@@ -19,10 +19,10 @@ function Courses({ wishlist, handleWishlist }) {
     <div className="overflow-hidden rounded-lg">
       <img src={img} alt={title} />
       <div className="bg-[#FCFCFC] px-[10px] py-3">
-        <p className="text-tertiary-color-900 text-sm md:max-w-[166px]">
+        <p className="text-xs text-tertiary-color-900 md:max-w-[190px] md:text-[14px]">
           {title}
         </p>
-        <div className="my-3 flex items-center gap-3">
+        <div className="my-3 flex items-center gap-2 md:gap-3">
           <span className="text-xs font-light text-[#566B8E]">{ratings}</span>
           <div className="flex items-center text-xs">{renderStars()}</div>
           <span className="text-xs font-light text-[#566B8E]">{reviews}</span>
@@ -30,9 +30,11 @@ function Courses({ wishlist, handleWishlist }) {
         <div className="h-px w-full bg-primary-color-500" />
 
         <div className="mt-3 flex items-center justify-between">
-          <span className="text-tertiary-color-900 text-sm">{price}</span>
+          <span className="text-xs text-tertiary-color-900 md:text-sm">
+            {price}
+          </span>
           <button
-            className="font-light text-[#566b8e]"
+            className="text-xs font-light text-[#566b8e] md:text-base"
             onClick={() => handleWishlist(id)}
           >
             Remove

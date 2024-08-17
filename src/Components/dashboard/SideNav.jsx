@@ -1,80 +1,115 @@
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import mobileLogo from "../../assets/images/mobile-dark.png";
-
-import {
-  MoreVertical,
-  ChevronLast,
-  ChevronFirst,
-  MenuIcon,
-  ShieldCloseIcon,
-} from "lucide-react";
+import { LucideLogOut, MoreVertical } from "lucide-react";
+import { PiGearThin } from "react-icons/pi";
+import { IoGiftOutline } from "react-icons/io5";
 import { useContext, createContext, useState } from "react";
 import { DarkLogo } from "../Logo";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-// import { FaHamburger } from "react-icons/fa";
-// import { RiEyeCloseLine } from "react-icons/ri";
-// import { MdOutlineClose } from "react-icons/md";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 const SidebarContext = createContext();
 
-export function Sidebar({ children }) {
-  const [expanded, setExpanded] = useState(true);
+export function Sidebar({ children, toggleNav, setToggleNav }) {
+  const [expanded, setExpanded] = useState(false);
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
   // fixed left-0 top-0 z-10
+
   return (
-    <aside className="h-screen w-min">
-      <nav className="flex h-full flex-col border-r bg-white shadow-sm">
-        <div className="flex items-center justify-between p-4 pb-2">
-          {/* <img
-            src="https://img.logoipsum.com/243.svg"
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-32" : "w-0"
-            }`}
-            alt=""
-          /> */}
-          <DarkLogo
-            className={`overflow-hidden transition-all ${
-              expanded ? "w-40" : "w-0"
-            }`}
-          />
-          <button
-            onClick={() => setExpanded((curr) => !curr)}
-            className="rounded-lg p-1.5"
-          >
-            {expanded ? (
-              <FontAwesomeIcon
-                icon={faClose}
-                className="transition-transform ease-linear hover:scale-110"
-              />
-            ) : (
-              <img src={mobileLogo} alt="" className="w-8" />
-            )}
+    <aside
+      className={cn(
+        "fixed left-0 top-0 z-20 h-screen w-[272px] transition-transform duration-200",
+        toggleNav ? "-translate-x-full lg:translate-x-0" : "translate-x-0",
+      )}
+    >
+      <nav className="flex h-full w-full flex-col border-r bg-white shadow-sm">
+        <div className="mb-3 flex items-center justify-between p-4 pb-2 lg:ml-4 lg:justify-start">
+          <DarkLogo className={`overflow-hidden transition-all lg:w-40`} />
+          <button onClick={() => setToggleNav((prev) => !prev)}>
+            <FontAwesomeIcon
+              icon={faClose}
+              className="text-2xl text-tertiary-color-700 lg:hidden"
+            />
           </button>
         </div>
 
         <SidebarContext.Provider value={{ expanded }}>
-          <ul className="flex-1 px-3">{children}</ul>
+          <ul className="flex-1 px-2 md:px-3">{children}</ul>
         </SidebarContext.Provider>
+        <div>
+          <ul className="flex-1 px-3">
+            <li
+              className={"dashboard"}
+              onClick={() => setToggleNav((prev) => !prev)}
+            >
+              <NavLink
+                to={"student-settings"}
+                className={cn(
+                  "group relative my-1 flex cursor-pointer items-center border-4 border-transparent px-3 py-2 text-gray-600 transition-colors hover:border-l-primary-color-600 hover:bg-primary-color-100/30 hover:text-primary-color-600",
+                  location.pathname === "/dashboard/student-settings"
+                    ? "border-l-4 border-l-primary-color-600 bg-primary-color-100/30 font-medium text-primary-color-600"
+                    : "",
+                )}
+              >
+                <span className={"text-xl"}>
+                  <PiGearThin />
+                </span>
+                <span className={`ml-3 overflow-hidden transition-all`}>
+                  Account Setting
+                </span>
+              </NavLink>
+            </li>
+            <li
+              className={"dashboard"}
+              onClick={() => setToggleNav((prev) => !prev)}
+            >
+              <NavLink
+                to={"referral"}
+                className={cn(
+                  "group relative my-1 flex cursor-pointer items-center border-4 border-transparent px-3 py-2 text-gray-600 transition-colors hover:border-l-primary-color-600 hover:bg-primary-color-100/30 hover:text-primary-color-600",
+                  location.pathname === "/dashboard/referral"
+                    ? "border-l-4 border-l-primary-color-600 bg-primary-color-100/30 font-medium text-primary-color-600"
+                    : "",
+                )}
+              >
+                <span className={"text-xl"}>
+                  <IoGiftOutline />
+                </span>
+                <span className={`ml-3 overflow-hidden transition-all`}>
+                  Referrals
+                </span>
+              </NavLink>
+            </li>
+          </ul>
 
-        <div className="flex border-t p-3">
-          {/* <img
-            src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
-            alt=""
-            className="h-10 w-10 rounded-md"
-          /> */}
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
+          <div className="flex border-t p-3">
+            <Avatar>
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback className="bg-primary-color-100 text-lg text-primary-color-600">
+                MS
+              </AvatarFallback>
+            </Avatar>
 
-          <div
-            className={`flex items-center justify-between overflow-hidden transition-all ${expanded ? "ml-3 w-52" : "w-0"} `}
-          >
-            <div className="leading-4">
-              <h4 className="font-semibold">John Doe</h4>
-              <span className="text-xs text-gray-600">johndoe@gmail.com</span>
+            <div
+              className={`ml-3 flex w-full items-center justify-between overflow-hidden transition-all`}
+            >
+              <div className="leading-4">
+                <h4 className="text-[#101928]">Maxwell Samantha</h4>
+                <span className="text-xs text-gray-600">johndoe@gmail.com</span>
+              </div>
+              <button
+                onClick={() => {
+                  navigate("/login");
+                  setToggleNav(true);
+                }}
+              >
+                <LucideLogOut />
+              </button>
             </div>
-            <MoreVertical size={20} />
           </div>
         </div>
       </nav>
@@ -82,44 +117,27 @@ export function Sidebar({ children }) {
   );
 }
 
-export function SidebarItem({ icon, text, active, alert }) {
+export function SidebarItem({ icon, text, path, setToggleNav }) {
   const { expanded } = useContext(SidebarContext);
 
-  return (
-    <li
-      className={`group relative my-1 flex cursor-pointer items-center px-3 py-2 font-medium transition-colors ${
-        active
-          ? "border-l-4 border-l-primary-color-600 bg-primary-color-100/30"
-          : "text-gray-600 hover:bg-indigo-50"
-      } `}
-    >
-      <span
-        className={`${active ? "text-primary-color-600" : "text-gray-500"}`}
-      >
-        {icon}
-      </span>
-      <span
-        className={`overflow-hidden transition-all ${
-          expanded ? "ml-3 w-52" : "w-0"
-        }`}
-      >
-        {text}
-      </span>
-      {alert && (
-        <div
-          className={`absolute right-2 h-2 w-2 rounded bg-indigo-400 ${
-            expanded ? "" : "top-2"
-          }`}
-        />
-      )}
+  const location = useLocation();
 
-      {!expanded && (
-        <div
-          className={`absolute left-full ml-6 hidden w-0 -translate-x-3 rounded-md bg-indigo-100 px-2 py-1 text-sm text-indigo-800 opacity-20 transition-all group-hover:visible group-hover:translate-x-0 group-hover:opacity-100`}
-        >
+  return (
+    <li className={"dashboard"} onClick={() => setToggleNav((prev) => !prev)}>
+      <NavLink
+        to={path}
+        className={cn(
+          "group relative my-1 flex cursor-pointer items-center border-4 border-transparent px-3 py-2 text-gray-600 transition-colors hover:border-l-primary-color-600 hover:bg-primary-color-100/30 hover:text-primary-color-600",
+          location.pathname === path
+            ? "border-l-4 border-l-primary-color-600 bg-primary-color-100/30 font-medium text-primary-color-600"
+            : "",
+        )}
+      >
+        <span className={"text-xl"}>{icon}</span>
+        <span className={`ml-3 overflow-hidden transition-all lg:block`}>
           {text}
-        </div>
-      )}
+        </span>
+      </NavLink>
     </li>
   );
 }
