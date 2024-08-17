@@ -39,6 +39,7 @@ export const CourseCardPreview = ({ imgSrc, previewButtonText }) => {
 };
 
 // Dashboard Discover
+// seprate each component to a seprate file
 export const DashboardDiscover = ({
   imgSrc,
   altText,
