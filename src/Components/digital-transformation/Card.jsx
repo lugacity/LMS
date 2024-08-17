@@ -5,6 +5,7 @@ const Card = ({ heading, children, className }) => {
   return (
     <article
       className={cn(
+
         "space-y-8 rounded bg-[#FAFCFF] px-5 py-10 md:px-9",
         className,
       )}
@@ -13,6 +14,7 @@ const Card = ({ heading, children, className }) => {
         {heading}
       </h3>
       <ul className="list-disc text-[17px] *:text-base *:text-[#667185] md:space-y-4 lg:text-[20px]">
+
         {children}
       </ul>
     </article>
