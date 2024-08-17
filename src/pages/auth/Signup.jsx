@@ -63,7 +63,7 @@ const SignUp = () => {
     <div className="min-h-screen">
       {confirm && (
         <Modal>
-          <BorderCard className="rounded-xl bg-white px-[72px] py-11 text-center">
+          <BorderCard className="w-full max-w-[731px] rounded-xl bg-white py-11 text-center">
             <div className="px-4">
               <p className="text-xl font-semibold text-[#23314A]">
                 Confirm your email address
@@ -72,7 +72,9 @@ const SignUp = () => {
                 Please enter code we sent now to aviplatform@gmail.com{" "}
                 <span className="text-primary-color-600">Edit</span>
               </p>
-              <OtpComponent />
+              <div className="mx-auto w-fit">
+                <OtpComponent />
+              </div>
               <p className="mb-[31px] mt-6 text-sm">
                 <span className="text-[#645D5D]"> Didn’t receive a code?</span>{" "}
                 <span className="font-medium text-primary-color-600">

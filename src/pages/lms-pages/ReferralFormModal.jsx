@@ -87,7 +87,7 @@ const ReferralFormModal = ({ setModal }) => {
             name="email"
             control={form.control}
             type="text"
-            id="email"
+            id="sort code"
             placeholder=""
           />
           <FormInput
@@ -113,7 +113,7 @@ const ReferralFormModal = ({ setModal }) => {
             referral funds. This takes 4 to 5 working days.
           </p>
           <CommonButton
-            className="w-2/4 bg-primary-color-600 font-poppins capitalize text-white hover:bg-primary-color-600 md:text-xl md:font-semibold"
+            className="bg-primary-color-600 font-poppins font-medium capitalize text-white hover:bg-primary-color-600 md:w-2/4 md:text-xl md:font-semibold"
             type="submit"
           >
             Request Withdrawal

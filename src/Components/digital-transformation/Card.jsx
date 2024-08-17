@@ -4,7 +4,10 @@ import React from "react";
 const Card = ({ heading, children, className }) => {
   return (
     <article
-      className={cn("space-y-8 rounded bg-[#FAFCFF] px-9 py-10", className)}
+      className={cn(
+        "space-y-8 rounded bg-[#FAFCFF] px-5 py-10 md:px-9",
+        className,
+      )}
     >
       <h3 className="text-[18px] capitalize text-[#667185] lg:text-[28px]">
         {heading}
