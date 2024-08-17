@@ -47,5 +47,7 @@ const ProfessionalList = ({ title, items, className }) => {
     </div>
   );
 };
-
 export { ProfessionalList, professionalItems, industriesItems };
+//******** this ^^^^^^ */
+
+// change the component here to a an export default then correct the import in every component its been used

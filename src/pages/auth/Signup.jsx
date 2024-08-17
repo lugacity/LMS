@@ -95,7 +95,7 @@ const SignUp = () => {
           </BorderCard>
         </Modal>
       )}
-      <div className="flex w-full items-center justify-center 2xl:h-[calc(100vh-100.547px)]">
+      <div className="flex w-full items-center justify-center px-6 2xl:h-[calc(100vh-100.547px)]">
         <div className="w-fit">
           <div className="py-6">
             <BorderCard className="mx-auto max-w-[465px]">
