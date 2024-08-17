@@ -32,7 +32,6 @@ const Login = () => {
 
   return (
     <>
-      <AviNav />
       <div className="flex h-[calc(100vh-100.547px)] w-full items-center justify-center">
         <div className="py-10">
           <BorderCard className="mx-auto max-w-[465px]">

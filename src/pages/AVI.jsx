@@ -24,18 +24,16 @@ import Modal from "./auth/components/Modal";
 // import img from "../assets/images/data-solution.jpg";
 
 const AVI = () => {
-  const [showNav, setShowNav] = useState(true);
   return (
     <>
       <ScrollRestoration />
-      <AviNav showNav={showNav} setShowNav={setShowNav} />
       <ColorHero />
       {/* {showNav && <Modal />} */}
 
       <section>
         {/* AVI IMAGE */}
         <div className={`${styles.AVI_img} py-14`}>
-          <img src={AVIbg} alt="" className="w-full"/>
+          <img src={AVIbg} alt="" className="w-full" />
         </div>
 
         {/* Checkout our top courses */}
@@ -57,9 +55,11 @@ const AVI = () => {
               </div>
             </div>
 
-        <div className="mt-2 h-[1px] w-full bg-[#C7D7F4]" />
+            <div className="mt-2 h-[1px] w-full bg-[#C7D7F4]" />
 
-            <div className={`${styles.career_content} w-full py-8 text-[#667185] lg:w-1/2`}>
+            <div
+              className={`${styles.career_content} w-full py-8 text-[#667185] lg:w-1/2`}
+            >
               <p>
                 {" "}
                 Discover our most popular courses, carefully curated to enhance
@@ -181,7 +181,6 @@ const AVI = () => {
                 numRatings="45,345"
                 previewButtonText="Preview this course"
               />
-
             </div>
 
             {/* Enhance your team's skills */}
@@ -195,10 +194,10 @@ const AVI = () => {
               </div>
 
               <div className={styles.team_skills_content}>
-                <h3 className="lg:text-[40px] text-[24px] leading-9 font-[300] capitalize text-[#3A4C6C]">
+                <h3 className="text-[24px] font-[300] capitalize leading-9 text-[#3A4C6C] lg:text-[40px]">
                   Enhance your team's skills <br /> with Avenue Impact Academy.
                 </h3>
-                <p className="text-justify py-7">
+                <p className="py-7 text-justify">
                   {" "}
                   Gain unlimited access to over 25,000 top courses anytime,
                   anywhere. Discover our international course collection
@@ -245,7 +244,7 @@ const AVI = () => {
         {/* Our Certified Professionals */}
         <div className={styles.certified_pro}>
           <div className={styles.certified_img}>
-            <img src={professionalBG} alt="" className="w-full"/>
+            <img src={professionalBG} alt="" className="w-full" />
           </div>
 
           <ImageOverlay>

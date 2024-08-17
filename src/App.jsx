@@ -38,6 +38,7 @@ import ServiceLayout from "./layouts/ServiceLayout";
 import NewPassword from "./pages/auth/NewPassword";
 import SliderNav from "./pages/dashboard/SliderNav";
 import DiscoverCourses from "./pages/dashboard/DiscoverCourses";
+import AuthLayout from "./layouts/AuthLayout";
 
 function App() {
   const routes = createBrowserRouter([
@@ -49,6 +50,7 @@ function App() {
       path: "/PreviewVideoCourse",
       element: <PreviewVideoCourse />,
     },
+
     {
       path: "/",
       element: <AppLayout />,
@@ -67,6 +69,7 @@ function App() {
         },
       ],
     },
+
     {
       path: "/",
       element: <ServiceLayout />,
@@ -90,17 +93,24 @@ function App() {
       ],
     },
     {
-      path: "/AVI",
-      element: <AVI />,
+      path: "",
+      element: <AuthLayout />,
+      children: [
+        {
+          path: "/AVI",
+          element: <AVI />,
+        },
+        {
+          path: "login",
+          element: <Login />,
+        },
+        {
+          path: "/signup",
+          element: <SignUp />,
+        },
+      ],
     },
-    {
-      path: "login",
-      element: <Login />,
-    },
-    {
-      path: "/signup",
-      element: <SignUp />,
-    },
+
     {
       path: "/slider",
       element: <SliderNav />,

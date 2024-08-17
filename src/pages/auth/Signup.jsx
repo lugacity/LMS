@@ -61,7 +61,6 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen">
-      <AviNav />
       {confirm && (
         <Modal>
           <BorderCard className="rounded-xl bg-white px-[72px] py-11 text-center">
