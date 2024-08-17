@@ -36,8 +36,6 @@ const NewPassword = () => {
 
   return (
     <>
-      {" "}
-      <AviNav />
       {modal && (
         <Modal>
           <RegisterSuccess
@@ -50,7 +48,7 @@ const NewPassword = () => {
           />
         </Modal>
       )}
-      <div className="flex h-[calc(100vh-100.547px)] w-full items-center justify-center py-10">
+      <div className="flex h-[calc(100vh-100.547px)] w-full items-center justify-center px-6 py-10">
         <BorderCard className="mx-auto max-w-[465px]">
           <div className="mb-8 space-y-1">
             <Heading>Create Your New Password</Heading>
@@ -68,7 +66,7 @@ const NewPassword = () => {
                 placeholder=""
               />
               <PasswordInput
-                id="password"
+                id="confirmPassword"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete="new-password"

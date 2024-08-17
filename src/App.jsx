@@ -108,6 +108,14 @@ function App() {
           path: "/signup",
           element: <SignUp />,
         },
+        {
+          path: "/new-password",
+          element: <NewPassword />,
+        },
+        {
+          path: "/forgot-password",
+          element: <ForgotPassword />,
+        },
       ],
     },
 
@@ -115,14 +123,7 @@ function App() {
       path: "/slider",
       element: <SliderNav />,
     },
-    {
-      path: "/new-password",
-      element: <NewPassword />,
-    },
-    {
-      path: "/forgot-password",
-      element: <ForgotPassword />,
-    },
+
     {
       path: "/discover-courses",
       element: <DiscoverCourses />,
