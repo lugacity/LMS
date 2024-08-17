@@ -21,7 +21,7 @@ import PopUp from "../dashboard/PopUp";
 const AviNav = ({ showNav, setShowNav }) => {
   const navigate = useNavigate();
   return (
-    <nav className="flex items-center justify-between px-6 py-4 lg:px-20">
+    <nav className="z-50 flex items-center justify-between px-6 py-4 lg:px-20">
       <div>
         <Link to={"/"} className="cursor-pointer">
           <DarkLogo />
@@ -33,7 +33,7 @@ const AviNav = ({ showNav, setShowNav }) => {
       </button>
 
       <div
-        className={`fixed right-0 top-0 z-20 flex h-[40vh] w-2/4 flex-col items-center gap-8 bg-white px-12 py-10 transition-transform duration-300 ease-linear md:relative md:h-fit md:w-max md:translate-x-0 md:flex-row md:gap-10 md:px-0 md:py-0 ${showNav ? "translate-x-full" : "translate-x-0"}`}
+        className={`fixed right-0 top-0 z-20 flex w-2/4 flex-col items-center gap-8 bg-white px-12 py-10 transition-transform duration-300 ease-linear md:relative md:h-fit md:w-max md:translate-x-0 md:flex-row md:gap-10 md:px-0 md:py-0 ${showNav ? "translate-x-full" : "translate-x-0"}`}
       >
         <button
           type=" button"
@@ -47,15 +47,18 @@ const AviNav = ({ showNav, setShowNav }) => {
         </button>
         <ul className="nav flex flex-col items-center gap-6 *:cursor-pointer *:capitalize *:text-[#23314A] md:flex-row md:gap-10">
           {/* className="contents-[''] relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-[#CC1747]" */}
-          <li onClick={() => setShowNav(true)}>
+          <li onClick={() => setShowNav((prev) => !prev)}>
             <NavLink to={"/avi"}>home</NavLink>
           </li>
-          <li onClick={() => setShowNav(true)}>
+          <li onClick={() => setShowNav((prev) => !prev)}>
             <NavLink to={"/login"}>login</NavLink>
           </li>
         </ul>
         <button
-          onClick={() => navigate("/signup")}
+          onClick={() => {
+            navigate("/signup");
+            setShowNav((prev) => !prev);
+          }}
           className="rounded-lg bg-[#CC1747] px-4 py-2 capitalize text-[#FFEBF0]"
         >
           register

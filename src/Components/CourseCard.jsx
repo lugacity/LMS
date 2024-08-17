@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -53,7 +54,11 @@ export const DashboardDiscover = ({
     const stars = [];
     for (let i = 0; i < 5; i++) {
       stars.push(
-        <FontAwesomeIcon key={i} icon={faStar} className="text-[#F53366]" />,
+        <FontAwesomeIcon
+          key={i}
+          icon={faStar}
+          className="text-[10px] text-[#F53366] md:text-lg"
+        />,
       );
     }
     return stars;
@@ -64,24 +69,22 @@ export const DashboardDiscover = ({
   };
 
   return (
-    <div className="bg-[rgb(252,252,252)]">
-      <div className="w-full rounded-t-lg">
+    <div className="overflow-hidden rounded-t-lg bg-[rgb(252,252,252)]">
+      <div className="w-full overflow-hidden rounded-t-lg">
         <img className="object-cover" src={imgSrc} alt={altText} />
       </div>
 
       <div
         className={`rounded-b-lg text-[#667185] md:px-3 md:py-2 lg:py-[4px]`}
       >
-        <p className="text-[12px] font-[500]">{title}</p>
+        <p className="text-[12px] md:font-[500]">{title}</p>
 
-        <div
-          className={`${styles.courseNumber} mb-2 mt-[6px] flex items-center justify-start gap-2 lg:mb-2 lg:mt-[10px]`}
-        >
-          <p className="text-[12px]">{rating}</p>
+        <div>
+          <p className="text-[10px] md:text-[12px]">{rating}</p>
           <div className="flex text-sm md:text-base lg:text-sm">
             {renderStars()}
           </div>
-          <p className="text-[12px]">{numRatings}</p>
+          <p className="text-[10px] md:text-[12px]">{numRatings}</p>
         </div>
 
         <div className="my-[5px] hidden h-[1px] w-full bg-[#F53366] lg:block" />
