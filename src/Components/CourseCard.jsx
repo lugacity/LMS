@@ -149,11 +149,11 @@ const CourseCard = ({
         <div
           className={`${styles.courseNumber} mb-2 mt-[6px] flex items-center justify-start gap-2 lg:mb-5 lg:mt-[14px]`}
         >
-          <p className="">{rating}</p>
-          <div className="flex items-center text-sm md:text-base lg:text-lg">
+          <p className="text-xs md:text-base">{rating}</p>
+          <div className="flex items-center text-xs md:text-base lg:text-lg">
             {renderStars()}
           </div>
-          <p className="">{numRatings}</p>
+          <p className="text-xs md:text-base">{numRatings}</p>
         </div>
 
         <Link to={path}>

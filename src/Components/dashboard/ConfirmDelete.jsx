@@ -35,7 +35,7 @@ const ConfirmDelete = ({ setShowModal }) => {
           />
         </button>
       </header>
-      <p className="my-5 text-sm leading-[20px] text-tertiary-color-700">
+      <p className="my-2 text-sm leading-[20px] text-tertiary-color-700 md:my-5">
         Are you sure you want to delete your account? This action is
         irreversible and will result in the permanent loss of all your data,
         including your enrolled courses, progress, certificates, and personal
@@ -44,7 +44,7 @@ const ConfirmDelete = ({ setShowModal }) => {
       <p className="text-sm leading-[20px] text-tertiary-color-700">
         Important:
       </p>
-      <ul className="my-5 list-disc *:ml-8">
+      <ul className="my-3 list-disc *:ml-8 md:my-5">
         <li className="text-sm leading-[20px] text-tertiary-color-700">
           You will lose access to all courses and learning materials.
         </li>
@@ -63,7 +63,7 @@ const ConfirmDelete = ({ setShowModal }) => {
         password below:
       </p>
       <Form {...form}>
-        <form className="max-w-[405px] space-y-4 py-5">
+        <form className="max-w-[405px] space-y-2 py-3 md:space-y-4 md:py-5">
           <PasswordInput
             id="password"
             autoComplete="old-password"
@@ -72,16 +72,16 @@ const ConfirmDelete = ({ setShowModal }) => {
             control={form.control}
             placeholder="Enter password"
           />
-          <div className="flex gap-4">
+          <div className="flex gap-2 md:gap-4">
             <CommonButton
-              className="bg-[#CC1747] py-[10.5px] font-normal capitalize text-[#FFEBF0]"
+              className="bg-[#CC1747] py-[10.5px] text-sm font-normal capitalize text-[#FFEBF0] md:text-base"
               type="submit"
             >
               Delete My Account
             </CommonButton>
             <CommonButton
               variant="outline"
-              className="px-8 py-[10.5px] font-normal text-tertiary-color-700"
+              className="px-5 py-2 text-sm font-normal text-tertiary-color-700 md:px-8 md:py-[10.5px] md:text-base"
               type="button"
               onClick={() => setShowModal((prev) => !prev)}
             >
