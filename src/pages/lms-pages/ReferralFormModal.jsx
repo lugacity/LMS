@@ -6,10 +6,10 @@ import BorderCard from "@/Components/BorderCard";
 import { CommonButton } from "@/Components/ui/button";
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
-import { PasswordInput } from "@/Components/ui/password-input";
 import { Heading, Paragraph } from "../../pages/auth/components/Text";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import PasswordInput from "@/Components/ui/password-input";
 
 const loginSchema = z.object({
   email: z.string().email(),

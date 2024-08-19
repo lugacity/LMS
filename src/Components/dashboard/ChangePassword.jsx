@@ -1,9 +1,9 @@
 import { Form } from "../ui/form";
-import { PasswordInput } from "../ui/password-input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { CommonButton } from "../ui/button";
+import PasswordInput from "../ui/password-input";
 const loginSchema = z.object({
   email: z.string().email(),
   password: z

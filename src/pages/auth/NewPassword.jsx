@@ -2,14 +2,13 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import AviNav from "@/Components/avi/AviNav";
 import BorderCard from "@/Components/BorderCard";
 import { Heading } from "./components/Text";
 import { Form } from "@/Components/ui/form";
-import { PasswordInput } from "@/Components/ui/password-input";
 import { CommonButton } from "@/Components/ui/button";
 import Modal from "./components/Modal";
 import RegisterSuccess from "./components/RegisterSuccess";
+import PasswordInput from "@/Components/ui/password-input";
 
 const loginSchema = z.object({
   username: z.string().min(1, { message: "name is required" }),

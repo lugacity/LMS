@@ -8,8 +8,9 @@ import BorderCard from "@/Components/BorderCard";
 import { Heading, Paragraph } from "./components/Text";
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
-import { PasswordInput } from "@/Components/ui/password-input";
+
 import { CommonButton } from "@/Components/ui/button";
+import PasswordInput from "@/Components/ui/password-input";
 
 const loginSchema = z.object({
   username: z.string().min(1, { message: "name is required" }),

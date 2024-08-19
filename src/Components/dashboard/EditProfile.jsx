@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CommonButton } from "../ui/button";
-import { PasswordInput } from "../ui/password-input";
 import FormInput from "../ui/form-input";
 import { Form } from "../ui/form";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -11,6 +10,7 @@ import BorderCard from "../BorderCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import PasswordInput from "../ui/password-input";
 const loginSchema = z.object({
   email: z.string().email(),
   password: z
