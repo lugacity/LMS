@@ -8,7 +8,6 @@ import FormInput from "@/Components/ui/form-input";
 import { Link, useNavigate } from "react-router-dom";
 import { Heading, Paragraph } from "./components/Text";
 import BorderCard from "@/Components/BorderCard";
-import AviNav from "@/Components/avi/AviNav";
 import Modal from "./components/Modal";
 import OtpComponent from "@/Components/about/OtpComponent";
 

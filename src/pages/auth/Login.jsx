@@ -8,19 +8,77 @@ import BorderCard from "@/Components/BorderCard";
 import { Heading, Paragraph } from "./components/Text";
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
-import { PasswordInput } from "@/Components/ui/password-input";
+
 import { CommonButton } from "@/Components/ui/button";
+import PasswordInput from "@/Components/ui/password-input";
+import axios from "axios";
+import toast from "react-hot-toast";
+// {
+//     "status": "success",
+//     "user": {
+//         "id": "66c5019cb77de580f4274c96",
+//         "firstname": "zainab",
+//         "lastname": "wunmi",
+//         "username": "lawal",
+//         "email": "lawalzainabomowumi2021@gmail.com",
+//         "status": "verified",
+//         "wishlist": [],
+//         "avatar": null,
+//         "referral_code": "lawalPIM28AYSIG"
+//     },
+//     "message": "User verification successful, Please login to gain full access"
+// }
+
+// {
+//     "status": "success",
+//     "data": {
+//         "user": {
+//             "id": "66c5019cb77de580f4274c96",
+//             "firstname": "zainab",
+//             "lastname": "wunmi",
+//             "username": "lawal",
+//             "email": "lawalzainabomowumi2021@gmail.com",
+//             "status": "verified",
+//             "wishlist": [],
+//             "avatar": null,
+//             "referral_code": "lawalPIM28AYSIG"
+//         },
+//         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzUwMTljYjc3ZGU1ODBmNDI3NGM5NiIsImVtYWlsIjoibGF3YWx6YWluYWJvbW93dW1pMjAyMUBnbWFpbC5jb20iLCJpYXQiOjE3MjQxODc0ODUsImV4cCI6MTcyNDIwMTg4NX0.5QwTd79q7HST5aBb52_Zr0PCG6QRagPvRFgXeswuEs8"
+//     },
+//     "message": "Login successful"
+// }
 
 const loginSchema = z.object({
   username: z.string().min(1, { message: "name is required" }),
   password: z
     .string()
-    .min(4, { message: "Name must be at least 4 characters long" }),
+    .min(4, { message: "password must be at least 4 characters long" }),
 });
 
-const Login = () => {
-  const [password, setPassword] = useState("");
+const url = import.meta.env.VITE_AUTH_URL;
+
+const Login = ({ setUserInfo, userInfo }) => {
   const navigate = useNavigate();
+  const handleSubmit = async (values) => {
+    const user = {
+      userid: values.username,
+      password: values.password,
+    };
+
+    console.log(values);
+
+    const response = await axios.post(`${url}/login`, user);
+
+    if (response.data.status === "success") {
+      setUserInfo((state) => {
+        return { ...state };
+      });
+      console.log(userInfo);
+
+      navigate("/dashboard");
+      toast.success("login successful");
+    }
+  };
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -29,6 +87,8 @@ const Login = () => {
       password: "",
     },
   });
+
+  const { isSubmitting, isLoading } = form.formState;
 
   return (
     <>
@@ -43,7 +103,7 @@ const Login = () => {
               <form
                 action=""
                 className="space-y-2"
-                onSubmit={() => navigate("/dashboard")}
+                onSubmit={form.handleSubmit(handleSubmit)}
               >
                 <FormInput
                   name="username"
@@ -55,8 +115,6 @@ const Login = () => {
                 />
                 <PasswordInput
                   id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   autoComplete="new-password"
                   label="password"
                   name="password"
@@ -75,7 +133,7 @@ const Login = () => {
                   className="mt-8 w-full bg-primary-color-600 font-poppins text-xl font-semibold capitalize text-white hover:bg-primary-color-600"
                   type="submit"
                 >
-                  sign in
+                  {isSubmitting ? "loading..." : "sign in"}
                 </CommonButton>
               </form>
             </Form>

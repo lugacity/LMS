@@ -1,36 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import styles from "../pages/pages.module.css"; // Adjust the import according to your project structure
-
-const professionalItems = [
-  "Agile and Digital Business Analysis",
-  "Product Management",
-  "Data Analytics",
-  "Power BI",
-  "Business Intelligence",
-  "Software Development",
-  "Digital Transformation Solutions",
-  "Cyber Security",
-  "Data Management",
-  "Data Strategy",
-  "Artificial Intelligence",
-  "Cloud Computing and more",
-];
-
-const industriesItems = [
-  "Business Transformation & Advisory",
-  "Turnaround, Stability & Restructuring Transaction",
-  "Valuation & Financial Advisory Services",
-  "Dispute Advisory",
-  "Tax Services",
-  "Healthcare",
-  "Financial Services",
-  "Technology",
-  "Automotive",
-  "Oil & Gas",
-];
 
 const ProfessionalList = ({ title, items, className }) => {
   return (
@@ -47,7 +18,7 @@ const ProfessionalList = ({ title, items, className }) => {
     </div>
   );
 };
-export { ProfessionalList, professionalItems, industriesItems };
+export default ProfessionalList;
 //******** this ^^^^^^ */
 
 // change the component here to a an export default then correct the import in every component its been used

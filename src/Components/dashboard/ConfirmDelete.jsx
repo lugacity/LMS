@@ -1,14 +1,13 @@
-import React from "react";
 import BorderCard from "../BorderCard";
 import { Heading } from "@/pages/auth/components/Text";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { PasswordInput } from "../ui/password-input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../ui/form";
 import { CommonButton } from "../ui/button";
+import PasswordInput from "../ui/password-input";
 const loginSchema = z.object({
   email: z.string().email(),
   password: z

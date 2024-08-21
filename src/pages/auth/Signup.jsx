@@ -1,98 +1,109 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { z } from "zod";
-import AviNav from "@/Components/avi/AviNav";
 import BorderCard from "@/Components/BorderCard";
 import { CommonButton } from "@/Components/ui/button";
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
-import { PasswordInput } from "@/Components/ui/password-input";
 import { Heading, Paragraph } from "./components/Text";
-import OtpComponent from "@/Components/about/OtpComponent";
 import Modal from "./components/Modal";
 import RegisterSuccess from "./components/RegisterSuccess";
+import ConfirmEmail from "./components/ConfirmEmail";
+import PasswordInput from "@/Components/ui/password-input";
+import axios from "axios";
+import RegisterFail from "./components/RegisterFail";
+import toast from "react-hot-toast";
 
-const loginSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  password: z
-    .string()
-    .min(4, { message: "Name must be at least 4 characters long" }),
-  referralCode: z
-    .string()
-    .min(4, { message: "Name must be at least 4 characters long" }),
-  connfirmPassword: z
-    .string()
-    .min(4, { message: "Name must be at least 4 characters long" }),
-  firstname: z
-    .string()
-    .min(1, { message: " first name must be at least 4 characters long" }),
-  lastname: z
-    .string()
-    .min(1, { message: "last name must be at least 4 characters long" }),
-  username: z
-    .string()
-    .min(1, { message: " username must be at least 4 characters long" }),
-});
+const loginSchema = z
+  .object({
+    email: z.string().email({ message: "Please enter a valid email address." }),
+    password: z
+      .string()
+      .min(4, { message: "Password must be at least 4 characters long " }),
+    referralCode: z.string().optional(),
+    confirmPassword: z
+      .string()
+      .min(4, { message: "Password must be at least 4 characters ong" }),
+    firstName: z
+      .string()
+      .min(1, { message: " first name must be at least 4 characters long" }),
+    lastName: z
+      .string()
+      .min(1, { message: "last name must be at least 4 characters long" }),
+    username: z
+      .string()
+      .min(1, { message: " username must be at least 4 characters long" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Password don't match",
+    path: ["confirmPassword"],
+  });
 
 const SignUp = () => {
-  // const [currentPassword, setCurrentPassword] = useState("");
-  const [password, setPassword] = useState("");
-  // const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [success, setSuccess] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [modal, setModal] = useState(false);
-
-  const navigate = useNavigate();
+  const [user, setUser] = useState();
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
-      firstname: "",
-      lastname: "",
+      firstName: "",
+      lastName: "",
       username: "",
-      connfirmPassword: "",
+      confirmPassword: "",
       referralCode: "",
     },
   });
+
+  const { isSubmitting } = form.formState;
+
+  const url = import.meta.env.VITE_AUTH_URL;
+
+  const handleSubmit = async (values) => {
+    console.log(values);
+    const { firstName, lastName, password, email, username } = values;
+
+    const users = {
+      firstname: firstName,
+      lastname: lastName,
+      email,
+      password,
+      username,
+    };
+
+    try {
+      const response = await axios.post(`${url}/signup`, users);
+
+      console.log(response.data.status);
+
+      if (response.data.status === "success") {
+        console.log(response.data);
+
+        setUser(response.data.newUser);
+        setConfirm(true);
+        console.log(user);
+      }
+    } catch (error) {
+      console.log(error.response.data);
+      toast.error(error.response.data);
+    }
+  };
 
   return (
     <div className="min-h-screen">
       {confirm && (
         <Modal>
-          <BorderCard className="w-full max-w-[731px] rounded-xl bg-white py-11 text-center">
-            <div className="px-4">
-              <p className="text-xl font-semibold text-[#23314A]">
-                Confirm your email address
-              </p>
-              <p className="mx-auto mb-6 mt-3 max-w-[284px] text-center text-sm leading-[18px] text-[#98A2B3]">
-                Please enter code we sent now to aviplatform@gmail.com{" "}
-                <span className="text-primary-color-600">Edit</span>
-              </p>
-              <div className="mx-auto w-fit">
-                <OtpComponent />
-              </div>
-              <p className="mb-[31px] mt-6 text-sm">
-                <span className="text-[#645D5D]"> Didn’t receive a code?</span>{" "}
-                <span className="font-medium text-primary-color-600">
-                  Resend
-                </span>
-              </p>
-            </div>
-            <CommonButton
-              className="w-full bg-primary-color-600"
-              onClick={() => {
-                setConfirm((prev) => !prev);
-                setModal((prev) => !prev);
-                setSuccess("success");
-              }}
-            >
-              Confirm
-            </CommonButton>
-          </BorderCard>
+          <ConfirmEmail
+            setConfirm={setConfirm}
+            setModal={setModal}
+            setSuccess={setSuccess}
+            user={user}
+          />
         </Modal>
       )}
       <div className="flex w-full items-center justify-center px-6 2xl:h-[calc(100vh-100.547px)]">
@@ -104,27 +115,22 @@ const SignUp = () => {
                 <Paragraph>Use your email to sign up</Paragraph>
               </div>
               <Form {...form}>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    setConfirm((prev) => !prev);
-                  }}
-                >
+                <form onSubmit={form.handleSubmit(handleSubmit)}>
                   <div className="space-y-[4px]">
                     <FormInput
                       label="firstname"
-                      name="firstname"
+                      name="firstName"
                       control={form.control}
                       type="text"
-                      id="firstname"
+                      id="firstName"
                       placeholder=""
                     />
                     <FormInput
                       label="lastname"
-                      name="lastname"
+                      name="lastName"
                       control={form.control}
                       type="text"
-                      id="lastname"
+                      id="lastName"
                       placeholder=""
                     />
                     <FormInput
@@ -145,8 +151,6 @@ const SignUp = () => {
                     />
                     <PasswordInput
                       id="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
                       autoComplete="new-password"
                       label="password"
                       name="password"
@@ -155,8 +159,6 @@ const SignUp = () => {
                     />
                     <PasswordInput
                       id="confirmPassword"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
                       autoComplete="new-password"
                       label="confirm password"
                       name="confirmPassword"
@@ -165,8 +167,6 @@ const SignUp = () => {
                     />
                     <PasswordInput
                       id="referralCode"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
                       autoComplete="new-password"
                       label="referral Code"
                       name="referralCode"
@@ -190,8 +190,9 @@ const SignUp = () => {
                   <CommonButton
                     className="mt-6 w-full bg-primary-color-600 py-4 font-poppins text-base font-semibold capitalize text-white hover:bg-primary-color-600"
                     type="submit"
+                    disabled={isSubmitting}
                   >
-                    sign up
+                    {isSubmitting ? "loading..." : " sign up"}
                   </CommonButton>
                 </form>
               </Form>
@@ -223,7 +224,7 @@ const SignUp = () => {
               path={"/PreviewVideoCourse"}
             />
           ) : (
-            <RegisterSuccess />
+            <RegisterFail setModal={setModal} />
           )}
         </Modal>
       )}

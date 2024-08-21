@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import OtpInput from "../Otp";
 
-const OtpComponent = () => {
-  const [otp, setOtp] = useState("");
-
+const OtpComponent = ({ setOtp }) => {
   const handleChangeOtp = (newOtp) => {
     setOtp(newOtp);
   };
-  return <OtpInput length={5} onChangeOtp={handleChangeOtp} />;
+  return <OtpInput length={6} onChangeOtp={handleChangeOtp} />;
 };
 
 export default OtpComponent;

@@ -6,7 +6,7 @@ import { DarkLogo } from "../Logo";
 import { Link, useNavigate } from "react-router-dom";
 import PopUp from "./PopUp";
 
-function DashboardNav({ setToggleNav }) {
+function DashboardNav({ setToggleNav, userInfo }) {
   const navigate = useNavigate();
   return (
     <nav className="flex w-full flex-nowrap items-center justify-between bg-white py-4 pl-6 pr-6 md:grid md:grid-cols-[3fr_1fr] md:gap-36 md:px-16 md:py-6 md:pl-10 md:pr-4 lg:gap-10 lg:px-[70px] lg:pl-16">
@@ -52,7 +52,9 @@ function DashboardNav({ setToggleNav }) {
             <Avatar className="h-8 w-8 cursor-pointer md:h-10 md:w-10">
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback className="bg-primary-color-100 text-sm text-primary-color-600 md:text-lg">
-                MS
+                {userInfo?.data?.firstname
+                  .split("")[0]
+                  .concat(userInfo?.data?.lastname.split("")[0])}
               </AvatarFallback>
             </Avatar>
 

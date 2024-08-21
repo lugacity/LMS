@@ -2,20 +2,12 @@ import { useState } from "react";
 import { DarkLogo } from "../Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import {
-  faBars,
-  faSearch,
-  faCog,
-  faUserPlus,
-  faSignOutAlt,
-  faClose,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faSearch, faClose } from "@fortawesome/free-solid-svg-icons";
 
-import { Link, NavLink, useNavigate, useNavigation } from "react-router-dom";
-import { FaRegBell, FaRegHeart } from "react-icons/fa6";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { FaRegBell } from "react-icons/fa6";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { GrHomeRounded } from "react-icons/gr";
-import ProfilePopUp from "../dashboard/ProfilePopUp";
+
 import PopUp from "../dashboard/PopUp";
 
 const AviNav = ({ showNav, setShowNav }) => {

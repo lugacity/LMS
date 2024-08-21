@@ -9,18 +9,13 @@ import certificate from "../assets/images/certificate.png";
 import professionalBG from "../assets/images/proffessional.png";
 import ImageOverlay from "../Components/ImageOverlay";
 import { WhiteLogo } from "../Components/Logo";
-import {
-  ProfessionalList,
-  professionalItems,
-  industriesItems,
-} from "../Components/ProfessionalList";
+import ProfessionalList from "../Components/ProfessionalList";
 import SocialMediaLinks, {
   socialMediaData,
 } from "../Components/SocialMediaLink";
 import ColorHero from "../Components/ColorHero";
-import AviNav from "../Components/avi/AviNav";
 import { ScrollRestoration } from "react-router-dom";
-import Modal from "./auth/components/Modal";
+import { industriesItems, professionalItems } from "@/lib/professionalItems";
 // import img from "../assets/images/data-solution.jpg";
 
 const AVI = () => {
