@@ -6,11 +6,9 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { CommonButton } from "@/Components/ui/button";
 import { useNavigate } from "react-router-dom";
 
-function RegisterSuccess({ title, text, setModal, path }) {
-  const navigate = useNavigate();
+function RegisterSuccess({ title, text, setModal }) {
   const handleModal = () => {
     setModal((prev) => !prev);
-    navigate(path);
   };
   return (
     <BorderCard className="relative w-full max-w-[731px] bg-white py-12">

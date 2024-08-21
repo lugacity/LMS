@@ -8,6 +8,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "@/hooks/useAuth";
 
 const SidebarContext = createContext();
 
@@ -17,7 +18,7 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
 
   const location = useLocation();
 
-  // fixed left-0 top-0 z-10
+  const { userDetails } = useAuth();
 
   return (
     <aside
@@ -88,9 +89,9 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
 
           <div className="flex border-t p-3">
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src={userDetails.avatar} />
               <AvatarFallback className="bg-primary-color-100 text-lg text-primary-color-600">
-                MS
+                {`${userDetails.firstname.charAt(0)}${userDetails.lastname.charAt(0)}`}
               </AvatarFallback>
             </Avatar>
 
@@ -98,8 +99,12 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
               className={`ml-3 flex w-full items-center justify-between overflow-hidden transition-all`}
             >
               <div className="leading-4">
-                <h4 className="text-[#101928]">Maxwell Samantha</h4>
-                <span className="text-xs text-gray-600">johndoe@gmail.com</span>
+                <h4 className="text-[#101928]">{`${userDetails.firstname} ${userDetails.lastname} `}</h4>
+                <span className="text-xs text-gray-600">
+                  {userDetails.email.length > 17
+                    ? `${userDetails.email.slice(0, 19)}...`
+                    : userDetails.email}
+                </span>
               </div>
               <button
                 onClick={() => {

@@ -10,6 +10,7 @@ const url = import.meta.env.VITE_AUTH_URL;
 
 const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
   const [otp, setOtp] = useState("");
+  const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
   const verify = async () => {
@@ -25,9 +26,11 @@ const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
       });
 
       console.log(verify.data.status, verify.data.user);
+      setStatus("success");
 
-      if (verify.data.status === "success") {
-        console.log("account created");
+      // if (verify.data.status === "success") {
+      if (status === "success") {
+        toast.success(verify.data.status);
         setSuccess("success");
 
         navigate("/login");
@@ -35,7 +38,8 @@ const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
         setSuccess("fail");
       }
     } catch (error) {
-      setSuccess("fail");
+      // setSuccess("fail");
+
       toast.error(error.response?.data?.message || "something went wrong");
       console.log(error);
     }
