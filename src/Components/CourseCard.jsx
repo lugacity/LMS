@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
+import { 
   faStar,
   faStar as faStarSolid,
 } from "@fortawesome/free-solid-svg-icons";
