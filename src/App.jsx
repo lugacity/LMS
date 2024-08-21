@@ -1,5 +1,7 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import AppLayout from "./layouts/AppLayout";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -38,8 +40,16 @@ import ServiceLayout from "./layouts/ServiceLayout";
 import NewPassword from "./pages/auth/NewPassword";
 import SliderNav from "./pages/dashboard/SliderNav";
 import DiscoverCourses from "./pages/dashboard/DiscoverCourses";
+import AuthLayout from "./layouts/AuthLayout";
+import { Toaster } from "react-hot-toast";
+import { useState } from "react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 function App() {
+  const [userInfo, setUserInfo] = useState({});
+
   const routes = createBrowserRouter([
     {
       path: "/preview-course",
@@ -49,6 +59,7 @@ function App() {
       path: "/PreviewVideoCourse",
       element: <PreviewVideoCourse />,
     },
+
     {
       path: "/",
       element: <AppLayout />,
@@ -67,6 +78,7 @@ function App() {
         },
       ],
     },
+
     {
       path: "/",
       element: <ServiceLayout />,
@@ -90,36 +102,44 @@ function App() {
       ],
     },
     {
-      path: "/AVI",
-      element: <AVI />,
+      path: "",
+      element: <AuthLayout />,
+      children: [
+        {
+          path: "/AVI",
+          element: <AVI />,
+        },
+        {
+          path: "login",
+          element: <Login setUserInfo={setUserInfo} userInfo={userInfo} />,
+        },
+        {
+          path: "/signup",
+          element: <SignUp />,
+        },
+        {
+          path: "/new-password",
+          element: <NewPassword />,
+        },
+        {
+          path: "/forgot-password",
+          element: <ForgotPassword />,
+        },
+      ],
     },
-    {
-      path: "login",
-      element: <Login />,
-    },
-    {
-      path: "/signup",
-      element: <SignUp />,
-    },
+
     {
       path: "/slider",
       element: <SliderNav />,
     },
-    {
-      path: "/new-password",
-      element: <NewPassword />,
-    },
-    {
-      path: "/forgot-password",
-      element: <ForgotPassword />,
-    },
+
     {
       path: "/discover-courses",
       element: <DiscoverCourses />,
     },
     {
       path: "/dashboard",
-      element: <DashboardLayout />,
+      element: <DashboardLayout userInfo={userInfo} />,
       children: [
         {
           index: true,
@@ -195,7 +215,15 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={routes} />;
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        <Toaster />
+        <RouterProvider router={routes} />;
+      </QueryClientProvider>
+    </>
+  );
 }
 
 export default App;

@@ -13,7 +13,7 @@ import {
 
 const ProfilePopUp = () => {
   return (
-    <div className="absolute right-0 z-50 mt-2 w-[400px] rounded-md border border-gray-200 bg-white px-6 py-8 text-[#344054] shadow-lg">
+    <div className="mx-auto ml-auto w-full max-w-[400px] rounded-md border border-gray-200 bg-white px-6 py-8 text-[#344054] shadow-lg">
       <div className="flex items-center gap-5 pb-6 pt-4">
         <div>
           <Avatar className="w-8 cursor-pointer md:h-[60px] md:w-[60px]">

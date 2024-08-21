@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CommonButton } from "../ui/button";
-import { PasswordInput } from "../ui/password-input";
 import FormInput from "../ui/form-input";
 import { Form } from "../ui/form";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -11,6 +10,7 @@ import BorderCard from "../BorderCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import PasswordInput from "../ui/password-input";
 const loginSchema = z.object({
   email: z.string().email(),
   password: z
@@ -35,7 +35,7 @@ const EditProfile = () => {
     <>
       {modal && (
         <Modal>
-          <BorderCard className="relative rounded-md bg-white py-16 text-center">
+          <BorderCard className="relative w-full max-w-[731px] rounded-md bg-white py-16 text-center">
             <button
               type="button"
               className="absolute right-4 top-4 w-fit cursor-pointer"
@@ -46,7 +46,7 @@ const EditProfile = () => {
                 className="text-2xl text-tertiary-color-700"
               />
             </button>
-            <div className="px-24">
+            <div className="maxw w-full">
               <p className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#61C478] text-2xl text-white">
                 <FontAwesomeIcon icon={faCheck} />
               </p>

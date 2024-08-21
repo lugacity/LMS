@@ -39,7 +39,7 @@ const OtpInput = ({ length, onChangeOtp }) => {
           type="number"
           maxLength="1"
           value={data}
-          className="text-medium block h-[47.7px] w-[58.7px] rounded-[4.4px] border-[0.73px] border-[#D0D5DD] text-center text-2xl"
+          className="text-medium block h-[30px] w-[30px] rounded-[4.4px] border-[0.73px] border-[#D0D5DD] text-center text-2xl md:h-[47.7px] md:w-[58.7px]"
           onChange={(e) => handleChange(e.target, index)}
           onKeyDown={(e) => {
             if (e.key === "Backspace") {

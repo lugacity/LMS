@@ -13,7 +13,7 @@ function RegisterSuccess({ title, text, setModal, path }) {
     navigate(path);
   };
   return (
-    <BorderCard className="relative bg-white px-24 py-12">
+    <BorderCard className="relative w-full max-w-[731px] bg-white py-12">
       <button
         type="button"
         className="absolute right-4 top-4 w-fit cursor-pointer"
