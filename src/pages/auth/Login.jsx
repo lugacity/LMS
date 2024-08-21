@@ -13,6 +13,8 @@ import { CommonButton } from "@/Components/ui/button";
 import PasswordInput from "@/Components/ui/password-input";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { passwordRegex } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
 // {
 //     "status": "success",
 //     "user": {
@@ -59,6 +61,8 @@ const url = import.meta.env.VITE_AUTH_URL;
 
 const Login = ({ setUserInfo, userInfo }) => {
   const navigate = useNavigate();
+  const { dispatch, userDetails } = useAuth();
+
   const handleSubmit = async (values) => {
     const user = {
       userid: values.username,
@@ -70,10 +74,20 @@ const Login = ({ setUserInfo, userInfo }) => {
     const response = await axios.post(`${url}/login`, user);
 
     if (response.data.status === "success") {
-      setUserInfo((state) => {
-        return { ...state };
+      console.log(response.data);
+      dispatch({
+        type: "auth/login",
+        payload: {
+          ...response.data.data.user,
+          token: response.data.data.token,
+        },
       });
-      console.log(userInfo);
+      console.log(userDetails);
+
+      // setUserInfo((state) => {
+      //   return { ...state };
+      // });
+      // console.log(userInfo);
 
       navigate("/dashboard");
       toast.success("login successful");

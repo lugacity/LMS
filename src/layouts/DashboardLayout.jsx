@@ -7,7 +7,6 @@ import { Outlet, ScrollRestoration } from "react-router-dom";
 
 const DashboardLayout = ({ userInfo }) => {
   const [toggleNav, setToggleNav] = useState(true);
-  console.log(userInfo?.data);
 
   return (
     <div className="relative">

@@ -15,17 +15,26 @@ import PasswordInput from "@/Components/ui/password-input";
 import axios from "axios";
 import RegisterFail from "./components/RegisterFail";
 import toast from "react-hot-toast";
+import { passwordRegex } from "@/lib/utils";
 
 const loginSchema = z
   .object({
     email: z.string().email({ message: "Please enter a valid email address." }),
     password: z
       .string()
-      .min(4, { message: "Password must be at least 4 characters long " }),
+      .min(4, { message: "Password must be at least 4 characters long " })
+      .regex(passwordRegex, {
+        message:
+          "Ensure your password contains at least a lowercase letter, an upper case letter, a special symbol and a number",
+      }),
     referralCode: z.string().optional(),
     confirmPassword: z
       .string()
-      .min(4, { message: "Password must be at least 4 characters ong" }),
+      .min(4, { message: "Password must be at least 4 characters ong" })
+      .regex(passwordRegex, {
+        message:
+          "Ensure your password contains at least a lowercase letter, an upper case letter, a special symbol and a number",
+      }),
     firstName: z
       .string()
       .min(1, { message: " first name must be at least 4 characters long" }),
@@ -221,7 +230,6 @@ const SignUp = () => {
                 "You have successfully registered and can now start using your account. Enjoy your experience with us!"
               }
               setModal={setModal}
-              path={"/PreviewVideoCourse"}
             />
           ) : (
             <RegisterFail setModal={setModal} />
