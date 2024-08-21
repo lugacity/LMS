@@ -12,31 +12,40 @@ import Modal from "./components/Modal";
 import RegisterSuccess from "./components/RegisterSuccess";
 import ConfirmEmail from "./components/ConfirmEmail";
 import PasswordInput from "@/Components/ui/password-input";
+import axios from "axios";
+import RegisterFail from "./components/RegisterFail";
+import toast from "react-hot-toast";
 
-const loginSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  password: z
-    .string()
-    .min(4, { message: "Password must be at least 4 characters long " }),
-
-  confirmPassword: z
-    .string()
-    .min(4, { message: "Name must be at least 4 characters long" }),
-  firstName: z
-    .string()
-    .min(1, { message: " first name must be at least 4 characters long" }),
-  lastName: z
-    .string()
-    .min(1, { message: "last name must be at least 4 characters long" }),
-  username: z
-    .string()
-    .min(1, { message: " username must be at least 4 characters long" }),
-});
+const loginSchema = z
+  .object({
+    email: z.string().email({ message: "Please enter a valid email address." }),
+    password: z
+      .string()
+      .min(4, { message: "Password must be at least 4 characters long " }),
+    referralCode: z.string().optional(),
+    confirmPassword: z
+      .string()
+      .min(4, { message: "Password must be at least 4 characters ong" }),
+    firstName: z
+      .string()
+      .min(1, { message: " first name must be at least 4 characters long" }),
+    lastName: z
+      .string()
+      .min(1, { message: "last name must be at least 4 characters long" }),
+    username: z
+      .string()
+      .min(1, { message: " username must be at least 4 characters long" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Password don't match",
+    path: ["confirmPassword"],
+  });
 
 const SignUp = () => {
   const [success, setSuccess] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [modal, setModal] = useState(false);
+  const [user, setUser] = useState();
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -51,8 +60,38 @@ const SignUp = () => {
     },
   });
 
-  const handleSubmit = (values) => {
+  const { isSubmitting } = form.formState;
+
+  const url = import.meta.env.VITE_AUTH_URL;
+
+  const handleSubmit = async (values) => {
     console.log(values);
+    const { firstName, lastName, password, email, username } = values;
+
+    const users = {
+      firstname: firstName,
+      lastname: lastName,
+      email,
+      password,
+      username,
+    };
+
+    try {
+      const response = await axios.post(`${url}/signup`, users);
+
+      console.log(response.data.status);
+
+      if (response.data.status === "success") {
+        console.log(response.data);
+
+        setUser(response.data.newUser);
+        setConfirm(true);
+        console.log(user);
+      }
+    } catch (error) {
+      console.log(error.response.data);
+      toast.error(error.response.data);
+    }
   };
 
   return (
@@ -63,6 +102,7 @@ const SignUp = () => {
             setConfirm={setConfirm}
             setModal={setModal}
             setSuccess={setSuccess}
+            user={user}
           />
         </Modal>
       )}
@@ -150,8 +190,9 @@ const SignUp = () => {
                   <CommonButton
                     className="mt-6 w-full bg-primary-color-600 py-4 font-poppins text-base font-semibold capitalize text-white hover:bg-primary-color-600"
                     type="submit"
+                    disabled={isSubmitting}
                   >
-                    sign up
+                    {isSubmitting ? "loading..." : " sign up"}
                   </CommonButton>
                 </form>
               </Form>
@@ -183,7 +224,7 @@ const SignUp = () => {
               path={"/PreviewVideoCourse"}
             />
           ) : (
-            <RegisterSuccess />
+            <RegisterFail setModal={setModal} />
           )}
         </Modal>
       )}

@@ -1,8 +1,46 @@
 import OtpComponent from "@/Components/about/OtpComponent";
 import BorderCard from "@/Components/BorderCard";
 import { CommonButton } from "@/Components/ui/button";
+import axios from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-const ConfirmEmail = ({ setConfirm, setModal, setSuccess }) => {
+const url = import.meta.env.VITE_AUTH_URL;
+
+const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
+  const [otp, setOtp] = useState("");
+  const navigate = useNavigate();
+
+  const verify = async () => {
+    try {
+      console.log(otp);
+      console.log(user);
+
+      console.log(user.email);
+
+      const verify = await axios.post(`${url}/verifyUser`, {
+        email: `${user?.email}`,
+        confirmCode: otp,
+      });
+
+      console.log(verify.data.status, verify.data.user);
+
+      if (verify.data.status === "success") {
+        console.log("account created");
+        setSuccess("success");
+
+        navigate("/login");
+      } else {
+        setSuccess("fail");
+      }
+    } catch (error) {
+      setSuccess("fail");
+      toast.error(error.response?.data?.message || "something went wrong");
+      console.log(error);
+    }
+  };
+
   return (
     <BorderCard className="w-full max-w-[731px] rounded-xl bg-white py-11 text-center">
       <div className="px-4">
@@ -14,7 +52,7 @@ const ConfirmEmail = ({ setConfirm, setModal, setSuccess }) => {
           <span className="text-primary-color-600">Edit</span>
         </p>
         <div className="mx-auto w-fit">
-          <OtpComponent />
+          <OtpComponent setOtp={setOtp} />
         </div>
         <p className="mb-[31px] mt-6 text-sm">
           <span className="text-[#645D5D]"> Didn’t receive a code?</span>{" "}
@@ -24,9 +62,9 @@ const ConfirmEmail = ({ setConfirm, setModal, setSuccess }) => {
       <CommonButton
         className="w-full bg-primary-color-600"
         onClick={() => {
+          verify();
           setConfirm((prev) => !prev);
           setModal((prev) => !prev);
-          setSuccess("success");
         }}
       >
         Confirm

@@ -5,8 +5,9 @@ import { useState } from "react";
 
 import { Outlet, ScrollRestoration } from "react-router-dom";
 
-const DashboardLayout = () => {
+const DashboardLayout = ({ userInfo }) => {
   const [toggleNav, setToggleNav] = useState(true);
+  console.log(userInfo?.data);
 
   return (
     <div className="relative">
@@ -20,7 +21,7 @@ const DashboardLayout = () => {
       <DashboardSideNav toggleNav={toggleNav} setTogglNav={setToggleNav} />
 
       <div className="ml-0 h-full lg:ml-[272px] lg:px-0">
-        <DashboardNav setToggleNav={setToggleNav} />
+        <DashboardNav setToggleNav={setToggleNav} userInfo={userInfo} />
 
         <div className="h-full bg-[#FDFDFD] p-6">
           <Outlet />

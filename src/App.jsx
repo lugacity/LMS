@@ -1,5 +1,7 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import AppLayout from "./layouts/AppLayout";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -39,8 +41,15 @@ import NewPassword from "./pages/auth/NewPassword";
 import SliderNav from "./pages/dashboard/SliderNav";
 import DiscoverCourses from "./pages/dashboard/DiscoverCourses";
 import AuthLayout from "./layouts/AuthLayout";
+import { Toaster } from "react-hot-toast";
+import { useState } from "react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 function App() {
+  const [userInfo, setUserInfo] = useState({});
+
   const routes = createBrowserRouter([
     {
       path: "/preview-course",
@@ -102,7 +111,7 @@ function App() {
         },
         {
           path: "login",
-          element: <Login />,
+          element: <Login setUserInfo={setUserInfo} userInfo={userInfo} />,
         },
         {
           path: "/signup",
@@ -130,7 +139,7 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: <DashboardLayout />,
+      element: <DashboardLayout userInfo={userInfo} />,
       children: [
         {
           index: true,
@@ -206,7 +215,15 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={routes} />;
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        <Toaster />
+        <RouterProvider router={routes} />;
+      </QueryClientProvider>
+    </>
+  );
 }
 
 export default App;
