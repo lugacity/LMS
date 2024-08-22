@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Link, useNavigate } from "react-router-dom";
-import AviNav from "@/Components/avi/AviNav";
 import BorderCard from "@/Components/BorderCard";
 import { Heading, Paragraph } from "./components/Text";
 import { Form } from "@/Components/ui/form";
@@ -13,7 +11,6 @@ import { CommonButton } from "@/Components/ui/button";
 import PasswordInput from "@/Components/ui/password-input";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { passwordRegex } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 // {
 //     "status": "success",
@@ -69,28 +66,26 @@ const Login = ({ setUserInfo, userInfo }) => {
       password: values.password,
     };
 
-    console.log(values);
+    try {
+      const response = await axios.post(`${url}/login`, user);
 
-    const response = await axios.post(`${url}/login`, user);
+      if (response.data.status === "success") {
+        console.log(response.data);
+        dispatch({
+          type: "auth/login",
+          payload: {
+            ...response.data.data.user,
+            token: response.data.data.token,
+          },
+        });
+        console.log(userDetails);
 
-    if (response.data.status === "success") {
-      console.log(response.data);
-      dispatch({
-        type: "auth/login",
-        payload: {
-          ...response.data.data.user,
-          token: response.data.data.token,
-        },
-      });
-      console.log(userDetails);
-
-      // setUserInfo((state) => {
-      //   return { ...state };
-      // });
-      // console.log(userInfo);
-
-      navigate("/dashboard");
-      toast.success("login successful");
+        navigate("/dashboard");
+        toast.success("login successful");
+      }
+    } catch (error) {
+      if (!error.response) return toast.error("network fail");
+      toast.error(error.response.data.message);
     }
   };
 
@@ -144,8 +139,8 @@ const Login = ({ setUserInfo, userInfo }) => {
                 </Link>
 
                 <CommonButton
-                   className="mt-8 w-full bg-primary-color-600 font-poppins text-[16px] font-[500] capitalize text-white hover:bg-primary-color-600"
-                   type="submit" 
+                  className="mt-8 w-full bg-primary-color-600 font-poppins text-[16px] font-[500] capitalize text-white hover:bg-primary-color-600"
+                  type="submit"
                 >
                   {isSubmitting ? "loading..." : "sign in"}
                 </CommonButton>
