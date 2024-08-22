@@ -38,12 +38,11 @@ import LeaveRating from "./pages/dashboard/LeaveRating";
 
 import ServiceLayout from "./layouts/ServiceLayout";
 import NewPassword from "./pages/auth/NewPassword";
-import SliderNav from "./pages/dashboard/SliderNav";
 import DiscoverCourses from "./pages/dashboard/DiscoverCourses";
 import AuthLayout from "./layouts/AuthLayout";
 import { Toaster } from "react-hot-toast";
 import { useState } from "react";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -129,87 +128,87 @@ function App() {
     },
 
     {
-      path: "/slider",
-      element: <SliderNav />,
-    },
-
-    {
       path: "/discover-courses",
       element: <DiscoverCourses />,
     },
     {
-      path: "/dashboard",
-      element: <DashboardLayout userInfo={userInfo} />,
+      element: <ProtectedRoute />,
       children: [
         {
-          index: true,
-          element: <EmptyPage />,
-        },
-        {
-          path: "notification",
-          element: <Notification />,
-        },
-        {
-          path: "wishlists",
-          element: <Wishlist />,
-        },
-        {
-          path: "referral",
-          element: <Referral />,
-        },
-        {
-          path: "student-settings",
-          element: <StudentSettings />,
-        },
-        {
-          path: "Dashboard_Discover",
-          element: <DashboardDiscover />,
-        },
-
-        {
-          path: "EmptyJoinProjectTeam",
-          element: <EmptyJoinProjectTeam />,
-        },
-        {
-          path: "EmptyGetCertificate",
-          element: <EmptyGetCertificate />,
-        },
-
-        {
-          path: "LeaveRating",
-          element: <LeaveRating />,
-        },
-      ],
-    },
-    {
-      element: <OtherLayout />,
-      path: "/dashboard",
-      children: [
-        {
-          element: <ShareDocument />,
           path: "/dashboard",
+          element: <DashboardLayout userInfo={userInfo} />,
           children: [
             {
-              path: "share-documents",
-              element: <Documents />,
+              index: true,
+              element: <EmptyPage />,
             },
             {
-              path: "assignments",
-              element: <Assignment />,
+              path: "notification",
+              element: <Notification />,
             },
             {
-              path: "overview",
-              element: <Overview />,
+              path: "wishlists",
+              element: <Wishlist />,
+            },
+            {
+              path: "referral",
+              element: <Referral />,
+            },
+            {
+              path: "student-settings",
+              element: <StudentSettings />,
+            },
+            {
+              path: "Dashboard_Discover",
+              element: <DashboardDiscover />,
+            },
+
+            {
+              path: "EmptyJoinProjectTeam",
+              element: <EmptyJoinProjectTeam />,
+            },
+            {
+              path: "EmptyGetCertificate",
+              element: <EmptyGetCertificate />,
+            },
+
+            {
+              path: "LeaveRating",
+              element: <LeaveRating />,
             },
           ],
         },
         {
-          path: "certificate",
-          element: <GetCertificate />,
-        },
-        {
-          path: "projects",
-          element: <JoinProjectTeam />,
+          element: <OtherLayout />,
+          path: "/dashboard",
+          children: [
+            {
+              element: <ShareDocument />,
+              path: "/dashboard",
+              children: [
+                {
+                  path: "share-documents",
+                  element: <Documents />,
+                },
+                {
+                  path: "assignments",
+                  element: <Assignment />,
+                },
+                {
+                  path: "overview",
+                  element: <Overview />,
+                },
+              ],
+            },
+            {
+              path: "certificate",
+              element: <GetCertificate />,
+            },
+            {
+              path: "projects",
+              element: <JoinProjectTeam />,
+            },
+          ],
         },
       ],
     },

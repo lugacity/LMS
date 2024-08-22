@@ -18,6 +18,8 @@ export const reducer = (state, action) => {
         ...state,
         ...payload
       }
+    case 'auth/logout':
+      return initialState
     default:
       return state
   }

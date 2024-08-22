@@ -1,4 +1,4 @@
-import { LucideLogOut, MoreVertical } from "lucide-react";
+import { LucideLogOut, MoreVertical, Type } from "lucide-react";
 import { PiGearThin } from "react-icons/pi";
 import { IoGiftOutline } from "react-icons/io5";
 import { useContext, createContext, useState } from "react";
@@ -15,6 +15,8 @@ const SidebarContext = createContext();
 export function Sidebar({ children, toggleNav, setToggleNav }) {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
+
+  const { dispatch } = useAuth();
 
   const location = useLocation();
 
@@ -109,7 +111,7 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
               <button
                 onClick={() => {
                   navigate("/login");
-                  setToggleNav(true);
+                  dispatch({ Type: "auth/logout" });
                 }}
               >
                 <LucideLogOut />
