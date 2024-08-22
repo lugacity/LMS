@@ -1,6 +1,7 @@
 import OtpComponent from "@/Components/about/OtpComponent";
 import BorderCard from "@/Components/BorderCard";
 import { CommonButton } from "@/Components/ui/button";
+import { useCredentials } from "@/hooks/useCredentials";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -9,23 +10,19 @@ import { useNavigate } from "react-router-dom";
 const url = import.meta.env.VITE_AUTH_URL;
 
 const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
-  const [otp, setOtp] = useState("");
+  // const [otp, setOtp] = useState("");
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
+  const { otp, setOtp } = useCredentials();
+
   const verify = async () => {
     try {
-      console.log(otp);
-      console.log(user);
-
-      console.log(user.email);
-
       const verify = await axios.post(`${url}/verifyUser`, {
         email: `${user?.email}`,
         confirmCode: otp,
       });
 
-      console.log(verify.data.status, verify.data.user);
       setStatus("success");
 
       // if (verify.data.status === "success") {
@@ -41,7 +38,6 @@ const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
       // setSuccess("fail");
 
       toast.error(error.response?.data?.message || "something went wrong");
-      console.log(error);
     }
   };
 

@@ -22,7 +22,7 @@ const loginSchema = z
     email: z.string().email({ message: "Please enter a valid email address." }),
     password: z
       .string()
-      .min(4, { message: "Password must be at least 4 characters long " })
+      .min(4, { message: "Password must be at least 8 characters long " })
       .regex(passwordRegex, {
         message:
           "Ensure your password contains at least a lowercase letter, an upper case letter, a special symbol and a number",
@@ -30,7 +30,7 @@ const loginSchema = z
     referralCode: z.string().optional(),
     confirmPassword: z
       .string()
-      .min(4, { message: "Password must be at least 4 characters ong" })
+      .min(4, { message: "Password must be at least 8 characters ong" })
       .regex(passwordRegex, {
         message:
           "Ensure your password contains at least a lowercase letter, an upper case letter, a special symbol and a number",
