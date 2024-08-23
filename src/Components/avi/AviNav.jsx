@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { DarkLogo } from "../Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { faBars, faSearch, faClose } from "@fortawesome/free-solid-svg-icons";
-
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaRegBell } from "react-icons/fa6";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-
 import PopUp from "../dashboard/PopUp";
+import { useAuth } from "@/hooks/useAuth";
 
 const AviNav = ({ showNav, setShowNav }) => {
+
+
   const navigate = useNavigate();
   return (
     <nav className="z-50 flex items-center justify-between px-6 py-4 lg:px-20">
@@ -60,7 +60,14 @@ const AviNav = ({ showNav, setShowNav }) => {
   );
 };
 
+
+
+
 export const PreviewVideoNav = ({ showNav, setShowNav }) => {
+  
+
+  const { userDetails } = useAuth();
+
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -100,9 +107,9 @@ export const PreviewVideoNav = ({ showNav, setShowNav }) => {
             className="h-8 w-8 cursor-pointer md:h-10 md:w-10"
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage src={userDetails.Avatar} />
             <AvatarFallback className="bg-primary-color-100 text-sm text-primary-color-600 md:text-lg">
-              MS
+                {`${userDetails.firstname.charAt(0).toUpperCase()}${userDetails.lastname.charAt(0).toUpperCase()}`}
             </AvatarFallback>
           </Avatar>
 

@@ -7,10 +7,13 @@ import ConfirmDelete from "@/Components/dashboard/ConfirmDelete";
 import EditProfile from "@/Components/dashboard/EditProfile";
 import { cn } from "@/lib/utils";
 import ChangePassword from "@/Components/dashboard/ChangePassword";
+import { useAuth } from "@/hooks/useAuth";
 
 function StudentSettings() {
   const [showModal, setShowModal] = useState(false);
   const [page, setPage] = useState("edit");
+
+
 
   return (
     <div className="">
