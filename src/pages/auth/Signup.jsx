@@ -92,6 +92,7 @@ const SignUp = () => {
 
       if (response.data.status === "success") {
         console.log(response.data);
+        setSuccess("success");
 
         setUser(response.data.newUser);
         setConfirm(true);
@@ -100,6 +101,8 @@ const SignUp = () => {
       }
     } catch (error) {
       if (!error) return toast.error("network fail");
+      setSuccess("fail");
+
       toast.error(error?.response?.data?.message || error?.message);
     }
   };
@@ -190,6 +193,7 @@ const SignUp = () => {
                       name=""
                       id=""
                       className="h-6 w-6 accent-[#D0D5DD]"
+                      required
                     />
                     <p className="text-sm text-label">
                       Send me exclusive offers, tailored recommendations, and
@@ -231,6 +235,7 @@ const SignUp = () => {
                 "You have successfully registered and can now start using your account. Enjoy your experience with us!"
               }
               setModal={setModal}
+              path={"/login"}
             />
           ) : (
             <RegisterFail setModal={setModal} />
