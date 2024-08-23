@@ -11,6 +11,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import PasswordInput from "../ui/password-input";
+import { useAuth } from "@/hooks/useAuth";
+
+
+
+
+
 const loginSchema = z.object({
   email: z.string().email(),
   password: z
@@ -19,6 +25,9 @@ const loginSchema = z.object({
 });
 
 const EditProfile = () => {
+
+  const { userDetails } = useAuth()
+
   const [modal, setModal] = useState(false);
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -69,11 +78,11 @@ const EditProfile = () => {
       <div className="mx-auto max-w-[716px]">
         <Avatar className="mx-auto block h-14 w-14 md:h-20 md:w-20">
           <AvatarImage
-            src="https://github.com/shadcn.png"
+            src={userDetails.Avatar}
             className="m-auto block rounded-full"
           />
-          <AvatarFallback className="mx-auto w-full rounded-full bg-primary-color-100 p-2 text-sm text-primary-color-600 md:p-4">
-            MS
+          <AvatarFallback className="mx-auto w-full rounded-full bg-primary-color-100 p-2 text-2xl text-primary-color-600 md:p-4">
+            {`${userDetails.firstname.charAt(0).toUpperCase()}${userDetails.lastname.charAt(0).toUpperCase()}`}
           </AvatarFallback>
         </Avatar>
         <Form {...form}>
@@ -83,7 +92,7 @@ const EditProfile = () => {
                 name="username"
                 id="username"
                 label="Username"
-                placeholder="@maxwell02"
+                placeholder=""
                 type="text"
                 control={form.control}
               />
@@ -92,7 +101,7 @@ const EditProfile = () => {
                   name="firstname"
                   id="firstname"
                   label="First Name"
-                  placeholder="@maxwell02"
+                  placeholder=""
                   type="text"
                   control={form.control}
                 />
@@ -100,7 +109,7 @@ const EditProfile = () => {
                   name="lastname"
                   id="lastname"
                   label="Last Name"
-                  placeholder="@maxwell02"
+                  placeholder=""
                   type="text"
                   control={form.control}
                 />
@@ -109,7 +118,7 @@ const EditProfile = () => {
                 name="email"
                 id="email"
                 label="Email Address"
-                placeholder="@maxwell02@gmail.com"
+                placeholder=""
                 type="email"
                 control={form.control}
               />
