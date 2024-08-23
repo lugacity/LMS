@@ -43,6 +43,7 @@ const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
           Confirm your email address
         </p>
         <p className="mx-auto mb-6 mt-3 max-w-[284px] text-center text-sm leading-[18px] text-[#98A2B3]">
+
           Please enter code we sent now to aviplatform@gmail.com{" "}
           <span
             className="cursor-pointer text-primary-color-600"
@@ -50,6 +51,7 @@ const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
           >
             Edit
           </span>
+
         </p>
         <div className="mx-auto w-fit">
           <OtpComponent setOtp={setOtp} inputRef={inputRef} />
