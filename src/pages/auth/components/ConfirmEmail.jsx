@@ -3,7 +3,7 @@ import BorderCard from "@/Components/BorderCard";
 import { CommonButton } from "@/Components/ui/button";
 import { useCredentials } from "@/hooks/useCredentials";
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +12,8 @@ const url = import.meta.env.VITE_AUTH_URL;
 const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
   // const [otp, setOtp] = useState("");
   const navigate = useNavigate();
+
+  const inputRef = useRef();
 
   const { otp, setOtp } = useCredentials();
 
@@ -25,8 +27,6 @@ const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
       if (verify.data.status === "success") {
         toast.success(verify.data.status);
         setSuccess("success");
-
-        navigate("/login");
       }
     } catch (error) {
       // setSuccess("fail");
@@ -43,11 +43,18 @@ const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
           Confirm your email address
         </p>
         <p className="mx-auto mb-6 mt-3 max-w-[284px] text-center text-sm leading-[18px] text-[#98A2B3]">
-          Please enter code we sent now to ${user?.email} {" "}
-          <span className="text-primary-color-600">Edit</span>
+
+          Please enter code we sent now to aviplatform@gmail.com{" "}
+          <span
+            className="cursor-pointer text-primary-color-600"
+            onClick={() => inputRef.current.focus()}
+          >
+            Edit
+          </span>
+
         </p>
         <div className="mx-auto w-fit">
-          <OtpComponent setOtp={setOtp} />
+          <OtpComponent setOtp={setOtp} inputRef={inputRef} />
         </div>
         <p className="mb-[31px] mt-6 text-sm">
           <span className="text-[#645D5D]"> Didn’t receive a code?</span>{" "}

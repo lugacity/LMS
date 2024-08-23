@@ -52,17 +52,24 @@ const NewPassword = () => {
   });
 
   const handleSubmit = async (values) => {
-    const { password } = values;
-    setInfo((state) => {
-      return { ...state, password };
-    });
+    const password = values.password;
 
     try {
-      const response = await axios.post(`${url}//resetPassword`, info);
+      const response = await axios.post(`${url}/resetPassword`, {
+        ...info,
+        password,
+      });
 
       if (response.data.status === "success") {
         toast.success(response.data.message);
         navigate("/login");
+        setInfo((state) => {
+          return {
+            ...state,
+            email: "",
+            otp: "",
+          };
+        });
       }
     } catch ({ response }) {
       toast.error(response.data.message);

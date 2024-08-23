@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-const OtpInput = ({ length, onChangeOtp }) => {
+const OtpInput = ({ length, onChangeOtp, inputRef }) => {
   const [otp, setOtp] = useState(new Array(length).fill(""));
 
   const handleChange = (element, index) => {
@@ -39,6 +39,7 @@ const OtpInput = ({ length, onChangeOtp }) => {
           type="number"
           maxLength="1"
           value={data}
+          ref={index === 0 ? inputRef : null}
           className="text-medium block h-[30px] w-[30px] rounded-[4.4px] border-[0.73px] border-[#D0D5DD] text-center text-2xl md:h-[47.7px] md:w-[58.7px]"
           onChange={(e) => handleChange(e.target, index)}
           onKeyDown={(e) => {
