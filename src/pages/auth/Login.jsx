@@ -12,40 +12,8 @@ import PasswordInput from "@/Components/ui/password-input";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/useAuth";
-// {
-//     "status": "success",
-//     "user": {
-//         "id": "66c5019cb77de580f4274c96",
-//         "firstname": "zainab",
-//         "lastname": "wunmi",
-//         "username": "lawal",
-//         "email": "lawalzainabomowumi2021@gmail.com",
-//         "status": "verified",
-//         "wishlist": [],
-//         "avatar": null,
-//         "referral_code": "lawalPIM28AYSIG"
-//     },
-//     "message": "User verification successful, Please login to gain full access"
-// }
-
-// {
-//     "status": "success",
-//     "data": {
-//         "user": {
-//             "id": "66c5019cb77de580f4274c96",
-//             "firstname": "zainab",
-//             "lastname": "wunmi",
-//             "username": "lawal",
-//             "email": "lawalzainabomowumi2021@gmail.com",
-//             "status": "verified",
-//             "wishlist": [],
-//             "avatar": null,
-//             "referral_code": "lawalPIM28AYSIG"
-//         },
-//         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YzUwMTljYjc3ZGU1ODBmNDI3NGM5NiIsImVtYWlsIjoibGF3YWx6YWluYWJvbW93dW1pMjAyMUBnbWFpbC5jb20iLCJpYXQiOjE3MjQxODc0ODUsImV4cCI6MTcyNDIwMTg4NX0.5QwTd79q7HST5aBb52_Zr0PCG6QRagPvRFgXeswuEs8"
-//     },
-//     "message": "Login successful"
-// }
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 const loginSchema = z.object({
   username: z.string().min(1, { message: "name is required" }),
@@ -70,7 +38,6 @@ const Login = ({ setUserInfo, userInfo }) => {
       const response = await axios.post(`${url}/login`, user);
 
       if (response.data.status === "success") {
-        console.log(response.data);
         dispatch({
           type: "auth/login",
           payload: {
@@ -78,7 +45,14 @@ const Login = ({ setUserInfo, userInfo }) => {
             token: response.data.data.token,
           },
         });
-        console.log(userDetails);
+
+        Cookies.set("token", response.data.data.token, {
+          expires: 1,
+          secure: true,
+        });
+
+        const decoded = jwtDecode(response.data.data.token);
+        console.log("decoded", decoded);
 
         navigate("/dashboard");
         toast.success("login successful");

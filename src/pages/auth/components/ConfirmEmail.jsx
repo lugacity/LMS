@@ -11,7 +11,6 @@ const url = import.meta.env.VITE_AUTH_URL;
 
 const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
   // const [otp, setOtp] = useState("");
-  const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
   const { otp, setOtp } = useCredentials();
@@ -19,23 +18,19 @@ const ConfirmEmail = ({ setConfirm, setModal, setSuccess, user }) => {
   const verify = async () => {
     try {
       const verify = await axios.post(`${url}/verifyUser`, {
-        email: `${user?.email}`,
+        email: user.email,
         confirmCode: otp,
       });
 
-      setStatus("success");
-
-      // if (verify.data.status === "success") {
-      if (status === "success") {
+      if (verify.data.status === "success") {
         toast.success(verify.data.status);
         setSuccess("success");
 
         navigate("/login");
-      } else {
-        setSuccess("fail");
       }
     } catch (error) {
       // setSuccess("fail");
+      setSuccess("fail");
 
       toast.error(error.response?.data?.message || "something went wrong");
     }

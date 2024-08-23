@@ -43,6 +43,9 @@ import AuthLayout from "./layouts/AuthLayout";
 import { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import ProtectedRoute from "./Components/ProtectedRoute";
+import { Cookie } from "lucide-react";
+import Cookies from "js-cookie";
+import AuthProtectedRoute from "./Components/AuthProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -101,28 +104,37 @@ function App() {
       ],
     },
     {
-      path: "",
-      element: <AuthLayout />,
+      element: <AuthProtectedRoute />,
       children: [
         {
-          path: "/AVI",
-          element: <AVI />,
-        },
-        {
-          path: "login",
-          element: <Login setUserInfo={setUserInfo} userInfo={userInfo} />,
-        },
-        {
-          path: "/signup",
-          element: <SignUp />,
-        },
-        {
-          path: "/new-password",
-          element: <NewPassword />,
-        },
-        {
-          path: "/forgot-password",
-          element: <ForgotPassword />,
+          path: "",
+          element: <AuthLayout />,
+          // loader: async () => {
+          //   const token = Cookies.get("token");
+          //   if (token) return (window.location.href = "/dashboard");
+          // },
+          children: [
+            {
+              path: "/AVI",
+              element: <AVI />,
+            },
+            {
+              path: "login",
+              element: <Login setUserInfo={setUserInfo} userInfo={userInfo} />,
+            },
+            {
+              path: "/signup",
+              element: <SignUp />,
+            },
+            {
+              path: "/new-password",
+              element: <NewPassword />,
+            },
+            {
+              path: "/forgot-password",
+              element: <ForgotPassword />,
+            },
+          ],
         },
       ],
     },
@@ -133,10 +145,15 @@ function App() {
     },
     {
       element: <ProtectedRoute />,
+      // loader: async () => {
+      //   const token = Cookies.get("token");
+      //   if (!token) return (window.location.href = "/login");
+      // },
       children: [
         {
           path: "/dashboard",
           element: <DashboardLayout userInfo={userInfo} />,
+
           children: [
             {
               index: true,
