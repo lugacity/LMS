@@ -95,11 +95,12 @@ const SignUp = () => {
 
         setUser(response.data.newUser);
         setConfirm(true);
+
         console.log(user);
       }
     } catch (error) {
-      console.log(error.response.data);
-      toast.error(error.response.data);
+      if (!error) return toast.error("network fail");
+      toast.error(error?.response?.data?.message || error?.message);
     }
   };
 

@@ -12,6 +12,10 @@ import PasswordInput from "@/Components/ui/password-input";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/useAuth";
+
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+
 import { ClipLoader } from "react-spinners";
 // {
 //     "status": "success",
@@ -48,6 +52,7 @@ import { ClipLoader } from "react-spinners";
 //     "message": "Login successful"
 // }
 
+
 const loginSchema = z.object({
   username: z.string().min(1, { message: "name is required" }),
   password: z
@@ -71,7 +76,6 @@ const Login = ({ setUserInfo, userInfo }) => {
       const response = await axios.post(`${url}/login`, user);
 
       if (response.data.status === "success") {
-        console.log(response.data);
         dispatch({
           type: "auth/login",
           payload: {
@@ -79,7 +83,14 @@ const Login = ({ setUserInfo, userInfo }) => {
             token: response.data.data.token,
           },
         });
-        console.log(userDetails);
+
+        Cookies.set("token", response.data.data.token, {
+          expires: 1,
+          secure: true,
+        });
+
+        const decoded = jwtDecode(response.data.data.token);
+        console.log("decoded", decoded);
 
         navigate("/dashboard");
         toast.success("login successful");

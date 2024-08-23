@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "@/hooks/useAuth";
+import Cookies from "js-cookie";
 
 const SidebarContext = createContext();
 
@@ -21,6 +22,13 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
   const location = useLocation();
 
   const { userDetails } = useAuth();
+
+  const handleLogout = () => {
+    // navigate("/login");
+    // dispatch({ Type: "auth/logout" });
+    Cookies.remove("token");
+    window.location.href = "/login";
+  };
 
   return (
     <aside
@@ -108,12 +116,7 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
                     : userDetails.email}
                 </span>
               </div>
-              <button
-                onClick={() => {
-                  navigate("/login");
-                  dispatch({ Type: "auth/logout" });
-                }}
-              >
+              <button onClick={handleLogout}>
                 <LucideLogOut />
               </button>
             </div>
