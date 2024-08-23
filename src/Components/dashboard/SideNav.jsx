@@ -93,7 +93,7 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
             <Avatar>
               <AvatarImage src={userDetails.avatar} />
               <AvatarFallback className="bg-primary-color-100 text-lg text-primary-color-600">
-                {`${userDetails.firstname.charAt(0)}${userDetails.lastname.charAt(0)}`}
+                {`${userDetails.firstname.charAt(0).toUpperCase()}${userDetails.lastname.charAt(0).toUpperCase()}`}
               </AvatarFallback>
             </Avatar>
 
@@ -101,7 +101,7 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
               className={`ml-3 flex w-full items-center justify-between overflow-hidden transition-all`}
             >
               <div className="leading-4">
-                <h4 className="text-[#101928]">{`${userDetails.firstname} ${userDetails.lastname} `}</h4>
+                <h4 className="text-[#101928]">{`${userDetails.firstname.charAt(0).toUpperCase()}${userDetails.firstname.slice(1).toLowerCase()}  ${userDetails.lastname.charAt(0).toUpperCase()}${userDetails.lastname.slice(1).toLowerCase(0)} `}</h4>
                 <span className="text-xs text-gray-600">
                   {userDetails.email.length > 17
                     ? `${userDetails.email.slice(0, 19)}...`
