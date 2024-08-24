@@ -48,6 +48,8 @@ const ForgotPassword = () => {
         });
       }
     } catch (error) {
+      if (!error) return toast.error("network fail");
+
       if (error.response.status === 404) return toast.error("Email not found");
 
       if (error.response.status === 400) return toast.error("invalid email");

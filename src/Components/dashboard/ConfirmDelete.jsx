@@ -1,25 +1,55 @@
-import BorderCard from "../BorderCard";
-import { Heading } from "@/pages/auth/components/Text";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import Cookies from "js-cookie";
+
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
+
+import BorderCard from "../BorderCard";
+import { Heading } from "@/pages/auth/components/Text";
 import { Form } from "../ui/form";
 import { CommonButton } from "../ui/button";
 import PasswordInput from "../ui/password-input";
-const loginSchema = z.object({
-  email: z.string().email(),
-  password: z
-    .string()
-    .min(4, { message: "Name must be at least 4 characters long" }),
+import toast from "react-hot-toast";
+
+const DeleteSchema = z.object({
+  password: z.string().min(4, { message: "This field is required" }),
 });
 
+const url = import.meta.env.VITE_USER_URL;
+
 const ConfirmDelete = ({ setShowModal }) => {
+  const token = Cookies.get("token");
+
+  const handleDelete = async (values) => {
+    const password = {
+      password: values.password,
+    };
+    try {
+      const response = await axios.delete(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: password,
+      });
+      console.log(response);
+
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        Cookies.remove("token");
+        window.location.href = "/login";
+      }
+    } catch (error) {
+      toast.error("something went wrong" || error.response.data.message);
+    }
+  };
+
   const form = useForm({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(DeleteSchema),
     defaultValues: {
-      email: "",
       password: "",
     },
   });
@@ -62,10 +92,12 @@ const ConfirmDelete = ({ setShowModal }) => {
         password below:
       </p>
       <Form {...form}>
-        <form className="max-w-[405px] space-y-2 py-3 md:space-y-4 md:py-5">
+        <form
+          className="max-w-[405px] space-y-2 py-3 md:space-y-4 md:py-5"
+          onSubmit={form.handleSubmit(handleDelete)}
+        >
           <PasswordInput
             id="password"
-            autoComplete="old-password"
             label="Password"
             name="password"
             control={form.control}
