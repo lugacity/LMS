@@ -71,8 +71,10 @@ const NewPassword = () => {
           };
         });
       }
-    } catch ({ response }) {
-      toast.error(response.data.message);
+    } catch (error) {
+      toast.error(
+        error.response.data.error.otp.msg || error.response.data.message,
+      );
       navigate("/forgot-password");
     }
   };
