@@ -10,18 +10,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "@/hooks/useAuth";
 import Cookies from "js-cookie";
+import { useProfile } from "@/services/queries";
 
 const SidebarContext = createContext();
 
 export function Sidebar({ children, toggleNav, setToggleNav }) {
   const [expanded, setExpanded] = useState(false);
-  const navigate = useNavigate();
-
-  const { dispatch } = useAuth();
 
   const location = useLocation();
 
-  const { userDetails } = useAuth();
+  const { data, isLoading } = useProfile();
+  console.log(data);
 
   const handleLogout = () => {
     // navigate("/login");
@@ -99,9 +98,17 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
 
           <div className="flex border-t p-3">
             <Avatar>
-              <AvatarImage src={userDetails.avatar} />
+              <AvatarImage
+                src={
+                  isLoading
+                    ? "https://github.com/shadcn.png"
+                    : data.data.data.avatar
+                }
+              />
               <AvatarFallback className="bg-primary-color-100 text-lg text-primary-color-600">
-                {`${userDetails.firstname.charAt(0).toUpperCase()}${userDetails.lastname.charAt(0).toUpperCase()}`}
+                {isLoading
+                  ? "loading"
+                  : `${data.data.data.firstname.charAt(0).toUpperCase()}${data.data.data.lastname.charAt(0).toUpperCase()}`}
               </AvatarFallback>
             </Avatar>
 
@@ -109,11 +116,17 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
               className={`ml-3 flex w-full items-center justify-between overflow-hidden transition-all`}
             >
               <div className="leading-4">
-                <h4 className="text-[#101928]">{`${userDetails.firstname.charAt(0).toUpperCase()}${userDetails.firstname.slice(1).toLowerCase()}  ${userDetails.lastname.charAt(0).toUpperCase()}${userDetails.lastname.slice(1).toLowerCase(0)} `}</h4>
+                <h4 className="text-[#101928]">
+                  {isLoading
+                    ? "loading"
+                    : `${data.data.data.firstname.charAt(0).toUpperCase()}${data.data.data.firstname.slice(1).toLowerCase()}  ${data.data.data.lastname.charAt(0).toUpperCase()}${data.data.data.lastname.slice(1).toLowerCase(0)} `}
+                </h4>
                 <span className="text-xs text-gray-600">
-                  {userDetails.email.length > 17
-                    ? `${userDetails.email.slice(0, 19)}...`
-                    : userDetails.email}
+                  {isLoading
+                    ? "loading"
+                    : data.data.data.email.length > 17
+                      ? `${data.data.data.email.slice(0, 19)}...`
+                      : data.data.data.email}
                 </span>
               </div>
               <button onClick={handleLogout}>

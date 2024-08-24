@@ -46,6 +46,7 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import { Cookie } from "lucide-react";
 import Cookies from "js-cookie";
 import AuthProtectedRoute from "./Components/AuthProtectedRoute";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -234,7 +235,7 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        <ReactQueryDevtools initialIsOpen={false} />
         <Toaster />
         <RouterProvider router={routes} />;
       </QueryClientProvider>
