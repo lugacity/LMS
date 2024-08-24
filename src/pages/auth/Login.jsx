@@ -52,7 +52,6 @@ import { ClipLoader } from "react-spinners";
 //     "message": "Login successful"
 // }
 
-
 const loginSchema = z.object({
   username: z.string().min(1, { message: "name is required" }),
   password: z
@@ -109,7 +108,7 @@ const Login = ({ setUserInfo, userInfo }) => {
     },
   });
 
-  const { isSubmitting, isLoading } = form.formState;
+  const { isSubmitting } = form.formState;
 
   return (
     <>
@@ -150,15 +149,16 @@ const Login = ({ setUserInfo, userInfo }) => {
                   forgot password?
                 </Link>
 
-                
-
                 <CommonButton
                   className="mt-8 w-full bg-primary-color-600 font-poppins text-[16px] font-[500] capitalize text-white hover:bg-primary-color-600"
                   type="submit"
                 >
-                  {isSubmitting ? <ClipLoader size={20} color={"#fff"} /> : "sign in"}
+                  {isSubmitting ? (
+                    <ClipLoader size={20} color={"#fff"} />
+                  ) : (
+                    "sign in"
+                  )}
                 </CommonButton>
-
               </form>
             </Form>
           </BorderCard>

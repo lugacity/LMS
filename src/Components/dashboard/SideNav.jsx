@@ -11,6 +11,8 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "@/hooks/useAuth";
 import Cookies from "js-cookie";
 import { useProfile } from "@/services/queries";
+import { fetchUserProfile } from "@/services/api";
+import { useQuery } from "@tanstack/react-query";
 
 const SidebarContext = createContext();
 
@@ -19,7 +21,11 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
 
   const location = useLocation();
 
-  const { data, isLoading } = useProfile();
+  const { data, isLoading } = useQuery({
+    queryKey: ["userProfile"],
+    queryFn: fetchUserProfile,
+  });
+  // const { data, isLoading } = useProfile();
   console.log(data);
 
   const handleLogout = () => {
@@ -102,13 +108,13 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
                 src={
                   isLoading
                     ? "https://github.com/shadcn.png"
-                    : data.data.data.avatar
+                    : data?.data?.data?.avatar
                 }
               />
               <AvatarFallback className="bg-primary-color-100 text-lg text-primary-color-600">
                 {isLoading
                   ? "loading"
-                  : `${data.data.data.firstname.charAt(0).toUpperCase()}${data.data.data.lastname.charAt(0).toUpperCase()}`}
+                  : `${data?.data?.data?.firstname.charAt(0).toUpperCase()}${data?.data?.data?.lastname.charAt(0).toUpperCase()}`}
               </AvatarFallback>
             </Avatar>
 
@@ -119,14 +125,14 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
                 <h4 className="text-[#101928]">
                   {isLoading
                     ? "loading"
-                    : `${data.data.data.firstname.charAt(0).toUpperCase()}${data.data.data.firstname.slice(1).toLowerCase()}  ${data.data.data.lastname.charAt(0).toUpperCase()}${data.data.data.lastname.slice(1).toLowerCase(0)} `}
+                    : `${data?.data?.data?.firstname.charAt(0).toUpperCase()}${data?.data?.data?.firstname.slice(1).toLowerCase()}  ${data?.data?.data?.lastname.charAt(0).toUpperCase()}${data?.data?.data.lastname.slice(1).toLowerCase(0)} `}
                 </h4>
                 <span className="text-xs text-gray-600">
                   {isLoading
                     ? "loading"
-                    : data.data.data.email.length > 17
-                      ? `${data.data.data.email.slice(0, 19)}...`
-                      : data.data.data.email}
+                    : data?.data?.data?.email.length > 17
+                      ? `${data?.data?.data?.email.slice(0, 19)}...`
+                      : data?.data?.data?.email}
                 </span>
               </div>
               <button onClick={handleLogout}>
