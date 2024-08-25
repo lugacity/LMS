@@ -38,7 +38,6 @@ const url = import.meta.env.VITE_USER_URL;
 
 const ChangePassword = () => {
   const handleSubmit = async (values) => {
-    console.log(values);
     const token = Cookies.get("token");
 
     const passwords = {
@@ -56,12 +55,12 @@ const ChangePassword = () => {
 
       if (response.status) return toast.success(response.data.message);
     } catch (error) {
-      if (!error) return toast.error("network fail");
-
-      if (error.response.status === 400)
-        return toast.error(error?.response?.data?.message || error?.message);
-
-      toast.error("something went wrong");
+      return toast.error(
+        error.message ||
+          error?.response?.data?.message ||
+          error?.message ||
+          "something went wrong",
+      );
     }
   };
 
