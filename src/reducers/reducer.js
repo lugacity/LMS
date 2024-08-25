@@ -20,6 +20,11 @@ export const reducer = (state, action) => {
       }
     case 'auth/logout':
       return initialState
+    case 'auth/update_profile':
+      return {
+        ...state,
+        ...payload
+      }
     default:
       return state
   }

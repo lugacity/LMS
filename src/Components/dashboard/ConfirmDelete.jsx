@@ -14,11 +14,17 @@ import { Form } from "../ui/form";
 import { CommonButton } from "../ui/button";
 import PasswordInput from "../ui/password-input";
 import toast from "react-hot-toast";
+import { passwordRegex } from "@/lib/utils";
 
 const DeleteSchema = z.object({
-  password: z.string().min(4, { message: "This field is required" }),
+  password: z
+    .string()
+    .min(4, { message: "This field is required" })
+    .regex(passwordRegex, {
+      message:
+        "Ensure your password contains at least a lowercase letter, an upper case letter, a special symbol and a number",
+    }),
 });
-
 const url = import.meta.env.VITE_USER_URL;
 
 const ConfirmDelete = ({ setShowModal }) => {
@@ -43,7 +49,16 @@ const ConfirmDelete = ({ setShowModal }) => {
         window.location.href = "/login";
       }
     } catch (error) {
-      toast.error("something went wrong" || error.response.data.message);
+      console.log(error);
+
+      if (error.message === "Network Error") return toast.error(error.message);
+
+      // if (error)
+      toast.error(
+        error.response.data.message ||
+          error.response.data.error.password.msg ||
+          "something went wrong",
+      );
     }
   };
 
@@ -53,6 +68,9 @@ const ConfirmDelete = ({ setShowModal }) => {
       password: "",
     },
   });
+
+  const { isSubmitting } = form.formState;
+
   return (
     <BorderCard className="w-full max-w-[731px] bg-white">
       <header className="flex items-center justify-between">
@@ -107,6 +125,7 @@ const ConfirmDelete = ({ setShowModal }) => {
             <CommonButton
               className="bg-[#CC1747] py-[10.5px] text-sm font-normal capitalize text-[#FFEBF0] md:text-base"
               type="submit"
+              disabled={isSubmitting}
             >
               Delete My Account
             </CommonButton>
@@ -114,6 +133,7 @@ const ConfirmDelete = ({ setShowModal }) => {
               variant="outline"
               className="px-5 py-2 text-sm font-normal text-tertiary-color-700 md:px-8 md:py-[10.5px] md:text-base"
               type="button"
+              disabled={isSubmitting}
               onClick={() => setShowModal((prev) => !prev)}
             >
               Cancel

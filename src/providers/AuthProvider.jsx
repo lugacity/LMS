@@ -1,5 +1,4 @@
 import { initialState, reducer } from "@/reducers/reducer";
-import { useProfile } from "@/services/queries";
 import { createContext, useReducer } from "react";
 
 export const AuthContext = createContext({});

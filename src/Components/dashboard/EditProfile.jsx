@@ -12,10 +12,8 @@ import { faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import PasswordInput from "../ui/password-input";
 import { useAuth } from "@/hooks/useAuth";
-
-
-
-
+import { Skeleton } from "../ui/skeleton";
+import { useProfile } from "@/services/queries";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -25,8 +23,8 @@ const loginSchema = z.object({
 });
 
 const EditProfile = () => {
-
-  const { userDetails } = useAuth()
+  const { userDetails } = useAuth();
+  const { isLoading, data } = useProfile();
 
   const [modal, setModal] = useState(false);
   const form = useForm({
@@ -82,7 +80,13 @@ const EditProfile = () => {
             className="m-auto block rounded-full"
           />
           <AvatarFallback className="mx-auto w-full rounded-full bg-primary-color-100 p-2 text-2xl text-primary-color-600 md:p-4">
-            {`${userDetails.firstname.charAt(0).toUpperCase()}${userDetails.lastname.charAt(0).toUpperCase()}`}
+            {userDetails.firstname ? (
+              `${userDetails.firstname.charAt(0).toUpperCase()}${userDetails.lastname.charAt(0).toUpperCase()}`
+            ) : isLoading ? (
+              <Skeleton className="h-12 w-12 rounded-full" />
+            ) : (
+              `${data?.data?.data.firstname.charAt(0).toUpperCase()}${data?.data?.data.lastname.charAt(0).toUpperCase()}`
+            )}
           </AvatarFallback>
         </Avatar>
         <Form {...form}>
