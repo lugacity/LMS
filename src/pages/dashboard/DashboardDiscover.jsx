@@ -9,8 +9,11 @@ import { faStar, faTimes } from "@fortawesome/free-solid-svg-icons";
 import ModalContent from "../lms-pages/ReminderModalContent";
 import joinTeam from "../../assets/images/join_team.png";
 import styles from "../pages.module.css";
-import CourseCard, { DashboardDiscover } from "../../Components/CourseCard";
 import { Filter } from "@/Components/dashboard/Filter";
+import DashboardDiscover from "@/Components/DashboardDiscover";
+import { useProfile } from "@/services/queries";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 // import ReminderModal from '../auth/components/ReminderModal';
 
@@ -28,7 +31,9 @@ const Dashboard_Discover = () => {
               learning goals.
             </p>
             <DashButton
-              onClick={() => setShowModal((prev) => !prev)}
+              onClick={() => {
+                setShowModal((prev) => !prev);
+              }}
               className="mt-2 bg-[#fff] text-sm font-[500] text-[#972848] lg:bg-[#B3123F] lg:text-[#fff]"
             >
               Add a learning reminder

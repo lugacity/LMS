@@ -8,10 +8,12 @@ import { useNavigate } from "react-router-dom";
 
 function RegisterSuccess({ title, text, setModal, path }) {
   const navigate = useNavigate();
+
   const handleModal = () => {
     setModal((prev) => !prev);
     navigate(path);
   };
+
   return (
     <BorderCard className="relative w-full max-w-[731px] bg-white py-12">
       <button

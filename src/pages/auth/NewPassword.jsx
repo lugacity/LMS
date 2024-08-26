@@ -2,36 +2,84 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import AviNav from "@/Components/avi/AviNav";
 import BorderCard from "@/Components/BorderCard";
 import { Heading } from "./components/Text";
 import { Form } from "@/Components/ui/form";
-import { PasswordInput } from "@/Components/ui/password-input";
 import { CommonButton } from "@/Components/ui/button";
 import Modal from "./components/Modal";
 import RegisterSuccess from "./components/RegisterSuccess";
+import PasswordInput from "@/Components/ui/password-input";
+import { useCredentials } from "@/hooks/useCredentials";
+import { passwordRegex } from "@/lib/utils";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 
-const loginSchema = z.object({
-  username: z.string().min(1, { message: "name is required" }),
-  password: z
-    .string()
-    .min(4, { message: "Name must be at least 4 characters long" }),
-});
+const loginSchema = z
+  .object({
+    password: z
+      .string()
+      .min(4, { message: "Password must be at least 8 characters long " })
+      .regex(passwordRegex, {
+        message:
+          "Ensure your password contains at least a lowercase letter, an upper case letter, a special symbol and a number",
+      }),
+    confirmPassword: z
+      .string()
+      .min(4, { message: "Password must be at least 8 characters long " }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Password don't match",
+    path: ["confirmPassword"],
+  });
+
+const url = import.meta.env.VITE_AUTH_URL;
 
 const NewPassword = () => {
+  const [modal, setModal] = useState(false);
   const [password, setPassword] = useState("");
+
+  const { setInfo, info } = useCredentials();
+
+  const navigate = useNavigate();
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: "",
       password: "",
+      confirmPassword: "",
     },
   });
-  const [modal, setModal] = useState(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setModal((prev) => !prev);
+
+  const { isSubmitting } = form.formState;
+
+  const handleSubmit = async (values) => {
+    const password = values.password;
+
+    try {
+      const response = await axios.post(`${url}/resetPassword`, {
+        ...info,
+        password,
+      });
+
+      if (response.data.status === "success") {
+        toast.success(response.data.message);
+        navigate("/login");
+        setInfo((state) => {
+          return {
+            ...state,
+            email: "",
+            otp: "",
+          };
+        });
+      }
+    } catch (error) {
+      toast.error(
+        error.response.data.error.otp.msg || error.response.data.message,
+      );
+      navigate("/forgot-password");
+    }
   };
 
   return (
@@ -54,7 +102,11 @@ const NewPassword = () => {
             <Heading>Create Your New Password</Heading>
           </div>
           <Form {...form}>
-            <form action="" className="space-y-2" onSubmit={handleSubmit}>
+            <form
+              action=""
+              className="space-y-2"
+              onSubmit={form.handleSubmit(handleSubmit)}
+            >
               <PasswordInput
                 id="password"
                 value={password}
@@ -71,7 +123,7 @@ const NewPassword = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete="new-password"
                 label="Confirm Password"
-                name="password"
+                name="confirmPassword"
                 control={form.control}
                 placeholder=""
               />
@@ -85,7 +137,11 @@ const NewPassword = () => {
                 className="mt-8 w-full bg-primary-color-600 font-poppins text-xl font-semibold capitalize text-white hover:bg-primary-color-600"
                 type="submit"
               >
-                reset
+                {isSubmitting ? (
+                  <ClipLoader size={20} color={"#fff"} />
+                ) : (
+                  "reset"
+                )}
               </CommonButton>
             </form>
           </Form>
