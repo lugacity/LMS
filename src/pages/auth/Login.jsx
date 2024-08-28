@@ -152,7 +152,6 @@ const Login = ({ setUserInfo, userInfo }) => {
                 <CommonButton
                   className="mt-8 w-full bg-primary-color-600 font-poppins text-[16px] font-[500] capitalize text-white hover:bg-primary-color-600"
                   type="submit"
-                  disabled={isSubmitting}
                 >
                   {isSubmitting ? (
                     <ClipLoader size={20} color={"#fff"} />
