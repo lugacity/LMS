@@ -14,7 +14,6 @@ import { passwordRegex } from "@/lib/utils";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { ClipLoader } from "react-spinners";
 
 const loginSchema = z
   .object({
@@ -51,8 +50,6 @@ const NewPassword = () => {
       confirmPassword: "",
     },
   });
-
-  const { isSubmitting } = form.formState;
 
   const handleSubmit = async (values) => {
     const password = values.password;
@@ -137,11 +134,7 @@ const NewPassword = () => {
                 className="mt-8 w-full bg-primary-color-600 font-poppins text-xl font-semibold capitalize text-white hover:bg-primary-color-600"
                 type="submit"
               >
-                {isSubmitting ? (
-                  <ClipLoader size={20} color={"#fff"} />
-                ) : (
-                  "reset"
-                )}
+                reset
               </CommonButton>
             </form>
           </Form>
