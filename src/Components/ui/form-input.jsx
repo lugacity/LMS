@@ -29,6 +29,7 @@ export default function FormInput({
   className,
   placeholder,
   id,
+  disabled = false,
 }) {
   return (
     <FormField
@@ -52,6 +53,7 @@ export default function FormInput({
               placeholder={placeholder}
               {...field}
               id={id}
+              disabled={disabled}
             />
           </FormControl>
           <FormMessage />

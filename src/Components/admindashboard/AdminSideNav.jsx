@@ -1,11 +1,24 @@
 import { GrHomeRounded } from "react-icons/gr";
-// import { BiBell } from "react-icons/bi";
-import { FaRegHeart, FaRegBell } from "react-icons/fa";
 
-import { useState } from "react";
-import { Sidebar, SidebarItem } from "../dashboard/SideNav";
+import { DarkLogo } from "../Logo";
+import {
+  AccountIcon,
+  AffiliateIcon,
+  BellIcon,
+  CertificateIcon,
+  CourseIcon,
+  DataIcon,
+  FinancialIcon,
+  HeartIcon,
+  ManagementIcon,
+  PaymentIcon,
+  ProjectIcon,
+} from "../Icon";
+
+import { SidebarItem } from "../dashboard/SideNav";
+
 // import { Sidebar, SidebarItem } from "./SideNav";
-export const navItem = [
+const navItem = [
   {
     id: 1,
     text: "Dashboard",
@@ -20,46 +33,151 @@ export const navItem = [
     id: 2,
     text: "Course Work Art",
 
-    icon: <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.55556 0.283569C1.85829 0.283569 0.5 1.67381 0.5 3.3669V13.5993C0.5 15.4402 1.97661 16.9502 3.81984 16.9502H13.3802C13.7112 16.9502 14.1353 16.8753 14.4486 16.5379C14.7634 16.1987 14.7909 15.7833 14.7702 15.5152C14.7492 15.2418 14.6676 14.9667 14.5878 14.7374C14.5125 14.5208 14.4189 14.2907 14.3327 14.079L14.3096 14.0221C14.1073 13.5243 13.9621 13.1402 13.929 12.8476C13.9248 12.8109 13.9232 12.781 13.923 12.757C14.176 12.7187 14.4194 12.6363 14.64 12.4932C14.9718 12.2779 15.1729 11.9768 15.2924 11.6749C15.5003 11.1496 15.5001 10.4942 15.5 9.99844L15.5 3.3669C15.5 1.67381 14.1417 0.283569 12.4444 0.283569H3.55556ZM12.2729 13.0349C12.2638 12.955 12.2578 12.8707 12.2566 12.7836H2.16667V13.5993C2.16667 14.5393 2.91655 15.2836 3.81984 15.2836H13.0132C12.9528 15.1102 12.8754 14.9198 12.785 14.6975L12.7591 14.6337C12.5796 14.192 12.3359 13.5925 12.2729 13.0349ZM13.7262 11.0972C13.7065 11.1041 13.6558 11.1169 13.5556 11.1169H2.16667V3.3669C2.16667 2.57471 2.79822 1.95024 3.55556 1.95024H12.4444C13.2018 1.95024 13.8333 2.57471 13.8333 3.3669V9.96318C13.8333 10.2405 13.8312 10.4695 13.8149 10.6685C13.7984 10.8702 13.7704 10.9915 13.7427 11.0616C13.7358 11.0791 13.7301 11.0904 13.7262 11.0972ZM13.7348 11.0938L13.7364 11.0929C13.7364 11.093 13.7359 11.0933 13.7348 11.0938ZM13.1091 15.6528C13.109 15.6553 13.109 15.6567 13.1091 15.6568C13.1091 15.6568 13.1091 15.6561 13.1091 15.6548" fill="#667185"/>
-    </svg>
-    ,
-
+    icon: <CourseIcon />,
     active: false,
     alert: "alert",
-    path: "/admindashboard/notification",
+    path: "/admin/notification",
   },
   {
     id: 3,
     text: "Project Area",
-
-    icon: <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.83333 0.450317C3.99238 0.450317 2.5 1.9427 2.5 3.78365V11.2836C2.5 11.7439 2.8731 12.117 3.33333 12.117C3.79357 12.117 4.16667 11.7439 4.16667 11.2836V3.78365C4.16667 2.86318 4.91286 2.11698 5.83333 2.11698H10.8333V4.61698C10.8333 6.45793 12.3257 7.95032 14.1667 7.95032H15.8333V15.4503C15.8333 16.3708 15.0871 17.117 14.1667 17.117H8.33333C7.8731 17.117 7.5 17.4901 7.5 17.9503C7.5 18.4106 7.8731 18.7836 8.33333 18.7836H14.1667C16.0076 18.7836 17.5 17.2913 17.5 15.4503V7.18877C17.5 6.40899 17.2266 5.65388 16.7274 5.05483L13.8898 1.6497C13.2565 0.889727 12.3183 0.450317 11.3291 0.450317H5.83333ZM15.5661 6.28365C15.5299 6.2276 15.4901 6.17354 15.447 6.1218L12.6094 2.71668C12.5747 2.67503 12.5382 2.63532 12.5 2.5976V4.61698C12.5 5.53746 13.2462 6.28365 14.1667 6.28365H15.5661Z" fill="#667185"/>
-    <path d="M3.92259 13.1944C4.24803 13.5198 4.24803 14.0475 3.92259 14.3729L2.84518 15.4503L3.92259 16.5277C4.24803 16.8532 4.24803 17.3808 3.92259 17.7062C3.59715 18.0317 3.06952 18.0317 2.74408 17.7062L1.07741 16.0396C0.921131 15.8833 0.833334 15.6713 0.833334 15.4503C0.833334 15.2293 0.921131 15.0173 1.07741 14.8611L2.74408 13.1944C3.06952 12.869 3.59715 12.869 3.92259 13.1944Z" fill="#667185"/>
-    <path d="M5.24408 14.3729C4.91864 14.0475 4.91864 13.5198 5.24408 13.1944C5.56951 12.869 6.09715 12.869 6.42259 13.1944L8.08926 14.8611C8.24554 15.0173 8.33333 15.2293 8.33333 15.4503C8.33333 15.6713 8.24554 15.8833 8.08926 16.0396L6.42259 17.7062C6.09715 18.0317 5.56951 18.0317 5.24408 17.7062C4.91864 17.3808 4.91864 16.8532 5.24408 16.5277L6.32149 15.4503L5.24408 14.3729Z" fill="#667185"/>
-    </svg>,
-
-    active: false,
-    alert: "alert",
-    path: "/admindashboard/project-area",
+    icon: <ProjectIcon />,
+    path: "/admin/project-area",
   },
 ];
-function AdminSideNav({ toggleNav, setTogglNav }) {
-  const hadleClick = (id) => {};
+
+const navitem2 = [
+  {
+    id: 1,
+    text: "course management",
+    icon: <ManagementIcon />,
+    path: "/admin/course-management",
+  },
+  {
+    id: 2,
+    text: "data management",
+    icon: <DataIcon />,
+    path: "/admin/data-management",
+  },
+  {
+    id: 3,
+    text: "account management",
+    icon: <AccountIcon />,
+    path: "/admin/account-management",
+  },
+];
+const navitem3 = [
+  {
+    id: 1,
+    text: "payment",
+    icon: <PaymentIcon />,
+    path: "/admin/payment",
+  },
+  {
+    id: 2,
+    text: "Affiliate",
+    icon: <AffiliateIcon />,
+    path: "/admin/affiliate",
+  },
+  {
+    id: 3,
+    text: "Financial Aid",
+    icon: <FinancialIcon />,
+    path: "/admin/financial-aid",
+  },
+  {
+    id: 4,
+    text: "Certificate",
+    icon: <CertificateIcon />,
+    path: "/admin/certificate",
+  },
+];
+
+function AdminSideNav() {
   return (
-    <Sidebar toggleNav={toggleNav} setToggleNav={setTogglNav}>
-      {navItem.map((item) => (
-        <SidebarItem
-          key={item.text}
-          icon={item.icon}
-          text={item.text}
-          path={item.path}
-          onClick={() => hadleClick(item.id)}
-          active={item.active}
-          setToggleNav={setTogglNav}
-        />
-      ))}
-    </Sidebar>
+    <SideNav>
+      <div>
+        {navItem.map((item) => {
+          return (
+            <SidebarItem
+              key={item.text}
+              text={item.text}
+              icon={item.icon}
+              path={item.path}
+            />
+          );
+        })}
+      </div>
+      <div>
+        {navitem2.map((item) => {
+          return (
+            <SidebarItem
+              key={item.text}
+              text={item.text}
+              icon={item.icon}
+              path={item.path}
+            />
+          );
+        })}
+      </div>
+      <div className="border-b border-b-slate-200">
+        {navitem3.map((item) => {
+          return (
+            <SidebarItem
+              key={item.text}
+              text={item.text}
+              icon={item.icon}
+              path={item.path}
+            />
+          );
+        })}
+      </div>
+    </SideNav>
+  );
+}
+
+function SideNav({ children }) {
+  return (
+    <aside className="baby fixed left-0 top-0 h-screen w-[249px] overflow-y-auto border-r border-r-[#E4E7EC] px-2 py-6 2xl:overflow-y-hidden">
+      <div>
+        <DarkLogo />
+      </div>
+      <div className="flex h-full flex-col justify-between">
+        <ul className="my-5 *:border-b *:border-b-[#E4E7EC]">{children}</ul>
+        <div className="divide-y">
+          <ul>
+            <SidebarItem text={"review"} icon={<HeartIcon />} />
+            <SidebarItem text={"notification"} icon={<BellIcon />} />
+          </ul>
+          <div className="px-6 py-10">
+            <button className="flex items-center gap-5">
+              <span></span>
+              <span>
+                <svg
+                  width="19"
+                  height="18"
+                  viewBox="0 0 19 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.24996 2.33268C5.7102 2.33268 6.08329 1.95959 6.08329 1.49935C6.08329 1.03911 5.7102 0.666016 5.24996 0.666016H3.99996C2.15901 0.666016 0.666626 2.1584 0.666626 3.99935V13.9993C0.666626 15.8403 2.15901 17.3327 3.99996 17.3327H5.24996C5.7102 17.3327 6.08329 16.9596 6.08329 16.4993C6.08329 16.0391 5.7102 15.666 5.24996 15.666H3.99996C3.07949 15.666 2.33329 14.9198 2.33329 13.9993L2.33329 3.99935C2.33329 3.07887 3.07949 2.33268 3.99996 2.33268H5.24996Z"
+                    fill="#CC1747"
+                  />
+                  <path
+                    d="M17.9225 9.5886C18.248 9.26317 18.248 8.73553 17.9225 8.41009L14.5892 5.07676C14.2638 4.75132 13.7361 4.75132 13.4107 5.07676C13.0853 5.4022 13.0853 5.92983 13.4107 6.25527L15.3214 8.16602L5.66663 8.16602C5.20639 8.16602 4.83329 8.53911 4.83329 8.99935C4.83329 9.45959 5.20639 9.83268 5.66663 9.83268L15.3214 9.83268L13.4107 11.7434C13.0853 12.0689 13.0853 12.5965 13.4107 12.9219C13.7361 13.2474 14.2638 13.2474 14.5892 12.9219L17.9225 9.5886Z"
+                    fill="#CC1747"
+                  />
+                </svg>
+              </span>
+              <span className="text-xl capitalize text-primary-color-600">
+                sign out
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
   );
 }
 
