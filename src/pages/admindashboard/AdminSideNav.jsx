@@ -3,7 +3,7 @@ import { GrHomeRounded } from "react-icons/gr";
 import { FaRegHeart, FaRegBell } from "react-icons/fa";
 
 import { useState } from "react";
-import { Sidebar, SidebarItem } from "../dashboard/SideNav";
+import { Sidebar, SidebarItem } from "../../Components/dashboard/SideNav";
 // import { Sidebar, SidebarItem } from "./SideNav";
 export const navItem = [
   {

@@ -1,5 +1,5 @@
-import AdminNav from "@/Components/admindashboard/AdminNav";
-import AdminSideNav from "@/Components/admindashboard/AdminSideNav";
+import AdminNav from "@/pages/admindashboard/AdminNav";
+import AdminSideNav from "@/pages/admindashboard/AdminSideNav";
 // import DashboardSideNav from "@/Components/dashboard/DashboardSideNav";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
