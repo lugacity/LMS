@@ -44,8 +44,7 @@ import AuthLayout from "./layouts/AuthLayout";
 import { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import ProtectedRoute from "./Components/ProtectedRoute";
-import { Cookie } from "lucide-react";
-import Cookies from "js-cookie";
+
 import AuthProtectedRoute from "./Components/AuthProtectedRoute";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AdminEmpty } from "./pages/admindashboard/AdminEmpty";
@@ -243,16 +242,8 @@ function App() {
           index: "true",
           element: <AdminEmpty />,
         },
-        {
-          path: "course-management",
-          element: <CourseManagement />,
-        },
-        {
-          path: "coursecreation",
-          element: <CourseCreation />,
-        },
-    ]}
-    
+      ],
+    },
   ]);
 
   return (

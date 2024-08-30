@@ -29,7 +29,7 @@ export default function FormInput({
   className,
   placeholder,
   id,
-  disabled=false,
+  disabled,
 }) {
   return (
     <FormField
