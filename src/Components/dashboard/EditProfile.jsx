@@ -193,7 +193,7 @@ const EditProfile = () => {
                 placeholder=""
                 type="email"
                 control={form.control}
-                disabled
+                disabled={true}
               />
               <div className="grid gap-x-4 md:grid-cols-2">
                 <PasswordInput

@@ -48,7 +48,9 @@ import { Cookie } from "lucide-react";
 import Cookies from "js-cookie";
 import AuthProtectedRoute from "./Components/AuthProtectedRoute";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AdminEmpty } from "./Components/admindashboard/AdminEmpty";
+import { AdminEmpty } from "./pages/admindashboard/AdminEmpty";
+import CourseManagement from "./pages/admindashboard/CourseManagement";
+import CourseCreation from "./pages/admindashboard/CourseCreation";
 
 const queryClient = new QueryClient();
 
@@ -241,8 +243,14 @@ function App() {
           index: "true",
           element: <AdminEmpty />,
         },
-
-      
+        {
+          path: "course-management",
+          element: <CourseManagement />,
+        },
+        {
+          path: "coursecreation",
+          element: <CourseCreation />,
+        },
     ]}
     
   ]);

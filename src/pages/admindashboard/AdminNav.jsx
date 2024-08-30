@@ -1,14 +1,14 @@
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../../Components/ui/avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FaRegBell } from "react-icons/fa";
-import { DarkLogo } from "../Logo";
+import { DarkLogo } from "../../Components/Logo";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "@/hooks/useAuth";
 import { useProfile } from "@/services/queries";
-import { Skeleton } from "../ui/skeleton";
-import PopUp from "../dashboard/PopUp";
+import { Skeleton } from "../../Components/ui/skeleton";
+import PopUp from "../../Components/dashboard/PopUp";
 
 function AdminNav({ setToggleNav, userInfo }) {
   const navigate = useNavigate();
