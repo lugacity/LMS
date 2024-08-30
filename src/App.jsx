@@ -24,6 +24,7 @@ import Wishlist from "./pages/dashboard/Wishlist";
 import StudentSettings from "./pages/dashboard/StudentSettings";
 import Referral from "./pages/dashboard/Referral";
 import OtherLayout from "./layouts/OtherLayout";
+import AdminLayout from "./layouts/AdminLayout";
 import ShareDocument from "./pages/dashboard/ShareDocument";
 import Documents from "./pages/dashboard/Documents";
 import Assignment from "./pages/dashboard/Assignment";
@@ -47,6 +48,9 @@ import { Cookie } from "lucide-react";
 import Cookies from "js-cookie";
 import AuthProtectedRoute from "./Components/AuthProtectedRoute";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { AdminEmpty } from "./pages/admindashboard/AdminEmpty";
+import CourseManagement from "./pages/admindashboard/CourseManagement";
+import CourseCreation from "./pages/admindashboard/CourseCreation";
 
 const queryClient = new QueryClient();
 
@@ -230,6 +234,25 @@ function App() {
         },
       ],
     },
+
+    {
+      element: <AdminLayout />,
+      path: "/admin",
+      children: [
+        {
+          index: "true",
+          element: <AdminEmpty />,
+        },
+        {
+          path: "course-management",
+          element: <CourseManagement />,
+        },
+        {
+          path: "coursecreation",
+          element: <CourseCreation />,
+        },
+    ]}
+    
   ]);
 
   return (

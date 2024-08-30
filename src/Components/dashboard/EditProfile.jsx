@@ -1,6 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import axios from "axios";
+import { useState } from "react";
+import Cookies from "js-cookie";
 import { CommonButton } from "../ui/button";
 import FormInput from "../ui/form-input";
 import { Form } from "../ui/form";
@@ -8,18 +11,19 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Modal from "@/pages/auth/components/Modal";
 import BorderCard from "../BorderCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { faCheck, faClose, faPen } from "@fortawesome/free-solid-svg-icons";
 import PasswordInput from "../ui/password-input";
 import { useAuth } from "@/hooks/useAuth";
 import { Skeleton } from "../ui/skeleton";
 import { useProfile } from "@/services/queries";
+import { ClipLoader } from "react-spinners";
 
-const loginSchema = z.object({
-  email: z.string().email(),
-  password: z
-    .string()
-    .min(4, { message: "Name must be at least 4 characters long" }),
+// Validation schema
+const profileSchema = z.object({
+  firstname: z.string().min(1, "First name is required"),
+  lastname: z.string().min(1, "Last name is required"),
+  username: z.string().min(1, "Username is required"),
+  avatar: z.instanceof(File).optional(),
 });
 
 const EditProfile = () => {
@@ -27,17 +31,64 @@ const EditProfile = () => {
   const { isLoading, data } = useProfile();
 
   const [modal, setModal] = useState(false);
+  const [avatarPreview, setAvatarPreview] = useState(userDetails?.avatar || "");
+
   const form = useForm({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(profileSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      firstname: userDetails?.firstname || "",
+      lastname: userDetails?.lastname || "",
+      username: userDetails?.username || "",
+      email: userDetails?.email || "",
+      avatar: null,
     },
   });
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setModal((prev) => !prev);
+
+  // Handle file change event
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setAvatarPreview(URL.createObjectURL(file));
+      form.setValue("avatar", file);
+    }
   };
+
+  // Handle form submission
+  const handleSubmit = async (formData) => {
+    const formDataToSend = new FormData();
+    formDataToSend.append("firstname", formData.firstname);
+    formDataToSend.append("lastname", formData.lastname);
+    formDataToSend.append("username", formData.username);
+
+    if (formData.avatar) {
+      formDataToSend.append("avatar", formData.avatar);
+    }
+
+    const token = Cookies.get("token");
+
+    try {
+      const response = await axios.patch(
+        "https://avi-lms-backend.onrender.com/api/v1/users/me",
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.status === "success") {
+        setModal(true); // Show success modal
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      // Handle error, maybe show a notification or modal
+    }
+  };
+
+  const {isSubmitting} = form.formState;
+
   return (
     <>
       {modal && (
@@ -46,7 +97,7 @@ const EditProfile = () => {
             <button
               type="button"
               className="absolute right-4 top-4 w-fit cursor-pointer"
-              onClick={() => setModal((prev) => !prev)}
+              onClick={() => setModal(false)}
             >
               <FontAwesomeIcon
                 icon={faClose}
@@ -66,31 +117,47 @@ const EditProfile = () => {
             </div>
             <CommonButton
               className="mt-8 bg-[#CC1747] px-[39px] py-[10px] capitalize"
-              onClick={() => setModal((prev) => !prev)}
+              onClick={() => setModal(false)}
             >
-              ok
+              Ok
             </CommonButton>
           </BorderCard>
         </Modal>
       )}
       <div className="mx-auto max-w-[716px]">
-        <Avatar className="mx-auto block h-14 w-14 md:h-20 md:w-20">
-          <AvatarImage
-            src={userDetails.Avatar}
-            className="m-auto block rounded-full"
+        <div className="relative">
+          <Avatar className="mx-auto block h-14 w-14 md:h-20 md:w-20">
+            <AvatarImage
+              src={avatarPreview}
+              className="m-auto block rounded-full"
+            />
+            <AvatarFallback className="mx-auto w-full rounded-full bg-primary-color-100 p-2 text-2xl text-primary-color-600 md:p-4">
+              {userDetails.firstname ? (
+                `${userDetails.firstname.charAt(0).toUpperCase()}${userDetails.lastname.charAt(0).toUpperCase()}`
+              ) : isLoading ? (
+                <Skeleton className="h-12 w-12 rounded-full" />
+              ) : (
+                `${data?.data?.data.firstname.charAt(0).toUpperCase()}${data?.data?.data.lastname.charAt(0).toUpperCase()}`
+              )}
+            </AvatarFallback>
+          </Avatar>
+          <input
+            type="file"
+            id="avatar"
+            name="avatar"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
           />
-          <AvatarFallback className="mx-auto w-full rounded-full bg-primary-color-100 p-2 text-2xl text-primary-color-600 md:p-4">
-            {userDetails.firstname ? (
-              `${userDetails.firstname.charAt(0).toUpperCase()}${userDetails.lastname.charAt(0).toUpperCase()}`
-            ) : isLoading ? (
-              <Skeleton className="h-12 w-12 rounded-full" />
-            ) : (
-              `${data?.data?.data.firstname.charAt(0).toUpperCase()}${data?.data?.data.lastname.charAt(0).toUpperCase()}`
-            )}
-          </AvatarFallback>
-        </Avatar>
+          <label
+            htmlFor="avatar"
+            className="absolute bottom-0 -top-1 left-64 lg:left-[360px] p-2 rounded-full cursor-pointer"
+          >
+            <FontAwesomeIcon icon={faPen} className="text-primary-color-600 text-xs" />
+          </label>
+        </div>
         <Form {...form}>
-          <form className="">
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
             <div className="space-y-4">
               <FormInput
                 name="username"
@@ -118,6 +185,7 @@ const EditProfile = () => {
                   control={form.control}
                 />
               </div>
+              {/* Disabled fields */}
               <FormInput
                 name="email"
                 id="email"
@@ -125,33 +193,40 @@ const EditProfile = () => {
                 placeholder=""
                 type="email"
                 control={form.control}
+                disabled={true}
               />
               <div className="grid gap-x-4 md:grid-cols-2">
                 <PasswordInput
                   id="password"
-                  autoComplete="new-password"
-                  label="password"
+                  label="Password"
                   name="password"
                   control={form.control}
                   placeholder="Change Password"
+                  disabled
                 />
                 <PasswordInput
                   id="confirmPassword"
-                  autoComplete="new-password"
-                  label="confirm password"
+                  label="Confirm Password"
                   name="confirmPassword"
                   control={form.control}
                   placeholder="Enter password"
+                  disabled
                 />
               </div>
             </div>
 
             <CommonButton
-              className="mx-auto mt-6 block w-[55.865%] items-center bg-[#CC1747]"
               type="submit"
-              onClick={handleSubmit}
+              className="mx-auto mt-6 block w-[55.865%] items-center bg-[#CC1747]"
+              disabled={isSubmitting}
             >
-              Update Profile
+              {isSubmitting ? (
+                <ClipLoader size={20} color={"#fff"} />
+              ) : (
+              
+                  "Update Profile"
+
+              )}
             </CommonButton>
           </form>
         </Form>
