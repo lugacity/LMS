@@ -242,6 +242,14 @@ function App() {
           index: "true",
           element: <AdminEmpty />,
         },
+        {
+          path: "course-management",
+          element: <CourseManagement />,
+        },
+        {
+          path: "course-creation",
+          element: <CourseCreation />,
+        },
       ],
     },
   ]);
