@@ -10,13 +10,18 @@ import { cn } from "@/lib/utils";
 
 function CourseSection({ setSession, setSectionDetails }) {
   const [active, setActive] = useState("1");
+
   const changeSession = (courseSection, id) => {
     const { section_title, section } = courseSection;
+
     setSectionDetails((prevState) => {
       return { ...prevState, topic: section_title, section };
     });
+
     setActive(id);
+
     if (section_title.includes("Join Live Sessions")) return setSession("live");
+
     return setSession("recorded");
   };
 
