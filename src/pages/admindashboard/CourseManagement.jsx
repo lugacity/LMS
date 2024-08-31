@@ -16,7 +16,7 @@ import DashButton from '../auth/ButtonDash';
                     You haven’t created any courses yet. Start building your first  
                     <span className="lg:block"> course to engage your students and share your knowledge.</span>
                 </p>
-                <Link to="/discover-courses">
+                <Link to="/admin/course-creation">
                 <DashButton className="mt-2 bg-[#CC1747] text-white hover:bg-[#b30e3b]">
                     Create Course
                 </DashButton>

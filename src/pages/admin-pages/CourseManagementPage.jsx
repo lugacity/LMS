@@ -106,10 +106,10 @@ const CourseManagementPage = () => {
               </div>
 
 
-              <div  className="flex justify-between items-center pt-10">
-                  <DashButton className="px-4 py-2 border border-[#667185] text-[#667185] bg-transparent rounded flex items-center hover:bg-[#f0f0f0] hover:text-[#fff] hover:border-[#fff]">
+              <div  className="flex justify-end items-center pt-10">
+                  {/* <DashButton className="px-4 py-2 border border-[#667185] text-[#667185] bg-transparent rounded flex items-center hover:bg-[#f0f0f0] hover:text-[#fff] hover:border-[#fff]">
                     Save as draft
-                  </DashButton>
+                  </DashButton> */}
 
                   <DashButton className="rounded px-4 py-2 text-white">
                     Save & Continue
