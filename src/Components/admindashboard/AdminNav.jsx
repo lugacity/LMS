@@ -1,14 +1,14 @@
-import { Avatar, AvatarFallback, AvatarImage } from "../../Components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FaRegBell } from "react-icons/fa";
-import { DarkLogo } from "../../Components/Logo";
+import { DarkLogo } from "../Logo";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "@/hooks/useAuth";
 import { useProfile } from "@/services/queries";
-import { Skeleton } from "../../Components/ui/skeleton";
-import PopUp from "../../Components/dashboard/PopUp";
+import { Skeleton } from "../ui/skeleton";
+import PopUp from "../dashboard/PopUp";
 
 function AdminNav({ setToggleNav, userInfo }) {
   const navigate = useNavigate();
@@ -48,25 +48,22 @@ function AdminNav({ setToggleNav, userInfo }) {
               <FaRegBell />
             </span>
           </Link>
-          
         </div>
         <div className="relative">
           <div className="absolute right-0 top-0 z-10 h-2 w-2 rounded-full bg-[#008000] md:h-3 md:w-3"></div>
           <PopUp className="relative cursor-pointer">
             <Avatar className="h-8 w-8 cursor-pointer md:h-10 md:w-10">
-            <AvatarImage
+              <AvatarImage
                 src={
-                  userDetails?.avatar 
-                    ? userDetails.avatar 
-                    : isLoading 
-                    ? '' // Skeleton will be shown when isLoading is true
-                    : data?.data?.data.avatar || ''
+                  userDetails?.avatar
+                    ? userDetails.avatar
+                    : isLoading
+                      ? "" // Skeleton will be shown when isLoading is true
+                      : data?.data?.data.avatar || ""
                 }
                 alt="User Avatar"
               />
-              {isLoading && (
-                <Skeleton className="h-12 w-12 rounded-full" />
-              )}
+              {isLoading && <Skeleton className="h-12 w-12 rounded-full" />}
 
               <AvatarFallback className="bg-primary-color-100 text-sm text-primary-color-600 md:text-lg">
                 {userDetails.firstname ? (
@@ -81,9 +78,8 @@ function AdminNav({ setToggleNav, userInfo }) {
 
             {/* {dropdownOpen && <ProfilePopUp />} */}
           </PopUp>
-
         </div>
-          <p>Maxwell Samathan</p>
+        <p>Maxwell Samathan</p>
       </div>
     </nav>
   );

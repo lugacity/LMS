@@ -47,9 +47,9 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 
 import AuthProtectedRoute from "./Components/AuthProtectedRoute";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AdminEmpty } from "./pages/admindashboard/AdminEmpty";
-import CourseManagement from "./pages/admindashboard/CourseManagement";
-import CourseCreation from "./pages/admindashboard/CourseCreation";
+import { AdminEmpty } from "./Components/admindashboard/AdminEmpty";
+import CourseManagement from "./Components/admindashboard/CourseManagement";
+import CourseCreation from "./Components/admindashboard/CourseCreation";
 
 const queryClient = new QueryClient();
 

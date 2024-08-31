@@ -1,4 +1,4 @@
-import AdminSideNav from "@/pages/admindashboard/AdminSideNav";
+import AdminSideNav from "@/Components/admindashboard/AdminSideNav";
 import { Outlet } from "react-router-dom";
 
 function AdminLayout() {
