@@ -24,8 +24,8 @@ const MediaUploadContainer = () => {
   const handleVideoUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 10 * 1024 * 1024) { // 10MB size limit
-        alert('File size exceeds 10MB');
+      if (file.size > 200 * 1024 * 1024) { // 200MB size limit
+        alert('File size exceeds 200MB');
         return;
       }
       const reader = new FileReader();
@@ -129,7 +129,7 @@ const MediaUploadContainer = () => {
               <input type="file" accept="video/*"
                 className="hidden" onChange={handleVideoUpload} ref={fileInputRefVideo}/>
             </div>
-            <p className="mb-2 text-[#475367] pt-4 font-[400]">Max 10 MB files are allowed</p>
+            <p className="mb-2 text-[#475367] pt-4 font-[400]">Max 200 MB files are allowed</p>
         </div>
 
 

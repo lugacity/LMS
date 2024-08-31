@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import CourseManagementPage from '../admin-pages/CourseManagementPage';
+import CourseType from '../admin-pages/CourseType';
 
 const CourseCreation = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -56,25 +57,13 @@ const CourseCreation = () => {
         </div>
 
         {/* Content */}
-        <div className={` ${activeTab === 1 ? '' : activeTab === 2 ? 'bg-green-50' : activeTab === 3 ? 'bg-yellow-50' : 'bg-red-50'}`}>
+        <div className={` ${activeTab === 1 ? '' : activeTab === 2 ? '' : activeTab === 3 ? 'bg-yellow-50' : 'bg-red-50'}`}>
           {activeTab === 1 && (
               <CourseManagementPage/>
           )}
           {activeTab === 2 && (
             <div>
-              <h2 className="text-xl font-bold mb-2">Course Type</h2>
-              <p className="mb-2">Course Type:</p>
-              <input 
-                type="text" 
-                placeholder="Enter course type" 
-                className="border border-gray-300 rounded p-2 w-full mb-2"
-              />
-              <p className="mb-2">Live Session:</p>
-              <input 
-                type="text" 
-                placeholder="Enter live session details" 
-                className="border border-gray-300 rounded p-2 w-full"
-              />
+              <CourseType/>
             </div>
           )}
           {activeTab === 3 && (

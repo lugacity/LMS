@@ -198,7 +198,7 @@ const EditProfile = () => {
                 control={form.control}
                 disabled={true}
               />
-              <div className="grid gap-x-4 md:grid-cols-2">
+              {/* <div className="grid gap-x-4 md:grid-cols-2">
                 <PasswordInput
                   id="password"
                   label="Password"
@@ -215,7 +215,7 @@ const EditProfile = () => {
                   placeholder="Enter password"
                   disabled
                 />
-              </div>
+              </div> */}
             </div>
 
             <CommonButton
