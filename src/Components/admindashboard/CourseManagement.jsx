@@ -1,5 +1,4 @@
 import React from "react";
-// import DashButton from '../../auth/ButtonDash';
 import NoCoursesImg from "../../assets/images/no_courses.png";
 import { Link } from "react-router-dom";
 import DashButton from "../../pages/auth/ButtonDash";
