@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import CourseManagementPage from "../../pages/admin-pages/CourseManagementPage";
 import CourseType from "../../pages/admin-pages/CourseType";
+import RecordedSession from "@/pages/admin-pages/course-management/RecordedSession";
+import LiveSession from "@/pages/admin-pages/course-management/LiveSession";
 
 const CourseCreation = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -70,7 +72,7 @@ const CourseCreation = () => {
 
         {/* Content */}
         <div
-          className={` ${activeTab === 1 ? "" : activeTab === 2 ? "" : activeTab === 3 ? "bg-yellow-50" : "bg-red-50"}`}
+          className={` ${activeTab === 1 ? "" : activeTab === 2 ? "" : activeTab === 3 ? "" : "bg-red-50"}`}
         >
           {activeTab === 1 && <CourseManagementPage />}
           {activeTab === 2 && (
@@ -80,42 +82,22 @@ const CourseCreation = () => {
           )}
           {activeTab === 3 && (
             <div>
-              <div className="mb-4 flex gap-4">
+              <div className="mb-4 flex w-max gap-4 border-b border-[#98A2B3]">
                 <button
-                  className={`px-4 py-2 font-[600] ${subTab === 1 ? "border-b-2 border-[#CC1747] text-[#CC1747]" : "border-b border-[#98A2B3] text-[#344054]"} `}
+                  className={`border-b-2 px-4 py-2 font-[600] ${subTab === 1 ? "border-b-2 border-[#CC1747] text-[#CC1747]" : "border-b-transparent text-[#344054]"} `}
                   onClick={() => handleSubTabClick(1)}
                 >
                   Live Session
                 </button>
                 <button
-                  className={`px-4 py-2 font-[600] ${subTab === 2 ? "border-b-2 border-[#CC1747] text-[#CC1747]" : "border-b border-[#98A2B3] text-[#344054]"} `}
+                  className={`border-b-2 px-4 py-2 font-[600] ${subTab === 2 ? "border-b-primary-color-600 text-primary-color-600" : "border-b-transparent text-[#344054]"} `}
                   onClick={() => handleSubTabClick(2)}
                 >
                   Recorded
                 </button>
               </div>
-              {subTab === 1 && (
-                <div>
-                  <h2 className="mb-2 text-xl font-bold">Live Session</h2>
-                  <p className="mb-2">Live session details:</p>
-                  <input
-                    type="text"
-                    placeholder="Enter live session details"
-                    className="w-full rounded border border-gray-300 p-2"
-                  />
-                </div>
-              )}
-              {subTab === 2 && (
-                <div>
-                  <h2 className="mb-2 text-xl font-bold">Recorded</h2>
-                  <p className="mb-2">Recorded session details:</p>
-                  <input
-                    type="text"
-                    placeholder="Enter recorded session details"
-                    className="w-full rounded border border-gray-300 p-2"
-                  />
-                </div>
-              )}
+              {subTab === 1 && <LiveSession />}
+              {subTab === 2 && <RecordedSession />}
             </div>
           )}
           {activeTab === 4 && (
