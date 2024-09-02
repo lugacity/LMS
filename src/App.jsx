@@ -44,13 +44,13 @@ import AuthLayout from "./layouts/AuthLayout";
 import { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import ProtectedRoute from "./Components/ProtectedRoute";
-import { Cookie } from "lucide-react";
-import Cookies from "js-cookie";
+
 import AuthProtectedRoute from "./Components/AuthProtectedRoute";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AdminEmpty } from "./pages/admindashboard/AdminEmpty";
-import CourseManagement from "./pages/admindashboard/CourseManagement";
-import CourseCreation from "./pages/admindashboard/CourseCreation";
+import { AdminEmpty } from "./Components/admindashboard/AdminEmpty";
+import CourseManagement from "./Components/admindashboard/CourseManagement";
+import CourseCreation from "./Components/admindashboard/CourseCreation";
+import CourseManagementLayout from "./layouts/CourseManagementLayout";
 
 const queryClient = new QueryClient();
 
@@ -240,19 +240,27 @@ function App() {
       path: "/admin",
       children: [
         {
-          index: "true",
+          path: "/admin/dashboard",
           element: <AdminEmpty />,
         },
         {
-          path: "course-management",
-          element: <CourseManagement />,
+          element: <CourseManagementLayout />,
+          path: "course",
+
+          children: [
+            {
+              index: true,
+              path: "management",
+              element: <CourseManagement />,
+            },
+            {
+              path: "creation",
+              element: <CourseCreation />,
+            },
+          ],
         },
-        {
-          path: "coursecreation",
-          element: <CourseCreation />,
-        },
-    ]}
-    
+      ],
+    },
   ]);
 
   return (
