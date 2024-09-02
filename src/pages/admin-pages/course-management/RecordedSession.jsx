@@ -17,6 +17,7 @@ import SectionPopover from "@/Components/admindashboard/recoded-session/SectionP
 import { ImgUploadIcon, VidIcon } from "@/Components/Icon";
 import { CommonButton } from "@/Components/ui/button";
 import { VideoIcon } from "lucide-react";
+import { useRef } from "react";
 
 const sessionSchema = z.object({
   sessionTitle: z
@@ -32,6 +33,8 @@ function RecordedSession() {
       sessionTitle: "",
     },
   });
+
+  const videoRef = useRef();
 
   const sectionContent = [
     {
@@ -94,9 +97,15 @@ function RecordedSession() {
                   upload video
                 </p>
                 <div className="flex min-h-52 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#23314A]">
-                  <button className="flex gap-2 text-[#98A2B3]">
+                  <button
+                    className="flex gap-2 text-[#98A2B3]"
+                    onClick={() => {
+                      videoRef.current.click();
+                    }}
+                  >
                     <ImgUploadIcon />
                     <span>upload</span>
+                    <input type="file" name="" id="" hidden ref={videoRef} />
                   </button>
                 </div>
                 <p className="mb-1 mt-2 text-sm text-[#667185]">
