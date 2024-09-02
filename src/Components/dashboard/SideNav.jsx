@@ -183,7 +183,11 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
 export function SidebarItem({ icon, text, path, setToggleNav }) {
   // const { expanded } = useContext(SidebarContext);
 
-  const location = useLocation();
+  const { pathname } = useLocation();
+  // const isActive =
+  //   (pathname === "/" && href === "/") ||
+  //   pathname === href ||
+  //   pathname?.startsWith(`${href}/`);
 
   return (
     <li
@@ -194,7 +198,8 @@ export function SidebarItem({ icon, text, path, setToggleNav }) {
         to={path}
         className={cn(
           "group relative my-1 flex cursor-pointer items-center border-4 border-transparent px-1 py-2 text-gray-600 transition-colors hover:border-l-primary-color-600 hover:bg-primary-color-100/30 hover:text-primary-color-600",
-          location.pathname === path
+
+          pathname === path || pathname?.startsWith(`${path}/`)
             ? "border-l-4 border-l-primary-color-600 bg-primary-color-100/30 font-medium text-primary-color-600"
             : "",
         )}
