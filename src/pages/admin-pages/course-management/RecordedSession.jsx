@@ -47,7 +47,7 @@ function RecordedSession() {
 
   return (
     <>
-      <main className="grid grid-cols-[3fr_1fr] gap-10 rounded-[10px] border-2 border-[#F0F2F5] p-12">
+      <main className="grid grid-cols-[3fr_1fr] gap-10 rounded-[10px] border-2 border-[#F0F2F5] p-12 pr-6">
         <div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit((values) => console.log(values))}>
@@ -145,7 +145,7 @@ function RecordedSession() {
               <AccordionItem value="item-1">
                 <div className="grid grid-cols-[8fr_1fr] items-center">
                   <AccordionTrigger className="w-full">
-                    section 1
+                    Section 1
                   </AccordionTrigger>
                   <SectionPopover>
                     <button className="justify-self-end">
@@ -192,17 +192,52 @@ function RecordedSession() {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
-                <AccordionTrigger>Is it styled?</AccordionTrigger>
+                <div className="grid grid-cols-[8fr_1fr] items-center">
+                  <AccordionTrigger className="w-full">
+                    Section 2
+                  </AccordionTrigger>
+                  <SectionPopover>
+                    <button className="justify-self-end">
+                      <LiaEllipsisVSolid className="self-end text-2xl" />
+                    </button>
+                  </SectionPopover>
+                </div>
                 <AccordionContent>
-                  Yes. It comes with default styles that matches the other
-                  components&apos; aesthetic.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="item-3">
-                <AccordionTrigger>Is it animated?</AccordionTrigger>
-                <AccordionContent>
-                  Yes. It&apos;s animated by default, but you can disable it if
-                  you prefer.
+                  <h2 className="font-medium leading-[23.2px] text-[#344054]">
+                    Business Analysis Agile Project Management Software Testing
+                  </h2>
+                  <ul className="mt-6 space-y-6">
+                    {sectionContent.map((item, i) => {
+                      return (
+                        <>
+                          <li className="text-[#667185]">
+                            <article className="flex gap-2">
+                              <div className="flex gap-2">
+                                <span>{i + 1}</span>
+                                <span>{item.title}</span>
+                              </div>
+                              <div>
+                                <SectionPopover>
+                                  <button className="justify-self-end">
+                                    <LiaEllipsisVSolid className="self-end text-2xl" />
+                                  </button>
+                                </SectionPopover>
+                              </div>
+                            </article>
+                            <div className="mt-3 flex items-start gap-4">
+                              <VidIcon />
+                              <article>
+                                <h3 className="font-medium">Recorded Video</h3>
+                                <p className="text-sm font-light text-[#98A2B3]">
+                                  11 Sep, 2023 | 12:24pm <span>13MB</span>
+                                </p>
+                              </article>
+                            </div>
+                          </li>
+                        </>
+                      );
+                    })}
+                  </ul>
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
