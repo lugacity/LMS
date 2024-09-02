@@ -50,6 +50,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AdminEmpty } from "./Components/admindashboard/AdminEmpty";
 import CourseManagement from "./Components/admindashboard/CourseManagement";
 import CourseCreation from "./Components/admindashboard/CourseCreation";
+import CourseManagementLayout from "./layouts/CourseManagementLayout";
 
 const queryClient = new QueryClient();
 
@@ -239,16 +240,24 @@ function App() {
       path: "/admin",
       children: [
         {
-          index: "true",
+          path: "/admin/dashboard",
           element: <AdminEmpty />,
         },
         {
-          path: "course-management",
-          element: <CourseManagement />,
-        },
-        {
-          path: "course-creation",
-          element: <CourseCreation />,
+          element: <CourseManagementLayout />,
+          path: "course",
+
+          children: [
+            {
+              index: true,
+              path: "management",
+              element: <CourseManagement />,
+            },
+            {
+              path: "creation",
+              element: <CourseCreation />,
+            },
+          ],
         },
       ],
     },

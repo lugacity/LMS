@@ -25,7 +25,7 @@ const navItem = [
 
     active: true,
     alert: "alert",
-    path: "/admin",
+    path: "/admin/dashboard",
   },
   {
     id: 2,
@@ -49,7 +49,7 @@ const navitem2 = [
     id: 1,
     text: "course management",
     icon: <ManagementIcon />,
-    path: "/admin/course-management",
+    path: "/admin/course/management",
   },
   {
     id: 2,
