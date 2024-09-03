@@ -5,6 +5,7 @@ import CourseManagementPage from "../../pages/admin-pages/CourseManagementPage";
 import CourseType from "../../pages/admin-pages/CourseType";
 import RecordedSession from "@/pages/admin-pages/course-management/RecordedSession";
 import LiveSession from "@/pages/admin-pages/course-management/LiveSession";
+import PublishPage from "@/pages/admin-pages/course-management/PublishPage";
 
 const CourseCreation = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -72,7 +73,7 @@ const CourseCreation = () => {
 
         {/* Content */}
         <div
-          className={` ${activeTab === 1 ? "" : activeTab === 2 ? "" : activeTab === 3 ? "" : "bg-red-50"}`}
+          className={` ${activeTab === 1 ? "" : activeTab === 2 ? "" : activeTab === 3 ? "" : ""}`}
         >
           {activeTab === 1 && <CourseManagementPage />}
           {activeTab === 2 && (
@@ -100,12 +101,7 @@ const CourseCreation = () => {
               {subTab === 2 && <RecordedSession />}
             </div>
           )}
-          {activeTab === 4 && (
-            <div>
-              <h2 className="mb-2 text-xl font-bold">Publish</h2>
-              <p>How are you?</p>
-            </div>
-          )}
+          {activeTab === 4 && <PublishPage />}
         </div>
       </div>
     </div>
