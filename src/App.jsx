@@ -51,6 +51,8 @@ import { AdminEmpty } from "./Components/admindashboard/AdminEmpty";
 import CourseManagement from "./Components/admindashboard/CourseManagement";
 import CourseCreation from "./Components/admindashboard/CourseCreation";
 import CourseManagementLayout from "./layouts/CourseManagementLayout";
+import CreatedCourse from "./pages/admin-pages/course-management/CreatedCourse";
+import CourseManagementEdit from "./pages/admin-pages/course-management/CourseManagementEdit";
 
 const queryClient = new QueryClient();
 
@@ -256,6 +258,14 @@ function App() {
             {
               path: "creation",
               element: <CourseCreation />,
+            },
+            {
+              path: "created-course",
+              element: <CreatedCourse />,
+            },
+            {
+              path: "course-management-edit",
+              element: <CourseManagementEdit />,
             },
           ],
         },

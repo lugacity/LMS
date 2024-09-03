@@ -151,7 +151,7 @@ const LiveSession = () => {
               </div>
 
               <div>
-                  <DashButton className="rounded px-4 py-2 bg-[#9ea9bd] text-white">
+                  <DashButton className="rounded px-4 py-2 bg-[#929db1] text-white lg:hover:bg-[#727988] lg:hover:text-[#313335]">
                       https://meet.google.com/ohj-
                   </DashButton>
               </div>

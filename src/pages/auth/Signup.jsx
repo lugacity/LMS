@@ -55,6 +55,7 @@ const SignUp = () => {
   const [confirm, setConfirm] = useState(false);
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState();
+  
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
