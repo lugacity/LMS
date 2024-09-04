@@ -1,6 +1,8 @@
+import { CommonButton } from "@/Components/ui/button";
 import { Label } from "@/Components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/Components/ui/radio-group";
 import React from "react";
+import { HiOutlinePencil } from "react-icons/hi";
 
 const Cohort = [
   {
@@ -36,12 +38,20 @@ const durations = [
   },
 ];
 
-function CourseType() {
+function CourseType({ editButton = false }) {
   return (
     <section className="rounded-md border-2 border-[#F0F2F5] p-12 pr-6">
-      <h2 className="text-2xl font-medium text-[#344054]">
-        Course Information
-      </h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-medium text-[#344054]">Course Type</h2>
+        {editButton && (
+          <CommonButton variant="outline" className="space-x-2 text-[#667185]">
+            <span className="text-lg">
+              <HiOutlinePencil />
+            </span>
+            <span>Edit section</span>
+          </CommonButton>
+        )}
+      </div>
       <main className="mt-8 grid grid-cols-2">
         <section className="border-r border-r-[#F0F2F5] pr-11">
           <h3 className="w-full max-w-[530px] text-xl font-light text-[#23314A]">

@@ -11,7 +11,6 @@ import {
 } from "@/Components/ui/popover";
 
 import { cn } from "@/lib/utils";
-import { Pencil, Trash } from "lucide-react";
 import { TrashCan } from "@/Components/Icon";
 
 function SectionPopover({ children, className }) {
