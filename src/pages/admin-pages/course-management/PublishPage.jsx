@@ -1,6 +1,6 @@
-import CourseInfo from "@/Components/admindashboard/publish-page/CourseInfo";
-import CourseType from "@/Components/admindashboard/publish-page/CourseType";
-import PublishCourseSection from "@/Components/admindashboard/publish-page/PublishCourseSection";
+import CourseInfo from "@/Components/admindashboard/course-management/publish-page/CourseInfo";
+import CourseType from "@/Components/admindashboard/course-management/publish-page/CourseType";
+import PublishCourseSection from "@/Components/admindashboard/course-management/publish-page/PublishCourseSection";
 import { CommonButton } from "@/Components/ui/button";
 
 function PublishPage() {

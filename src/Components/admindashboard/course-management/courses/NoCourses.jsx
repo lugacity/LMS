@@ -1,9 +1,9 @@
+import DashButton from "@/pages/auth/ButtonDash";
+import NoCoursesImg from "../../../../assets/images/no_courses.png";
 import React from "react";
-import NoCoursesImg from "../../assets/images/no_courses.png";
 import { Link } from "react-router-dom";
-import DashButton from "../../pages/auth/ButtonDash";
 
-const CourseManagement = () => {
+const NoCourses = () => {
   return (
     <div className="flex items-center justify-center p-4">
       <div className=":w-full flex flex-col items-center justify-center rounded-lg p-6">
@@ -22,7 +22,7 @@ const CourseManagement = () => {
             course to engage your students and share your knowledge.
           </span>
         </p>
-        <Link to="/admin/course-creation">
+        <Link to="/admin/course/management/create-course">
           <DashButton className="mt-2 bg-[#CC1747] text-white hover:bg-[#b30e3b]">
             Create Course
           </DashButton>
@@ -32,4 +32,4 @@ const CourseManagement = () => {
   );
 };
 
-export default CourseManagement;
+export default NoCourses;

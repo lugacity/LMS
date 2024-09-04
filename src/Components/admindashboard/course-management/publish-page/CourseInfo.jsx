@@ -2,15 +2,28 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 
 import AvenueList from "@/Components/Assets/AvenueList";
 
-import iconDark from "../../../assets/icons/icon-dark.png";
-import img from "../../../assets/images/join_team.png";
+import iconDark from "../../../../assets/icons/icon-dark.png";
+import img from "../../../../assets/images/join_team.png";
+import { CommonButton } from "@/Components/ui/button";
+import { PencilIcon } from "lucide-react";
+import { HiOutlinePencil } from "react-icons/hi";
 
-const CourseInfo = () => {
+const CourseInfo = ({ editButton = false }) => {
   return (
     <main className="rounded-md border-2 border-[#F0F2F5] p-12 pr-6">
-      <h2 className="text-2xl font-medium text-[#344054]">
-        Course Information
-      </h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-medium text-[#344054]">
+          Course Information
+        </h2>
+        {editButton && (
+          <CommonButton variant="outline" className="space-x-2 text-[#667185]">
+            <span className="text-lg">
+              <HiOutlinePencil />
+            </span>
+            <span>Edit section</span>
+          </CommonButton>
+        )}
+      </div>
       <main className="mt-8 grid grid-cols-2 gap-9">
         <div className="space-y-9">
           <article>

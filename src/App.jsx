@@ -48,11 +48,11 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import AuthProtectedRoute from "./Components/AuthProtectedRoute";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AdminEmpty } from "./Components/admindashboard/AdminEmpty";
-import CourseManagement from "./Components/admindashboard/CourseManagement";
+import CourseManagement from "./pages/admin-pages/CourseManagement";
 import CourseCreation from "./Components/admindashboard/CourseCreation";
-import CourseManagementLayout from "./layouts/CourseManagementLayout";
+import CoursesLayout from "./layouts/admin/CoursesLayout";
 import CreatedCourse from "./pages/admin-pages/course-management/CreatedCourse";
-import CourseManagementEdit from "./pages/admin-pages/course-management/CourseManagementEdit";
+import EditCourse from "./pages/admin-pages/course-management/EditCourse";
 
 const queryClient = new QueryClient();
 
@@ -246,26 +246,29 @@ function App() {
           element: <AdminEmpty />,
         },
         {
-          element: <CourseManagementLayout />,
-          path: "course",
+          element: <CoursesLayout />,
+          path: "course/management",
 
           children: [
             {
-              index: true,
-              path: "management",
-              element: <CourseManagement />,
+              children: [
+                {
+                  index: true,
+                  element: <CourseManagement />,
+                },
+                {
+                  path: "courses",
+                  element: <CreatedCourse />,
+                },
+                {
+                  path: "edit",
+                  element: <EditCourse />,
+                },
+              ],
             },
             {
-              path: "creation",
+              path: "create-course",
               element: <CourseCreation />,
-            },
-            {
-              path: "created-course",
-              element: <CreatedCourse />,
-            },
-            {
-              path: "course-management-edit",
-              element: <CourseManagementEdit />,
             },
           ],
         },

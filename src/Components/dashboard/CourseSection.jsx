@@ -7,8 +7,10 @@ import {
 } from "../ui/accordion";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { HiOutlinePencil } from "react-icons/hi";
+import { CommonButton } from "../ui/button";
 
-function CourseSection({ setSession, setSectionDetails }) {
+function CourseSection({ setSession, setSectionDetails, editButton }) {
   const [active, setActive] = useState("1");
 
   const changeSession = (courseSection, id) => {
@@ -27,9 +29,32 @@ function CourseSection({ setSession, setSectionDetails }) {
 
   return (
     <div>
-      <h3 className="hidden text-2xl font-medium capitalize text-black lg:block">
-        Course section
-      </h3>
+      <div
+        className={cn(
+          editButton ? "mb-4 flex items-center justify-between" : "",
+        )}
+      >
+        <h3
+          className={cn(
+            editButton
+              ? "whitespace-nowrap text-lg font-medium"
+              : "hidden text-2xl font-medium capitalize text-black lg:block",
+          )}
+        >
+          Course section
+        </h3>
+        {editButton && (
+          <CommonButton
+            variant="outline"
+            className="space-x-1 px-[6px] py-2 text-xs text-[#667185]"
+          >
+            <span className="text-xs">
+              <HiOutlinePencil />
+            </span>
+            <span className="text-sm">Edit section</span>
+          </CommonButton>
+        )}
+      </div>
       <Accordion type="single" collapsible className="w-full">
         {courseSections.map((section) => {
           return (

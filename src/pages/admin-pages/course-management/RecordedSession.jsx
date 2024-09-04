@@ -10,7 +10,7 @@ import { CommonButton } from "@/Components/ui/button";
 
 import { ImgUploadIcon } from "@/Components/Icon";
 
-import CoursesRecordedSection from "@/Components/admindashboard/recoded-session/CoursesRecordedSection";
+import CoursesRecordedSection from "@/Components/admindashboard/course-management/recoded-session/CoursesRecordedSection";
 
 const sessionSchema = z.object({
   sessionTitle: z
