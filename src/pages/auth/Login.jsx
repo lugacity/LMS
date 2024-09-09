@@ -159,6 +159,7 @@ const Login = () => {
                     "sign in"
                   )}
                 </CommonButton>
+                
               </form>
             </Form>
           </BorderCard>
@@ -173,6 +174,15 @@ const Login = () => {
               sign up
             </Link>
           </p>
+
+
+          <div className="text-center">
+            <Link to={"/admin/login"}
+                className="text-sm font-semibold text-white hover:text-primary-color-300">
+                Login Admin 
+            </Link>
+          </div>
+          
         </div>
       </div>
 

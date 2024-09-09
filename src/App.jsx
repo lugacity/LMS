@@ -54,6 +54,7 @@ import CoursesLayout from "./layouts/admin/CoursesLayout";
 import CreatedCourse from "./pages/admin-pages/course-management/CreatedCourse";
 import EditCourse from "./pages/admin-pages/course-management/EditCourse";
 import AdminLogin from "./pages/admin-pages/AdminLogin";
+import AdminPayment from "./Components/admindashboard/AdminPayment";
 
 const queryClient = new QueryClient();
 
@@ -286,6 +287,11 @@ function App() {
                   element: <CourseCreation />,
                 },
               ],
+            },
+
+            {
+              path: "/admin/payment",
+              element: <AdminPayment/>
             },
           ],
         },
