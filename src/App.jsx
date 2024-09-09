@@ -54,12 +54,14 @@ import CoursesLayout from "./layouts/admin/CoursesLayout";
 import CreatedCourse from "./pages/admin-pages/course-management/CreatedCourse";
 import EditCourse from "./pages/admin-pages/course-management/EditCourse";
 import AdminLogin from "./pages/admin-pages/AdminLogin";
+import AdminPayment from "./Components/admindashboard/AdminPayment";
 import ProjectArea from "./pages/admin-pages/project-area/ProjectArea";
 import ProjectAreaLayout from "./layouts/admin/ProjectAreaLayout";
 import General from "./pages/admin-pages/project-area/Genral";
 import Groups from "./pages/admin-pages/project-area/Groups";
 import CourseProjectArea from "./Components/admindashboard/project-area/CourseProjectArea";
 import CourseTools from "./Components/admindashboard/project-area/CourseTools";
+
 
 const queryClient = new QueryClient();
 
@@ -293,6 +295,13 @@ function App() {
                 },
               ],
             },
+
+
+            {
+              path: "/admin/payment",
+              element: <AdminPayment/>
+        },
+          
             {
               element: <ProjectAreaLayout />,
               path: "project-area",
@@ -320,6 +329,7 @@ function App() {
                   element: <Groups />,
                 },
               ],
+
             },
           ],
         },

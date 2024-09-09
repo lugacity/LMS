@@ -164,17 +164,20 @@ const AdminLogin = () => {
               </form>
             </Form>
           </BorderCard>
-          <p className="mt-6 flex items-center justify-center gap-4 text-center">
-            <span className="text-sm text-[#514A4A]">
-              Already have an account?
-            </span>
-            <Link
-              to={"/signup"}
-              className="text-sm font-semibold capitalize text-primary-color-600"
-            >
-              sign up
-            </Link>
-          </p>
+            <p className="mt-6 flex items-center justify-center gap-4 text-center">
+              <span className="text-sm text-[#514A4A]">
+                Already have an account?
+              </span>
+              
+              <Link
+                to={"/signup"}
+                className="text-sm font-semibold capitalize text-primary-color-600"
+              >
+                sign up
+              </Link>
+            </p>
+
+          
         </div>
       </div>
 
