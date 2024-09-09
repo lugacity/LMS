@@ -78,6 +78,10 @@ function CourseTools() {
             <ConfirmDeleteModal
               setModal={setConfirmDeleteModal}
               setDeleteSuccess={setDeleteSuccess}
+              title={"Delete Google Drive"}
+              text={
+                "Are you sure you want to delete this card? This action cannot be undone, and all associated will be permanently removed."
+              }
             />
           </Modal>
         )}

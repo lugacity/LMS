@@ -4,7 +4,12 @@ import { Heading, Paragraph } from "@/pages/auth/components/Text";
 import { faClose, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function ConfirmDeleteModal({ setModal, setDeleteSuccess }) {
+function ConfirmDeleteModal({
+  setModal,
+  setDeleteSuccess,
+  title = "Delete WhatsApp Group",
+  text = " Are you sure you want to delete this card? This action cannot be undone, and all associated will be permanently removed.",
+}) {
   const handleDelete = () => {
     setModal((prev) => !prev);
     setDeleteSuccess((prev) => !prev);
@@ -27,13 +32,8 @@ function ConfirmDeleteModal({ setModal, setDeleteSuccess }) {
           <FontAwesomeIcon icon={faQuestionCircle} />
         </span>
         <div className="space-y-6">
-          <Heading className="font-semibold text-[#23314A]">
-            Delete WhatsApp Group
-          </Heading>
-          <Paragraph>
-            Are you sure you want to delete this card? This action cannot be
-            undone, and all associated will be permanently removed.
-          </Paragraph>
+          <Heading className="font-semibold text-[#23314A]">{title}</Heading>
+          <Paragraph>{text}</Paragraph>
         </div>
         <div className="mx-auto flex w-max gap-[54.6px]">
           <CommonButton
