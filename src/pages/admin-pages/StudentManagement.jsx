@@ -15,7 +15,7 @@ const courseData = [
     name: 'Alex Johnson',
     email: 'alexj@gmail.com',
     title: 'Advanced Project Management',
-    type: 'Live Session',
+    type: 'On Demand',
     enrollmentDate: 'Apr 13, 2023 | 10:15AM',
     duration: 'June Cohort'
   },
