@@ -24,7 +24,7 @@ const ProjectAreaWithcourse = () => {
     <div>
       <header className="mt-7 flex items-center justify-between px-4 py-5">
         <p className="text-xl text-[#475367]">
-          courses({createdCourses.length})
+          Courses({createdCourses.length})
         </p>
         <div className="flex w-full max-w-[528px] items-center gap-x-4 rounded-md border border-[#D0D5DD] px-4 py-2">
           <label htmlFor="search">
