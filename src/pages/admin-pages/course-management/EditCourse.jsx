@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import StudentManagement from "../StudentManagement";
+import { useState } from "react";
+
 import CourseInformation from "@/Components/admindashboard/course-management/CourseInformation";
-import ShareDocument from "@/pages/dashboard/ShareDocument";
 import CourseCohortsPreview from "./CourseCohortsPreview";
 
 const EditCourse = () => {
@@ -18,19 +17,25 @@ const EditCourse = () => {
           <button
             onClick={() => setActiveSection("courseInfo")}
             className={`px-4 py-2 text-sm font-medium ${activeSection === "courseInfo" ? "border-b-2 border-[#CC1747] text-[#CC1747]" : "text-[#344054] hover:text-gray-800"}`}
-          > Course Information
+          >
+            {" "}
+            Course Information
           </button>
-          
+
           <button
             onClick={() => setActiveSection("courseSection")}
             className={`px-4 py-2 text-sm font-medium ${activeSection === "courseSection" ? "border-b-2 border-[#CC1747] text-[#CC1747]" : "text-[#344054] hover:text-gray-800"}`}
-          > Course Cohorts 
+          >
+            {" "}
+            Course Cohorts
           </button>
 
           <button
             onClick={() => setActiveSection("onDemandSection")}
             className={`px-4 py-2 text-sm font-medium ${activeSection === "onDemandSection" ? "border-b-2 border-[#CC1747] text-[#CC1747]" : "text-[#344054] hover:text-gray-800"}`}
-          > On-Demand Section 
+          >
+            {" "}
+            On-Demand Section
           </button>
 
           {/* <button
@@ -46,16 +51,15 @@ const EditCourse = () => {
 
         {activeSection === "courseSection" && (
           // <ShareDocument editButton={true} />
-          <CourseCohortsPreview/>
+          <CourseCohortsPreview />
         )}
 
-        
-        {activeSection === "onDemandSection" &&(
+        {activeSection === "onDemandSection" && (
           <>
             <p>Hello</p>
           </>
-         )}
-        
+        )}
+
         {/* {activeSection === "studentManagement" && (
           <div>
             <StudentManagement />

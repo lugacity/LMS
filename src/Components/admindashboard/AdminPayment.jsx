@@ -1,5 +1,4 @@
-import React from 'react';
-import LineCharts from '../../pages/admin-pages/LineCharts';
+import LineCharts from "../../pages/admin-pages/LineCharts";
 
 function AdminPayment() {
   return (

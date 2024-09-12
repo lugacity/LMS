@@ -1,30 +1,67 @@
-import DashButton from '@/pages/auth/ButtonDash'
-import React from 'react'
+import BorderCard from "@/Components/BorderCard";
+import DashButton from "@/pages/auth/ButtonDash";
+
+const cohorts = [
+  {
+    id: "01",
+    month: "May Cohort",
+    year: "2024",
+    created: "Created: 01/02/2023",
+  },
+  {
+    id: "01",
+    month: "April Cohort",
+    year: "2024",
+    created: "Created: 01/02/2023",
+  },
+  {
+    id: "01",
+    month: "October Cohort",
+    year: "2024",
+    created: "Created: 01/02/2023",
+  },
+  {
+    id: "01",
+    month: "January Cohort",
+    year: "2024",
+    created: "Created: 01/02/2023",
+  },
+];
 
 const CourseCohortsPreview = () => {
   return (
     <div>
-        {/* Live Session + Mentoring */}
-        <div className="grid grid-cols-12 gap-10 mb-4 md:mb-0 border border-gray-300 rounded  mt-5 p-10">
-                <div className='col-span-5'>
-                    <h3 className="text-[20px] font-[500] text-[#344054] lg:text-[24px]">
-                        Live Session + Mentoring 
-                    </h3>
-                    <p>Add Course Cohort</p>
+      {/* Live Session + Mentoring */}
+      <BorderCard className="mb-4 mt-5 grid grid-cols-[1fr_2fr]">
+        <div className="">
+          <h3 className="text-[20px] font-[500] text-[#344054] lg:text-[24px]">
+            Live Session + Mentoring
+          </h3>
+          <p>Add Course Cohort</p>
 
-                    <DashButton className="rounded px-4 py-2 text-white">
-                        Add Cohort
-                    </DashButton>
-                </div>
+          <DashButton className="rounded px-4 py-2 text-white">
+            Add Cohort
+          </DashButton>
+        </div>
 
-                <div className="col-span-7 space-y-4">
-                    
-                    <p>This is where i stopped Kareem</p>
-                       
-                </div>
-            </div>
+        <div className="w-full max-w-[612px] space-y-4 justify-self-end">
+          {cohorts.map((cohort) => (
+            <button
+              key={cohort.id}
+              className="w-full rounded-lg border px-4 py-6 text-left hover:border-primary-color-600 hover:bg-[#FFEBF0]"
+            >
+              <span className="mb-3 block text-lg font-semibold text-tertiary-color-700">
+                {`${cohort.month} ${cohort.year}`}
+              </span>
+              <span className="block text-xs text-primary-color-600">
+                {cohort.created}
+              </span>
+            </button>
+          ))}
+        </div>
+      </BorderCard>
     </div>
-  )
-}
+  );
+};
 
-export default CourseCohortsPreview
+export default CourseCohortsPreview;
