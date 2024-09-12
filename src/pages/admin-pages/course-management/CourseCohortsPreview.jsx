@@ -1,5 +1,6 @@
 import BorderCard from "@/Components/BorderCard";
 import DashButton from "@/pages/auth/ButtonDash";
+import { Link } from "react-router-dom";
 
 const cohorts = [
   {
@@ -46,9 +47,10 @@ const CourseCohortsPreview = () => {
 
         <div className="w-full max-w-[612px] space-y-4 justify-self-end">
           {cohorts.map((cohort) => (
-            <button
+            <Link
+              to={`/admin/course/management/info?month=${cohort.month}&year=${cohort.year}`}
               key={cohort.id}
-              className="w-full rounded-lg border px-4 py-6 text-left hover:border-primary-color-600 hover:bg-[#FFEBF0]"
+              className="block w-full rounded-lg border px-4 py-6 text-left hover:border-primary-color-600 hover:bg-[#FFEBF0]"
             >
               <span className="mb-3 block text-lg font-semibold text-tertiary-color-700">
                 {`${cohort.month} ${cohort.year}`}
@@ -56,7 +58,7 @@ const CourseCohortsPreview = () => {
               <span className="block text-xs text-primary-color-600">
                 {cohort.created}
               </span>
-            </button>
+            </Link>
           ))}
         </div>
       </BorderCard>

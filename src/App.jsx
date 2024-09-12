@@ -64,7 +64,7 @@ import CourseTools from "./Components/admindashboard/project-area/CourseTools";
 import FinancialLayout from "./layouts/admin/FinancialLayout";
 import CreateCoupon from "./pages/admin-pages/financial-aid/CreateCoupon";
 import FinancialAidRequest from "./pages/admin-pages/financial-aid/FinancialAidRequest";
-
+import CourseInfomation from "./pages/admin-pages/course-management/CourseInfomation";
 
 const queryClient = new QueryClient();
 
@@ -290,6 +290,10 @@ function App() {
                       path: "edit",
                       element: <EditCourse />,
                     },
+                    {
+                      path: "info",
+                      element: <CourseInfomation />,
+                    },
                   ],
                 },
                 {
@@ -299,27 +303,26 @@ function App() {
               ],
             },
             {
-                path: "financial-aid",
-                element: <FinancialLayout/>,
+              path: "financial-aid",
+              element: <FinancialLayout />,
 
-                children: [
-                  {
-                    index: true,
-                    element: <CreateCoupon/>
-                  },
-                  {
-                    path: "aid-request",
-                    element: <FinancialAidRequest/>
-                  },
-                ],
+              children: [
+                {
+                  index: true,
+                  element: <CreateCoupon />,
+                },
+                {
+                  path: "aid-request",
+                  element: <FinancialAidRequest />,
+                },
+              ],
             },
-
 
             {
               path: "/admin/payment",
-              element: <AdminPayment/>
-        },
-          
+              element: <AdminPayment />,
+            },
+
             {
               element: <ProjectAreaLayout />,
               path: "project-area",
@@ -347,7 +350,6 @@ function App() {
                   element: <Groups />,
                 },
               ],
-
             },
           ],
         },

@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import CourseInformation from "@/Components/admindashboard/course-management/CourseInformation";
 import CourseCohortsPreview from "./CourseCohortsPreview";
+import OnDemand from "./OnDemand";
 
 const EditCourse = () => {
   const [activeSection, setActiveSection] = useState("courseInfo");
@@ -49,16 +50,9 @@ const EditCourse = () => {
       <div>
         {activeSection === "courseInfo" && <CourseInformation />}
 
-        {activeSection === "courseSection" && (
-          // <ShareDocument editButton={true} />
-          <CourseCohortsPreview />
-        )}
+        {activeSection === "courseSection" && <CourseCohortsPreview />}
 
-        {activeSection === "onDemandSection" && (
-          <>
-            <p>Hello</p>
-          </>
-        )}
+        {activeSection === "onDemandSection" && <OnDemand />}
 
         {/* {activeSection === "studentManagement" && (
           <div>
