@@ -64,6 +64,7 @@ import CourseTools from "./Components/admindashboard/project-area/CourseTools";
 import FinancialLayout from "./layouts/admin/FinancialLayout";
 import CreateCoupon from "./pages/admin-pages/financial-aid/CreateCoupon";
 import FinancialAidRequest from "./pages/admin-pages/financial-aid/FinancialAidRequest";
+import ViewDetails from "./Components/admindashboard/financial-aid/ViewDetails";
 
 
 const queryClient = new QueryClient();
@@ -311,14 +312,18 @@ function App() {
                     path: "aid-request",
                     element: <FinancialAidRequest/>
                   },
-                ],
+                  ],
             },
 
-
+            {
+              path: "view-details",
+              element: <ViewDetails/>
+            },
+            
             {
               path: "/admin/payment",
               element: <AdminPayment/>
-        },
+            },
           
             {
               element: <ProjectAreaLayout />,
