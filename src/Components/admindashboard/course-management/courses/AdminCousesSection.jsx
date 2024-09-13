@@ -23,8 +23,7 @@ function AdminCoursesSection() {
 
           <CommonButton
             variant="outline"
-            className="space-x-1 px-[6px] py-2 text-xs text-[#667185]"
-          >
+            className="space-x-1 px-[6px] py-2 text-xs text-[#667185]">
             <span className="text-xs">
               <HiOutlinePencil />
             </span>
