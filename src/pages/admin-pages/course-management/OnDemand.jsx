@@ -1,7 +1,7 @@
 import { useState } from "react";
 import LinkList from "@/Components/LinkList";
 import OndemandSection from "./OndemandSection";
-import OndemandStudentManagement from "./OndemandStudentManagement";
+import StudentManagement from "@/Components/admindashboard/course-management/courses/StudentManagement";
 
 function OnDemand() {
   const [active, setActive] = useState("course-section");
@@ -25,7 +25,7 @@ function OnDemand() {
         </LinkList>
       </ul>
       {active === "course-section" && <OndemandSection />}
-      {active === "student-management" && <OndemandStudentManagement />}
+      {active === "student-management" && <StudentManagement />}
     </>
   );
 }
