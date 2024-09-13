@@ -90,7 +90,7 @@ const CourseCreation = () => {
                     </button>
               </div>
 
-                    <CourseManagementPage />
+                <CourseManagementPage />
             </>
            
            }
