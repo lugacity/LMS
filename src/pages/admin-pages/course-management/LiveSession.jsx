@@ -52,7 +52,7 @@ const LiveSession = () => {
                         value={formData.sectionSubTitle}
                         onChange={handleInputChange}
                         placeholder="Business Analysis Agile Project Management Software Testing May 2024"
-                        className="border outline-none border-gray-300 rounded p-2 w-full h-[56px] resize-none"
+                        className="border outline-none border-gray-300 rounded p-2 w-full h-[56px] resize-none overflow-hidden"
                         rows="2"
                         cols="50"
                       />
@@ -87,10 +87,10 @@ const LiveSession = () => {
 
 
                   {/* Starting Date and Time */}
-                  <div className="flex space-x-4">
+                  <div className="flex space-x-4 ">
                         {/* Duration (Monday-Friday) */}
                         <div className="flex-1 ">
-                            <p className="font-[500]">Started from</p>
+                            <p className="font-[500] text-[#475367] ">Started from</p>
                             <input 
                                 type="date" 
                                 defaultValue="2024-09-09" 
@@ -99,7 +99,7 @@ const LiveSession = () => {
                         </div>
 
                         {/* Time (7:00pm default) */}
-                        <div className="flex-1">
+                        <div className="flex-1 text-[#475367] ">
                             <p className="font-[500]">Time</p>
                             <input 
                             type="time" 
@@ -110,7 +110,7 @@ const LiveSession = () => {
                     </div>
 
                   {/* Meeting Date and Time */}
-                  <div className="flex pt-6 space-x-4">
+                  <div className="flex pt-6 space-x-4 text-[#475367] ">
                         {/* Duration (Monday-Friday) */}
                         <div className="flex-1 ">
                             <p className="font-[500]">Meeting Date from</p>
@@ -151,9 +151,9 @@ const LiveSession = () => {
               </div>
 
               <div>
-                  <DashButton className="rounded px-4 py-2 bg-[#929db1] text-white lg:hover:bg-[#727988] lg:hover:text-[#313335]">
+                  <button className="rounded px-4 py-2 lg:bg-[#929db1] lg:text-white lg:hover:bg-[#727988] lg:hover:text-[#313335]">
                       https://meet.google.com/ohj-
-                  </DashButton>
+                  </button>
               </div>
             </div>
             

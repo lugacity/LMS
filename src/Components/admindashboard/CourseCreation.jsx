@@ -122,7 +122,7 @@ const CourseCreation = () => {
                      </button>
                   ) : subTab === 2 ? (
                         <button className="flex items-center rounded border border-[#667185] bg-transparent px-4 py-2 text-[#667185] hover:bg-[#f0f0f0]">
-                            Preview
+                            Save and Continue
                       </button>
                   ) : null
                 }
