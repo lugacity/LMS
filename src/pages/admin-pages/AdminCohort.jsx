@@ -29,18 +29,24 @@ export function AdminCohort() {
         <SelectContent className="max-h-60 overflow-y-auto">
           <SelectGroup>
             {/* <SelectLabel>Select Course</SelectLabel> */}
-            <SelectItem value="january">January</SelectItem>
-            <SelectItem value="february">February</SelectItem>
-            <SelectItem value="march">March</SelectItem>
-            <SelectItem value="april">April</SelectItem>
-            <SelectItem value="May">May</SelectItem>
-            <SelectItem value="June">June</SelectItem>
-            <SelectItem value="july">July</SelectItem>
-            <SelectItem value="august">August</SelectItem>
-            <SelectItem value="september">September</SelectItem>
-            <SelectItem value="october">October</SelectItem>
-            <SelectItem value="november">November</SelectItem>
-            <SelectItem value="december">December</SelectItem>
+            <SelectItem value="august-cohort-2024">August 2024 Cohort</SelectItem>
+            <SelectItem value="september-cohort-2024">September 2024 Cohort</SelectItem>
+            <SelectItem value="october-cohort-2024">October 2024 Cohort</SelectItem>
+            <SelectItem value="november-cohort-2024">November 2024 Cohort</SelectItem>
+            <SelectItem value="december-cohort-2024">December 2024 Cohort</SelectItem>
+
+            <SelectItem value="january-cohort-2025">January 2025 Cohort</SelectItem>
+            <SelectItem value="february-cohort-2025">February 2025 Cohort</SelectItem>
+            <SelectItem value="march-cohort-2025">March 2025 Cohort</SelectItem>
+            <SelectItem value="april-cohort-2025">April 2025 Cohort</SelectItem>
+            <SelectItem value="May-cohort-2025">May 2025 Cohort</SelectItem>
+            <SelectItem value="June-cohort-2025">June 2025 Cohort</SelectItem>
+            <SelectItem value="july-cohort-2025">July 2025 Cohort</SelectItem>
+            <SelectItem value="august-cohort-2025">August 2025 Cohort</SelectItem>
+            <SelectItem value="september-cohort-2025">September 2025 Cohort</SelectItem>
+            <SelectItem value="october-cohort-2025">October 2025 Cohort</SelectItem>
+            <SelectItem value="november-cohort-2025">November 2025 Cohort</SelectItem>
+            <SelectItem value="december-cohort-2025">December 2025 Cohort</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
