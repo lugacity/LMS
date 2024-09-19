@@ -68,9 +68,21 @@ import FinancialAidRequest from "./pages/admin-pages/financial-aid/FinancialAidR
 import ViewDetails from "./Components/admindashboard/financial-aid/ViewDetails";
 
 import CourseInfomation from "./pages/admin-pages/course-management/CourseInfomation";
+
 import TeamLayout from "./layouts/admin/TeamLayout";
 import GroupLayout from "./layouts/admin/GroupLayout";
 import StudentManagementTable from "./pages/admin-pages/project-area/StudentManagementTable";
+
+
+import AdminCertificateLayout from "./layouts/admin/AdminCertificateLayout";
+import CertificateMainPage from "./pages/admin-pages/certificate/CertificateMainPage";
+import CertificateIssueHistory from "./pages/admin-pages/certificate/CertificateIssueHistory";
+import AffiliateLayout from "./layouts/admin/AffiliateLayout";
+import ReferralsAdmin from "./pages/admin-pages/affiliate/ReferralsAdmin";
+import WithdrawalRequest from "./pages/admin-pages/affiliate/WithdrawalRequest";
+
+
+
 
 const queryClient = new QueryClient();
 
@@ -311,16 +323,18 @@ function App() {
             {
               path: "financial-aid",
               element: <FinancialLayout />,
-              children: [
-                {
-                  index: true,
-                  element: <CreateCoupon />,
-                },
-                {
-                  path: "aid-request",
-                  element: <FinancialAidRequest />,
-                },
-              ],
+
+                children: [
+                  {
+                    index: true,
+                    element: <CreateCoupon/>
+                  },
+                  {
+                    path: "aid-request",
+                    element: <FinancialAidRequest/>
+                  },
+                ],
+
             },
 
             {
@@ -328,10 +342,33 @@ function App() {
               element: <ViewDetails />,
             },
 
+
+            
+            // PAYMENT
+
             {
               path: "/admin/payment",
               element: <AdminPayment />,
             },
+
+            // AFFILIATE
+            {
+              element: <AffiliateLayout/>,
+              path: "affiliate",
+              children:[
+                {
+                  index: true,
+                  element: <ReferralsAdmin/>
+                },
+                {
+                  path: "withdrawal-request",
+                  element: <WithdrawalRequest/>
+                },
+
+              ],
+            },
+
+
 
             {
               element: <ProjectAreaLayout />,
@@ -386,6 +423,33 @@ function App() {
                 },
               ],
             },
+            
+            
+            // Certificate
+            {
+              element: <AdminCertificateLayout/>,
+              path: "certificate",
+              children:[
+                {
+                  index: true,
+                  element: <CertificateMainPage />,
+                },
+                {
+                  path: "certificate-issue",
+                  element: <CertificateIssueHistory/>
+                },
+
+          ],
+        },
+            
+
+
+         
+         
+         
+         
+         
+         
           ],
         },
       ],
