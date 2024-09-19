@@ -67,9 +67,10 @@ import FinancialAidRequest from "./pages/admin-pages/financial-aid/FinancialAidR
 
 import ViewDetails from "./Components/admindashboard/financial-aid/ViewDetails";
 
-
 import CourseInfomation from "./pages/admin-pages/course-management/CourseInfomation";
-
+import TeamLayout from "./layouts/admin/TeamLayout";
+import GroupLayout from "./layouts/admin/GroupLayout";
+import StudentManagementTable from "./pages/admin-pages/project-area/StudentManagementTable";
 
 const queryClient = new QueryClient();
 
@@ -310,28 +311,28 @@ function App() {
             {
               path: "financial-aid",
               element: <FinancialLayout />,
-                children: [
-                  {
-                    index: true,
-                    element: <CreateCoupon/>
-                  },
-                  {
-                    path: "aid-request",
-                    element: <FinancialAidRequest/>
-                  },
-                  ],
+              children: [
+                {
+                  index: true,
+                  element: <CreateCoupon />,
+                },
+                {
+                  path: "aid-request",
+                  element: <FinancialAidRequest />,
+                },
+              ],
             },
 
             {
               path: "view-details",
-              element: <ViewDetails/>
+              element: <ViewDetails />,
             },
-            
+
             {
               path: "/admin/payment",
-              element: <AdminPayment/>
+              element: <AdminPayment />,
             },
-          
+
             {
               element: <ProjectAreaLayout />,
               path: "project-area",
@@ -356,7 +357,32 @@ function App() {
                 },
                 {
                   path: ":id/group",
-                  element: <Groups />,
+                  element: <GroupLayout />,
+                  children: [
+                    {
+                      index: true,
+                      element: <Groups />,
+                    },
+                    {
+                      path: ":team",
+                      element: <TeamLayout />,
+                      children: [
+                        {
+                          index: true,
+                          path: "course-project-area",
+                          element: <CourseProjectArea />,
+                        },
+                        {
+                          path: "course-tools",
+                          element: <CourseTools />,
+                        },
+                        {
+                          path: "student-management",
+                          element: <StudentManagementTable />,
+                        },
+                      ],
+                    },
+                  ],
                 },
               ],
             },
