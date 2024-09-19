@@ -1,0 +1,65 @@
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
+
+import CourseManagementPage from "../CourseManagementPage";
+import CourseType from "../CourseType";
+import RecordedSession from "./RecordedSession";
+import PublishPage from "./PublishPage";
+import CohortCourseSection from "./CohortCourseSection";
+
+const tab = [
+  "Course Management",
+  "Course Type",
+  "Cohort Course Sections",
+  "On-Demand Course Sections",
+  "Publish",
+];
+
+export default function CourseCreationPage() {
+  const { activeTab, setActiveTab, setSubTab } = useCourseManagementInfo();
+
+  const handleTabClick = (tabIndex) => {
+    setActiveTab(tabIndex);
+    if (tabIndex === 3) setSubTab(1); // Reset subTab when switching to Course Session
+  };
+
+  return (
+    <div className="mx-auto max-w-6xl p-4">
+      {/* Tabs and Buttons */}
+      <div className="mt-11 flex gap-6">
+        {tab.map((label, index) => (
+          <span
+            key={index}
+            className={`flex items-center text-sm font-medium ${activeTab === index + 1 ? "text-[#CC1747]" : "text-[#98A2B3] hover:text-gray-800"}`}
+          >
+            <span
+              className={`mr-2 flex h-6 w-6 items-center justify-center rounded-full border border-[#98A2B3] ${activeTab === index + 1 && "border-transparent bg-[#CC1747] text-white"} ${activeTab > index + 1 && "border-transparent bg-[#98A2B3] text-white"}`}
+            >
+              {index + 1}
+            </span>
+            {label}
+            <FontAwesomeIcon
+              icon={faAngleRight}
+              className={`ml-2 ${activeTab === index + 1 ? "text-[#CC1747]" : "text-[#98A2B3]"}`}
+            />
+          </span>
+        ))}
+      </div>
+
+      {/* Content */}
+      <div className="mt-4">
+        {activeTab === 1 && <CourseManagementPage />}
+
+        {activeTab === 2 && <CourseType />}
+
+        {activeTab === 3 && <CohortCourseSection />}
+
+        {activeTab === 4 && <RecordedSession />}
+
+        {activeTab === 5 && <PublishPage />}
+      </div>
+    </div>
+  );
+}
