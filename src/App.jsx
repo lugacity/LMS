@@ -67,8 +67,11 @@ import FinancialAidRequest from "./pages/admin-pages/financial-aid/FinancialAidR
 
 import ViewDetails from "./Components/admindashboard/financial-aid/ViewDetails";
 
-
 import CourseInfomation from "./pages/admin-pages/course-management/CourseInfomation";
+
+import TeamLayout from "./layouts/admin/TeamLayout";
+import GroupLayout from "./layouts/admin/GroupLayout";
+import StudentManagementTable from "./pages/admin-pages/project-area/StudentManagementTable";
 
 import AdminCertificateLayout from "./layouts/admin/AdminCertificateLayout";
 import CertificateMainPage from "./pages/admin-pages/certificate/CertificateMainPage";
@@ -76,9 +79,14 @@ import CertificateIssueHistory from "./pages/admin-pages/certificate/Certificate
 import AffiliateLayout from "./layouts/admin/AffiliateLayout";
 import ReferralsAdmin from "./pages/admin-pages/affiliate/ReferralsAdmin";
 import WithdrawalRequest from "./pages/admin-pages/affiliate/WithdrawalRequest";
+
 import AccountManagLayout from "./layouts/admin/AccountManagLayout";
 import AccountMagament from "./pages/admin-pages/account-managemnet/AccountMagament";
 
+import DataManagementPage from "./pages/admin-pages/data-management/DataManagementPage";
+import DashboardAnalytics from "./pages/admin-pages/data-management/DashboardAnalytics";
+import DataCourseManagement from "./pages/admin-pages/data-management/DataCourseManagement";
+import AllStudent from "./pages/admin-pages/data-management/AllStudent";
 
 
 const queryClient = new QueryClient();
@@ -370,76 +378,133 @@ function App() {
             {
               path: "financial-aid",
               element: <FinancialLayout />,
-                children: [
-                  {
-                    index: true,
-                    element: <CreateCoupon/>
-                  },
-                  {
-                    path: "aid-request",
-                    element: <FinancialAidRequest/>
-                  },
-                ],
+
+              children: [
+                {
+                  index: true,
+                  element: <CreateCoupon />,
+                },
+                {
+                  path: "aid-request",
+                  element: <FinancialAidRequest />,
+                },
+              ],
             },
 
             {
               path: "view-details",
-              element: <ViewDetails/>
+              element: <ViewDetails />,
             },
 
-
-            
-            // PAYMENT
             {
               path: "/admin/payment",
-              element: <AdminPayment/>
+              element: <AdminPayment />,
             },
 
-            // AFFILIATE
             {
-              element: <AffiliateLayout/>,
+              element: <AffiliateLayout />,
               path: "affiliate",
-              children:[
+              children: [
                 {
                   index: true,
-                  element: <ReferralsAdmin/>
+                  element: <ReferralsAdmin />,
                 },
                 {
                   path: "withdrawal-request",
-                  element: <WithdrawalRequest/>
+                  element: <WithdrawalRequest />,
                 },
-
               ],
             },
 
-            
-            
-            
+
+            {
+              element: <ProjectAreaLayout />,
+              path: "project-area",
+              children: [
+                {
+                  index: true,
+                  element: <ProjectArea />,
+                },
+                {
+                  path: ":id/general",
+                  element: <General />,
+                  children: [
+                    {
+                      index: true,
+                      element: <CourseProjectArea />,
+                    },
+                    {
+                      path: "course-tool",
+                      element: <CourseTools />,
+                    },
+                  ],
+                },
+                {
+                  path: ":id/group",
+                  element: <GroupLayout />,
+                  children: [
+                    {
+                      index: true,
+                      element: <Groups />,
+                    },
+                    {
+                      path: ":team",
+                      element: <TeamLayout />,
+                      children: [
+                        {
+                          index: true,
+                          path: "course-project-area",
+                          element: <CourseProjectArea />,
+                        },
+                        {
+                          path: "course-tools",
+                          element: <CourseTools />,
+                        },
+                        {
+                          path: "student-management",
+                          element: <StudentManagementTable />,
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              path: "data-management",
+              element: <DataManagementPage />,
+              children: [
+                {
+                  index: true,
+                  element: <DashboardAnalytics />,
+                },
+                {
+                  path: "course-management",
+                  element: <DataCourseManagement />,
+                },
+                {
+                  path: "all-student",
+                  element: <AllStudent />,
+                },
+              ],
+            },
+
+
             // Certificate
             {
-              element: <AdminCertificateLayout/>,
+              element: <AdminCertificateLayout />,
               path: "certificate",
-              children:[
+              children: [
                 {
                   index: true,
                   element: <CertificateMainPage />,
                 },
                 {
                   path: "certificate-issue",
-                  element: <CertificateIssueHistory/>
+                  element: <CertificateIssueHistory />,
                 },
-
-          ],
-        },
-            
-
-
-         
-         
-         
-         
-         
-         
+              ],
+            },
           ],
         },
       ],
