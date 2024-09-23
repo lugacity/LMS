@@ -243,8 +243,7 @@ const ViewDetails = () => {
             <BorderCard className="bg-white p-6 rounded-lg shadow-lg w-2/5">
             <button
                 className="text-gray-500 hover:text-gray-700 focus:outline-none float-right"
-                onClick={() => setshowSuccessModal(false)}
-            >
+                onClick={() => setshowSuccessModal(false)}>
                 <FontAwesomeIcon icon={faTimes} />
             </button>
 
@@ -277,8 +276,7 @@ const ViewDetails = () => {
         <BorderCard className="bg-white p-6 rounded-lg shadow-lg w-2/5">
           <button
             className="text-gray-500 hover:text-gray-700 focus:outline-none float-right"
-            onClick={() => setShowCouponModal(false)}
-          >
+            onClick={() => setShowCouponModal(false)}>
             <FontAwesomeIcon icon={faTimes} />
           </button>
 

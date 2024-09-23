@@ -79,10 +79,15 @@ import CertificateIssueHistory from "./pages/admin-pages/certificate/Certificate
 import AffiliateLayout from "./layouts/admin/AffiliateLayout";
 import ReferralsAdmin from "./pages/admin-pages/affiliate/ReferralsAdmin";
 import WithdrawalRequest from "./pages/admin-pages/affiliate/WithdrawalRequest";
+
+import AccountManagLayout from "./layouts/admin/AccountManagLayout";
+import AccountMagament from "./pages/admin-pages/account-managemnet/AccountMagament";
+
 import DataManagementPage from "./pages/admin-pages/data-management/DataManagementPage";
 import DashboardAnalytics from "./pages/admin-pages/data-management/DashboardAnalytics";
 import DataCourseManagement from "./pages/admin-pages/data-management/DataCourseManagement";
 import AllStudent from "./pages/admin-pages/data-management/AllStudent";
+
 
 const queryClient = new QueryClient();
 
@@ -289,6 +294,40 @@ function App() {
               path: "/admin/dashboard",
               element: <AdminEmpty />,
             },
+
+            
+            // Project Area
+            {
+              element: <ProjectAreaLayout />,
+              path: "project-area",
+              children: [
+                {
+                  index: true,
+                  element: <ProjectArea />,
+                },
+                {
+                  path: ":id/general",
+                  element: <General />,
+                  children: [
+                    {
+                      index: true,
+                      element: <CourseProjectArea />,
+                    },
+                    {
+                      path: "course-tool",
+                      element: <CourseTools />,
+                    },
+                  ],
+                },
+                {
+                  path: ":id/group",
+                  element: <Groups />,
+                },
+              ],
+            },
+
+            
+            // Course Management
             {
               element: <CoursesLayout />,
               path: "course/management",
@@ -320,6 +359,22 @@ function App() {
                 },
               ],
             },
+
+
+            // Account Management
+            {
+              element: <AccountManagLayout/>,
+              path: "account-management",
+
+              children: [
+                {
+                  index: true,
+                  element: <AccountMagament/>,
+                },
+              ],
+            },
+
+            // Fianancial Aid
             {
               path: "financial-aid",
               element: <FinancialLayout />,
@@ -360,6 +415,7 @@ function App() {
                 },
               ],
             },
+
 
             {
               element: <ProjectAreaLayout />,
@@ -432,6 +488,7 @@ function App() {
                 },
               ],
             },
+
 
             // Certificate
             {
