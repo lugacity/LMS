@@ -1,17 +1,28 @@
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useState } from "react";
+import { FaCheck } from "react-icons/fa6";
+
 import DashButton from "../auth/ButtonDash";
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 import SaveButton from "@/Components/admindashboard/course-management/courses/SaveButton";
 import { ScrollRestoration } from "react-router-dom";
-import { Popover, PopoverContent } from "@/Components/ui/popover";
-import { PopoverTrigger } from "@radix-ui/react-popover";
+
 import { Form } from "@/Components/ui/form";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import FormInput from "@/Components/ui/form-input";
 import CohortSelection from "@/Components/admindashboard/course-management/courses/CohortSelection";
-import { ChevronDown } from "lucide-react";
 import { CommonButton } from "@/Components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/Components/ui/select";
 
 const cohort = [
   {
@@ -20,65 +31,69 @@ const cohort = [
   },
   {
     id: 2,
-    month: "february",
+    month: "February",
   },
   {
     id: 3,
-    month: "march",
+    month: "March",
   },
   {
     id: 4,
-    month: "april",
+    month: "April",
   },
   {
     id: 5,
-    month: "may",
+    month: "May",
   },
   {
     id: 6,
-    month: "june",
+    month: "June",
   },
   {
     id: 7,
-    month: "july",
+    month: "July",
   },
   {
     id: 8,
-    month: "august",
+    month: "August",
   },
   {
     id: 9,
-    month: "september",
+    month: "September",
   },
   {
     id: 10,
-    month: "october",
+    month: "October",
   },
   {
     id: 11,
-    month: "november",
+    month: "November",
   },
   {
     id: 12,
-    month: "december",
+    month: "December",
   },
 ];
 const access = [
   {
     id: 1,
     access: "one month access",
+    value: "one",
   },
   {
     id: 2,
     access: "three month access ",
+    value: "three",
   },
   {
     id: 3,
     access: "six month access",
+    value: "six",
   },
   {
     id: 4,
     access: "annual subscription",
+    value: "twelve",
   },
 ];
 
@@ -106,8 +121,24 @@ const courseTypeSchema = z.object({
 const CourseType = () => {
   const { setActiveTab } = useCourseManagementInfo();
 
+  const [cohorts, setCohorts] = useState("");
+  const [duration, setDuration] = useState("");
+
+  const [price, setPrice] = useState("");
+  const [durationPrice, setDurationPrice] = useState([]);
+
   const onSubmit = () => {
     console.log("hellow");
+  };
+
+  const handleAddPrice = () => {
+    if (!price || !duration) return;
+
+    setDurationPrice((prev) => {
+      return [...prev, { price, duration }];
+    });
+    setPrice("");
+    setDuration("");
   };
 
   const form = useForm({
@@ -203,21 +234,22 @@ const CourseType = () => {
 
               <div className="w-full pt-9">
                 <p className="font-[600] text-gray-600">Cohort</p>
-                <Popover className="w-full">
-                  <PopoverTrigger className="flex w-full items-center justify-between rounded-[6px] border border-[#D0D5DD] px-4 py-4 text-left text-[#98A2B3]">
-                    <span>May Cohort</span>
-                    <span>
-                      <ChevronDown />
-                    </span>
-                  </PopoverTrigger>
-                  <PopoverContent className="block h-[400px] w-[500px] overflow-y-scroll rounded-md bg-white px-2 py-8">
-                    <CohortSelection
-                      data={cohort}
-                      control={form.control}
-                      name={"cohorts"}
-                    />
-                  </PopoverContent>
-                </Popover>
+
+                <CohortSelection
+                  data={cohort}
+                  setCohorts={setCohorts}
+                  text={"Select cohort"}
+                />
+                <div>
+                  {cohorts && (
+                    <p className="mt-5 flex items-center gap-2 capitalize text-primary-color-600">
+                      <span>
+                        <FaCheck />
+                      </span>
+                      <span>{cohorts} cohorts</span>
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -237,42 +269,75 @@ const CourseType = () => {
                 {/* Course Original Price */}
                 <div>
                   <p className="font-[600] text-gray-600">Duration</p>
-                  <Popover className="w-full">
-                    <PopoverTrigger className="flex w-full items-center justify-between rounded-[6px] border border-[#D0D5DD] px-4 py-4 text-left text-[#98A2B3]">
-                      <span>one month access</span>
-                      <span>
-                        <ChevronDown />
-                      </span>
-                    </PopoverTrigger>
-                    <PopoverContent className="block h-[400px] w-[500px] overflow-y-scroll rounded-md bg-white px-2 py-8">
-                      <CohortSelection
-                        data={access}
-                        control={form.control}
-                        name={"accesstype"}
-                      />
-                    </PopoverContent>
-                  </Popover>
+
+                  <Select onValueChange={setDuration} defaultValue="May Cohort">
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a duration" />
+                    </SelectTrigger>
+                    <SelectContent className="pb-8 capitalize">
+                      <SelectGroup>
+                        <SelectLabel>select duration</SelectLabel>
+                        {access.map((duration) => (
+                          <SelectItem
+                            key={duration.id}
+                            value={duration.value}
+                            className="capitalize"
+                          >
+                            {`${duration.access} `}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div>
-                  <FormInput
-                    label={"Price"}
-                    className="w-full rounded border border-gray-300 p-2"
-                    placeholder="£39,200"
-                    control={form.control}
-                    name="discountPrice"
-                    labelClass={"text-base font-medium"}
-                    id="discountPrice"
-                    type="number"
-                  />
+                  <div>
+                    {/* <FormInput
+                      label={"Price"}
+                      className=""
+                      placeholder="£39,200"
+                      control={form.control}
+                      name="discountPrice"
+                      labelClass={"text-base font-medium"}
+                      id="discountPrice"
+                      type="number"
+                    /> */}
+                    <label htmlFor="price" className="text-base font-medium">
+                      Price
+                    </label>
+                    <input
+                      type="number"
+                      name="price"
+                      id="price"
+                      className="w-full rounded border border-gray-300 p-2"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                      placeholder="£39,200"
+                    />
+                  </div>
                 </div>
                 <CommonButton
                   type="button"
                   className="block w-full rounded bg-primary-color-600 px-4 py-2"
+                  onClick={handleAddPrice}
                 >
                   Add
                 </CommonButton>
               </div>
+              {durationPrice.map((data, i) => {
+                return (
+                  <p
+                    key={i}
+                    className="flex items-center gap-1 capitalize text-primary-color-600"
+                  >
+                    <FaCheck />
+                    <span>
+                      <span>{data.duration}</span>- <span>£ {data.price}</span>
+                    </span>
+                  </p>
+                );
+              })}
             </div>
           </div>
 
