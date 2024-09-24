@@ -11,6 +11,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import axios from "axios";
+import Cookies from "js-cookie";
+import { ClipLoader } from "react-spinners";
+import { CommonButton } from "@/Components/ui/button";
 // import MyCKEditor from '../Components/pages/CDKEditor'
 
 const courseManagementSchema = z.object({
@@ -20,32 +23,37 @@ const courseManagementSchema = z.object({
     .max(60, { message: "Title character must not exceed 60 " }),
   courseIncludes: z
     .string()
-    .min(5, { message: "Title must be at least 5 character long" })
-    .max(100, { message: "Title character must not exceed 100 " }),
+    .min(5, { message: "This field must be at least 5 character long" })
+    .max(100, { message: "course include character must not exceed 100 " }),
   technologies: z
     .string()
-    .min(5, { message: "Title must be at least 5 character long" })
-    .max(405, { message: "Title character must not exceed 405 " }),
+    .min(5, { message: "This field must be at least 5 character long" })
+    .max(405, { message: "Technologies character must not exceed 405 " }),
   benefits: z
     .string()
-    .min(5, { message: "Title must be at least 5 character long" })
-    .max(405, { message: "Title character must not exceed 100 " }),
+    .min(5, { message: "This field must be at least 5 character long" })
+    .max(405, { message: "Benefits character must not exceed 100 " }),
   highlight: z
     .string()
-    .min(5, { message: "Title must be at least 5 character long" })
-    .max(405, { message: "Title character must not exceed 100 " }),
+    .min(5, { message: "This field must be at least 5 character long" })
+    .max(405, { message: "Highlight  character must not exceed 100 " }),
+  url: z
+    .string({ message: "This field is required" })
+    .url({ message: "Invalid url" }),
 });
+
+const baseUrl = import.meta.env.VITE_ADMIN_BASE_URL;
+const token = Cookies.get("adminToken");
 
 const CourseManagementPage = () => {
   const [image, setImage] = useState({ file: null, preview: null });
   const [video, setVideo] = useState({ file: null, preview: null });
-
-  const imageRef = useRef(null);
-
   const [message, setMessage] = useState({
     error: "",
     success: "",
   });
+
+  const imageRef = useRef(null);
 
   const { setActiveTab } = useCourseManagementInfo();
 
@@ -61,9 +69,9 @@ const CourseManagementPage = () => {
     },
   });
 
-  const onSubmit = async (data) => {
-    console.log(data);
+  const { isSubmitting } = form.formState;
 
+  const onSubmit = async (data) => {
     const {
       courseTitle,
       benefits,
@@ -72,26 +80,6 @@ const CourseManagementPage = () => {
       technologies,
       url,
     } = data;
-
-    const formdata = new FormData();
-    formdata.append("title", courseTitle);
-
-    formdata.append("upload_from_url", url);
-    formdata.append("benefits", "https://idea.com");
-    formdata.append("tools_and_technologies", technologies);
-    formdata.append("program_highlights", highlight);
-    formdata.append("course_includes", courseIncludes);
-
-    console.log(Object.fromEntries([...formdata.entries()]));
-    if (video.file) formdata.append("taster_video", video.file, "file");
-    if (image.file)
-      formdata.append(
-        "coverImage",
-        image.file,
-        "1eed7253-10c1-4020-aec1-4e77b46c726b",
-      );
-    const course = Object.fromEntries([...formdata.entries()]);
-
     if (!image.file) {
       toast.error("Please insert an image");
       return setMessage((prev) => {
@@ -103,17 +91,44 @@ const CourseManagementPage = () => {
       });
     }
 
+    if (!video.file) {
+      toast.error("Please insert an taster video");
+      return setMessage((prev) => {
+        return {
+          ...prev,
+          error: "Please insert an taster video",
+          success: "",
+        };
+      });
+    }
+    const courses = {
+      title: courseTitle,
+      upload_from_url: url,
+      tools_and_technologies: technologies,
+      benefits: benefits,
+      program_highlights: highlight,
+      course_includes: courseIncludes,
+      coverImage: image.file,
+      taster_video: video.file,
+    };
+
     try {
       const response = await axios.post(
-        "https://avi-lms-backend.onrender.com/api/v1/admins/courses/course-informations",
-        course,
+        `${baseUrl}/courses/course-informations`,
+        courses,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
         },
       );
-      console.log(response);
+      console.log(response.data);
+
+      if (response.data.status === "success") {
+        toast.success(response.data.message);
+        setActiveTab((prev) => prev + 1);
+      }
     } catch (error) {
       console.log("fetch error", error);
     }
@@ -266,9 +281,16 @@ const CourseManagementPage = () => {
             </div>
 
             <div className="flex items-center justify-end pt-10">
-              <DashButton className="rounded px-4 py-2 text-white">
-                Save & Continue
-              </DashButton>
+              <CommonButton
+                className="min-w-32 rounded bg-primary-color-600"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <ClipLoader size={20} color={"#fff"} />
+                ) : (
+                  "Save & Continue"
+                )}
+              </CommonButton>
             </div>
           </div>
 
