@@ -7,11 +7,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/Components/ui/select";
+import { formatCurrency } from "@/lib/formatNumber";
 // import React, { useState } from "react";
 
 const CohortSelection = ({ data, setCohorts, text }) => {
   return (
-    <Select onValueChange={setCohorts} defaultValue="May Cohort">
+    <Select onValueChange={setCohorts}>
       <SelectTrigger className="w-full">
         <SelectValue placeholder="Select a cohort" />
       </SelectTrigger>

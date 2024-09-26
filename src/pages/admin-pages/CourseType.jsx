@@ -23,6 +23,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/Components/ui/select";
+import { ClipLoader } from "react-spinners";
+import { formatCurrency } from "@/lib/formatNumber";
+import axios from "axios";
+import Cookies from "js-cookie";
+import toast from "react-hot-toast";
+import { BASE_URL } from "@/constant";
 
 const cohort = [
   {
@@ -97,16 +103,8 @@ const access = [
   },
 ];
 
-const cohortArr = cohort.map((item) => item.month);
-const accessArr = access.map((item) => item.access);
-
+const courseId = localStorage.getItem("id");
 const courseTypeSchema = z.object({
-  cohorts: z.enum([...cohortArr], {
-    required_error: "You need to select a notification type.",
-  }),
-  accessType: z.enum([...accessArr], {
-    required_error: "You need to select a notification type.",
-  }),
   coursePrice: z
     .string({ message: "This field is required" })
     .min(1, { message: "This field is required" }),
@@ -116,6 +114,7 @@ const courseTypeSchema = z.object({
   duration: z
     .string({ message: "This field is required" })
     .min(1, { message: "this field is required" }),
+  time: z.string({ message: "This field is required" }),
 });
 
 const CourseType = () => {
@@ -124,20 +123,70 @@ const CourseType = () => {
   const [cohorts, setCohorts] = useState("");
   const [duration, setDuration] = useState("");
 
-  const [price, setPrice] = useState("");
+  const [amount, setAmount] = useState("");
   const [durationPrice, setDurationPrice] = useState([]);
 
-  const onSubmit = () => {
-    console.log("hellow");
+  const onSubmit = async (data) => {
+    const time = data.time.split(":");
+    const hour =
+      parseInt(time[0]) > 12 ? Number(time[0]) - 12 : parseInt(time[0]);
+
+    const min = Number(time[1]) < 10 ? `0${time[1]}` : Number(time[1]);
+    const amOrPm = Number(time[0]) >= 12 ? "pm" : "am";
+
+    const courseType = {
+      live_session: {
+        original_price: Number(data.coursePrice),
+        discounted_price: Number(data.discountPrice),
+        duration: data.duration,
+        time: `${hour}:${min}${amOrPm}`,
+        cohort: cohorts.toLocaleLowerCase(),
+        year: 2024,
+        currency: "Pounds",
+        currency_symbol: "£",
+      },
+
+      on_demand_session: [...durationPrice],
+    };
+
+    const token = Cookies.get("adminToken");
+
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/courses/${courseId}/coursetype`,
+        courseType,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (response.data.status === "success") {
+        toast.success(response.data.message);
+        setActiveTab((prev) => prev + 1);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message || "something went wrong");
+    }
   };
 
   const handleAddPrice = () => {
-    if (!price || !duration) return;
+    if (!amount || !duration) return;
 
     setDurationPrice((prev) => {
-      return [...prev, { price, duration }];
+      return [
+        ...prev,
+        {
+          amount: Number(amount),
+          duration,
+          currency: "Pounds",
+          currency_symbol: "£",
+        },
+      ];
     });
-    setPrice("");
+
+    setAmount("");
     setDuration("");
   };
 
@@ -145,6 +194,9 @@ const CourseType = () => {
     resolver: zodResolver(courseTypeSchema),
     defaultValues: {
       duration: "",
+      discountPrice: "",
+      coursePrice: "",
+      time: "",
     },
   });
 
@@ -270,7 +322,7 @@ const CourseType = () => {
                 <div>
                   <p className="font-[600] text-gray-600">Duration</p>
 
-                  <Select onValueChange={setDuration} defaultValue="May Cohort">
+                  <Select onValueChange={setDuration}>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select a duration" />
                     </SelectTrigger>
@@ -311,8 +363,8 @@ const CourseType = () => {
                       name="price"
                       id="price"
                       className="w-full rounded border border-gray-300 p-2"
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
                       placeholder="£39,200"
                     />
                   </div>
@@ -333,7 +385,8 @@ const CourseType = () => {
                   >
                     <FaCheck />
                     <span>
-                      <span>{data.duration}</span>- <span>£ {data.price}</span>
+                      <span>{data.duration} month access</span>-{" "}
+                      <span>£ {formatCurrency(data.amount)}</span>
                     </span>
                   </p>
                 );
@@ -342,9 +395,16 @@ const CourseType = () => {
           </div>
 
           <div className="flex items-center justify-end pt-10">
-            <DashButton className="rounded px-4 py-2 text-white">
-              Save & Continue
-            </DashButton>
+            <CommonButton
+              className="min-w-32 rounded bg-primary-color-600"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? (
+                <ClipLoader size={20} color={"#fff"} />
+              ) : (
+                "Save & Continue"
+              )}
+            </CommonButton>
           </div>
         </form>
       </Form>

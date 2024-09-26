@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUpload, faVideo } from "@fortawesome/free-solid-svg-icons";
 import FormInput from "@/Components/ui/form-input";
+import { cn } from "@/lib/utils";
 
 const MediaUploadContainer = ({
   image,
@@ -16,6 +17,8 @@ const MediaUploadContainer = ({
   // const [videoPreview, setVideoPreview] = useState({});
 
   const fileInputRefVideo = useRef(null);
+
+  const urlInput = form.watch("url").length;
 
   // Handle image file upload
   const handleImageUpload = (e) => {
@@ -65,17 +68,14 @@ const MediaUploadContainer = ({
   const handleVideoUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 200 * 1024 * 1024) {
-        // 200MB size limit
-        alert("File size exceeds 200MB");
-        return;
-      }
+      if (file.size > 200 * 1024 * 1024)
+        return alert("File size exceeds 200MB");
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setVideo((prev) => {
           return { ...prev, file: file, preview: reader.result };
         });
-        form.setValue("video", file);
       };
       reader.readAsDataURL(file);
     }
@@ -177,10 +177,17 @@ const MediaUploadContainer = ({
       </div>
 
       {/* Video Upload */}
-      <div className="col-span-1 pt-3 lg:pt-10">
+      <div
+        className={cn(
+          "disabled: col-span-1 pt-3 disabled:cursor-not-allowed lg:pt-10",
+        )}
+      >
         <p className="mb-2 font-[500] text-[#101928]">Upload Taster Video</p>
         <div
-          className="flex h-[205px] cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-300 p-4 text-center hover:bg-gray-50"
+          className={cn(
+            "flex h-[205px] cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-300 p-4 text-center hover:bg-gray-50",
+            urlInput > 1 ? "cursor-not-allowed" : "cursor-pointer",
+          )}
           onClick={handleClickVideo}
           onDrop={handleDropVideo}
           onDragOver={(e) => e.preventDefault()}
@@ -193,7 +200,7 @@ const MediaUploadContainer = ({
               controls
             />
           ) : (
-            <div className="flex flex-col items-center">
+            <div className={cn("flex flex-col items-center")}>
               <FontAwesomeIcon
                 icon={faVideo}
                 className="mb-2 text-3xl text-gray-400"
@@ -208,6 +215,7 @@ const MediaUploadContainer = ({
             onChange={handleVideoUpload}
             ref={fileInputRefVideo}
             name="image"
+            disabled={urlInput > 1}
           />
         </div>
         <p className="mb-2 pt-4 font-[400] text-[#475367]">
@@ -226,10 +234,11 @@ const MediaUploadContainer = ({
           label={"Upload from URL"}
           type={"text"}
           className="w-full rounded-md border border-gray-300 p-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#101928]"
-          placeholder="Input file URL"
+          placeholder="Input file URL e.g https://"
           name="url"
           id="url"
           control={form.control}
+          disabled={video.file ? true : false}
         />
       </div>
     </div>

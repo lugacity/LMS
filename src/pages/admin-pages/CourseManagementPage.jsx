@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import UploadCourseManagement from "./UploadCourseManagement";
-import DashButton from "../auth/ButtonDash";
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 import SaveButton from "@/Components/admindashboard/course-management/courses/SaveButton";
 import { ScrollRestoration } from "react-router-dom";
@@ -14,6 +13,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { ClipLoader } from "react-spinners";
 import { CommonButton } from "@/Components/ui/button";
+import { BASE_URL } from "@/constant";
 // import MyCKEditor from '../Components/pages/CDKEditor'
 
 const courseManagementSchema = z.object({
@@ -37,25 +37,21 @@ const courseManagementSchema = z.object({
     .string()
     .min(5, { message: "This field must be at least 5 character long" })
     .max(405, { message: "Highlight  character must not exceed 100 " }),
-  url: z
-    .string({ message: "This field is required" })
-    .url({ message: "Invalid url" }),
+  url: z.union([z.literal(""), z.string().trim().url()]),
 });
 
-const baseUrl = import.meta.env.VITE_ADMIN_BASE_URL;
-const token = Cookies.get("adminToken");
-
 const CourseManagementPage = () => {
+  const { setActiveTab } = useCourseManagementInfo();
+
   const [image, setImage] = useState({ file: null, preview: null });
   const [video, setVideo] = useState({ file: null, preview: null });
+
   const [message, setMessage] = useState({
     error: "",
     success: "",
   });
 
   const imageRef = useRef(null);
-
-  const { setActiveTab } = useCourseManagementInfo();
 
   const form = useForm({
     resolver: zodResolver(courseManagementSchema),
@@ -80,8 +76,10 @@ const CourseManagementPage = () => {
       technologies,
       url,
     } = data;
+
     if (!image.file) {
       toast.error("Please insert an image");
+
       return setMessage((prev) => {
         return {
           ...prev,
@@ -91,31 +89,39 @@ const CourseManagementPage = () => {
       });
     }
 
-    if (!video.file) {
-      toast.error("Please insert an taster video");
-      return setMessage((prev) => {
-        return {
-          ...prev,
-          error: "Please insert an taster video",
-          success: "",
-        };
-      });
-    }
-    const courses = {
+    if (!video.file && form.watch("url").length < 1)
+      return toast.error("Please insert an taster video or video url");
+
+    let courses = {
       title: courseTitle,
-      upload_from_url: url,
       tools_and_technologies: technologies,
       benefits: benefits,
       program_highlights: highlight,
       course_includes: courseIncludes,
       coverImage: image.file,
-      taster_video: video.file,
     };
+
+    let courseToUpload;
+
+    if (video.file) {
+      courseToUpload = {
+        ...courses,
+        taster_video: video.file,
+      };
+    } else {
+      courseToUpload = {
+        ...courses,
+        upload_from_url: url,
+      };
+    }
+
+    console.log(courseToUpload);
+    const token = Cookies.get("adminToken");
 
     try {
       const response = await axios.post(
-        `${baseUrl}/courses/course-informations`,
-        courses,
+        `${BASE_URL}/courses/course-informations`,
+        courseToUpload,
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -123,13 +129,14 @@ const CourseManagementPage = () => {
           },
         },
       );
-      console.log(response.data);
 
       if (response.data.status === "success") {
         toast.success(response.data.message);
         setActiveTab((prev) => prev + 1);
+        localStorage.setItem("id", response.data.data.id);
       }
     } catch (error) {
+      toast.error("something went wrong");
       console.log("fetch error", error);
     }
   };
