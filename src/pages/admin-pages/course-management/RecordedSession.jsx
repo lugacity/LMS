@@ -1,4 +1,5 @@
-import { useRef } from "react";
+import Cookies from "js-cookie";
+import { useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -11,28 +12,97 @@ import { CommonButton } from "@/Components/ui/button";
 import { ImgUploadIcon } from "@/Components/Icon";
 
 import CoursesRecordedSection from "@/Components/admindashboard/course-management/recoded-session/CoursesRecordedSection";
-import SaveButton from "@/Components/admindashboard/course-management/courses/SaveButton";
-import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
+
+// import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 import { ScrollRestoration } from "react-router-dom";
+import { BASE_URL } from "@/constant";
+import axios from "axios";
+import toast from "react-hot-toast";
+
+const courseId = localStorage.getItem("id");
+const cohort = localStorage.getItem("cohorts");
 
 const sessionSchema = z.object({
-  sessionTitle: z
+  title: z
     .string()
     .min(1, { message: "This field is required" })
     .max(70, { message: "you've reach the max character length" }),
+  video_title: z
+    .string()
+    .min(1, { message: "This field is required" })
+    .max(70, { message: "you've reach the max character length" }),
+  overview: z
+    .string()
+    .min(1, { message: "This field is required" })
+    .max(70, { message: "you've reach the max character length" }),
+  video_from_url: z.string().url(),
 });
 
 function RecordedSession() {
+  const [video, setVideo] = useState({ file: null, preview: null });
+  const [errorMessage, setErrorMessage] = useState("");
+
   const form = useForm({
     resolver: zodResolver(sessionSchema),
     defaultValues: {
-      sessionTitle: "",
+      title: "",
+      video_title: "",
+      overview: "",
     },
   });
 
+  const handleVideoUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 200 * 1024 * 1024) {
+      return setErrorMessage("file has exceed 200MB");
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setVideo((prev) => {
+        return { ...prev, file: file, preview: reader.result };
+      });
+      setErrorMessage("");
+    };
+    reader.readAsDataURL(file);
+  };
+
   const videoRef = useRef();
 
-  const { setActiveTab } = useCourseManagementInfo();
+  // const { setActiveTab } = useCourseManagementInfo();
+
+  const onSubmit = async (data) => {
+    const token = Cookies.get("adminToken");
+    // if (!video.file) return toast.error("insert a video");
+
+    const recorded = {
+      ...data,
+      cohort,
+    };
+    // console.log({ ...data, video: video.file, cohort });
+
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/courses/${courseId}/recorded-session`,
+        recorded,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      console.log(response);
+
+      if (response.data.status === "success") {
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+
+      toast.error(error.response.data.message || "something went wrong");
+    }
+  };
 
   return (
     <>
@@ -50,42 +120,49 @@ function RecordedSession() {
       <main className="grid grid-cols-[3fr_1fr] gap-10 rounded-[10px] border-2 border-[#F0F2F5] p-12 pr-6">
         <div>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit((values) => console.log(values))}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
               <div>
                 <FormInput
-                  name="sessionTiltle"
-                  id="sessionTilte"
+                  name="title"
+                  id="title"
                   label="Section Title"
                   control={form.control}
                   placeholder="Business Analysis Agile Project Management Software Testing "
                 />
                 <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
-                  0/70
+                  {form.watch("title") ? `${form.watch("title").length}` : 0}
+                  /70
                 </p>
               </div>
               <div>
                 <FormInput
-                  name="sectionOverview"
-                  id="sectionOverview"
+                  name="overview"
+                  id="overview"
                   label="Section overview"
                   control={form.control}
                   placeholder="Enter text here "
                   textarea={true}
                 />
                 <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
-                  0/450
+                  {form.watch("overview")
+                    ? `${form.watch("overview").length}`
+                    : 0}
+                  /450
                 </p>
               </div>
               <div>
                 <FormInput
-                  name="sessionTiltle"
-                  id="sessionTilte"
+                  name="video_title"
+                  id="video_title"
                   label="Video Title"
                   control={form.control}
                   placeholder="Introduction to Project Consulting Recordings "
                 />
                 <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
-                  0/70
+                  {form.watch("video_title")
+                    ? `${form.watch("video_title").length}`
+                    : 0}
+                  /70
                 </p>
               </div>
 
@@ -93,18 +170,38 @@ function RecordedSession() {
                 <p className="text-sm font-medium capitalize text-[#101928]">
                   upload video
                 </p>
-                <div className="flex min-h-52 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#23314A]">
-                  <button
-                    className="flex gap-2 text-[#98A2B3]"
-                    onClick={() => {
-                      videoRef.current.click();
-                    }}
-                  >
-                    <ImgUploadIcon />
-                    <span>upload</span>
-                    <input type="file" name="" id="" hidden ref={videoRef} />
-                  </button>
+                <div
+                  className="flex min-h-52 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#23314A]"
+                  onClick={() => {
+                    videoRef.current.click();
+                  }}
+                >
+                  {video.preview ? (
+                    <video
+                      src={video.preview}
+                      alt="Cover Video"
+                      className="h-[200px] w-full rounded-md object-cover"
+                      controls
+                    />
+                  ) : (
+                    <button className="flex gap-2 text-[#98A2B3]">
+                      <ImgUploadIcon />
+                      <span>upload</span>
+                    </button>
+                  )}
+                  <input
+                    type="file"
+                    name=""
+                    id=""
+                    hidden
+                    ref={videoRef}
+                    onChange={handleVideoUpload}
+                  />
                 </div>
+                {errorMessage && (
+                  <p className="text-primary-color-600">{errorMessage}</p>
+                )}
+
                 <p className="mb-1 mt-2 text-sm text-[#667185]">
                   Max 200MB files are allowed
                 </p>
@@ -117,7 +214,7 @@ function RecordedSession() {
               </div>
 
               <div className="flex flex-col gap-y-4">
-                <label
+                {/* <label
                   htmlFor="videoUrl"
                   className="text-sm font-medium text-[#23314A]"
                 >
@@ -129,16 +226,27 @@ function RecordedSession() {
                   id="videoUrl"
                   placeholder="Input file URL"
                   className="rounded-md border-2 border-input bg-[#FAFAFA] p-4 placeholder:text-[#9D9D9D]"
+                /> */}
+                <FormInput
+                  name="video_from_url"
+                  id="video_from_url"
+                  label="Video from URL"
+                  control={form.control}
+                  placeholder="Input file URL "
                 />
               </div>
 
               <div>
                 <div className="ml-auto mt-6 w-max">
-                  <CommonButton variant="outline">
+                  <CommonButton variant="outline" type="button">
                     {" "}
                     Create New Section
                   </CommonButton>
-                  <CommonButton className="ml-6 bg-primary-color-600">
+                  <CommonButton
+                    className="ml-6 bg-primary-color-600"
+                    type="submit"
+                    disabled={form.formState.isSubmitting}
+                  >
                     Add Content
                   </CommonButton>
                 </div>
@@ -153,7 +261,7 @@ function RecordedSession() {
       <div>
         <CommonButton
           className="ml-auto mt-8 block bg-primary-color-600 font-normal"
-          onClick={() => setActiveTab((prev) => prev + 1)}
+          // onClick={() => setActiveTab((prev) => prev + 1)}
         >
           Save and Continue
         </CommonButton>
