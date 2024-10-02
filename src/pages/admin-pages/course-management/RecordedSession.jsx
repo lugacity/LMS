@@ -18,6 +18,7 @@ import { ScrollRestoration } from "react-router-dom";
 import { BASE_URL } from "@/constant";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { cn } from "@/lib/utils";
 
 const courseId = localStorage.getItem("id");
 const cohort = localStorage.getItem("cohorts");
@@ -35,7 +36,7 @@ const sessionSchema = z.object({
     .string()
     .min(1, { message: "This field is required" })
     .max(70, { message: "you've reach the max character length" }),
-  video_from_url: z.string().url(),
+  video_from_url: z.union([z.literal(""), z.string().trim().url()]),
 });
 
 function RecordedSession() {
@@ -48,6 +49,7 @@ function RecordedSession() {
       title: "",
       video_title: "",
       overview: "",
+      video_from_url: "",
     },
   });
 
@@ -73,15 +75,31 @@ function RecordedSession() {
   // const { setActiveTab } = useCourseManagementInfo();
 
   const onSubmit = async (data) => {
+    const { title, video_title, overview } = data;
+
     const token = Cookies.get("adminToken");
-    // if (!video.file) return toast.error("insert a video");
 
-    const recorded = {
-      ...data,
-      cohort,
-    };
-    // console.log({ ...data, video: video.file, cohort });
+    if (!video.file && form.watch("video_from_url").length < 1)
+      return toast.error("Please insert a video or video url");
 
+    let recorded;
+
+    if (video.file) {
+      recorded = {
+        title,
+        video_title,
+        overview,
+        cohort,
+        video: video.file,
+      };
+    } else {
+      recorded = {
+        ...data,
+        cohort,
+      };
+    }
+
+    console.log(recorded);
     try {
       const response = await axios.post(
         `${BASE_URL}/courses/${courseId}/recorded-session`,
@@ -124,6 +142,7 @@ function RecordedSession() {
               <div>
                 <FormInput
                   name="title"
+                  type="text"
                   id="title"
                   label="Section Title"
                   control={form.control}
@@ -138,6 +157,7 @@ function RecordedSession() {
                 <FormInput
                   name="overview"
                   id="overview"
+                  type="text"
                   label="Section overview"
                   control={form.control}
                   placeholder="Enter text here "
@@ -153,6 +173,7 @@ function RecordedSession() {
               <div>
                 <FormInput
                   name="video_title"
+                  type="text"
                   id="video_title"
                   label="Video Title"
                   control={form.control}
@@ -171,7 +192,11 @@ function RecordedSession() {
                   upload video
                 </p>
                 <div
-                  className="flex min-h-52 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#23314A]"
+                  className={cn(
+                    "flex min-h-52 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#23314A]",
+                    form.watch("video_from_url").length >= 1 &&
+                      "cursor-not-allowed opacity-45",
+                  )}
                   onClick={() => {
                     videoRef.current.click();
                   }}
@@ -196,6 +221,7 @@ function RecordedSession() {
                     hidden
                     ref={videoRef}
                     onChange={handleVideoUpload}
+                    disabled={form.watch("video_from_url").length >= 1}
                   />
                 </div>
                 {errorMessage && (
@@ -229,10 +255,12 @@ function RecordedSession() {
                 /> */}
                 <FormInput
                   name="video_from_url"
+                  type="text"
                   id="video_from_url"
                   label="Video from URL"
                   control={form.control}
                   placeholder="Input file URL "
+                  disabled={video.file ? true : false}
                 />
               </div>
 
