@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 
-import DashButton from "../auth/ButtonDash";
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 import SaveButton from "@/Components/admindashboard/course-management/courses/SaveButton";
 import { ScrollRestoration } from "react-router-dom";
@@ -29,77 +28,29 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { BASE_URL } from "@/constant";
+import { cohorts } from "@/lib/cohorts";
+import { cn } from "@/lib/utils";
 
-const cohort = [
-  {
-    id: 1,
-    month: "January",
-  },
-  {
-    id: 2,
-    month: "February",
-  },
-  {
-    id: 3,
-    month: "March",
-  },
-  {
-    id: 4,
-    month: "April",
-  },
-  {
-    id: 5,
-    month: "May",
-  },
-  {
-    id: 6,
-    month: "June",
-  },
-  {
-    id: 7,
-    month: "July",
-  },
-  {
-    id: 8,
-    month: "August",
-  },
-  {
-    id: 9,
-    month: "September",
-  },
-  {
-    id: 10,
-    month: "October",
-  },
-  {
-    id: 11,
-    month: "November",
-  },
-  {
-    id: 12,
-    month: "December",
-  },
-];
 const access = [
   {
     id: 1,
-    access: "one month access",
-    value: "one",
+    access: "One Month Access",
   },
   {
     id: 2,
-    access: "three month access ",
-    value: "three",
+    access: "3 Months Access ",
   },
   {
     id: 3,
-    access: "six month access",
-    value: "six",
+    access: "6 Months Access",
   },
   {
     id: 4,
-    access: "annual subscription",
-    value: "twelve",
+    access: "Annual Subscription",
+  },
+  {
+    id: 5,
+    access: "Lifetime Access",
   },
 ];
 
@@ -120,19 +71,25 @@ const courseTypeSchema = z.object({
 const CourseType = () => {
   const { setActiveTab } = useCourseManagementInfo();
 
-  const [cohorts, setCohorts] = useState("");
+  const [cohort, setCohort] = useState("");
   const [duration, setDuration] = useState("");
 
   const [amount, setAmount] = useState("");
   const [durationPrice, setDurationPrice] = useState([]);
+
+  const [cohortErr, setCohortErr] = useState("");
+  const [durationErr, setDurationErr] = useState("");
 
   const onSubmit = async (data) => {
     const time = data.time.split(":");
     const hour =
       parseInt(time[0]) > 12 ? Number(time[0]) - 12 : parseInt(time[0]);
 
-    const min = Number(time[1]) < 10 ? `0${time[1]}` : Number(time[1]);
+    const min = Number(time[1]) < 10 ? `${time[1]}` : Number(time[1]);
     const amOrPm = Number(time[0]) >= 12 ? "pm" : "am";
+
+    if (!cohort) return setCohortErr("Input  cohort");
+    if (durationPrice.length < 1) return setDurationErr("input duration ");
 
     const courseType = {
       live_session: {
@@ -140,7 +97,7 @@ const CourseType = () => {
         discounted_price: Number(data.discountPrice),
         duration: data.duration,
         time: `${hour}:${min}${amOrPm}`,
-        cohort: cohorts.toLocaleLowerCase(),
+        cohort,
         year: 2024,
         currency: "Pounds",
         currency_symbol: "£",
@@ -148,6 +105,7 @@ const CourseType = () => {
 
       on_demand_session: [...durationPrice],
     };
+    console.log(courseType);
 
     const token = Cookies.get("adminToken");
 
@@ -165,6 +123,7 @@ const CourseType = () => {
       if (response.data.status === "success") {
         toast.success(response.data.message);
         setActiveTab((prev) => prev + 1);
+        localStorage.setItem("cohorts", cohort);
       }
     } catch (error) {
       toast.error(error.response.data.message || "something went wrong");
@@ -288,17 +247,22 @@ const CourseType = () => {
                 <p className="font-[600] text-gray-600">Cohort</p>
 
                 <CohortSelection
-                  data={cohort}
-                  setCohorts={setCohorts}
+                  data={cohorts}
+                  setCohorts={setCohort}
                   text={"Select cohort"}
                 />
                 <div>
-                  {cohorts && (
+                  <span
+                    className={cn("text-primary-color-600", cohort && "hidden")}
+                  >
+                    {cohortErr}
+                  </span>
+                  {cohort && (
                     <p className="mt-5 flex items-center gap-2 capitalize text-primary-color-600">
                       <span>
                         <FaCheck />
                       </span>
-                      <span>{cohorts} cohorts</span>
+                      <span>{cohort} </span>
                     </p>
                   )}
                 </div>
@@ -332,7 +296,7 @@ const CourseType = () => {
                         {access.map((duration) => (
                           <SelectItem
                             key={duration.id}
-                            value={duration.value}
+                            value={duration.access}
                             className="capitalize"
                           >
                             {`${duration.access} `}
@@ -345,16 +309,6 @@ const CourseType = () => {
 
                 <div>
                   <div>
-                    {/* <FormInput
-                      label={"Price"}
-                      className=""
-                      placeholder="£39,200"
-                      control={form.control}
-                      name="discountPrice"
-                      labelClass={"text-base font-medium"}
-                      id="discountPrice"
-                      type="number"
-                    /> */}
                     <label htmlFor="price" className="text-base font-medium">
                       Price
                     </label>
@@ -377,6 +331,16 @@ const CourseType = () => {
                   Add
                 </CommonButton>
               </div>
+              {
+                <span
+                  className={cn(
+                    "text-primary-color-600",
+                    durationPrice.length > 0 && "hidden",
+                  )}
+                >
+                  {durationErr}
+                </span>
+              }
               {durationPrice.map((data, i) => {
                 return (
                   <p
@@ -385,7 +349,7 @@ const CourseType = () => {
                   >
                     <FaCheck />
                     <span>
-                      <span>{data.duration} month access</span>-{" "}
+                      <span>{data.duration} </span>-{" "}
                       <span>£ {formatCurrency(data.amount)}</span>
                     </span>
                   </p>

@@ -87,7 +87,12 @@ import DataManagementPage from "./pages/admin-pages/data-management/DataManageme
 import DashboardAnalytics from "./pages/admin-pages/data-management/DashboardAnalytics";
 import DataCourseManagement from "./pages/admin-pages/data-management/DataCourseManagement";
 import AllStudent from "./pages/admin-pages/data-management/AllStudent";
-
+import EmptyCourseArea from "./pages/admin-pages/course-work-area/EmptyCourseArea";
+import CourseWorkAreaLayout from "./layouts/admin/CourseWorkAreaLayout";
+import CourseWorkArea from "./pages/admin-pages/course-work-area/CourseWorkArea";
+import CourseWorkAreaDocument from "./pages/admin-pages/course-work-area/CourseWorkAreaDocument";
+import CourseWorkAssignment from "./pages/admin-pages/course-work-area/CourseWorkAssignment";
+import CourseWorkShareDocs from "./pages/admin-pages/course-work-area/CourseWorkShareDocs";
 
 const queryClient = new QueryClient();
 
@@ -295,7 +300,6 @@ function App() {
               element: <AdminEmpty />,
             },
 
-            
             // Project Area
             {
               element: <ProjectAreaLayout />,
@@ -326,7 +330,6 @@ function App() {
               ],
             },
 
-            
             // Course Management
             {
               element: <CoursesLayout />,
@@ -360,16 +363,15 @@ function App() {
               ],
             },
 
-
             // Account Management
             {
-              element: <AccountManagLayout/>,
+              element: <AccountManagLayout />,
               path: "account-management",
 
               children: [
                 {
                   index: true,
-                  element: <AccountMagament/>,
+                  element: <AccountMagament />,
                 },
               ],
             },
@@ -415,7 +417,6 @@ function App() {
                 },
               ],
             },
-
 
             {
               element: <ProjectAreaLayout />,
@@ -471,6 +472,30 @@ function App() {
               ],
             },
             {
+              path: "course-work-area",
+              element: <CourseWorkAreaLayout />,
+              children: [
+                {
+                  index: true,
+                  element: <CourseWorkArea />,
+                },
+                {
+                  path: "documents",
+                  element: <CourseWorkAreaDocument />,
+                  children: [
+                    {
+                      index: true,
+                      element: <CourseWorkShareDocs />,
+                    },
+                    {
+                      path: "assignment",
+                      element: <CourseWorkAssignment />,
+                    },
+                  ],
+                },
+              ],
+            },
+            {
               path: "data-management",
               element: <DataManagementPage />,
               children: [
@@ -488,7 +513,6 @@ function App() {
                 },
               ],
             },
-
 
             // Certificate
             {
