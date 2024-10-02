@@ -18,12 +18,7 @@ const tab = [
 ];
 
 export default function CourseCreationPage() {
-  const { activeTab, setActiveTab, setSubTab } = useCourseManagementInfo();
-
-  const handleTabClick = (tabIndex) => {
-    setActiveTab(tabIndex);
-    if (tabIndex === 3) setSubTab(1); // Reset subTab when switching to Course Session
-  };
+  const { activeTab } = useCourseManagementInfo();
 
   return (
     <div className="mx-auto max-w-6xl p-4">

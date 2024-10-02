@@ -1,18 +1,17 @@
 import { IoSearch } from "react-icons/io5";
-
-import { createdCourses } from "@/lib/courses";
 import CreatedCourseCard from "@/Components/admindashboard/course-management/CreatedCourseCard";
-import { useState } from "react";
+import { createdCourses } from "@/lib/courses";
 import Modal from "@/pages/auth/components/Modal";
 import BorderCard from "@/Components/BorderCard";
-
+import ProjectCohortSelection from "../project-area/ProjectCohortSelection";
 import ProjectAreaTools from "@/Components/admindashboard/project-area/ProjectAreaTools";
-import ProjectCohortSelection from "./ProjectCohortSelection";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const ProjectAreaWithcourse = () => {
+function CourseWorkAreaWithCourse() {
   const [modal, setModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState({});
-  const [modalTab, setModalTab] = useState("cohort");
+  const navigate = useNavigate();
 
   const handleModal = (id) => {
     setModal((prev) => !prev);
@@ -20,6 +19,11 @@ const ProjectAreaWithcourse = () => {
     const course = createdCourses.find((course) => course.id === id);
     setSelectedCourse(course);
   };
+
+  const handleNext = () => {
+    navigate("documents");
+  };
+
   return (
     <div>
       <header className="mt-7 flex items-center justify-between px-4 py-5">
@@ -43,7 +47,12 @@ const ProjectAreaWithcourse = () => {
       <main className="grid grid-cols-3 gap-[18px]">
         {createdCourses.map((course) => {
           return (
-            <div key={course.id} onClick={() => handleModal(course.id)}>
+            <div
+              key={course.id}
+              onClick={() => {
+                handleModal(course.id);
+              }}
+            >
               <CreatedCourseCard
                 title={course.title}
                 rating={course.rating}
@@ -65,24 +74,16 @@ const ProjectAreaWithcourse = () => {
                 path=""
               />
 
-              {modalTab === "cohort" ? (
-                <ProjectCohortSelection
-                  setModal={setModal}
-                  onClick={() => setModalTab("project-tools")}
-                />
-              ) : (
-                <ProjectAreaTools
-                  setModalTab={setModalTab}
-                  setModal={setModal}
-                  id={selectedCourse.id}
-                />
-              )}
+              <ProjectCohortSelection
+                setModal={setModal}
+                onClick={handleNext}
+              />
             </div>
           </BorderCard>
         </Modal>
       )}
     </div>
   );
-};
+}
 
-export default ProjectAreaWithcourse;
+export default CourseWorkAreaWithCourse;

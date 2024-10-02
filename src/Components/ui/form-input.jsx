@@ -13,8 +13,15 @@ import { Textarea } from "./textarea";
 FormInput.propTypes = {
   label: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   name: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(["text", "number", "password", "file", "email", "time"])
-    .isRequired,
+  type: PropTypes.oneOf([
+    "text",
+    "number",
+    "password",
+    "file",
+    "email",
+    "time",
+    "date",
+  ]).isRequired,
   control: PropTypes.any,
   className: PropTypes.string,
   placeholder: PropTypes.string,
