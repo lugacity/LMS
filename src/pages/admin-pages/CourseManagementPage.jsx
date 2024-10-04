@@ -8,12 +8,11 @@ import { z } from "zod";
 import FormInput from "@/Components/ui/form-input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useCreateCourseInformation } from "@/hooks/course-management/use-create-course-information";
 import toast from "react-hot-toast";
-import axios from "axios";
-import Cookies from "js-cookie";
+
 import { ClipLoader } from "react-spinners";
 import { CommonButton } from "@/Components/ui/button";
-import { BASE_URL } from "@/constant";
 // import MyCKEditor from '../Components/pages/CDKEditor'
 
 const courseManagementSchema = z.object({
@@ -45,6 +44,7 @@ const CourseManagementPage = () => {
 
   const [image, setImage] = useState({ file: null, preview: null });
   const [video, setVideo] = useState({ file: null, preview: null });
+  const { createCourseInformation, isCreating } = useCreateCourseInformation();
 
   const [message, setMessage] = useState({
     error: "",
@@ -64,8 +64,6 @@ const CourseManagementPage = () => {
       url: "",
     },
   });
-
-  const { isSubmitting } = form.formState;
 
   const onSubmit = async (data) => {
     const {
@@ -92,7 +90,7 @@ const CourseManagementPage = () => {
     if (!video.file && form.watch("url").length < 1)
       return toast.error("Please insert an taster video or video url");
 
-    let courses = {
+    const courses = {
       title: courseTitle,
       tools_and_technologies: technologies,
       benefits: benefits,
@@ -116,29 +114,10 @@ const CourseManagementPage = () => {
     }
 
     console.log(courseToUpload);
-    const token = Cookies.get("adminToken");
 
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/courses/course-informations`,
-        courseToUpload,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      if (response.data.status === "success") {
-        toast.success(response.data.message);
-        setActiveTab((prev) => prev + 1);
-        localStorage.setItem("id", response.data.data.id);
-      }
-    } catch (error) {
-      toast.error("something went wrong");
-      console.log("fetch error", error);
-    }
+    createCourseInformation(courseToUpload, {
+      onSuccess: () => setActiveTab((prev) => prev + 1),
+    });
   };
 
   return (
@@ -290,9 +269,9 @@ const CourseManagementPage = () => {
             <div className="flex items-center justify-end pt-10">
               <CommonButton
                 className="min-w-32 rounded bg-primary-color-600"
-                disabled={isSubmitting}
+                disabled={isCreating}
               >
-                {isSubmitting ? (
+                {isCreating ? (
                   <ClipLoader size={20} color={"#fff"} />
                 ) : (
                   "Save & Continue"

@@ -8,6 +8,8 @@ import CourseType from "../CourseType";
 import RecordedSession from "./RecordedSession";
 import PublishPage from "./PublishPage";
 import CohortCourseSection from "./CohortCourseSection";
+import OndemandSection from "./OndemandSection";
+import OnDemandCourseSection from "./OnDemand-section";
 
 const tab = [
   "Course Management",
@@ -51,7 +53,7 @@ export default function CourseCreationPage() {
 
         {activeTab === 3 && <CohortCourseSection />}
 
-        {activeTab === 4 && <RecordedSession />}
+        {activeTab === 4 && <OnDemandCourseSection />}
 
         {activeTab === 5 && <PublishPage />}
       </div>

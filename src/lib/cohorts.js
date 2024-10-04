@@ -6,12 +6,12 @@ export const cohorts = [
   },
   {
     id: 2,
-    month: "October Cohort ",
+    month: "October Cohort",
     year: 2024,
   },
   {
     id: 3,
-    month: "November Cohort ",
+    month: "November Cohort",
     year: 2024,
   },
   {
