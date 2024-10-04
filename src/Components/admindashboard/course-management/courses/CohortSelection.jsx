@@ -20,7 +20,7 @@ const CohortSelection = ({ data, setCohorts, text }) => {
           {data.map((singleCohort, i) => (
             <SelectItem
               key={i}
-              value={`${singleCohort.month}${singleCohort.year}`}
+              value={`${singleCohort.month} ${singleCohort.year}`}
               className="capitalize text-[#8F8F8E] hover:accent-primary-color-600"
             >
               {`${singleCohort.month} ${singleCohort.year}`}

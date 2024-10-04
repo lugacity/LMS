@@ -18,8 +18,11 @@ import { ScrollRestoration } from "react-router-dom";
 
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
-import { useCreateRecordedSession } from "@/hooks/course-management/use-create-recorded-session";
-import { ClipLoader } from "react-spinners";
+import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
+import { useMutation } from "@tanstack/react-query";
+import { addDemandSection } from "@/services/api";
+import { useCreateOnDemandCourse } from "@/hooks/course-management/use-create-demand-course";
+let section = 1;
 
 const sessionSchema = z.object({
   title: z
@@ -37,11 +40,14 @@ const sessionSchema = z.object({
   video_from_url: z.union([z.literal(""), z.string().trim().url()]),
 });
 
-function RecordedSession() {
+function OnDemandCourseSection() {
   const [video, setVideo] = useState({ file: null, preview: null });
   const [errorMessage, setErrorMessage] = useState("");
+  const [disabled, setDisabled] = useState(true);
 
-  const { createRecordedSession, isCreating } = useCreateRecordedSession();
+  const { createOnDemandCourse,isCreating } = useCreateOnDemandCourse();
+
+  const { setActiveTab } = useCourseManagementInfo();
 
   const form = useForm({
     resolver: zodResolver(sessionSchema),
@@ -52,6 +58,9 @@ function RecordedSession() {
       video_from_url: "",
     },
   });
+
+  
+
   const handleVideoUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -73,9 +82,10 @@ function RecordedSession() {
 
   // const { setActiveTab } = useCourseManagementInfo();
 
+  
+
   const onSubmit = async (data) => {
     const { title, video_title, overview } = data;
-    const cohort = localStorage.getItem("cohorts");
 
     if (!video.file && form.watch("video_from_url").length < 1)
       return toast.error("Please insert a video or video url");
@@ -87,39 +97,23 @@ function RecordedSession() {
         title,
         video_title,
         overview,
-        cohort,
+        section,
         video: video.file,
       };
     } else {
       recorded = {
         ...data,
-        cohort,
+        section,
       };
     }
 
-    console.log(recorded);
-    createRecordedSession(recorded, { onSuccess: () => form.reset() });
-    // try {
-    //   const response = await axios.post(
-    //     `${BASE_URL}/courses/${courseId}/recorded-session`,
-    //     recorded,
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     },
-    //   );
-    //   console.log(response);
 
-    //   if (response.data.status === "success") {
-    //     toast.success(response.data.message);
-    //     handleReset();
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-
-    //   toast.error(error.response.data.message || "something went wrong");
-    // }
+    createOnDemandCourse(recorded, {
+      onSuccess: () => {
+        form.reset();
+        setDisabled(false);
+      }
+    });
   };
 
   return (
@@ -240,6 +234,19 @@ function RecordedSession() {
               </div>
 
               <div className="flex flex-col gap-y-4">
+                {/* <label
+                  htmlFor="videoUrl"
+                  className="text-sm font-medium text-[#23314A]"
+                >
+                  Video from URL
+                </label>
+                <input
+                  type="text"
+                  name="videoUrl"
+                  id="videoUrl"
+                  placeholder="Input file URL"
+                  className="rounded-md border-2 border-input bg-[#FAFAFA] p-4 placeholder:text-[#9D9D9D]"
+                /> */}
                 <FormInput
                   name="video_from_url"
                   type="text"
@@ -253,8 +260,18 @@ function RecordedSession() {
 
               <div>
                 <div className="ml-auto mt-6 w-max">
-                  <CommonButton variant="outline" type="button">
-                    {" "}
+                  <CommonButton
+                    variant="outline"
+                    type="button"
+                    disabled={disabled}
+                    className="disabled:cursor-not-allowed"
+                    onClick={() => {
+                      section += 1;
+                      toast.success(`section ${section} is created`);
+                      setDisabled(true);
+                      console.log(section);
+                    }}
+                  >
                     Create New Section
                   </CommonButton>
                   <CommonButton
@@ -262,13 +279,7 @@ function RecordedSession() {
                     type="submit"
                     disabled={isCreating}
                   >
-                    {isCreating ? (
-                      <span className="min-w-[89.3px]">
-                        <ClipLoader size={20} color={"#fff"} />
-                      </span>
-                    ) : (
-                      <span>Add Content</span>
-                    )}
+                    Add Content
                   </CommonButton>
                 </div>
               </div>
@@ -282,7 +293,7 @@ function RecordedSession() {
       <div>
         <CommonButton
           className="ml-auto mt-8 block bg-primary-color-600 font-normal"
-          // onClick={() => setActiveTab((prev) => prev + 1)}
+          onClick={() => setActiveTab((prev) => prev + 1)}
         >
           Save and Continue
         </CommonButton>
@@ -291,4 +302,4 @@ function RecordedSession() {
   );
 }
 
-export default RecordedSession;
+export default OnDemandCourseSection;

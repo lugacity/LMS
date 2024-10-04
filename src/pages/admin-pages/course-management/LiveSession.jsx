@@ -1,18 +1,14 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useCreateLiveSession } from "@/hooks/course-management/use-create-live-session";
+
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
 import DashButton from "@/pages/auth/ButtonDash";
-import { BASE_URL } from "@/constant";
-import axios from "axios";
-import Cookies from "js-cookie";
-import toast from "react-hot-toast";
+
 import { CommonButton } from "@/Components/ui/button";
 import { ClipLoader } from "react-spinners";
-
-const courseId = localStorage.getItem("id");
-const cohort = localStorage.getItem("cohorts");
 
 const liveSessionSchema = z.object({
   title: z
@@ -50,31 +46,10 @@ const LiveSession = () => {
     },
   });
 
-  const handleReset = () => form.reset();
+  const { createLiveSession, isCreating } = useCreateLiveSession();
+
   const onSubmit = async (data) => {
-    const token = Cookies.get("adminToken");
-
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/courses/${courseId}/live-session`,
-        { ...data, cohort },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      console.log(response);
-
-      if (response.data.status === "success") {
-        toast.success(response.data.message);
-        handleReset();
-      }
-    } catch (error) {
-      console.log(error);
-
-      toast.error(error.response.data.message || "something went wrong");
-    }
+    createLiveSession(data, { onSuccess: () => form.reset() });
   };
 
   return (
@@ -231,9 +206,9 @@ const LiveSession = () => {
                 <CommonButton
                   type="submit"
                   className="bg-primary-color-600"
-                  disabled={form.formState.isSubmitting}
+                  disabled={isCreating}
                 >
-                  {form.formState.isSubmitting ? (
+                  {isCreating ? (
                     <span className="min-w-[89.3px]">
                       <ClipLoader size={20} color={"#fff"} />
                     </span>

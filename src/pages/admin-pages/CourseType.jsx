@@ -24,12 +24,10 @@ import {
 } from "@/Components/ui/select";
 import { ClipLoader } from "react-spinners";
 import { formatCurrency } from "@/lib/formatNumber";
-import axios from "axios";
-import Cookies from "js-cookie";
-import toast from "react-hot-toast";
-import { BASE_URL } from "@/constant";
+
 import { cohorts } from "@/lib/cohorts";
 import { cn } from "@/lib/utils";
+import { useCreateCourseType } from "@/hooks/course-management/use-create-course-type";
 
 const access = [
   {
@@ -38,7 +36,7 @@ const access = [
   },
   {
     id: 2,
-    access: "3 Months Access ",
+    access: "3 Months Access",
   },
   {
     id: 3,
@@ -50,11 +48,10 @@ const access = [
   },
   {
     id: 5,
-    access: "Lifetime Access",
+    access: "Lifetime  Access",
   },
 ];
 
-const courseId = localStorage.getItem("id");
 const courseTypeSchema = z.object({
   coursePrice: z
     .string({ message: "This field is required" })
@@ -79,6 +76,8 @@ const CourseType = () => {
 
   const [cohortErr, setCohortErr] = useState("");
   const [durationErr, setDurationErr] = useState("");
+
+  const { createCourseType, isCreating } = useCreateCourseType();
 
   const onSubmit = async (data) => {
     const time = data.time.split(":");
@@ -107,27 +106,12 @@ const CourseType = () => {
     };
     console.log(courseType);
 
-    const token = Cookies.get("adminToken");
-
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/courses/${courseId}/coursetype`,
-        courseType,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      if (response.data.status === "success") {
-        toast.success(response.data.message);
+    createCourseType(courseType, {
+      onSuccess: () => {
         setActiveTab((prev) => prev + 1);
         localStorage.setItem("cohorts", cohort);
-      }
-    } catch (error) {
-      toast.error(error.response.data.message || "something went wrong");
-    }
+      },
+    });
   };
 
   const handleAddPrice = () => {
@@ -361,9 +345,9 @@ const CourseType = () => {
           <div className="flex items-center justify-end pt-10">
             <CommonButton
               className="min-w-32 rounded bg-primary-color-600"
-              disabled={form.formState.isSubmitting}
+              disabled={isCreating}
             >
-              {form.formState.isSubmitting ? (
+              {isCreating ? (
                 <ClipLoader size={20} color={"#fff"} />
               ) : (
                 "Save & Continue"
