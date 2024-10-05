@@ -4,7 +4,7 @@ import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 import SaveButton from "@/Components/admindashboard/course-management/courses/SaveButton";
 import { ScrollRestoration } from "react-router-dom";
 import { Form } from "@/Components/ui/form";
-import { z } from "zod";
+
 import FormInput from "@/Components/ui/form-input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,31 +13,8 @@ import toast from "react-hot-toast";
 
 import { ClipLoader } from "react-spinners";
 import { CommonButton } from "@/Components/ui/button";
+import { courseInformationSchema } from "@/lib/form-schemas/forms-schema";
 // import MyCKEditor from '../Components/pages/CDKEditor'
-
-const courseManagementSchema = z.object({
-  courseTitle: z
-    .string()
-    .min(5, { message: "Title must be at least 5 character long" })
-    .max(60, { message: "Title character must not exceed 60 " }),
-  courseIncludes: z
-    .string()
-    .min(5, { message: "This field must be at least 5 character long" })
-    .max(100, { message: "course include character must not exceed 100 " }),
-  technologies: z
-    .string()
-    .min(5, { message: "This field must be at least 5 character long" })
-    .max(405, { message: "Technologies character must not exceed 405 " }),
-  benefits: z
-    .string()
-    .min(5, { message: "This field must be at least 5 character long" })
-    .max(405, { message: "Benefits character must not exceed 100 " }),
-  highlight: z
-    .string()
-    .min(5, { message: "This field must be at least 5 character long" })
-    .max(405, { message: "Highlight  character must not exceed 100 " }),
-  url: z.union([z.literal(""), z.string().trim().url()]),
-});
 
 const CourseManagementPage = () => {
   const { setActiveTab } = useCourseManagementInfo();
@@ -54,7 +31,7 @@ const CourseManagementPage = () => {
   const imageRef = useRef(null);
 
   const form = useForm({
-    resolver: zodResolver(courseManagementSchema),
+    resolver: zodResolver(courseInformationSchema),
     defaultValues: {
       courseTitle: "",
       benefits: "",

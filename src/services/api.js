@@ -100,3 +100,17 @@ export const addRecordedSession = async (data) => {
   );
 }
 
+export const fetchDemandCourse = async () => {
+  const token = Cookies.get('adminToken')
+  const courseId = localStorage.getItem('id')
+
+
+  return await axios.get(
+    `${BASE_URL}/courses/${courseId}/on-demand-section`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+}

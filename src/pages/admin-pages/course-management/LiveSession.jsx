@@ -9,28 +9,7 @@ import DashButton from "@/pages/auth/ButtonDash";
 
 import { CommonButton } from "@/Components/ui/button";
 import { ClipLoader } from "react-spinners";
-
-const liveSessionSchema = z.object({
-  title: z
-    .string()
-    .min(5, { message: "Title must be at least 5 character long" })
-    .max(70, { message: "Title character must not exceed 70 " }),
-  subtitle: z
-    .string()
-    .min(5, { message: "Title must be at least 5 character long" })
-    .max(450, { message: "Title character must not exceed 500 " }),
-  overview: z
-    .string()
-    .min(5, { message: "Title must be at least 5 character long" })
-    .max(450, { message: "Title character must not exceed 450 " }),
-  courseContent: z
-    .string()
-    .min(5, { message: "Title must be at least 5 character long" }),
-
-  time: z.string({ message: "This field is required" }),
-  meetingDate: z.string({ message: "This field is required" }),
-  startedFrom: z.string({ message: "This field is required" }),
-});
+import { liveSessionSchema } from "@/lib/form-schemas/forms-schema";
 
 const LiveSession = () => {
   const form = useForm({
