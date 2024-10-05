@@ -20,22 +20,7 @@ import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { useCreateRecordedSession } from "@/hooks/course-management/use-create-recorded-session";
 import { ClipLoader } from "react-spinners";
-
-const sessionSchema = z.object({
-  title: z
-    .string()
-    .min(1, { message: "This field is required" })
-    .max(70, { message: "you've reach the max character length" }),
-  video_title: z
-    .string()
-    .min(1, { message: "This field is required" })
-    .max(70, { message: "you've reach the max character length" }),
-  overview: z
-    .string()
-    .min(1, { message: "This field is required" })
-    .max(70, { message: "you've reach the max character length" }),
-  video_from_url: z.union([z.literal(""), z.string().trim().url()]),
-});
+import { RecordedSessionSchema } from "@/lib/form-schemas/forms-schema";
 
 function RecordedSession() {
   const [video, setVideo] = useState({ file: null, preview: null });
@@ -44,7 +29,7 @@ function RecordedSession() {
   const { createRecordedSession, isCreating } = useCreateRecordedSession();
 
   const form = useForm({
-    resolver: zodResolver(sessionSchema),
+    resolver: zodResolver(RecordedSessionSchema),
     defaultValues: {
       title: "",
       video_title: "",

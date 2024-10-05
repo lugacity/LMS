@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 import { useRef, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,38 +18,24 @@ import { ScrollRestoration } from "react-router-dom";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
-import { useMutation } from "@tanstack/react-query";
-import { addDemandSection } from "@/services/api";
-import { useCreateOnDemandCourse } from "@/hooks/course-management/use-create-demand-course";
-let section = 1;
 
-const sessionSchema = z.object({
-  title: z
-    .string()
-    .min(1, { message: "This field is required" })
-    .max(70, { message: "you've reach the max character length" }),
-  video_title: z
-    .string()
-    .min(1, { message: "This field is required" })
-    .max(70, { message: "you've reach the max character length" }),
-  overview: z
-    .string()
-    .min(1, { message: "This field is required" })
-    .max(70, { message: "you've reach the max character length" }),
-  video_from_url: z.union([z.literal(""), z.string().trim().url()]),
-});
+import { useCreateOnDemandCourse } from "@/hooks/course-management/use-create-demand-course";
+import { onDemandSessionSchema } from "@/lib/form-schemas/forms-schema";
+let section = localStorage.getItem("section")
+  ? localStorage.getItem("section")
+  : 1;
 
 function OnDemandCourseSection() {
   const [video, setVideo] = useState({ file: null, preview: null });
   const [errorMessage, setErrorMessage] = useState("");
   const [disabled, setDisabled] = useState(true);
 
-  const { createOnDemandCourse,isCreating } = useCreateOnDemandCourse();
+  const { createOnDemandCourse, isCreating } = useCreateOnDemandCourse();
 
   const { setActiveTab } = useCourseManagementInfo();
 
   const form = useForm({
-    resolver: zodResolver(sessionSchema),
+    resolver: zodResolver(onDemandSessionSchema),
     defaultValues: {
       title: "",
       video_title: "",
@@ -59,30 +44,35 @@ function OnDemandCourseSection() {
     },
   });
 
-  
+  const handleCreateNewSection = () => {
+    section += 1;
+    localStorage.setItem("section", JSON.stringify(section));
+    toast.success(`section ${section} is created`);
+    setDisabled(true);
+  };
 
   const handleVideoUpload = (e) => {
     const file = e.target.files[0];
+
     if (!file) return;
+
     if (file.size > 200 * 1024 * 1024) {
       return setErrorMessage("file has exceed 200MB");
     }
 
     const reader = new FileReader();
+
     reader.onloadend = () => {
       setVideo((prev) => {
         return { ...prev, file: file, preview: reader.result };
       });
       setErrorMessage("");
     };
+
     reader.readAsDataURL(file);
   };
 
   const videoRef = useRef();
-
-  // const { setActiveTab } = useCourseManagementInfo();
-
-  
 
   const onSubmit = async (data) => {
     const { title, video_title, overview } = data;
@@ -107,12 +97,11 @@ function OnDemandCourseSection() {
       };
     }
 
-
     createOnDemandCourse(recorded, {
       onSuccess: () => {
         form.reset();
         setDisabled(false);
-      }
+      },
     });
   };
 
@@ -234,19 +223,6 @@ function OnDemandCourseSection() {
               </div>
 
               <div className="flex flex-col gap-y-4">
-                {/* <label
-                  htmlFor="videoUrl"
-                  className="text-sm font-medium text-[#23314A]"
-                >
-                  Video from URL
-                </label>
-                <input
-                  type="text"
-                  name="videoUrl"
-                  id="videoUrl"
-                  placeholder="Input file URL"
-                  className="rounded-md border-2 border-input bg-[#FAFAFA] p-4 placeholder:text-[#9D9D9D]"
-                /> */}
                 <FormInput
                   name="video_from_url"
                   type="text"
@@ -265,12 +241,7 @@ function OnDemandCourseSection() {
                     type="button"
                     disabled={disabled}
                     className="disabled:cursor-not-allowed"
-                    onClick={() => {
-                      section += 1;
-                      toast.success(`section ${section} is created`);
-                      setDisabled(true);
-                      console.log(section);
-                    }}
+                    onClick={handleCreateNewSection}
                   >
                     Create New Section
                   </CommonButton>

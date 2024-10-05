@@ -28,6 +28,7 @@ import { formatCurrency } from "@/lib/formatNumber";
 import { cohorts } from "@/lib/cohorts";
 import { cn } from "@/lib/utils";
 import { useCreateCourseType } from "@/hooks/course-management/use-create-course-type";
+import { courseTypeSchema } from "@/lib/form-schemas/forms-schema";
 
 const access = [
   {
@@ -51,19 +52,6 @@ const access = [
     access: "Lifetime  Access",
   },
 ];
-
-const courseTypeSchema = z.object({
-  coursePrice: z
-    .string({ message: "This field is required" })
-    .min(1, { message: "This field is required" }),
-  discountPrice: z
-    .string({ message: "This field is required" })
-    .min(1, { message: "this field is required" }),
-  duration: z
-    .string({ message: "This field is required" })
-    .min(1, { message: "this field is required" }),
-  time: z.string({ message: "This field is required" }),
-});
 
 const CourseType = () => {
   const { setActiveTab } = useCourseManagementInfo();
