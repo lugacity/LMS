@@ -10,6 +10,8 @@ import PublishPage from "./PublishPage";
 import CohortCourseSection from "./CohortCourseSection";
 import OndemandSection from "./OndemandSection";
 import OnDemandCourseSection from "./OnDemand-section";
+import { cohorts } from "@/lib/cohorts";
+import CourseCohortPreview from "../CourseCohortPreview";
 
 const tab = [
   "Course Management",
@@ -52,6 +54,13 @@ export default function CourseCreationPage() {
         {activeTab === 2 && <CourseType />}
 
         {activeTab === 3 && <CohortCourseSection />}
+
+
+
+     
+
+        
+
 
         {activeTab === 4 && <OnDemandCourseSection />}
 

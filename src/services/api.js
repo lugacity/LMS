@@ -115,12 +115,38 @@ export const fetchDemandCourse = async () => {
   );
 }
 
+
 export const fetchCourseInformation = async () => {
   const token = Cookies.get('adminToken')
   const courseId = localStorage.getItem('id')
 
   return await axios.get(
     `${BASE_URL}/courses/${courseId}/course-informations`,
+
+export const fetchCohorts = async () => {
+  const token = Cookies.get('adminToken')
+  const courseId = localStorage.getItem('id')
+  
+
+  return await axios.get(
+    `${BASE_URL}/courses/${courseId}/cohorts`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+}
+
+
+export const addSingleCohort = async (data) => {
+  const courseId = localStorage.getItem('id')
+  const token = Cookies.get('adminToken')
+
+  return await axios.post(
+    `${BASE_URL}/courses/${courseId}/cohorts`,
+    data,
+
     {
       headers: {
         Authorization: `Bearer ${token}`,
