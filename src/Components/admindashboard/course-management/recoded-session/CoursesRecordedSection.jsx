@@ -60,7 +60,7 @@ const CoursesRecordedSection = () => {
   return (
     <aside className="overflow-y-auto overflow-x-hidden">
       <Accordion type="single" collapsible className="w-full">
-        {data.data.data.map((course) => {
+        {data?.data?.data.map((course) => {
           return (
             <AccordionItem key={course.id} value={course.id}>
               <div className="grid grid-cols-[8fr_1fr] items-center">
@@ -84,9 +84,7 @@ const CoursesRecordedSection = () => {
                         <article className="flex items-center justify-between">
                           <div className="flex gap-2">
                             <span>{i + 1}</span>
-                            <span className="capitalize">
-                              {item.video_title}
-                            </span>
+                            <span className="capitalize">{item.title}</span>
                           </div>
                           <div>
                             <SectionPopover>
@@ -99,7 +97,9 @@ const CoursesRecordedSection = () => {
                         <div className="mt-3 flex items-start gap-4">
                           <VidIcon />
                           <article>
-                            <h3 className="font-medium">Recorded Video</h3>
+                            <h3 className="font-medium capitalize">
+                              {item.video_title}
+                            </h3>
                             <p className="text-sm font-light text-[#98A2B3]">
                               {formatDate(item.createdAt)}{" "}
                               <span>{item.video_url.size}MB</span>
