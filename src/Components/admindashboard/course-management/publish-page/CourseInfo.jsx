@@ -5,10 +5,72 @@ import AvenueList from "@/Components/Assets/AvenueList";
 import iconDark from "../../../../assets/icons/icon-dark.png";
 import img from "../../../../assets/images/join_team.png";
 import { CommonButton } from "@/Components/ui/button";
-import { PencilIcon } from "lucide-react";
 import { HiOutlinePencil } from "react-icons/hi";
+import { useQuery } from "@tanstack/react-query";
+import { fetchCourseInformation } from "@/services/api";
+import { ClipLoader } from "react-spinners";
+
+// const data = {
+//   course: {
+//     id: "66ffa21a424d1743f5b173d0",
+//     title: "the course title",
+//     coverImage:
+//       "https://res.cloudinary.com/dttt6lb9g/image/upload/v1728029212/courses/66ffa21a424d1743f5b173d0_xofxee.png",
+//     course_includes: "course includes",
+//     tools_and_technologies: "the tool and tecnlogy",
+//     benefits: "the benefit",
+//     program_highlights: "the program",
+//     preview_video: "",
+//     enrolledSudents: [],
+//     enrollmentOptions: [],
+//     reviews: [],
+//     total_discount: 0,
+//     live_class_price: {
+//       original_price: {
+//         amount: 3333,
+//         currency: "Pounds",
+//         currency_symbol: "£",
+//         price_string: "£ 3333",
+//       },
+//       discounted_price: {
+//         amount: 100,
+//         currency: "Pounds",
+//         currency_symbol: "£",
+//         price_string: "£ 100",
+//       },
+//       cohort: ["September Cohort 2024"],
+//       duration: "mon-fri",
+//       time: "3:42pm",
+//     },
+//     pre_recorded_price: [
+//       {
+//         duration: "One Month Access",
+//         amount: 100,
+//         currency: "Pounds",
+//         price_string: "£100",
+//         currency_symbol: "£",
+//         _id: "66fffec9068e6acd2b2f1af0",
+//       },
+//     ],
+//     is_publishe: false,
+//     cohorts: ["66fffec9068e6acd2b2f1af3"],
+//   },
+//   applied: [],
+// };
 
 const CourseInfo = ({ editButton = false }) => {
+  const { data, isLoading } = useQuery({
+    queryFn: fetchCourseInformation,
+    queryKey: ["get-course-info"],
+  });
+
+  if (isLoading)
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <ClipLoader color="#CC1747" />
+      </div>
+    );
+
   return (
     <main className="rounded-md border-2 border-[#F0F2F5] p-12 pr-6">
       <div className="flex items-center justify-between">
@@ -31,7 +93,7 @@ const CourseInfo = ({ editButton = false }) => {
               Course Title
             </h3>
             <p className="text-justify text-xl text-[#667185]">
-              Business Analysis Agile Project Management Software Testing{" "}
+              {data?.data?.data.course.title}
             </p>
           </article>
           <article>
@@ -85,7 +147,7 @@ const CourseInfo = ({ editButton = false }) => {
                 cover image
               </h4>
               <img
-                src={img}
+                src={data?.data?.data.course.coverImage ?? img}
                 alt="people sitting around the table"
                 className="h-[153px] w-full max-w-[200px] rounded-lg"
               />
@@ -107,8 +169,8 @@ const CourseInfo = ({ editButton = false }) => {
           <p className="text-xl font-medium capitalize text-[#475367]">
             Benefit
           </p>
-
-          <div className="mt-[14px] space-y-6">
+          <p>{data?.data?.data.course.benefits}</p>
+          {/* <div className="mt-[14px] space-y-6">
             <AvenueList
               src={iconDark}
               textColor={"#667185"}
@@ -147,8 +209,8 @@ const CourseInfo = ({ editButton = false }) => {
             >
               <span className="font-[400]">Lifetime Access:</span> Continue to
               access course materials and updates even after the programme ends.
-            </AvenueList>
-          </div>
+            </AvenueList> */}
+          {/* </div> */}
           <div className={"mt-9"}>
             <p className="text-xl font-medium text-[#475367]">overview</p>
 

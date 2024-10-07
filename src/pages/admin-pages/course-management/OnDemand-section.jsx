@@ -45,8 +45,8 @@ function OnDemandCourseSection() {
   });
 
   const handleCreateNewSection = () => {
-    section += 1;
-    localStorage.setItem("section", JSON.stringify(section));
+    section = Number(section) + 1;
+    localStorage.setItem("section", +section);
     toast.success(`section ${section} is created`);
     setDisabled(true);
   };

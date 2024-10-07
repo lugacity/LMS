@@ -114,3 +114,17 @@ export const fetchDemandCourse = async () => {
     },
   );
 }
+
+export const fetchCourseInformation = async () => {
+  const token = Cookies.get('adminToken')
+  const courseId = localStorage.getItem('id')
+
+  return await axios.get(
+    `${BASE_URL}/courses/${courseId}/course-informations`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+}

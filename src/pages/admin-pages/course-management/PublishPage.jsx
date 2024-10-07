@@ -2,6 +2,7 @@ import CourseInfo from "@/Components/admindashboard/course-management/publish-pa
 import CourseType from "@/Components/admindashboard/course-management/publish-page/CourseType";
 import PublishCourseSection from "@/Components/admindashboard/course-management/publish-page/PublishCourseSection";
 import { CommonButton } from "@/Components/ui/button";
+
 import { ScrollRestoration } from "react-router-dom";
 
 function PublishPage() {
