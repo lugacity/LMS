@@ -26,6 +26,30 @@ import { useQuery } from "@tanstack/react-query";
 import { useCreateSingleCohort } from "@/hooks/course-management/use-create-single-cohorts";
 
 
+const formatDate = (date) => {
+    // Create a Date object from the ISO string
+    const createdAt = new Date(date);
+  
+    // Check if date is valid
+    if (isNaN(createdAt.getTime())) {
+      return "Invalid Date";
+    }
+  
+    // Format date and time
+    const day = createdAt.getDate();
+    const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(createdAt);
+    const year = createdAt.getFullYear();
+  
+    // Extract time parts and handle 12-hour format
+    const hour = createdAt.getHours();
+    const min = createdAt.getMinutes().toString().padStart(2, '0'); // Add leading zero if needed
+    const get12hrs = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+    const amOrPm = hour >= 12 ? "PM" : "AM";
+  
+    return `${day} ${month}, ${year} | ${get12hrs}:${min}${amOrPm}`;
+  };
+  
+
 
 const CourseCohortPreview = () => {
   const [cohort, setCohort] = useState("");
@@ -49,19 +73,19 @@ const CourseCohortPreview = () => {
         })
     }
 
-  const onSubmit = async (data) => {
-    if (!cohort) return setCohortErr("Input cohort");
-    if (data.duration.length < 1) return setCohortErr("Input duration");
+//   const onSubmit = async (data) => {
+//     if (!cohort) return setCohortErr("Input cohort");
+//     if (data.duration.length < 1) return setCohortErr("Input duration");
 
     
 
-    // createCourseType(data, {
-    //   onSuccess: () => {
-    //     setCohortPreview((prev) => [...prev, { cohort, created_at: new Date().toLocaleString() }]);
-    //     localStorage.setItem("cohorts", cohort);
-    //   },
-    // });
-  };
+//     // createCourseType(data, {
+//     //   onSuccess: () => {
+//     //     setCohortPreview((prev) => [...prev, { cohort, created_at: new Date().toLocaleString() }]);
+//     //     localStorage.setItem("cohorts", cohort);
+//     //   },
+//     // });
+//   };
 
   const form = useForm({
     resolver: zodResolver(courseTypeSchema),
@@ -84,8 +108,7 @@ const CourseCohortPreview = () => {
         </SaveButton>
       </div>
 
-      <Form {...form}>
-        <form action="" onSubmit={form.handleSubmit(onSubmit)}>
+
           <div className="mb-4 mt-5 items-start grid grid-cols-12 gap-10 rounded border border-gray-300 p-10 md:mb-0">
             <div className="col-span-5">
               <h3 className="text-[20px] font-[500] text-[#344054] lg:text-[24px]">
@@ -129,13 +152,13 @@ const CourseCohortPreview = () => {
               
             </div>
 
-            {isLoading ? <p>Loading.... </p> :
+            {isLoading ? (<ClipLoader size={20} color={"#CC1747"} />) :
                 <div className="col-span-7 space-y-3 ">
                     {data?.data.data.map((cohortItem) => (
                         <div className="bg-[#FFEBF080] p-4 rounded-lg border border-[#CC1747]">
                             <div>
                                 <p className="font-[600] text-gray-600 text-[18px]">{cohortItem.cohort}</p>
-                                <p className="text-[#CC1747] text-[12px]">{cohortItem.created_at}</p>
+                                <p className="text-[#CC1747] text-[12px]">{formatDate(cohortItem.created_at)}</p>
                             </div>
                         </div>
                     ))}
@@ -155,8 +178,7 @@ const CourseCohortPreview = () => {
               )}
             </CommonButton>
           </div>
-        </form>
-      </Form>
+
     </>
   );
 };

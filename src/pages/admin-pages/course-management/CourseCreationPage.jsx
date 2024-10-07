@@ -53,15 +53,13 @@ export default function CourseCreationPage() {
 
         {activeTab === 2 && <CourseType />}
 
-        {/* {activeTab === 3 && <CohortCourseSection />} */}
+        {activeTab === 3 && <CohortCourseSection />}
 
 
-        {activeTab === 3 && <CourseCohortPreview />}
-        {/* {cohorts === "month" ? (
-          ) : activeTab === 3 && <CohortCourseSection />
-        } */}
 
+     
 
+        
 
 
         {activeTab === 4 && <OnDemandCourseSection />}
