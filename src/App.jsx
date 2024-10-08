@@ -48,9 +48,52 @@ import ProtectedRoute from "./Components/ProtectedRoute";
 import AuthProtectedRoute from "./Components/AuthProtectedRoute";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AdminEmpty } from "./Components/admindashboard/AdminEmpty";
-import CourseManagement from "./Components/admindashboard/CourseManagement";
+import CourseManagement from "./pages/admin-pages/CourseManagement";
 import CourseCreation from "./Components/admindashboard/CourseCreation";
-import CourseManagementLayout from "./layouts/CourseManagementLayout";
+import CoursesLayout from "./layouts/admin/CoursesLayout";
+import CreatedCourse from "./pages/admin-pages/course-management/CreatedCourse";
+import EditCourse from "./pages/admin-pages/course-management/EditCourse";
+import AdminLogin from "./pages/admin-pages/AdminLogin";
+import AdminPayment from "./Components/admindashboard/AdminPayment";
+import ProjectArea from "./pages/admin-pages/project-area/ProjectArea";
+import ProjectAreaLayout from "./layouts/admin/ProjectAreaLayout";
+import General from "./pages/admin-pages/project-area/Genral";
+import Groups from "./pages/admin-pages/project-area/Groups";
+import CourseProjectArea from "./Components/admindashboard/project-area/CourseProjectArea";
+import CourseTools from "./Components/admindashboard/project-area/CourseTools";
+import FinancialLayout from "./layouts/admin/FinancialLayout";
+import CreateCoupon from "./pages/admin-pages/financial-aid/CreateCoupon";
+import FinancialAidRequest from "./pages/admin-pages/financial-aid/FinancialAidRequest";
+
+import ViewDetails from "./Components/admindashboard/financial-aid/ViewDetails";
+
+import CourseInfomation from "./pages/admin-pages/course-management/CourseInfomation";
+
+import TeamLayout from "./layouts/admin/TeamLayout";
+import GroupLayout from "./layouts/admin/GroupLayout";
+import StudentManagementTable from "./pages/admin-pages/project-area/StudentManagementTable";
+
+import AdminCertificateLayout from "./layouts/admin/AdminCertificateLayout";
+import CertificateMainPage from "./pages/admin-pages/certificate/CertificateMainPage";
+import CertificateIssueHistory from "./pages/admin-pages/certificate/CertificateIssueHistory";
+import AffiliateLayout from "./layouts/admin/AffiliateLayout";
+import ReferralsAdmin from "./pages/admin-pages/affiliate/ReferralsAdmin";
+import WithdrawalRequest from "./pages/admin-pages/affiliate/WithdrawalRequest";
+
+import AccountManagLayout from "./layouts/admin/AccountManagLayout";
+import AccountMagament from "./pages/admin-pages/account-managemnet/AccountMagament";
+
+import DataManagementPage from "./pages/admin-pages/data-management/DataManagementPage";
+import DashboardAnalytics from "./pages/admin-pages/data-management/DashboardAnalytics";
+import DataCourseManagement from "./pages/admin-pages/data-management/DataCourseManagement";
+import AllStudent from "./pages/admin-pages/data-management/AllStudent";
+import EmptyCourseArea from "./pages/admin-pages/course-work-area/EmptyCourseArea";
+import CourseWorkAreaLayout from "./layouts/admin/CourseWorkAreaLayout";
+import CourseWorkArea from "./pages/admin-pages/course-work-area/CourseWorkArea";
+import CourseWorkAreaDocument from "./pages/admin-pages/course-work-area/CourseWorkAreaDocument";
+import CourseWorkAssignment from "./pages/admin-pages/course-work-area/CourseWorkAssignment";
+import CourseWorkShareDocs from "./pages/admin-pages/course-work-area/CourseWorkShareDocs";
+import CourseCohortPreview from "./pages/admin-pages/CourseCohortPreview";
 
 const queryClient = new QueryClient();
 
@@ -109,7 +152,7 @@ function App() {
       ],
     },
     {
-      element: <AuthProtectedRoute />,
+      element: <AuthProtectedRoute tokin={"token"} path={"/dashboard"} />,
       children: [
         {
           path: "",
@@ -149,7 +192,7 @@ function App() {
       element: <DiscoverCourses />,
     },
     {
-      element: <ProtectedRoute />,
+      element: <ProtectedRoute tokin={"token"} path={"/login"} />,
       // loader: async () => {
       //   const token = Cookies.get("token");
       //   if (!token) return (window.location.href = "/login");
@@ -234,28 +277,259 @@ function App() {
         },
       ],
     },
-
+    //admin routes
     {
-      element: <AdminLayout />,
-      path: "/admin",
+      element: (
+        <AuthProtectedRoute tokin={"adminToken"} path={"/admin/dashboard"} />
+      ),
       children: [
         {
-          path: "/admin/dashboard",
-          element: <AdminEmpty />,
+          path: "admin/login",
+          element: <AdminLogin />,
         },
+      ],
+    },
+    {
+      element: <ProtectedRoute tokin={"adminToken"} path={"/admin/login"} />,
+      children: [
         {
-          element: <CourseManagementLayout />,
-          path: "course",
-
+          element: <AdminLayout />,
+          path: "/admin",
           children: [
             {
-              index: true,
-              path: "management",
-              element: <CourseManagement />,
+              path: "/admin/dashboard",
+              element: <AdminEmpty />,
+            },
+
+            // Project Area
+            {
+              element: <ProjectAreaLayout />,
+              path: "project-area",
+              children: [
+                {
+                  index: true,
+                  element: <ProjectArea />,
+                },
+                {
+                  path: ":id/general",
+                  element: <General />,
+                  children: [
+                    {
+                      index: true,
+                      element: <CourseProjectArea />,
+                    },
+                    {
+                      path: "course-tool",
+                      element: <CourseTools />,
+                    },
+                  ],
+                },
+                {
+                  path: ":id/group",
+                  element: <Groups />,
+                },
+              ],
+            },
+
+            // Course Management
+            {
+              element: <CoursesLayout />,
+              path: "course/management",
+
+              children: [
+                {
+                  children: [
+                    {
+                      index: true,
+                      element: <CourseManagement />,
+                    },
+                    {
+                      path: "courses",
+                      element: <CreatedCourse />,
+                    },
+                    {
+                      path: "edit",
+                      element: <EditCourse />,
+                    },
+                    {
+                      path: "info",
+                      element: <CourseInfomation />,
+                    },
+                  ],
+                },
+                {
+                  path: "create-course",
+                  element: <CourseCreation />,
+                },
+                
+              ],
+            },
+
+            // Account Management
+            {
+              element: <AccountManagLayout />,
+              path: "account-management",
+
+              children: [
+                {
+                  index: true,
+                  element: <AccountMagament />,
+                },
+              ],
+            },
+
+            // Fianancial Aid
+            {
+              path: "financial-aid",
+              element: <FinancialLayout />,
+
+              children: [
+                {
+                  index: true,
+                  element: <CreateCoupon />,
+                },
+                {
+                  path: "aid-request",
+                  element: <FinancialAidRequest />,
+                },
+              ],
+            },
+
+            {
+              path: "view-details",
+              element: <ViewDetails />,
+            },
+
+            {
+              path: "/admin/payment",
+              element: <AdminPayment />,
+            },
+
+            {
+              element: <AffiliateLayout />,
+              path: "affiliate",
+              children: [
+                {
+                  index: true,
+                  element: <ReferralsAdmin />,
+                },
+                {
+                  path: "withdrawal-request",
+                  element: <WithdrawalRequest />,
+                },
+              ],
+            },
+
+            {
+              element: <ProjectAreaLayout />,
+              path: "project-area",
+              children: [
+                {
+                  index: true,
+                  element: <ProjectArea />,
+                },
+                {
+                  path: ":id/general",
+                  element: <General />,
+                  children: [
+                    {
+                      index: true,
+                      element: <CourseProjectArea />,
+                    },
+                    {
+                      path: "course-tool",
+                      element: <CourseTools />,
+                    },
+                  ],
+                },
+                {
+                  path: ":id/group",
+                  element: <GroupLayout />,
+                  children: [
+                    {
+                      index: true,
+                      element: <Groups />,
+                    },
+                    {
+                      path: ":team",
+                      element: <TeamLayout />,
+                      children: [
+                        {
+                          index: true,
+                          path: "course-project-area",
+                          element: <CourseProjectArea />,
+                        },
+                        {
+                          path: "course-tools",
+                          element: <CourseTools />,
+                        },
+                        {
+                          path: "student-management",
+                          element: <StudentManagementTable />,
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
             },
             {
-              path: "creation",
-              element: <CourseCreation />,
+              path: "course-work-area",
+              element: <CourseWorkAreaLayout />,
+              children: [
+                {
+                  index: true,
+                  element: <CourseWorkArea />,
+                },
+                {
+                  path: "documents",
+                  element: <CourseWorkAreaDocument />,
+                  children: [
+                    {
+                      index: true,
+                      element: <CourseWorkShareDocs />,
+                    },
+                    {
+                      path: "assignment",
+                      element: <CourseWorkAssignment />,
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              path: "data-management",
+              element: <DataManagementPage />,
+              children: [
+                {
+                  index: true,
+                  element: <DashboardAnalytics />,
+                },
+                {
+                  path: "course-management",
+                  element: <DataCourseManagement />,
+                },
+                {
+                  path: "all-student",
+                  element: <AllStudent />,
+                },
+              ],
+            },
+
+            // Certificate
+            {
+              element: <AdminCertificateLayout />,
+              path: "certificate",
+              children: [
+                {
+                  index: true,
+                  element: <CertificateMainPage />,
+                },
+                {
+                  path: "certificate-issue",
+                  element: <CertificateIssueHistory />,
+                },
+              ],
             },
           ],
         },

@@ -193,14 +193,11 @@ const SignUp = () => {
                       name=""
                       id=""
                       className="h-6 w-6 accent-[#D0D5DD]"
-                      
                     />
                     <p className="text-sm text-label">
                       Send me exclusive offers, tailored recommendations, and
                       educational tips.
                     </p>
-
-                
                   </div>
 
                   <div className="mt-[18px] flex items-center gap-4">
@@ -211,7 +208,6 @@ const SignUp = () => {
                       className="h-4 w-4 accent-[#D0D5DD]"
                       required
                     />
-                  
 
                     <p className="text-sm text-label">
                       I agree to the terms and conditions
@@ -252,7 +248,7 @@ const SignUp = () => {
                 "You have successfully registered and can now start using your account. Enjoy your experience with us!"
               }
               setModal={setModal}
-              path={"/login"}
+              path={"/dashboard"}
             />
           ) : (
             <RegisterFail setModal={setModal} />

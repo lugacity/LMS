@@ -13,13 +13,14 @@ import {
   ProjectIcon,
 } from "@/Components/Icon";
 import { DarkLogo } from "@/Components/Logo";
+import Cookies from "js-cookie";
 import { GrHomeRounded } from "react-icons/gr";
 
 // import { Sidebar, SidebarItem } from "./SideNav";
 const navItem = [
   {
     id: 1,
-    text: "Dashboard",
+    text: "Buddy Hub",
 
     icon: <GrHomeRounded />,
 
@@ -34,7 +35,7 @@ const navItem = [
     icon: <CourseIcon />,
     active: false,
     alert: "alert",
-    path: "/admin/notification",
+    path: "/admin/course-work-area",
   },
   {
     id: 3,
@@ -135,6 +136,11 @@ function AdminSideNav() {
 }
 
 function SideNav({ children }) {
+  const handleSignOut = () => {
+    Cookies.remove("adminToken");
+    window.location.href = "/admin/login";
+  };
+
   return (
     <aside className="baby fixed left-0 top-0 h-screen w-[249px] overflow-y-auto border-r border-r-[#E4E7EC] px-2 py-6 2xl:overflow-y-hidden">
       <div>
@@ -148,7 +154,7 @@ function SideNav({ children }) {
             <SidebarItem text={"notification"} icon={<BellIcon />} />
           </ul>
           <div className="px-6 py-10">
-            <button className="flex items-center gap-5">
+            <button className="flex items-center gap-5" onClick={handleSignOut}>
               <span></span>
               <span>
                 <svg

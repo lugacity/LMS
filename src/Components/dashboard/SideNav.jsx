@@ -1,7 +1,7 @@
 import { LucideLogOut } from "lucide-react";
 import { PiGearThin } from "react-icons/pi";
 import { IoGiftOutline } from "react-icons/io5";
-import { useContext, createContext, useState } from "react";
+import { createContext, useState } from "react";
 import { DarkLogo } from "../Logo";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { NavLink, useLocation } from "react-router-dom";
@@ -23,17 +23,9 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
 
   const location = useLocation();
 
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ["userProfile"],
-  //   queryFn: fetchUserProfile,
-  // });
   const { data, isLoading } = useProfile();
-  // if (!isLoading && data?.data?.data !== undefined)
-  //   dispatch({ type: "auth/update_profile", payload: { ...data.data.data } });
 
   const handleLogout = () => {
-    // navigate("/login");
-    // dispatch({ Type: "auth/logout" });
     Cookies.remove("token");
     window.location.href = "/login";
   };
@@ -48,7 +40,7 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
       <nav className="flex h-full w-full flex-col border-r bg-white shadow-sm">
         <div className="mb-3 flex items-center justify-between p-4 pb-2 lg:ml-4 lg:justify-start">
           <DarkLogo className={`overflow-hidden transition-all lg:w-40`} />
-          <button onClick={() => setToggleNav((prev) => !prev)}>
+          <button onClick={() => setToggleNav?.((prev) => !prev)}>
             <FontAwesomeIcon
               icon={faClose}
               className="text-2xl text-tertiary-color-700 lg:hidden"
@@ -63,7 +55,7 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
           <ul className="flex-1 px-3">
             <li
               className={"dashboard"}
-              onClick={() => setToggleNav((prev) => !prev)}
+              onClick={() => setToggleNav?.((prev) => !prev)}
             >
               <NavLink
                 to={"student-settings"}
@@ -84,7 +76,7 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
             </li>
             <li
               className={"dashboard"}
-              onClick={() => setToggleNav((prev) => !prev)}
+              onClick={() => setToggleNav?.((prev) => !prev)}
             >
               <NavLink
                 to={"referral"}
@@ -181,25 +173,19 @@ export function Sidebar({ children, toggleNav, setToggleNav }) {
 }
 
 export function SidebarItem({ icon, text, path, setToggleNav }) {
-  // const { expanded } = useContext(SidebarContext);
-
   const { pathname } = useLocation();
-  // const isActive =
-  //   (pathname === "/" && href === "/") ||
-  //   pathname === href ||
-  //   pathname?.startsWith(`${href}/`);
 
   return (
     <li
       className={"dashboard capitalize lg:whitespace-nowrap"}
-      onClick={() => setToggleNav((prev) => !prev)}
+      onClick={() => setToggleNav?.((prev) => !prev)}
     >
       <NavLink
         to={path}
         className={cn(
           "group relative my-1 flex cursor-pointer items-center border-4 border-transparent px-1 py-2 text-gray-600 transition-colors hover:border-l-primary-color-600 hover:bg-primary-color-100/30 hover:text-primary-color-600",
 
-          pathname === path || pathname?.startsWith(`${path}/`)
+          pathname === path || pathname?.startsWith(`${path}`)
             ? "border-l-4 border-l-primary-color-600 bg-primary-color-100/30 font-medium text-primary-color-600"
             : "",
         )}

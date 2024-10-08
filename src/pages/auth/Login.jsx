@@ -61,9 +61,9 @@ const loginSchema = z.object({
 
 const url = import.meta.env.VITE_AUTH_URL;
 
-const Login = ({ setUserInfo, userInfo }) => {
+const Login = () => {
   const navigate = useNavigate();
-  const { dispatch, userDetails } = useAuth();
+  const { dispatch } = useAuth();
 
   const handleSubmit = async (values) => {
     const user = {
@@ -79,7 +79,6 @@ const Login = ({ setUserInfo, userInfo }) => {
           type: "auth/login",
           payload: {
             ...response.data.data.user,
-            token: response.data.data.token,
           },
         });
 
@@ -173,6 +172,15 @@ const Login = ({ setUserInfo, userInfo }) => {
               sign up
             </Link>
           </p>
+
+          <div className="text-center">
+            <Link
+              to={"/admin/login"}
+              className="text-sm font-semibold text-white hover:text-primary-color-300"
+            >
+              Login Admin
+            </Link>
+          </div>
         </div>
       </div>
 
