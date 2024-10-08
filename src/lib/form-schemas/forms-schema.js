@@ -84,6 +84,10 @@ export const courseInformationSchema = z.object({
     .string()
     .min(5, { message: "This field must be at least 5 character long" })
     .max(405, { message: "Benefits character must not exceed 100 " }),
+  overview: z
+    .string()
+    .min(5, { message: "This field must be at least 5 character long" })
+    .max(405, { message: "Benefits character must not exceed 100 " }),
   highlight: z
     .string()
     .min(5, { message: "This field must be at least 5 character long" })

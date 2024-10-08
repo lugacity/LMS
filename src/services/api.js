@@ -1,3 +1,4 @@
+// import { BASE_URL } from "@/constant";
 import { BASE_URL } from "@/constant";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -116,17 +117,25 @@ export const fetchDemandCourse = async () => {
 }
 
 
+// Fetch course information
 export const fetchCourseInformation = async () => {
-  const token = Cookies.get('adminToken')
-  const courseId = localStorage.getItem('id')
+  const token = Cookies.get('adminToken');
+  const courseId = localStorage.getItem('id');
 
   return await axios.get(
     `${BASE_URL}/courses/${courseId}/course-informations`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+};
 
+// Fetch cohorts
 export const fetchCohorts = async () => {
-  const token = Cookies.get('adminToken')
-  const courseId = localStorage.getItem('id')
-  
+  const token = Cookies.get('adminToken');
+  const courseId = localStorage.getItem('id');
 
   return await axios.get(
     `${BASE_URL}/courses/${courseId}/cohorts`,
@@ -136,21 +145,20 @@ export const fetchCohorts = async () => {
       },
     },
   );
-}
+};
 
-
+// Add a single cohort
 export const addSingleCohort = async (data) => {
-  const courseId = localStorage.getItem('id')
-  const token = Cookies.get('adminToken')
+  const courseId = localStorage.getItem('id');
+  const token = Cookies.get('adminToken');
 
   return await axios.post(
     `${BASE_URL}/courses/${courseId}/cohorts`,
     data,
-
     {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     },
   );
-}
+};
