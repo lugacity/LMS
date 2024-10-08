@@ -57,7 +57,8 @@ export default function CourseCreationPage() {
 
 
 
-     
+
+        {/* {activeTab === 3 && <CourseCohortPreview />} */}
 
         
 
