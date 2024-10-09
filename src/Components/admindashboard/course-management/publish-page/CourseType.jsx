@@ -88,7 +88,7 @@ import { ClipLoader } from "react-spinners";
 // ];
 
 function CourseType({ editButton = false }) {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["get-course-info"],
   });
 
@@ -98,6 +98,8 @@ function CourseType({ editButton = false }) {
         <ClipLoader color="#CC1747" />
       </div>
     );
+
+  if (isError) return <p>error..</p>;
 
   return (
     <section className="rounded-md border-2 border-[#F0F2F5] p-12 pr-6">

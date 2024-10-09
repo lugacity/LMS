@@ -21,8 +21,8 @@ import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 
 import { useCreateOnDemandCourse } from "@/hooks/course-management/use-create-demand-course";
 import { onDemandSessionSchema } from "@/lib/form-schemas/forms-schema";
-let section = localStorage.getItem("section")
-  ? localStorage.getItem("section")
+let section = localStorage.getItem("sectionNum")
+  ? localStorage.getItem("sectionNum")
   : 1;
 
 function OnDemandCourseSection() {
@@ -46,7 +46,7 @@ function OnDemandCourseSection() {
 
   const handleCreateNewSection = () => {
     section = Number(section) + 1;
-    localStorage.setItem("section", +section);
+    localStorage.setItem("sectionNum", +section);
     toast.success(`section ${section} is created`);
     setDisabled(true);
   };

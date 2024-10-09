@@ -49,7 +49,7 @@ const access = [
   },
   {
     id: 5,
-    access: "Lifetime  Access",
+    access: "Lifetime Access",
   },
 ];
 

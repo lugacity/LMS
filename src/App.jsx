@@ -93,7 +93,7 @@ import CourseWorkArea from "./pages/admin-pages/course-work-area/CourseWorkArea"
 import CourseWorkAreaDocument from "./pages/admin-pages/course-work-area/CourseWorkAreaDocument";
 import CourseWorkAssignment from "./pages/admin-pages/course-work-area/CourseWorkAssignment";
 import CourseWorkShareDocs from "./pages/admin-pages/course-work-area/CourseWorkShareDocs";
-import CourseCohortPreview from "./pages/admin-pages/CourseCohortPreview";
+import CourseCohortPreview from "./pages/admin-pages/course-management/CourseCohortPreview";
 
 const queryClient = new QueryClient();
 
@@ -361,7 +361,6 @@ function App() {
                   path: "create-course",
                   element: <CourseCreation />,
                 },
-                
               ],
             },
 

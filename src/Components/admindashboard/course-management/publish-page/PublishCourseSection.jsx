@@ -1,13 +1,20 @@
 import { CommonButton } from "@/Components/ui/button";
 import CoursesRecordedSection from "../recoded-session/CoursesRecordedSection";
 import { useQuery } from "@tanstack/react-query";
+import { fetchDemandCourse } from "@/services/api";
 
 function PublishCourseSection() {
-  const { data: demandCourse, isLoading } = useQuery({
+  const {
+    data: demandCourse,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["get-demand-course"],
+    queryFn: fetchDemandCourse,
   });
 
   if (isLoading) return <p>loading...</p>;
+  if (isError) return <p>error...</p>;
   return (
     <section className="rounded-md border-2 border-[#F0F2F5] p-12 pr-6">
       <h2 className="text-2xl font-medium text-[#344054]">Course Sections</h2>
