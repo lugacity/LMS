@@ -58,11 +58,21 @@ import { ClipLoader } from "react-spinners";
 //   applied: [],
 // };
 
+const str = "hello";
+
+console.log(str.split("e"));
+
 const CourseInfo = ({ editButton = false }) => {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryFn: fetchCourseInformation,
     queryKey: ["get-course-info"],
   });
+  // console.log(
+  //   data?.data?.data.course.tools_and_technologies
+  //     .("/n")
+  //     .map((tools) => `${tools}st`),
+  // );
+  console.log(error);
 
   if (isLoading)
     return (
@@ -70,6 +80,8 @@ const CourseInfo = ({ editButton = false }) => {
         <ClipLoader color="#CC1747" />
       </div>
     );
+
+  if (isError) return <div>error ....</div>;
 
   return (
     <main className="rounded-md border-2 border-[#F0F2F5] p-12 pr-6">
@@ -100,14 +112,8 @@ const CourseInfo = ({ editButton = false }) => {
             <h3 className="mb-[14px] text-xl font-medium text-[#475367]">
               Overview
             </h3>
-            <p className="text-justify text-[#667185]">
-              The 3.5 Months Project Consultant Training Programme (Bundle) is a
-              comprehensive and intensive course designed for aspiring project
-              consultants who aim to excel in the dynamic field of project
-              management. Scheduled to commence in May 2024, this training
-              programme equips participants with the essential skills,
-              knowledge, and hands-on experience necessary to thrive as project
-              consultants in various industries.
+            <p className="text-justify capitalize text-[#667185]">
+              {data?.data?.data.course.overview}
             </p>
           </article>
           <article>

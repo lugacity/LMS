@@ -11,7 +11,7 @@ import CohortCourseSection from "./CohortCourseSection";
 import OndemandSection from "./OndemandSection";
 import OnDemandCourseSection from "./OnDemand-section";
 import { cohorts } from "@/lib/cohorts";
-import CourseCohortPreview from "../CourseCohortPreview";
+import CourseCohortPreview from "./CourseCohortPreview";
 
 const tab = [
   "Course Management",
@@ -55,13 +55,7 @@ export default function CourseCreationPage() {
 
         {activeTab === 3 && <CohortCourseSection />}
 
-
-
-
         {/* {activeTab === 3 && <CourseCohortPreview />} */}
-
-        
-
 
         {activeTab === 4 && <OnDemandCourseSection />}
 
