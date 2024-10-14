@@ -71,10 +71,10 @@ const CourseManagementPage = () => {
 
     const courses = {
       title: courseTitle,
-      tools_and_technologies: technologies,
-      benefits: benefits,
-      program_highlights: highlight,
-      course_includes: courseIncludes,
+      tools_and_technologies: technologies.split(","),
+      benefits: benefits.split(","),
+      program_highlights: highlight.split(","),
+      course_includes: courseIncludes.split(","),
       overview: overview,
       coverImage: image.file,
     };
@@ -246,33 +246,30 @@ const CourseManagementPage = () => {
               </p>
             </div>
 
-              
-              {/* Overview */}
-                  <div>
-                    <FormInput
-                      name="overview"
-                      id="overview"
-                      label={
-                        <p className="mb-2 font-[500] text-[#475367]">
-                            Overview:{" "}
-                          <span className="text-[#CC1747]">*</span>{" "}
-                        </p>
-                      }
-                      type="text"
-                      labelClass={"text-base text-[#475367]"}
-                      textarea={true}
-                      control={form.control}
-                      placeholder="Enter text here..."
-                      className="h-[203px] w-full resize-none rounded border border-gray-300 p-2 outline-none placeholder:text-base"
-                    />
-                    <p className="text-right text-gray-500">
-                      {form.watch("overview")
-                        ? `${form.watch("overview").length}`
-                        : 0}
-                      /405
-                    </p>
-                  </div>
-            
+            {/* Overview */}
+            <div>
+              <FormInput
+                name="overview"
+                id="overview"
+                label={
+                  <p className="mb-2 font-[500] text-[#475367]">
+                    Overview: <span className="text-[#CC1747]">*</span>{" "}
+                  </p>
+                }
+                type="text"
+                labelClass={"text-base text-[#475367]"}
+                textarea={true}
+                control={form.control}
+                placeholder="Enter text here..."
+                className="h-[203px] w-full resize-none rounded border border-gray-300 p-2 outline-none placeholder:text-base"
+              />
+              <p className="text-right text-gray-500">
+                {form.watch("overview")
+                  ? `${form.watch("overview").length}`
+                  : 0}
+                /405
+              </p>
+            </div>
 
             <div className="flex items-center justify-end pt-10">
               <CommonButton

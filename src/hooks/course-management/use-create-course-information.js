@@ -10,8 +10,6 @@ export const useCreateCourseInformation = () => {
       localStorage.setItem("id", data.data.id);
     },
     onError: (err) => toast.error(err.response.data.message || 'something went wrong')
-
-
   })
 
   return { createCourseInformation, isCreating }
