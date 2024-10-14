@@ -1,9 +1,4 @@
-import Cookies from "js-cookie";
 import { useRef, useState } from "react";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
@@ -20,23 +15,16 @@ import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { useCreateRecordedSession } from "@/hooks/course-management/use-create-recorded-session";
 import { ClipLoader } from "react-spinners";
-import { RecordedSessionSchema } from "@/lib/form-schemas/forms-schema";
 
 function RecordedSession() {
   const [video, setVideo] = useState({ file: null, preview: null });
   const [errorMessage, setErrorMessage] = useState("");
+  const videoRef = useRef();
+  const [disabled, setDisabled] = useState(true);
 
-  const { createRecordedSession, isCreating } = useCreateRecordedSession();
+  const { createRecordedSession, isCreating, form } =
+    useCreateRecordedSession();
 
-  const form = useForm({
-    resolver: zodResolver(RecordedSessionSchema),
-    defaultValues: {
-      title: "",
-      video_title: "",
-      overview: "",
-      video_from_url: "",
-    },
-  });
   const handleVideoUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -54,9 +42,18 @@ function RecordedSession() {
     reader.readAsDataURL(file);
   };
 
-  const videoRef = useRef();
+  const handleCreateNewSection = () => {
+    let section = localStorage.getItem("recordedSection")
+      ? localStorage.getItem("recordedSection")
+      : 2;
 
-  // const { setActiveTab } = useCourseManagementInfo();
+    section += 1;
+
+    localStorage.setItem("recordedSection", +section);
+
+    toast.success(`section ${section} is created`);
+    setDisabled(true);
+  };
 
   const onSubmit = async (data) => {
     const { title, video_title, overview } = data;
@@ -83,28 +80,15 @@ function RecordedSession() {
     }
 
     console.log(recorded);
-    createRecordedSession(recorded, { onSuccess: () => form.reset() });
-    // try {
-    //   const response = await axios.post(
-    //     `${BASE_URL}/courses/${courseId}/recorded-session`,
-    //     recorded,
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     },
-    //   );
-    //   console.log(response);
-
-    //   if (response.data.status === "success") {
-    //     toast.success(response.data.message);
-    //     handleReset();
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-
-    //   toast.error(error.response.data.message || "something went wrong");
-    // }
+    createRecordedSession(recorded, {
+      onSuccess: () => {
+        setDisabled(false);
+        form.reset();
+        setVideo((prev) => {
+          return { ...prev, file: null, preview: null };
+        });
+      },
+    });
   };
 
   return (
@@ -238,7 +222,13 @@ function RecordedSession() {
 
               <div>
                 <div className="ml-auto mt-6 w-max">
-                  <CommonButton variant="outline" type="button">
+                  <CommonButton
+                    variant="outline"
+                    type="button"
+                    className="disabled:cursor-not-allowed"
+                    onClick={handleCreateNewSection}
+                    disabled={disabled}
+                  >
                     {" "}
                     Create New Section
                   </CommonButton>

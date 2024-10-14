@@ -33,6 +33,7 @@ export const addDemandSection = async (data) => {
     data,
     {
       headers: {
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     },
@@ -89,12 +90,17 @@ export const addLiveSession = async (data) => {
 export const addRecordedSession = async (data) => {
   const courseId = localStorage.getItem('id')
   const token = Cookies.get('adminToken')
+  let section = localStorage.getItem("recordedSection")
+    ? localStorage.getItem("recordedSection")
+    : 2;
+  // https://avi-lms-backend.onrender.com/api/v1/admins/courses/:courseId/sections/:section/recorded-session
 
   return await axios.post(
-    `${BASE_URL}/courses/${courseId}/recorded-session`,
+    `${BASE_URL}/courses/${courseId}/sections/${section}/recorded-session`,
     data,
     {
       headers: {
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     },
