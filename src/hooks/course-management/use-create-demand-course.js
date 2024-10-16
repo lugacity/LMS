@@ -16,5 +16,5 @@ export function useCreateOnDemandCourse() {
       toast.error(err.response.data.message || "something went wrong"),
   });
 
-  return { createOnDemandCourse, isCreating }
+  return { createOnDemandCourse, isCreating, }
 }

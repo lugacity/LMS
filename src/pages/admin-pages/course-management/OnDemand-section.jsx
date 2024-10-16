@@ -21,8 +21,8 @@ import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 
 import { useCreateOnDemandCourse } from "@/hooks/course-management/use-create-demand-course";
 import { onDemandSessionSchema } from "@/lib/form-schemas/forms-schema";
-let section = localStorage.getItem("sectionNum")
-  ? localStorage.getItem("sectionNum")
+let section = localStorage.getItem("demandSectionNumber")
+  ? localStorage.getItem("demandSectionNumber")
   : 1;
 
 function OnDemandCourseSection() {
@@ -46,7 +46,7 @@ function OnDemandCourseSection() {
 
   const handleCreateNewSection = () => {
     section = Number(section) + 1;
-    localStorage.setItem("sectionNum", +section);
+    localStorage.setItem("demandSectionNumber", +section);
     toast.success(`section ${section} is created`);
     setDisabled(true);
   };
@@ -101,6 +101,11 @@ function OnDemandCourseSection() {
       onSuccess: () => {
         form.reset();
         setDisabled(false);
+        setVideo((prev) => {
+          return { ...prev, file: null, preview: null };
+        });
+        if (!localStorage.getItem("demandSectionNumber"))
+          return localStorage.setItem("demandSectionNumber", section);
       },
     });
   };

@@ -2,7 +2,6 @@ import { HiOutlinePencil } from "react-icons/hi";
 import { IoIosArrowRoundUp } from "react-icons/io";
 import { GoArrowDownRight, GoArrowUpRight } from "react-icons/go";
 import { GoArrowDown } from "react-icons/go";
-import { GoArrowDownLeft } from "react-icons/go";
 
 import {
   Popover,
@@ -13,7 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 import { TrashCan } from "@/Components/Icon";
 
-function SectionPopover({ children, className }) {
+function SectionPopover({ children, className, id, section }) {
   return (
     <Popover className={cn(className)}>
       <PopoverTrigger>{children}</PopoverTrigger>
