@@ -71,7 +71,7 @@ const CoursesRecordedSection = () => {
                     <AccordionTrigger className="w-full">
                       Section {course.section}
                     </AccordionTrigger>
-                    <SectionPopover>
+                    <SectionPopover id={course.id} section={course.section}>
                       <span className="cursor-pointer justify-self-end">
                         <LiaEllipsisVSolid className="self-end text-2xl" />
                       </span>
