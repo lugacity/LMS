@@ -22,7 +22,7 @@ function PublishPage() {
         {/* <h2 className="mb-2 text-xl font-bold">Publish</h2> */}
         <div className="space-y-14">
           <CourseInfo />
-          <CourseType />
+          {/* <CourseType /> */}
           <PublishCourseSection />
         </div>
         <CommonButton className="ml-auto mt-14 block w-full max-w-[182px] bg-primary-color-600">

@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateLiveSession } from "@/hooks/course-management/use-create-live-session";
 
@@ -10,6 +9,9 @@ import DashButton from "@/pages/auth/ButtonDash";
 import { CommonButton } from "@/Components/ui/button";
 import { ClipLoader } from "react-spinners";
 import { liveSessionSchema } from "@/lib/form-schemas/forms-schema";
+import { useQuery } from "@tanstack/react-query";
+import { getSingleCohort } from "@/services/api";
+import LiveSessionContent from "@/Components/admindashboard/course-management/live-session/liveSessionContent";
 
 const LiveSession = () => {
   const form = useForm({
@@ -199,22 +201,7 @@ const LiveSession = () => {
             </form>
           </Form>
 
-          <div className="col-span-4">
-            <div className="text-16px font-500 text-[#667185]">
-              <p>Section 1</p>
-              <p className="pt-4">Join Business Analysis Live Session</p>
-              <p className="py-4">
-                Business Analysis Agile Project Management Software Testing May
-                2024
-              </p>
-            </div>
-
-            <div>
-              <button className="rounded px-4 py-2 lg:bg-[#929db1] lg:text-white lg:hover:bg-[#727988] lg:hover:text-[#313335]">
-                https://meet.google.com/ohj-
-              </button>
-            </div>
-          </div>
+          <LiveSessionContent />
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 import { addRecordedSession } from "@/services/api"
 import toast from "react-hot-toast"
@@ -7,9 +7,14 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { RecordedSessionSchema } from "@/lib/form-schemas/forms-schema"
 
 export const useCreateRecordedSession = () => {
+  const queryClient = useQueryClient()
   const { mutate: createRecordedSession, isPending: isCreating } = useMutation({
     mutationFn: addRecordedSession,
-    onSuccess: ({ data }) => toast.success(data.message),
+    onSuccess: ({ data }) => {
+
+      toast.success(data.message)
+      queryClient.invalidateQueries("get-single-cohort")
+    },
     onError: (err) => toast.error(err.response.data.message || "something went wrong")
   })
   const form = useForm({

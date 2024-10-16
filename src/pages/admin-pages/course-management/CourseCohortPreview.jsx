@@ -43,6 +43,7 @@ import AllCohorts from "./AllCohorts";
 
 const CourseCohortPreview = ({ setSection }) => {
   const [cohort, setCohort] = useState("");
+  const [cohortId, setCohortId] = useState("");
   const [cohortErr, setCohortErr] = useState("");
 
   const { createSingleCohort, isCreating } = useCreateSingleCohort();
@@ -55,8 +56,12 @@ const CourseCohortPreview = ({ setSection }) => {
   };
 
   const handleNext = () => {
+    if (!cohortId) return;
+    console.log(cohortId);
+
     setSection("live or recorded");
     localStorage.setItem("section", "live or recorded");
+    localStorage.setItem("cohortId", cohortId);
   };
 
   return (
@@ -117,7 +122,7 @@ const CourseCohortPreview = ({ setSection }) => {
             </DashButton>
           </div>
         </div>
-        <AllCohorts />
+        <AllCohorts setCohortId={setCohortId} cohortId={cohortId} />
       </div>
 
       <div className="flex items-center justify-end pt-10">

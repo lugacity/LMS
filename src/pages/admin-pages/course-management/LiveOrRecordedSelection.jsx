@@ -3,6 +3,7 @@ import { ScrollRestoration } from "react-router-dom";
 import LiveSession from "./LiveSession";
 import RecordedSession from "./RecordedSession";
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
+import { useQuery } from "@tanstack/react-query";
 
 const LiveOrRecordedSelection = () => {
   const { setSubTab, subTab, setActiveTab } = useCourseManagementInfo();
@@ -10,13 +11,18 @@ const LiveOrRecordedSelection = () => {
     setSubTab(subTabIndex);
   };
 
+  const { data, isLoading } = useQuery({
+    queryKey: ["get-single-cohort"],
+  });
+
   return (
     <div>
       <ScrollRestoration />
 
       <div className="mb-4 flex items-center justify-between">
         <h2 className="mb-2 mt-5 text-[24px] font-[500] text-[#344054]">
-          Course Sections (May Cohort 2024)
+          Course Sections{" "}
+          {isLoading ? "loading..." : ` ( ${data?.data?.data.cohort})`}
         </h2>
         <SaveButton onClick={() => setActiveTab((prev) => prev + 1)}>
           Save and Continue
