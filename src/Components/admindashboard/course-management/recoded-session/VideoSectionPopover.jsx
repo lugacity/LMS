@@ -11,57 +11,77 @@ import {
 
 import { cn } from "@/lib/utils";
 import { TrashCan } from "@/Components/Icon";
+
 import {
-  useMoveSectionDown,
-  useMoveSectionToBotton,
-  useMoveSectionToTop,
-  useMoveSectionUP,
-} from "@/hooks/course-management/use-move-onDemand-section";
+  useMoveBottom,
+  useMoveDown,
+  useMoveTop,
+  useMoveUP,
+} from "@/hooks/course-management/use-move-demand-video";
+import { useDeleteOndemandVideo } from "@/hooks/course-management/use-mutate-ondemand-video";
 
-function SectionPopover({ children, className, id, section }) {
-  const { moveUP } = useMoveSectionUP();
-  const { moveDown } = useMoveSectionDown();
-  const { moveToTop } = useMoveSectionToTop();
-  const { moveToBottom } = useMoveSectionToBotton();
+function VideoSectionPopover({ children, className, id, section }) {
+  const { moveUP, status } = useMoveUP();
+  const { moveDown, moveDownStatus } = useMoveDown();
+  const { moveTop } = useMoveTop();
+  const { moveToBottom } = useMoveBottom();
+  const { deleteVideo } = useDeleteOndemandVideo();
 
-  const handleMoveUp = (sect) => {
-    console.log("move up", sect);
+  const handleMoveUp = (id, sect) => {
+    console.log("move up", id, sect);
 
     const data = {
-      section: sect,
+      videoId: id,
       direction: "forward",
     };
-    moveUP(data);
+    moveUP({
+      data,
+      section: sect,
+    });
   };
 
-  const handleMoveDown = (sect) => {
-    console.log("move up", sect);
+  const handleMoveDown = (id, sect) => {
+    console.log("move up", id, sect);
 
     const data = {
-      section: sect,
+      videoId: id,
       direction: "backward",
     };
-    moveDown(data);
+    moveDown({
+      data,
+      section: sect,
+    });
   };
-  const handleMoveTop = (sect) => {
-    console.log("move up", sect);
+  const handleMoveTop = (id, sect) => {
+    console.log("move up", id, sect);
 
     const data = {
-      section: sect,
+      videoId: id,
       direction: "toFront",
     };
-    moveToTop(data);
+    moveTop({
+      data,
+      section: sect,
+    });
   };
 
-  const handleMoveBottom = (sect) => {
-    console.log("move up", sect);
+  const handleMoveBottom = (id, sect) => {
+    console.log("move up", id, sect);
 
     const data = {
-      section: sect,
+      videoId: id,
       direction: "toBack",
     };
-    moveToBottom(data);
+    moveToBottom({
+      data,
+      section: sect,
+    });
   };
+
+  const handleDelete = (sect, id) => {
+    deleteVideo({ section: sect, id });
+  };
+
   return (
     <Popover className={cn(className)}>
       <PopoverTrigger>{children}</PopoverTrigger>
@@ -75,7 +95,7 @@ function SectionPopover({ children, className, id, section }) {
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
-            onClick={() => handleMoveTop(section)}
+            onClick={() => handleMoveTop(id, section)}
           >
             <span className="text-2xl">
               <IoIosArrowRoundUp />
@@ -86,7 +106,7 @@ function SectionPopover({ children, className, id, section }) {
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
-            onClick={() => handleMoveUp(section)}
+            onClick={() => handleMoveUp(id, section)}
           >
             <span className="text-xl">
               <GoArrowUpRight />
@@ -95,7 +115,7 @@ function SectionPopover({ children, className, id, section }) {
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
-            onClick={() => handleMoveBottom(section)}
+            onClick={() => handleMoveBottom(id, section)}
           >
             <span className="text-xl">
               <GoArrowDown />
@@ -104,14 +124,17 @@ function SectionPopover({ children, className, id, section }) {
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
-            onClick={() => handleMoveDown(section)}
+            onClick={() => handleMoveDown(id, section)}
           >
             <span className="text-xl">
               <GoArrowDownRight />
             </span>
             <span className="text-sm">Move down</span>
           </button>
-          <button className="flex items-center gap-1 py-3 text-[#667185]">
+          <button
+            className="flex items-center gap-1 py-3 text-[#667185]"
+            onClick={() => handleDelete(section, id)}
+          >
             <span className="text-xl">
               <TrashCan />
             </span>
@@ -123,4 +146,4 @@ function SectionPopover({ children, className, id, section }) {
   );
 }
 
-export default SectionPopover;
+export default VideoSectionPopover;
