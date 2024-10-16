@@ -168,3 +168,20 @@ export const addSingleCohort = async (data) => {
     },
   );
 };
+
+export const getSingleCohort = async () => {
+  const courseId = localStorage.getItem('id');
+  const token = Cookies.get('adminToken');
+
+  const cohortId = localStorage.getItem('cohortId');
+
+  return await axios.get(
+    `${BASE_URL}/courses/${courseId}/cohorts/${cohortId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+}

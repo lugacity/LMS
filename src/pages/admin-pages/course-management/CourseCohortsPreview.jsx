@@ -46,7 +46,7 @@ const CourseCohortsPreview = () => {
         </div>
 
         <div className="w-full max-w-[612px] space-y-4 justify-self-end">
-          {cohorts.map((cohort) => (
+          {p((cohort) => (
             <Link
               to={`/admin/course/management/info?month=${cohort.month}&year=${cohort.year}`}
               key={cohort.id}

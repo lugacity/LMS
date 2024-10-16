@@ -23,9 +23,9 @@ import { useDeleteOndemandVideo } from "@/hooks/course-management/use-mutate-ond
 function VideoSectionPopover({ children, className, id, section }) {
   const { moveUP, status } = useMoveUP();
   const { moveDown, moveDownStatus } = useMoveDown();
-  const { moveTop } = useMoveTop();
-  const { moveToBottom } = useMoveBottom();
-  const { deleteVideo } = useDeleteOndemandVideo();
+  const { moveTop, moveTopStatus } = useMoveTop();
+  const { moveToBottom, moveBottomStatus } = useMoveBottom();
+  const { deleteVideo, deleteStatus } = useDeleteOndemandVideo();
 
   const handleMoveUp = (id, sect) => {
     console.log("move up", id, sect);
@@ -100,9 +100,13 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-2xl">
               <IoIosArrowRoundUp />
             </span>
-            <span className="text-nowrap text-sm">
-              Move to the top of the list
-            </span>
+            {moveTopStatus === "pending" ? (
+              "loading..."
+            ) : (
+              <span className="text-nowrap text-sm">
+                Move to the top of the list
+              </span>
+            )}
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
@@ -111,7 +115,11 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-xl">
               <GoArrowUpRight />
             </span>
-            <span className="text-sm">Move up</span>
+            {status === "pending" ? (
+              "loading"
+            ) : (
+              <span className="text-sm">Move up</span>
+            )}
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
@@ -120,7 +128,11 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-xl">
               <GoArrowDown />
             </span>
-            <span className="text-sm">Move to the bottom of the list</span>
+            {moveBottomStatus === "pending" ? (
+              "loading..."
+            ) : (
+              <span className="text-sm">Move to the bottom of the list</span>
+            )}
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
@@ -129,7 +141,11 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-xl">
               <GoArrowDownRight />
             </span>
-            <span className="text-sm">Move down</span>
+            {moveDownStatus === "pending" ? (
+              "loading..."
+            ) : (
+              <span className="text-sm">Move down</span>
+            )}
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
