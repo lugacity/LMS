@@ -85,7 +85,7 @@ const CoursesRecordedLiveSession = () => {
                       {course.title}
                     </h2>
                     <ul className="mt-6 space-y-6">
-                      {/* {course.lessons.map((item, i) => {
+                      {course.videos.map((item, i) => {
                         return (
                           <li className="text-[#667185]" key={item.id}>
                             <article className="flex items-center justify-between">
@@ -120,7 +120,7 @@ const CoursesRecordedLiveSession = () => {
                             </div>
                           </li>
                         );
-                      })} */}
+                      })}
                     </ul>
                   </AccordionContent>
                 </AccordionItem>
