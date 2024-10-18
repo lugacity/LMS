@@ -72,7 +72,7 @@ const CourseInfo = ({ editButton = false }) => {
   //     .("/n")
   //     .map((tools) => `${tools}st`),
   // );
-  console.log(error);
+  // console.log(error);
 
   if (isLoading)
     return (
@@ -82,6 +82,8 @@ const CourseInfo = ({ editButton = false }) => {
     );
 
   if (isError) return <div>error ....</div>;
+  console.log(data?.data?.data?.course?.tools_and_technologies);
+
 
   return (
     <main className="rounded-md border-2 border-[#F0F2F5] p-12 pr-6">
@@ -121,16 +123,23 @@ const CourseInfo = ({ editButton = false }) => {
               Tools and Technologies:
             </h3>
             <div className="mb-9 mt-6 space-y-6">
-              <AvenueList
-                src={iconDark}
-                textColor={"#667185"}
-                className="items-start text-[16px] font-[300] lg:text-[18px]"
-                imgClass={"self-start mt-[6px]"}
-              >
-                Mastery of project management software (e.g., MS Project, Jira,
-                Asana)
-              </AvenueList>
-              <AvenueList
+            {data?.data?.data?.course?.tools_and_technologies?.flatMap((toolString, index) => 
+        toolString.split(',').map((tool, subIndex) => (  // Split each string by commas
+          <AvenueList 
+            key={`${index}-${subIndex}`}  // Use combined index for unique key
+            src={iconDark}
+            textColor={"#667185"}
+            className="items-start text-[16px] font-[300] lg:text-[18px]"
+            imgClass={"self-start mt-[6px]"}
+          >
+            <ul>
+              <li className="list-none normal-case">{tool.trim()}</li>  {/* Trim spaces */}
+            </ul>
+          </AvenueList>
+        ))
+      )}
+                
+              {/* <AvenueList
                 src={iconDark}
                 textColor={"#667185"}
                 className="text-[16px] font-[300] lg:text-[18px]"
@@ -143,7 +152,7 @@ const CourseInfo = ({ editButton = false }) => {
                 className="text-[16px] font-[300] lg:text-[18px]"
               >
                 Emerging technologies in project management
-              </AvenueList>
+              </AvenueList> */}
             </div>
           </article>
 
@@ -218,9 +227,26 @@ const CourseInfo = ({ editButton = false }) => {
             </AvenueList> */}
           {/* </div> */}
           <div className={"mt-9"}>
-            <p className="text-xl font-medium text-[#475367]">overview</p>
+            <p className="text-xl font-medium text-[#475367]">Program Highlights</p>
 
-            <div className="space-y-3 pt-3 lg:pt-9">
+            {data?.data?.data?.course?.program_highlights
+                  ?.filter(highlight => highlight && highlight.trim() !== '')  // Filter out empty or whitespace-only strings
+                  .map((highlight, index) => (
+                    <AvenueList 
+                      key={index}
+                      src={iconDark}
+                      textColor={"#667185"}
+                      className="items-start text-[16px] font-[300] lg:text-[18px]"
+                      imgClass={"self-start mt-[6px]"}
+                    >
+                      <ul>
+                        <li className="list-none normal-case">{highlight.trim()}</li> 
+                      </ul>
+                    </AvenueList>
+                  ))}
+            
+
+            {/* <div className="space-y-3 pt-3 lg:pt-9">
               <div className="flex items-start">
                 <span className="mr-2 mt-1">
                   <FaRegCircleCheck className="text-[#667185]" />
@@ -281,7 +307,7 @@ const CourseInfo = ({ editButton = false }) => {
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
       </main>

@@ -28,7 +28,7 @@ const LiveSessionContent = () => {
       </div>
 
       <div>
-        <button className="w-[300px] truncate rounded px-4 py-2 lg:bg-[#929db1] lg:text-white lg:hover:bg-[#727988] lg:hover:text-[#313335]">
+        <button className="w-[300px] truncate rounded px-4 py-2 lg:bg-primary-color-600 lg:text-white lg:hover:bg-[#727988] lg:hover:text-[#313335]">
           {cohortData.data.data.live_session.lectureLink}
         </button>
       </div>
