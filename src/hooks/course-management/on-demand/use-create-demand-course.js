@@ -1,4 +1,4 @@
-import { addDemandSection } from "@/services/api";
+import { addDemandSection, editDemandSection } from "@/services/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
@@ -17,4 +17,21 @@ export function useCreateOnDemandCourse() {
   });
 
   return { createOnDemandCourse, isCreating, }
+}
+
+export function useEditOnDemandCourse() {
+  const queryClient = useQueryClient()
+  const { mutate: editOnDemandCourse, isPending: isEditing } = useMutation({
+    mutationFn: editDemandSection,
+    onSuccess: ({ data }) => {
+      toast.success(data.message);
+      queryClient.invalidateQueries({
+        queryKey: ["get-demand-course"],
+      });
+    },
+    onError: (err) =>
+      toast.error(err.response.data.message || "something went wrong"),
+  });
+
+  return { editOnDemandCourse, isEditing }
 }

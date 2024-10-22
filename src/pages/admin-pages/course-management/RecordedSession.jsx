@@ -6,16 +6,14 @@ import { CommonButton } from "@/Components/ui/button";
 
 import { ImgUploadIcon } from "@/Components/Icon";
 
-import CoursesRecordedSection from "@/Components/admindashboard/course-management/recoded-session/CoursesRecordedSection";
-
 // import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 import { ScrollRestoration } from "react-router-dom";
 
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
-import { useCreateRecordedSession } from "@/hooks/course-management/use-create-recorded-session";
 import { ClipLoader } from "react-spinners";
 import CoursesRecordedLiveSession from "@/Components/admindashboard/course-management/recoded-session/CoursesRecordedLiveSession";
+import { useCreateRecordedSession } from "@/hooks/course-management/recorded-session/use-create-recorded-session";
 
 function RecordedSession() {
   const [video, setVideo] = useState({ file: null, preview: null });
@@ -45,9 +43,8 @@ function RecordedSession() {
 
   const handleCreateNewSection = () => {
     let section = localStorage.getItem("recordedSection")
-      ? localStorage.getItem("recordedSection")
+      ? +localStorage.getItem("recordedSection")
       : 2;
-
     section += 1;
 
     localStorage.setItem("recordedSection", +section);

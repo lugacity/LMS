@@ -17,15 +17,15 @@ import {
   useMoveDown,
   useMoveTop,
   useMoveUP,
-} from "@/hooks/course-management/use-move-demand-video";
-import { useDeleteOndemandVideo } from "@/hooks/course-management/use-mutate-ondemand-video";
+} from "@/hooks/course-management/recorded-session/use-move-recorded-video";
+import { useDeleteRecordedSection } from "@/hooks/course-management/recorded-session/use-delete-recorded-section";
 
-function VideoSectionPopover({ children, className, id, section }) {
+function RecordedVideoSectionPopover({ children, className, id, section }) {
   const { moveUP, status } = useMoveUP();
   const { moveDown, moveDownStatus } = useMoveDown();
   const { moveTop, moveTopStatus } = useMoveTop();
   const { moveToBottom, moveBottomStatus } = useMoveBottom();
-  const { deleteVideo, deleteStatus } = useDeleteOndemandVideo();
+  const { deleteVideo, deleteStatus } = useDeleteRecordedSection();
 
   const handleMoveUp = (id, sect) => {
     console.log("move up", id, sect);
@@ -162,4 +162,4 @@ function VideoSectionPopover({ children, className, id, section }) {
   );
 }
 
-export default VideoSectionPopover;
+export default RecordedVideoSectionPopover;

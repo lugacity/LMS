@@ -1,4 +1,3 @@
-import SectionPopover from "./SectionPopover";
 import { LiaEllipsisVSolid } from "react-icons/lia";
 import { VidIcon } from "@/Components/Icon";
 import {
@@ -10,7 +9,8 @@ import {
 import { useQuery } from "@tanstack/react-query";
 
 import { getSingleCohort } from "@/services/api";
-import VideoSectionPopover from "./VideoSectionPopover";
+import RecordedSectionPopover from "./RecordedSectionPopover";
+import RecordedVideoSectionPopover from "./RecordedVideoSectionPopover";
 
 const months = [
   "Jan",
@@ -57,7 +57,10 @@ const CoursesRecordedLiveSession = () => {
 
     return <p>{error.response.data.message || "something went wrong"}</p>;
   }
-  if (data)
+  if (data) {
+    data?.data?.data?.recorded_sessions.length < 1 &&
+      localStorage.setItem("recordedSection", 2);
+
     return (
       <aside className="overflow-y-auto overflow-x-hidden">
         {data?.data?.data?.recorded_sessions.length < 1 ? (
@@ -74,18 +77,21 @@ const CoursesRecordedLiveSession = () => {
                     <AccordionTrigger className="w-full">
                       Section {course.section}
                     </AccordionTrigger>
-                    <SectionPopover id={course.id} section={course.section}>
+                    <RecordedSectionPopover
+                      id={course.id}
+                      section={course.section}
+                    >
                       <span className="cursor-pointer justify-self-end">
                         <LiaEllipsisVSolid className="self-end text-2xl" />
                       </span>
-                    </SectionPopover>
+                    </RecordedSectionPopover>
                   </div>
                   <AccordionContent>
                     <h2 className="font-medium capitalize leading-[23.2px] text-[#344054]">
                       {course.title}
                     </h2>
                     <ul className="mt-6 space-y-6">
-                      {/* {course.lessons.map((item, i) => {
+                      {course.videos.map((item, i) => {
                         return (
                           <li className="text-[#667185]" key={item.id}>
                             <article className="flex items-center justify-between">
@@ -96,14 +102,14 @@ const CoursesRecordedLiveSession = () => {
                                 </span>
                               </div>
                               <div>
-                                <VideoSectionPopover
+                                <RecordedVideoSectionPopover
                                   id={item.id}
                                   section={course.section}
                                 >
                                   <span className="cursor-pointer justify-self-end">
                                     <LiaEllipsisVSolid className="self-end text-2xl" />
                                   </span>
-                                </VideoSectionPopover>
+                                </RecordedVideoSectionPopover>
                               </div>
                             </article>
                             <div className="mt-3 flex items-start gap-4">
@@ -120,7 +126,7 @@ const CoursesRecordedLiveSession = () => {
                             </div>
                           </li>
                         );
-                      })} */}
+                      })}
                     </ul>
                   </AccordionContent>
                 </AccordionItem>
@@ -130,6 +136,7 @@ const CoursesRecordedLiveSession = () => {
         )}
       </aside>
     );
+  }
   return <p>something went wrong ...</p>;
 };
 

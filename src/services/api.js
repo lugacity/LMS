@@ -39,6 +39,20 @@ export const addDemandSection = async (data) => {
     },
   );
 }
+export const editDemandSection = async ({ data, section }) => {
+  const token = Cookies.get('adminToken')
+  const courseId = localStorage.getItem("id");
+
+  return await axios.patch(
+    `${BASE_URL}/courses/${courseId}/on-demand-section/${section}`,
+    data,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+}
 
 export const addCourseInformation = async (data) => {
   const token = Cookies.get('adminToken')

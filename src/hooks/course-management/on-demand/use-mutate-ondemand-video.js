@@ -6,7 +6,7 @@ import toast from "react-hot-toast"
 
 
 const mutateVideo = async ({ section, id }) => {
-  // https://avi-lms-backend.onrender.com/api/v1/admins/courses/:courseId/on-demand-section/:section/recordings/:videoId
+
   const courseId = localStorage.getItem('id')
   const token = Cookies.get('adminToken')
 

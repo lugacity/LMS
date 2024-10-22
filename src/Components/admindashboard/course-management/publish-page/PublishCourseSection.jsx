@@ -1,5 +1,5 @@
 import { CommonButton } from "@/Components/ui/button";
-import CoursesRecordedSection from "../recoded-session/CoursesRecordedSection";
+// import CoursesRecordedSection from "../recoded-session/CoursesRecordedSection";
 import { useQuery } from "@tanstack/react-query";
 import { fetchDemandCourse } from "@/services/api";
 
@@ -63,7 +63,7 @@ function PublishCourseSection() {
             }
           /> */}
         </div>
-        <CoursesRecordedSection />
+        {/* <CoursesRecordedSection /> */}
       </div>
     </section>
   );
