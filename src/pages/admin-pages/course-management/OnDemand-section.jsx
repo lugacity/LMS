@@ -1,13 +1,12 @@
 import { CommonButton } from "@/Components/ui/button";
 
-import CoursesRecordedSection from "@/Components/admindashboard/course-management/recoded-session/CoursesRecordedSection";
-
 // import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 import { ScrollRestoration } from "react-router-dom";
 
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 
 import CreateOndemandForm from "@/Components/admindashboard/course-management/on-demand-section/CreateOndemandForm";
+import OnDemandRecordedSection from "@/Components/admindashboard/course-management/on-demand-section/OnDemandRecordedSection";
 
 function OnDemandCourseSection() {
   const { setActiveTab } = useCourseManagementInfo();
@@ -30,7 +29,7 @@ function OnDemandCourseSection() {
           <CreateOndemandForm />
         </div>
         <div className="overflow-y-hidden">
-          <CoursesRecordedSection />
+          <OnDemandRecordedSection />
         </div>
       </main>
       <div>

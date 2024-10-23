@@ -52,10 +52,10 @@ const CoursesRecordedLiveSession = () => {
   // console.log(isLoading, isError, data);
 
   if (isLoading) return <p>loading....</p>;
-  if (isError && !data) {
+  if (error && !data) {
     console.log(error);
 
-    return <p>{error.response.data.message || "something went wrong"}</p>;
+    return <p>{error.response?.data?.message || "something went wrong"}</p>;
   }
   if (data) {
     data?.data?.data?.recorded_sessions.length < 1 &&
@@ -92,6 +92,7 @@ const CoursesRecordedLiveSession = () => {
                     </h2>
                     <ul className="mt-6 space-y-6">
                       {course.videos.map((item, i) => {
+                        console.log(item);
                         return (
                           <li className="text-[#667185]" key={item.id}>
                             <article className="flex items-center justify-between">
@@ -119,7 +120,7 @@ const CoursesRecordedLiveSession = () => {
                                   {item.video_title}
                                 </h3>
                                 <p className="text-sm font-light text-[#98A2B3]">
-                                  {formatDate(item.createdAt)}{" "}
+                                  {formatDate(item.created_at)}{" "}
                                   <span>{item.video_url.size}MB</span>
                                 </p>
                               </article>

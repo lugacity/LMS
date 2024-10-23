@@ -21,7 +21,7 @@ const moveSection = async (data) => {
   });
 };
 
-export const useMoveSectionUP = () => {
+export const useMoveRecordedSectionUP = () => {
   const queryClient = useQueryClient();
   const { mutate: moveUP, isPending: isMovingUP } = useMutation({
     mutationFn: moveSection,
@@ -40,7 +40,7 @@ export const useMoveSectionUP = () => {
   };
 };
 
-export const useMoveSectionDown = () => {
+export const useMoveRecordedSectionDown = () => {
   const queryClient = useQueryClient();
   const { mutate: moveDown, isPending: isMovingDown } = useMutation({
     mutationFn: moveSection,
@@ -57,7 +57,7 @@ export const useMoveSectionDown = () => {
   return { moveDown, isMovingDown };
 };
 
-export const useMoveSectionToTop = () => {
+export const useMoveRecordedSectionToTop = () => {
   const queryClient = useQueryClient();
   const { mutate: moveToTop, isPending: isMovingToTop } = useMutation({
     mutationFn: moveSection,
@@ -74,7 +74,7 @@ export const useMoveSectionToTop = () => {
   return { moveToTop, isMovingToTop };
 };
 
-export const useMoveSectionToBotton = () => {
+export const useMoveRecordedSectionToBottom = () => {
   const queryClient = useQueryClient();
   const { mutate: moveToBottom, isPending: isMovingToBottom } = useMutation({
     mutationFn: moveSection,

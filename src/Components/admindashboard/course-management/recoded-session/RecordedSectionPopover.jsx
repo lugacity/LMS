@@ -20,17 +20,17 @@ import BorderCard from "@/Components/BorderCard";
 import CreateOndemandForm from "../on-demand-section/CreateOndemandForm";
 import { useDeleteRecordedSection } from "@/hooks/course-management/recorded-session/use-delete-recorded-section";
 import {
-  useMoveSectionDown,
-  useMoveSectionToBotton,
-  useMoveSectionToTop,
-  useMoveSectionUP,
+  useMoveRecordedSectionDown,
+  useMoveRecordedSectionToBottom,
+  useMoveRecordedSectionToTop,
+  useMoveRecordedSectionUP,
 } from "@/hooks/course-management/recorded-session/use-move-recorded-section";
 
 function RecordedSectionPopover({ children, className, section, course }) {
-  const { moveUP, isMovingUP } = useMoveSectionUP();
-  const { moveDown, isMovingDown } = useMoveSectionDown();
-  const { moveToTop, isMovingToTop } = useMoveSectionToTop();
-  const { moveToBottom, isMovingToBottom } = useMoveSectionToBotton();
+  const { moveUP, isMovingUP } = useMoveRecordedSectionUP();
+  const { moveDown, isMovingDown } = useMoveRecordedSectionDown();
+  const { moveToTop, isMovingToTop } = useMoveRecordedSectionToTop();
+  const { moveToBottom, isMovingToBottom } = useMoveRecordedSectionToBottom();
 
   const { deleteSection, isDeleting } = useDeleteRecordedSection();
 

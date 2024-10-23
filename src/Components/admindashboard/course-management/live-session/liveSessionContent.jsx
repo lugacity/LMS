@@ -6,14 +6,16 @@ const LiveSessionContent = () => {
   const {
     data: cohortData,
     isLoading,
-    isError,
+    error,
   } = useQuery({
     queryKey: ["get-single-cohort"],
     queryFn: getSingleCohort,
   });
+  console.log(error);
+
   if (isLoading) return <p>Loading....</p>;
 
-  if (isError) return <p>something went wrong!!</p>;
+  if (error) return <p>something went wrong!!</p>;
 
   return (
     <div className="col-span-4">
@@ -29,7 +31,7 @@ const LiveSessionContent = () => {
 
       <div>
         <button className="w-[300px] truncate rounded px-4 py-2 lg:bg-[#929db1] lg:text-white lg:hover:bg-[#727988] lg:hover:text-[#313335]">
-          {cohortData.data.data.live_session.lectureLink}
+          {cohortData.data.data.live_session.lecture_link}
         </button>
       </div>
     </div>

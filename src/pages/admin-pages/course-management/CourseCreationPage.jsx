@@ -22,7 +22,7 @@ const tab = [
 ];
 
 export default function CourseCreationPage() {
-  const { activeTab } = useCourseManagementInfo();
+  const { activeTab, setActiveTab } = useCourseManagementInfo();
 
   return (
     <div className="mx-auto max-w-6xl p-4">
@@ -32,6 +32,9 @@ export default function CourseCreationPage() {
           <span
             key={index}
             className={`flex items-center text-sm font-medium ${activeTab === index + 1 ? "text-[#CC1747]" : "text-[#98A2B3] hover:text-gray-800"}`}
+            onClick={() => {
+              setActiveTab((prev) => prev - 1);
+            }}
           >
             <span
               className={`mr-2 flex h-6 w-6 items-center justify-center rounded-full border border-[#98A2B3] ${activeTab === index + 1 && "border-transparent bg-[#CC1747] text-white"} ${activeTab > index + 1 && "border-transparent bg-[#98A2B3] text-white"}`}

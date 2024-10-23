@@ -22,7 +22,9 @@ const LiveOrRecordedSelection = () => {
       <div className="mb-4 flex items-center justify-between">
         <h2 className="mb-2 mt-5 text-[24px] font-[500] text-[#344054]">
           Course Sections{" "}
-          {isLoading ? "loading..." : ` ( ${data?.data?.data.cohort})`}
+          {isLoading
+            ? "loading..."
+            : ` ( ${data?.data?.data.cohort ?? "something went wrong!!"})`}
         </h2>
         <SaveButton onClick={() => setActiveTab((prev) => prev + 1)}>
           Save and Continue

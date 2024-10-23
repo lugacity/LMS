@@ -12,8 +12,11 @@ import { liveSessionSchema } from "@/lib/form-schemas/forms-schema";
 import { useQuery } from "@tanstack/react-query";
 import { getSingleCohort } from "@/services/api";
 import LiveSessionContent from "@/Components/admindashboard/course-management/live-session/liveSessionContent";
+import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 
 const LiveSession = () => {
+  const { setSubTab } = useCourseManagementInfo();
+
   const form = useForm({
     resolver: zodResolver(liveSessionSchema),
     defaultValues: {
@@ -206,7 +209,10 @@ const LiveSession = () => {
       </div>
 
       <div className="flex items-center justify-end gap-6 pt-10">
-        <DashButton className="rounded px-4 py-2 text-white">
+        <DashButton
+          className="rounded px-4 py-2 text-white"
+          onClick={() => setSubTab(2)}
+        >
           Continue
         </DashButton>
       </div>

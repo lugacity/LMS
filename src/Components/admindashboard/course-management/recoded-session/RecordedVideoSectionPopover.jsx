@@ -12,20 +12,21 @@ import {
 import { cn } from "@/lib/utils";
 import { TrashCan } from "@/Components/Icon";
 
+import { useDeleteRecordedVideo } from "@/hooks/course-management/recorded-session/use-delete-recorded-section";
+
 import {
-  useMoveBottom,
-  useMoveDown,
-  useMoveTop,
-  useMoveUP,
+  useMoveRecordedVideoDown,
+  useMoveRecordedVideoToBottom,
+  useMoveRecordedVideoToTop,
+  useMoveRecordedVideoUP,
 } from "@/hooks/course-management/recorded-session/use-move-recorded-video";
-import { useDeleteRecordedSection } from "@/hooks/course-management/recorded-session/use-delete-recorded-section";
 
 function RecordedVideoSectionPopover({ children, className, id, section }) {
-  const { moveUP, status } = useMoveUP();
-  const { moveDown, moveDownStatus } = useMoveDown();
-  const { moveTop, moveTopStatus } = useMoveTop();
-  const { moveToBottom, moveBottomStatus } = useMoveBottom();
-  const { deleteVideo, deleteStatus } = useDeleteRecordedSection();
+  const { moveUP, status } = useMoveRecordedVideoUP();
+  const { moveDown, moveDownStatus } = useMoveRecordedVideoDown();
+  const { moveTop, moveTopStatus } = useMoveRecordedVideoToTop();
+  const { moveToBottom, moveBottomStatus } = useMoveRecordedVideoToBottom();
+  const { deleteRecordedVideo, isDeleting } = useDeleteRecordedVideo();
 
   const handleMoveUp = (id, sect) => {
     console.log("move up", id, sect);
@@ -79,7 +80,7 @@ function RecordedVideoSectionPopover({ children, className, id, section }) {
   };
 
   const handleDelete = (sect, id) => {
-    deleteVideo({ section: sect, id });
+    deleteRecordedVideo({ section: sect, id });
   };
 
   return (
@@ -94,8 +95,9 @@ function RecordedVideoSectionPopover({ children, className, id, section }) {
             <span className="text-sm">Edit</span>
           </button>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveTop(id, section)}
+            disabled={moveTopStatus === "pending"}
           >
             <span className="text-2xl">
               <IoIosArrowRoundUp />
@@ -109,8 +111,9 @@ function RecordedVideoSectionPopover({ children, className, id, section }) {
             )}
           </button>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveUp(id, section)}
+            disabled={status === "pending"}
           >
             <span className="text-xl">
               <GoArrowUpRight />
@@ -122,8 +125,9 @@ function RecordedVideoSectionPopover({ children, className, id, section }) {
             )}
           </button>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveBottom(id, section)}
+            disabled={moveBottomStatus === "pending"}
           >
             <span className="text-xl">
               <GoArrowDown />
@@ -135,8 +139,9 @@ function RecordedVideoSectionPopover({ children, className, id, section }) {
             )}
           </button>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveDown(id, section)}
+            disabled={moveDownStatus === "pending"}
           >
             <span className="text-xl">
               <GoArrowDownRight />
@@ -148,13 +153,14 @@ function RecordedVideoSectionPopover({ children, className, id, section }) {
             )}
           </button>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleDelete(section, id)}
+            disabled={isDeleting}
           >
             <span className="text-xl">
               <TrashCan />
             </span>
-            <span className="text-sm">Delete</span>
+            <span className="text-sm">{isDeleting ? "Loading" : "Delete"}</span>
           </button>
         </div>
       </PopoverContent>

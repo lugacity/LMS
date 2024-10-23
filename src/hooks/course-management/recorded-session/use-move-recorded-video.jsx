@@ -4,13 +4,17 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
-const moveVideo = async ({ data, section }) => {
+const moveRecordedVideo = async ({ data, section }) => {
   const courseId = localStorage.getItem("id");
   const cohortId = localStorage.getItem("cohortId");
   const token = Cookies.get("adminToken");
 
-  const url = `${BASE_URL}/courses/${courseId}/cohorts/${cohortId}/sections/${section}/move-video
-`;
+  console.log({
+    data,
+    section,
+  });
+  // https://avi-lms-backend.onrender.com/api/v1/admins/courses/:courseId/cohorts/:cohortId/sections/:section/move-video
+  const url = `${BASE_URL}/courses/${courseId}/cohorts/${cohortId}/sections/${section}/move-video`;
 
   return await axios.put(url, data, {
     headers: {
@@ -19,11 +23,11 @@ const moveVideo = async ({ data, section }) => {
   });
 };
 
-export const useMoveDown = () => {
+export const useMoveRecordedVideoDown = () => {
   const queryClient = useQueryClient();
 
   const { mutate: moveDown, status: moveDownStatus } = useMutation({
-    mutationFn: moveVideo,
+    mutationFn: moveRecordedVideo,
     onSuccess: (data) => {
       toast.success(data.data.message);
 
@@ -35,11 +39,11 @@ export const useMoveDown = () => {
   return { moveDown, moveDownStatus };
 };
 
-export const useMoveUP = () => {
+export const useMoveRecordedVideoUP = () => {
   const queryClient = useQueryClient();
 
   const { mutate: moveUP, status } = useMutation({
-    mutationFn: moveVideo,
+    mutationFn: moveRecordedVideo,
     onSuccess: (data) => {
       toast.success(data.data.message);
 
@@ -51,11 +55,11 @@ export const useMoveUP = () => {
   return { moveUP, status };
 };
 
-export const useMoveTop = () => {
+export const useMoveRecordedVideoToTop = () => {
   const queryClient = useQueryClient();
 
   const { mutate: moveTop, status: moveTopStatus } = useMutation({
-    mutationFn: moveVideo,
+    mutationFn: moveRecordedVideo,
     onSuccess: (data) => {
       console.log(data);
       toast.success(data.data.message);
@@ -68,11 +72,11 @@ export const useMoveTop = () => {
   return { moveTop, moveTopStatus };
 };
 
-export const useMoveBottom = () => {
+export const useMoveRecordedVideoToBottom = () => {
   const queryClient = useQueryClient();
 
   const { mutate: moveToBottom, status: moveBottomStatus } = useMutation({
-    mutationFn: moveVideo,
+    mutationFn: moveRecordedVideo,
     onSuccess: (data) => {
       console.log(data);
       toast.success(data.data.message);

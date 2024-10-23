@@ -27,7 +27,7 @@ function CreateOndemandForm({ sectionToEdit = {}, setEdit }) {
 
   let section = localStorage.getItem("demandSectionNumber")
     ? localStorage.getItem("demandSectionNumber")
-    : 1;
+    : 2;
 
   const form = useForm({
     resolver: zodResolver(onDemandSessionSchema),

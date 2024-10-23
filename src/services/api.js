@@ -70,6 +70,23 @@ export const addCourseInformation = async (data) => {
 
 }
 
+export const editCourseInformationApi = async (data) => {
+  // https://avi-lms-backend.onrender.com/api/v1/admins/courses/:courseId/course-informations
+  const token = Cookies.get('adminToken')
+  const courseId = localStorage.getItem('id')
+
+  return await axios.patch(
+    `${BASE_URL}/courses/${courseId}/course-informations`,
+    data,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+}
+
 export const addCourseType = async (data) => {
   const token = Cookies.get('adminToken')
   const courseId = localStorage.getItem('id')
