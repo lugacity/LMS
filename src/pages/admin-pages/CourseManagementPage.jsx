@@ -71,10 +71,10 @@ const CourseManagementPage = () => {
 
     const courses = {
       title: courseTitle,
-      tools_and_technologies: technologies.split(","),
-      benefits: benefits.split(","),
-      program_highlights: highlight.split(","),
-      course_includes: courseIncludes.split(","),
+      tools_and_technologies: technologies.split("\n"),
+      benefits: benefits.split("\n"),
+      program_highlights: highlight.split("\n"),
+      course_includes: courseIncludes.split("\n"),
       overview: overview,
       coverImage: image.file,
     };

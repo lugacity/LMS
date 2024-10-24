@@ -58,7 +58,7 @@ export const addCourseInformation = async (data) => {
 
 export const addCourseType = async (data) => {
   const token = Cookies.get('adminToken')
-  const courseId = localStorage.getItem('id')
+  const courseId = localStorage.getItem('courseId')
   return await axios.post(
     `${BASE_URL}/courses/${courseId}/coursetype`,
     data,
@@ -72,7 +72,7 @@ export const addCourseType = async (data) => {
 
 export const addLiveSession = async (data) => {
   const token = Cookies.get('adminToken')
-  const courseId = localStorage.getItem('id')
+  const courseId = localStorage.getItem('courseId')
 
   const cohort = localStorage.getItem("cohorts");
 
@@ -88,7 +88,7 @@ export const addLiveSession = async (data) => {
 }
 
 export const addRecordedSession = async (data) => {
-  const courseId = localStorage.getItem('id')
+  const courseId = localStorage.getItem('courseId')
   const token = Cookies.get('adminToken')
   let section = localStorage.getItem("recordedSection")
     ? localStorage.getItem("recordedSection")
@@ -109,7 +109,7 @@ export const addRecordedSession = async (data) => {
 
 export const fetchDemandCourse = async () => {
   const token = Cookies.get('adminToken')
-  const courseId = localStorage.getItem('id')
+  const courseId = localStorage.getItem('courseId')
 
 
   return await axios.get(
@@ -126,7 +126,7 @@ export const fetchDemandCourse = async () => {
 // Fetch course information
 export const fetchCourseInformation = async () => {
   const token = Cookies.get('adminToken');
-  const courseId = localStorage.getItem('id');
+  const courseId = localStorage.getItem('courseId');
 
   return await axios.get(
     `${BASE_URL}/courses/${courseId}/course-informations`,
@@ -141,7 +141,7 @@ export const fetchCourseInformation = async () => {
 // Fetch cohorts
 export const fetchCohorts = async () => {
   const token = Cookies.get('adminToken');
-  const courseId = localStorage.getItem('id');
+  const courseId = localStorage.getItem('courseId');
 
   return await axios.get(
     `${BASE_URL}/courses/${courseId}/cohorts`,
@@ -155,7 +155,7 @@ export const fetchCohorts = async () => {
 
 // Add a single cohort
 export const addSingleCohort = async (data) => {
-  const courseId = localStorage.getItem('id');
+  const courseId = localStorage.getItem('courseId');
   const token = Cookies.get('adminToken');
 
   return await axios.post(
@@ -170,7 +170,7 @@ export const addSingleCohort = async (data) => {
 };
 
 export const getSingleCohort = async () => {
-  const courseId = localStorage.getItem('id');
+  const courseId = localStorage.getItem('courseId');
   const token = Cookies.get('adminToken');
 
   const cohortId = localStorage.getItem('cohortId');

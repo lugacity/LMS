@@ -7,7 +7,8 @@ export const useCreateCourseInformation = () => {
     mutationFn: addCourseInformation,
     onSuccess: ({ data }) => {
       toast.success(data.message);
-      localStorage.setItem("id", data.data.id);
+      localStorage.setItem("courseId", data.data.id);
+      localStorage.setItem('course-information', JSON.stringify(data.data))
     },
     onError: (err) => toast.error(err.response.data.message || 'something went wrong')
   })

@@ -12,32 +12,26 @@ import {
 import { cn } from "@/lib/utils";
 import { TrashCan } from "@/Components/Icon";
 import {
-  useMoveRecordedSectionDown,
-  useMoveRecordedSectionToBottom,
-  useMoveRecordedSectionToTop,
-  useMoveRecordedSectionUp,
-} from "@/hooks/course-management/recorded-section/use-move-recorded-section";
+  useMoveSectionDown,
+  useMoveSectionToBotton,
+  useMoveSectionToTop,
+  useMoveSectionUP,
+} from "@/hooks/course-management/use-move-onDemand-section";
 
-import { useDeleteRecordedSection } from "@/hooks/course-management/recorded-section/use-delete-recorded-section";
-
-function SectionPopover({ children, className, section }) {
-  const { moveSectionUp, isMovingUp } = useMoveRecordedSectionUp();
-  const { moveSectionDown, isMovingDown } = useMoveRecordedSectionDown();
-  const { moveSectionToTop, isMovingToTop } = useMoveRecordedSectionToTop();
-  const { moveSectionToBottom, isMovingToBottom } =
-    useMoveRecordedSectionToBottom();
-
-  const { deleteRecordedSection, isDeleting } = useDeleteRecordedSection();
+function OndemandSectionPopover({ children, className, section }) {
+  const { moveUP } = useMoveSectionUP();
+  const { moveDown } = useMoveSectionDown();
+  const { moveToTop } = useMoveSectionToTop();
+  const { moveToBottom } = useMoveSectionToBotton();
 
   const handleMoveUp = (sect) => {
-    console.log("section====", sect);
+    console.log("move up", sect);
 
     const data = {
       section: sect,
       direction: "forward",
     };
-
-    moveSectionUp(data);
+    moveUP(data);
   };
 
   const handleMoveDown = (sect) => {
@@ -47,7 +41,7 @@ function SectionPopover({ children, className, section }) {
       section: sect,
       direction: "backward",
     };
-    moveSectionDown(data);
+    moveDown(data);
   };
   const handleMoveTop = (sect) => {
     console.log("move up", sect);
@@ -56,7 +50,7 @@ function SectionPopover({ children, className, section }) {
       section: sect,
       direction: "toFront",
     };
-    moveSectionToTop(data);
+    moveToTop(data);
   };
 
   const handleMoveBottom = (sect) => {
@@ -66,13 +60,8 @@ function SectionPopover({ children, className, section }) {
       section: sect,
       direction: "toBack",
     };
-    moveSectionToBottom(data);
+    moveToBottom(data);
   };
-
-  const handleDelete = (sect) => {
-    deleteRecordedSection(sect);
-  };
-
   return (
     <Popover className={cn(className)}>
       <PopoverTrigger>{children}</PopoverTrigger>
@@ -92,7 +81,7 @@ function SectionPopover({ children, className, section }) {
               <IoIosArrowRoundUp />
             </span>
             <span className="text-nowrap text-sm">
-              {isMovingToTop ? "Loading..." : "Move to the top of the list"}
+              Move to the top of the list
             </span>
           </button>
           <button
@@ -102,10 +91,7 @@ function SectionPopover({ children, className, section }) {
             <span className="text-xl">
               <GoArrowUpRight />
             </span>
-
-            <span className="text-sm">
-              {isMovingUp ? "Loading..." : "Move up"}
-            </span>
+            <span className="text-sm">Move up</span>
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
@@ -114,11 +100,7 @@ function SectionPopover({ children, className, section }) {
             <span className="text-xl">
               <GoArrowDown />
             </span>
-            <span className="text-sm">
-              {isMovingToBottom
-                ? "Loading..."
-                : " Move to the bottom of the list"}
-            </span>
+            <span className="text-sm">Move to the bottom of the list</span>
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
@@ -127,17 +109,13 @@ function SectionPopover({ children, className, section }) {
             <span className="text-xl">
               <GoArrowDownRight />
             </span>
-            <span className="text-sm">
-              {isMovingDown ? "Loading..." : "Move Down"}
-            </span>
+            <span className="text-sm">Move down</span>
           </button>
           <button className="flex items-center gap-1 py-3 text-[#667185]">
             <span className="text-xl">
               <TrashCan />
             </span>
-            <span className="text-sm" onClick={() => handleDelete(section)}>
-              Delete
-            </span>
+            <span className="text-sm">Delete</span>
           </button>
         </div>
       </PopoverContent>
@@ -145,4 +123,4 @@ function SectionPopover({ children, className, section }) {
   );
 }
 
-export default SectionPopover;
+export default OndemandSectionPopover;

@@ -15,32 +15,6 @@ import DashButton from "../../auth/ButtonDash";
 import { useCreateSingleCohort } from "@/hooks/course-management/use-create-single-cohorts";
 import AllCohorts from "./AllCohorts";
 
-// const formatDate = (date) => {
-//   // Create a Date object from the ISO string
-//   const createdAt = new Date(date);
-
-//   // Check if date is valid
-//   if (isNaN(createdAt.getTime())) {
-//     return "Invalid Date";
-//   }
-
-//   // Format date and time
-//   const day = createdAt.getDate();
-//   const locale = navigator.language;
-//   const month = new Intl.DateTimeFormat(locale, { month: "long" }).format(
-//     createdAt,
-//   );
-//   const year = createdAt.getFullYear();
-
-//   // Extract time parts and handle 12-hour format
-//   const hour = createdAt.getHours();
-//   const min = createdAt.getMinutes().toString().padStart(2, "0"); // Add leading zero if needed
-//   const get12hrs = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
-//   const amOrPm = hour >= 12 ? "PM" : "AM";
-
-//   return `${day} ${month}, ${year} | ${get12hrs}:${min}${amOrPm}`;
-// };
-
 const CourseCohortPreview = ({ setSection }) => {
   const [cohort, setCohort] = useState("");
   const [cohortId, setCohortId] = useState("");
@@ -51,7 +25,7 @@ const CourseCohortPreview = ({ setSection }) => {
   const handleAddCohort = () => {
     if (!cohort) return setCohortErr("Add cohort");
     createSingleCohort({
-      cohort: cohort,
+      cohort,
     });
   };
 
@@ -88,7 +62,7 @@ const CourseCohortPreview = ({ setSection }) => {
           <div className="w-full pt-3">
             <CohortSelection
               data={cohorts}
-              setCohorts={setCohort}
+              setCohort={setCohort}
               text={"Select cohort"}
             />
             <div>

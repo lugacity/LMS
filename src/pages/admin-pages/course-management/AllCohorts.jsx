@@ -6,7 +6,7 @@ import { fetchCohorts } from "@/services/api";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 
-const AllCohorts = ({ setCohortId}) => {
+const AllCohorts = ({ setCohortId }) => {
   const { data, isLoading } = useQuery({
     queryKey: ["get-cohorts"],
     queryFn: fetchCohorts,
@@ -25,6 +25,8 @@ const AllCohorts = ({ setCohortId}) => {
               onClick={() => {
                 setActive(cohortItem.id);
                 setCohortId(cohortItem.id);
+                localStorage.setItem("cohorts", cohortItem.cohort);
+                console.log(cohortItem.cohort, cohortItem.id);
               }}
               key={cohortItem.id}
               className={cn(

@@ -220,7 +220,7 @@ const CourseType = () => {
 
                 <CohortSelection
                   data={cohorts}
-                  setCohorts={setCohort}
+                  setCohort={setCohort}
                   text={"Select cohort"}
                 />
                 <div>
