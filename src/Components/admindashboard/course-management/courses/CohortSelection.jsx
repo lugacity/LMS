@@ -8,9 +8,9 @@ import {
   SelectValue,
 } from "@/Components/ui/select";
 
-const CohortSelection = ({ data, setCohorts, text }) => {
+const CohortSelection = ({ data, setCohort, text }) => {
   return (
-    <Select onValueChange={setCohorts}>
+    <Select onValueChange={setCohort}>
       <SelectTrigger className="w-full">
         <SelectValue placeholder="Select a cohort" />
       </SelectTrigger>

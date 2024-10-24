@@ -9,11 +9,14 @@ import DashButton from "@/pages/auth/ButtonDash";
 import { CommonButton } from "@/Components/ui/button";
 import { ClipLoader } from "react-spinners";
 import { liveSessionSchema } from "@/lib/form-schemas/forms-schema";
-import { useQuery } from "@tanstack/react-query";
-import { getSingleCohort } from "@/services/api";
+
 import LiveSessionContent from "@/Components/admindashboard/course-management/live-session/liveSessionContent";
+import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 
 const LiveSession = () => {
+  const { createLiveSession, isCreating } = useCreateLiveSession();
+  const { setSubTab } = useCourseManagementInfo();
+
   const form = useForm({
     resolver: zodResolver(liveSessionSchema),
     defaultValues: {
@@ -26,8 +29,6 @@ const LiveSession = () => {
       overview: "",
     },
   });
-
-  const { createLiveSession, isCreating } = useCreateLiveSession();
 
   const onSubmit = async (data) => {
     createLiveSession(data, { onSuccess: () => form.reset() });
@@ -206,7 +207,10 @@ const LiveSession = () => {
       </div>
 
       <div className="flex items-center justify-end gap-6 pt-10">
-        <DashButton className="rounded px-4 py-2 text-white">
+        <DashButton
+          className="rounded px-4 py-2 text-white"
+          onClick={() => setSubTab((prev) => prev + 1)}
+        >
           Continue
         </DashButton>
       </div>

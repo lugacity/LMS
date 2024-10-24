@@ -5,13 +5,11 @@ import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 
 import CourseManagementPage from "../CourseManagementPage";
 import CourseType from "../CourseType";
-import RecordedSession from "./RecordedSession";
+
 import PublishPage from "./PublishPage";
 import CohortCourseSection from "./CohortCourseSection";
-import OndemandSection from "./OndemandSection";
+
 import OnDemandCourseSection from "./OnDemand-section";
-import { cohorts } from "@/lib/cohorts";
-import CourseCohortPreview from "./CourseCohortPreview";
 
 const tab = [
   "Course Management",

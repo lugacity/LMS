@@ -11,6 +11,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getSingleCohort } from "@/services/api";
 import VideoSectionPopover from "./VideoSectionPopover";
+import OndemandSectionPopover from "./OndemandSectionPopover";
+import OnDemandVideoPopover from "./OnDemandVideoPopover";
 
 const months = [
   "Jan",
@@ -43,19 +45,19 @@ const formatDate = (date) => {
   return `${day} ${month}, ${year} | ${get12hrs}:${min}${amOrPm}`;
 };
 
-const CoursesRecordedLiveSession = () => {
-  const { data, isLoading, error } = useQuery({
+const OnDemandRecordedSection = () => {
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["get-single-cohort"],
     queryFn: getSingleCohort,
   });
 
   // console.log(isLoading, isError, data);
 
-  if (isLoading) return <p>loading...</p>;
-  if (error || !data) {
+  if (isLoading) return <p>loading....</p>;
+  if (isError && !data) {
     console.log(error);
 
-    return <p>{"something went wrong..."}</p>;
+    return <p>{error.response.data.message || "something went wrong"}</p>;
   }
   if (data)
     return (
@@ -74,11 +76,14 @@ const CoursesRecordedLiveSession = () => {
                     <AccordionTrigger className="w-full">
                       Section {course.section}
                     </AccordionTrigger>
-                    <SectionPopover id={course.id} section={course.section}>
+                    <OndemandSectionPopover
+                      id={course.id}
+                      section={course.section}
+                    >
                       <span className="cursor-pointer justify-self-end">
                         <LiaEllipsisVSolid className="self-end text-2xl" />
                       </span>
-                    </SectionPopover>
+                    </OndemandSectionPopover>
                   </div>
                   <AccordionContent>
                     <h2 className="font-medium capitalize leading-[23.2px] text-[#344054]">
@@ -96,21 +101,21 @@ const CoursesRecordedLiveSession = () => {
                                 </span>
                               </div>
                               <div>
-                                <VideoSectionPopover
+                                <OnDemandVideoPopover
                                   id={item.id}
                                   section={course.section}
                                 >
                                   <span className="cursor-pointer justify-self-end">
                                     <LiaEllipsisVSolid className="self-end text-2xl" />
                                   </span>
-                                </VideoSectionPopover>
+                                </OnDemandVideoPopover>
                               </div>
                             </article>
                             <div className="mt-3 flex items-start gap-4">
                               <VidIcon />
                               <article>
                                 <h3 className="font-medium capitalize">
-                                  Recorded Video
+                                  {item.video_title}
                                 </h3>
                                 <p className="text-sm font-light text-[#98A2B3]">
                                   {formatDate(item.created_at)}{" "}
@@ -138,4 +143,4 @@ const CoursesRecordedLiveSession = () => {
   return <p>something went wrong ...</p>;
 };
 
-export default CoursesRecordedLiveSession;
+export default OnDemandRecordedSection;

@@ -12,7 +12,21 @@ import {
 import { cn } from "@/lib/utils";
 import { TrashCan } from "@/Components/Icon";
 
-function VideoSectionPopover({ children, className, id, section }) {
+import {
+  useMoveBottom,
+  useMoveDown,
+  useMoveTop,
+  useMoveUP,
+} from "@/hooks/course-management/use-move-demand-video";
+import { useDeleteOndemandVideo } from "@/hooks/course-management/use-mutate-ondemand-video";
+
+function OnDemandVideoPopover({ children, className, id, section }) {
+  const { moveUP, status } = useMoveUP();
+  const { moveDown, moveDownStatus } = useMoveDown();
+  const { moveTop, moveTopStatus } = useMoveTop();
+  const { moveToBottom, moveBottomStatus } = useMoveBottom();
+  const { deleteVideo, deleteStatus } = useDeleteOndemandVideo();
+
   const handleMoveUp = (id, sect) => {
     console.log("move up", id, sect);
 
@@ -20,6 +34,10 @@ function VideoSectionPopover({ children, className, id, section }) {
       videoId: id,
       direction: "forward",
     };
+    moveUP({
+      data,
+      section: sect,
+    });
   };
 
   const handleMoveDown = (id, sect) => {
@@ -29,6 +47,10 @@ function VideoSectionPopover({ children, className, id, section }) {
       videoId: id,
       direction: "backward",
     };
+    moveDown({
+      data,
+      section: sect,
+    });
   };
   const handleMoveTop = (id, sect) => {
     console.log("move up", id, sect);
@@ -37,6 +59,10 @@ function VideoSectionPopover({ children, className, id, section }) {
       videoId: id,
       direction: "toFront",
     };
+    moveTop({
+      data,
+      section: sect,
+    });
   };
 
   const handleMoveBottom = (id, sect) => {
@@ -46,9 +72,15 @@ function VideoSectionPopover({ children, className, id, section }) {
       videoId: id,
       direction: "toBack",
     };
+    moveToBottom({
+      data,
+      section: sect,
+    });
   };
 
-  const handleDelete = (sect, id) => {};
+  const handleDelete = (sect, id) => {
+    deleteVideo({ section: sect, id });
+  };
 
   return (
     <Popover className={cn(className)}>
@@ -68,13 +100,13 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-2xl">
               <IoIosArrowRoundUp />
             </span>
-            {/* {'moveTopStatus' === "pending" ? (
+            {moveTopStatus === "pending" ? (
               "loading..."
-            ) : ( */}
-            <span className="text-nowrap text-sm">
-              Move to the top of the list
-            </span>
-            {/* )} */}
+            ) : (
+              <span className="text-nowrap text-sm">
+                Move to the top of the list
+              </span>
+            )}
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
@@ -96,11 +128,11 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-xl">
               <GoArrowDown />
             </span>
-            {/* {moveBottomStatus === "pending" ? (
+            {moveBottomStatus === "pending" ? (
               "loading..."
-            ) : ( */}
-            <span className="text-sm">Move to the bottom of the list</span>
-            {/* )} */}
+            ) : (
+              <span className="text-sm">Move to the bottom of the list</span>
+            )}
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
@@ -109,11 +141,11 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-xl">
               <GoArrowDownRight />
             </span>
-            {/* {moveDownStatus === "pending" ? (
+            {moveDownStatus === "pending" ? (
               "loading..."
-            ) : ( */}
-            <span className="text-sm">Move down</span>
-            {/* )} */}
+            ) : (
+              <span className="text-sm">Move down</span>
+            )}
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
@@ -130,4 +162,4 @@ function VideoSectionPopover({ children, className, id, section }) {
   );
 }
 
-export default VideoSectionPopover;
+export default OnDemandVideoPopover;
