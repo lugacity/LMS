@@ -44,18 +44,18 @@ const formatDate = (date) => {
 };
 
 const CoursesRecordedLiveSession = () => {
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["get-single-cohort"],
     queryFn: getSingleCohort,
   });
 
   // console.log(isLoading, isError, data);
 
-  if (isLoading) return <p>loading....</p>;
+  if (isLoading) return <p>loading...</p>;
   if (error || !data) {
     console.log(error);
 
-    return <p>{error.response.data.message || "something went wrong"}</p>;
+    return <p>{"something went wrong..."}</p>;
   }
   if (data)
     return (
