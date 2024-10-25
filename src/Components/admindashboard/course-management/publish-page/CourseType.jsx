@@ -1,11 +1,26 @@
 import { CommonButton } from "@/Components/ui/button";
 import { Label } from "@/Components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/Components/ui/radio-group";
-import { Skeleton } from "@/Components/ui/skeleton";
-import { useGetAllCohorts } from "@/hooks/course-management/use-fetch-all-cohorts";
+
 import { useQuery } from "@tanstack/react-query";
 import { HiOutlinePencil } from "react-icons/hi";
 import { ClipLoader } from "react-spinners";
+
+const writeDay = (dayString) => {
+  const str = dayString.split("-");
+  const day = {
+    mon: "Monday",
+    tue: "Tuesday",
+    wed: "Wednesday",
+    thu: "Thursday",
+    fri: "Friday",
+    sat: "Saturday",
+  };
+
+  return `${day[str[0]]} to ${day[str[1]]}`;
+};
+
+writeDay("mon-fri");
 
 function CourseType({ editButton = false }) {
   const { data, isLoading, isError } = useQuery({
@@ -57,7 +72,7 @@ function CourseType({ editButton = false }) {
             <span className="text-xl font-light text-[#667185]">85% off</span>
           </div>
           <p className="text-xl font-light text-[#667185]">
-            Every Monday to Friday{" "}
+            Every {writeDay(data?.data?.data.course.live_class_price.duration)}{" "}
             <span className="uppercase">
               {data?.data?.data.course.live_class_price.time}
             </span>
