@@ -84,7 +84,6 @@ const CourseInfo = ({ editButton = false }) => {
   if (isError) return <div>error ....</div>;
   console.log(data?.data?.data?.course?.tools_and_technologies);
 
-
   return (
     <main className="rounded-md border-2 border-[#F0F2F5] p-12 pr-6">
       <div className="flex items-center justify-between">
@@ -123,20 +122,23 @@ const CourseInfo = ({ editButton = false }) => {
               Tools and Technologies:
             </h3>
             <div className="mb-9 mt-6 space-y-6">
-            {data?.data?.data?.course?.tools_and_technologies?.map((tool, index) => (
-              <AvenueList 
-                key={index}  // Use combined index for unique key
-                src={iconDark}
-                textColor={"#667185"}
-                className="items-start text-[16px] font-[300] lg:text-[18px]"
-                imgClass={"self-start mt-[6px]"}
-              >
-                <ul>
-                  <li className="list-none normal-case">{tool}</li>  {/* Trim spaces */}
-                </ul>
-              </AvenueList>
-              ))}
-                
+              {data?.data?.data?.course?.tools_and_technologies?.map(
+                (tool, index) => (
+                  <AvenueList
+                    key={index} // Use combined index for unique key
+                    src={iconDark}
+                    textColor={"#667185"}
+                    className="items-start text-[16px] font-[300] lg:text-[18px]"
+                    imgClass={"self-start mt-[6px]"}
+                  >
+                    <ul>
+                      <li className="list-none normal-case">{tool}</li>{" "}
+                      {/* Trim spaces */}
+                    </ul>
+                  </AvenueList>
+                ),
+              )}
+
               {/* <AvenueList
                 src={iconDark}
                 textColor={"#667185"}
@@ -160,7 +162,7 @@ const CourseInfo = ({ editButton = false }) => {
                 cover image
               </h4>
               <img
-                src={data?.data?.data.course.coverImage ?? img}
+                src={data?.data?.data.course.cover_image ?? img}
                 alt="people sitting around the table"
                 className="h-[153px] w-full max-w-[200px] rounded-lg"
               />
@@ -182,8 +184,8 @@ const CourseInfo = ({ editButton = false }) => {
           <p className="text-xl font-medium capitalize text-[#475367]">
             Benefit
           </p>
-          {data?.data?.data.course.benefits.map((benefit, index) =>(
-              <AvenueList 
+          {data?.data?.data.course.benefits.map((benefit, index) => (
+            <AvenueList
               key={index}
               src={iconDark}
               textColor={"#667185"}
@@ -191,27 +193,31 @@ const CourseInfo = ({ editButton = false }) => {
               imgClass={"self-start mt-[6px]"}
             >
               <ul>
-                <li className="list-none normal-case">{benefit}</li> 
+                <li className="list-none normal-case">{benefit}</li>
               </ul>
             </AvenueList>
           ))}
-          
-          <div className={"mt-9"}>
-            <p className="text-xl font-medium text-[#475367]">Program Highlights</p>
 
-            {data?.data?.data?.course?.program_highlights.map((highlight, index) => (
-                    <AvenueList 
-                      key={index}
-                      src={iconDark}
-                      textColor={"#667185"}
-                      className="items-start text-[16px] font-[300] lg:text-[18px]"
-                      imgClass={"self-start mt-[6px]"}
-                    >
-                      <ul>
-                        <li className="list-none normal-case">{highlight}</li> 
-                      </ul>
-                    </AvenueList>
-                  ))}
+          <div className={"mt-9"}>
+            <p className="text-xl font-medium text-[#475367]">
+              Program Highlights
+            </p>
+
+            {data?.data?.data?.course?.program_highlights.map(
+              (highlight, index) => (
+                <AvenueList
+                  key={index}
+                  src={iconDark}
+                  textColor={"#667185"}
+                  className="items-start text-[16px] font-[300] lg:text-[18px]"
+                  imgClass={"self-start mt-[6px]"}
+                >
+                  <ul>
+                    <li className="list-none normal-case">{highlight}</li>
+                  </ul>
+                </AvenueList>
+              ),
+            )}
           </div>
         </section>
       </main>
