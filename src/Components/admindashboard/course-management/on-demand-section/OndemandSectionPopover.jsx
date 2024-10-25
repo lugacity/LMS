@@ -20,7 +20,7 @@ import {
 import { useDeleteOndemandSection } from "@/hooks/course-management/use-mutate-ondemand-section";
 import OnDemandEditModal from "./OnDemadEditModal";
 
-function OndemandSectionPopover({ children, className, section }) {
+function OndemandSectionPopover({ children, className, section, course }) {
   const { moveUP, isMovingUP } = useMoveSectionUP();
   const { moveDown, isMovingDown } = useMoveSectionDown();
   const { moveToTop, isMovingToTop } = useMoveSectionToTop();
@@ -76,7 +76,7 @@ function OndemandSectionPopover({ children, className, section }) {
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent className="mr-10 w-[259px] rounded-sm bg-white shadow-lg">
         <div className="px-3 py-[14px]">
-          <OnDemandEditModal>
+          <OnDemandEditModal section={course}>
             <span className="flex w-full items-center gap-1 py-3 text-left text-[#667185]">
               <span className="text-sm">
                 <HiOutlinePencil />

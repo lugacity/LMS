@@ -83,6 +83,7 @@ const OnDemandRecordedSection = () => {
                     <OndemandSectionPopover
                       id={course.id}
                       section={course.section}
+                      course={course}
                     >
                       <span className="cursor-pointer justify-self-end">
                         <LiaEllipsisVSolid className="self-end text-2xl" />

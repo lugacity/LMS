@@ -20,7 +20,6 @@ const CreateOndemandForm = () => {
   const [disabled, setDisabled] = useState(true);
 
   const videoRef = useRef();
-
   const { createOnDemandCourse, isCreating } = useCreateOnDemandCourse();
 
   const handleCreateNewSection = () => {
@@ -61,7 +60,7 @@ const CreateOndemandForm = () => {
     reader.readAsDataURL(file);
   };
 
-  const onSubmit = async (data) => {
+  const handleCreateSection = async (data) => {
     const { title, video_title, overview } = data;
 
     if (!video.file && form.watch("video_from_url").length < 1)
@@ -99,7 +98,10 @@ const CreateOndemandForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+      <form
+        onSubmit={form.handleSubmit(handleCreateSection)}
+        className="w-full"
+      >
         <div>
           <FormInput
             name="title"
@@ -129,98 +131,108 @@ const CreateOndemandForm = () => {
             /450
           </p>
         </div>
-        <div>
-          <FormInput
-            name="video_title"
-            type="text"
-            id="video_title"
-            label="Video Title"
-            control={form.control}
-            placeholder="Introduction to Project Consulting Recordings "
-          />
-          <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
-            {form.watch("video_title")
-              ? `${form.watch("video_title").length}`
-              : 0}
-            /70
-          </p>
-        </div>
+        {
+          <div>
+            <FormInput
+              name="video_title"
+              type="text"
+              id="video_title"
+              label="Video Title"
+              control={form.control}
+              placeholder="Introduction to Project Consulting Recordings "
+            />
+            <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
+              {form.watch("video_title")
+                ? `${form.watch("video_title").length}`
+                : 0}
+              /70
+            </p>
+          </div>
+        }
 
-        <div className="space-y-2">
-          <p className="text-sm font-medium capitalize text-[#101928]">
-            upload video
-          </p>
-          <div
-            className={cn(
-              "flex min-h-52 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#23314A]",
-              form.watch("video_from_url").length >= 1 &&
-                "cursor-not-allowed opacity-45",
-            )}
-            onClick={() => {
-              videoRef.current.click();
-            }}
-          >
-            {video.preview ? (
-              <video
-                src={video.preview}
-                alt="Cover Video"
-                className="h-[200px] w-full rounded-md object-cover"
-                controls
+        {
+          <div className="space-y-2">
+            <p className="text-sm font-medium capitalize text-[#101928]">
+              upload video
+            </p>
+            <div
+              className={cn(
+                "flex min-h-52 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#23314A]",
+                form.watch("video_from_url").length >= 1 &&
+                  "cursor-not-allowed opacity-45",
+              )}
+              onClick={() => {
+                videoRef.current.click();
+              }}
+            >
+              {video.preview ? (
+                <video
+                  src={video.preview}
+                  alt="Cover Video"
+                  className="h-[200px] w-full rounded-md object-cover"
+                  controls
+                />
+              ) : (
+                <button className="flex gap-2 text-[#98A2B3]">
+                  <ImgUploadIcon />
+                  <span>upload</span>
+                </button>
+              )}
+              <input
+                type="file"
+                name=""
+                id=""
+                hidden
+                ref={videoRef}
+                onChange={handleVideoUpload}
+                disabled={form.watch("video_from_url").length >= 1}
               />
-            ) : (
-              <button className="flex gap-2 text-[#98A2B3]">
-                <ImgUploadIcon />
-                <span>upload</span>
-              </button>
+            </div>
+            {errorMessage && (
+              <p className="text-primary-color-600">{errorMessage}</p>
             )}
-            <input
-              type="file"
-              name=""
-              id=""
-              hidden
-              ref={videoRef}
-              onChange={handleVideoUpload}
-              disabled={form.watch("video_from_url").length >= 1}
+
+            <p className="mb-1 mt-2 text-sm text-[#667185]">
+              Max 200MB files are allowed
+            </p>
+          </div>
+        }
+        {
+          <div className="mt-4 flex items-center gap-2">
+            <div className="h-px w-full bg-[#E7E7E7]" />
+
+            <span className="text-[#6D6D6D]">OR</span>
+            <div className="h-px w-full bg-[#E7E7E7]" />
+          </div>
+        }
+
+        {
+          <div className="flex flex-col gap-y-4">
+            <FormInput
+              name="video_from_url"
+              type="text"
+              id="video_from_url"
+              label="Video from URL"
+              control={form.control}
+              placeholder="Input file URL "
+              disabled={video.file ? true : false}
             />
           </div>
-          {errorMessage && (
-            <p className="text-primary-color-600">{errorMessage}</p>
-          )}
-
-          <p className="mb-1 mt-2 text-sm text-[#667185]">
-            Max 200MB files are allowed
-          </p>
-        </div>
-        <div className="mt-4 flex items-center gap-2">
-          <div className="h-px w-full bg-[#E7E7E7]" />
-
-          <span className="text-[#6D6D6D]">OR</span>
-          <div className="h-px w-full bg-[#E7E7E7]" />
-        </div>
-
-        <div className="flex flex-col gap-y-4">
-          <FormInput
-            name="video_from_url"
-            type="text"
-            id="video_from_url"
-            label="Video from URL"
-            control={form.control}
-            placeholder="Input file URL "
-            disabled={video.file ? true : false}
-          />
-        </div>
+        }
 
         <div>
           <div className="ml-auto mt-6 w-max">
-            <CommonButton
-              variant="outline"
-              type="button"
-              disabled={disabled}
-              className="disabled:cursor-not-allowed"
-              onClick={handleCreateNewSection}
-            >
-              Create New Section
-            </CommonButton>
+            {
+              <CommonButton
+                variant="outline"
+                type="button"
+                disabled={disabled}
+                className="disabled:cursor-not-allowed"
+                onClick={handleCreateNewSection}
+              >
+                Create New Section
+              </CommonButton>
+            }
             <CommonButton
               className="ml-6 bg-primary-color-600"
               type="submit"

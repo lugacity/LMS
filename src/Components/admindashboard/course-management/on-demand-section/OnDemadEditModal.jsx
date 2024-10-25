@@ -12,8 +12,9 @@ import {
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import CreateOndemandForm from "./CreateOnDemandForm";
+import EditOnDemandSectionForm from "./EditOnDemandSectionForm";
 
-const OnDemandEditModal = ({ children }) => {
+const OnDemandEditModal = ({ children, section }) => {
   return (
     <div>
       {" "}
@@ -26,9 +27,8 @@ const OnDemandEditModal = ({ children }) => {
         <DialogContent className="sm:max-w-[665px]">
           <DialogHeader>
             <DialogTitle>Edit on-demand section</DialogTitle>
-            <div className="flex h-[90vh] w-full overflow-y-scroll">
-              <CreateOndemandForm />
-            </div>
+            <DialogDescription></DialogDescription>
+            <EditOnDemandSectionForm sectionToEdit={section} />
           </DialogHeader>
         </DialogContent>
       </Dialog>
