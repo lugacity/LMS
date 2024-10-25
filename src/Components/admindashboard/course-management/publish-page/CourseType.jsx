@@ -1,6 +1,8 @@
 import { CommonButton } from "@/Components/ui/button";
 import { Label } from "@/Components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/Components/ui/radio-group";
+import { Skeleton } from "@/Components/ui/skeleton";
+import { useGetAllCohorts } from "@/hooks/course-management/use-fetch-all-cohorts";
 import { useQuery } from "@tanstack/react-query";
 import { HiOutlinePencil } from "react-icons/hi";
 import { ClipLoader } from "react-spinners";
@@ -36,7 +38,7 @@ function CourseType({ editButton = false }) {
         <section className="border-r border-r-[#F0F2F5] pr-11">
           <h3 className="w-full max-w-[530px] text-xl font-light text-[#23314A]">
             Live session + Mentoring (
-            {data?.data?.data.course.live_class_price.cohort[0]})
+            {/* {data?.data?.data.course.live_class_price.cohort[0]}) */}
           </h3>
           <div className="mb-3 mt-[42px] flex gap-6">
             <span className="text-xl font-semibold text-[#23314A]">
@@ -65,29 +67,29 @@ function CourseType({ editButton = false }) {
             <h3 className="mb-6 text-xl font-light text-[#23314A]">
               Select Cohort
             </h3>
+
             <RadioGroup defaultValue="" className="space-y-3">
-              {data?.data?.data.course.live_class_price.cohort.map(
-                (item, i) => {
-                  return (
-                    <div
-                      className="flex items-center space-x-2 rounded-md border border-[#E0E0E0] px-3 py-[18px]"
-                      key={i}
+              {data?.data?.data.course.cohorts.map((item) => {
+                return (
+                  <div
+                    className="flex items-center space-x-2 rounded-md border border-[#E0E0E0] px-3 py-[18px]"
+                    key={item.id}
+                  >
+                    <RadioGroupItem
+                      value={item.cohort}
+                      id={item.id}
+                      className="border-[#98A2B3]"
+                      disabled={true}
+                    />
+                    <Label
+                      htmlFor={item.cohort}
+                      className="font-normal capitalize text-[#8F8F8E]"
                     >
-                      <RadioGroupItem
-                        value={item}
-                        id={item}
-                        className="border-[#98A2B3]"
-                      />
-                      <Label
-                        htmlFor={item}
-                        className="font-normal capitalize text-[#8F8F8E]"
-                      >
-                        {item}
-                      </Label>
-                    </div>
-                  );
-                },
-              )}
+                      {item.cohort}
+                    </Label>
+                  </div>
+                );
+              })}
             </RadioGroup>
           </div>
         </section>

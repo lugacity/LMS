@@ -67,12 +67,6 @@ const CourseInfo = ({ editButton = false }) => {
     queryFn: fetchCourseInformation,
     queryKey: ["get-course-info"],
   });
-  // console.log(
-  //   data?.data?.data.course.tools_and_technologies
-  //     .("/n")
-  //     .map((tools) => `${tools}st`),
-  // );
-  // console.log(error);
 
   if (isLoading)
     return (
