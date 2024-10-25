@@ -20,7 +20,11 @@ import {
 
 import { useDeleteRecordedSection } from "@/hooks/course-management/recorded-section/use-delete-recorded-section";
 
-function SectionPopover({ children, className, section }) {
+import EditModal from "../on-demand-section/EditModal";
+import EditRecordedSectionForm from "./EditRecordedSectionForm";
+
+function SectionPopover({ children, className, section, course }) {
+
   const { moveSectionUp, isMovingUp } = useMoveRecordedSectionUp();
   const { moveSectionDown, isMovingDown } = useMoveRecordedSectionDown();
   const { moveSectionToTop, isMovingToTop } = useMoveRecordedSectionToTop();
@@ -67,26 +71,34 @@ function SectionPopover({ children, className, section }) {
       direction: "toBack",
     };
     moveSectionToBottom(data);
+
   };
 
   const handleDelete = (sect) => {
     deleteRecordedSection(sect);
   };
 
+
   return (
     <Popover className={cn(className)}>
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent className="mr-10 w-[259px] rounded-sm bg-white shadow-lg">
         <div className="px-3 py-[14px]">
-          <button className="flex items-center gap-1 py-3 text-[#667185]">
-            <span className="text-sm">
-              <HiOutlinePencil />
+          <EditModal
+            header="Edit Recorded Section"
+            form={<EditRecordedSectionForm sectionToEdit={course} />}
+          >
+            <span className="flex w-full items-center gap-1 py-3 text-left text-[#667185]">
+              <span className="text-sm">
+                <HiOutlinePencil />
+              </span>
+              <span className="text-sm">Edit</span>
             </span>
-            <span className="text-sm">Edit</span>
-          </button>
+          </EditModal>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveTop(section)}
+            disabled={isMovingToTop}
           >
             <span className="text-2xl">
               <IoIosArrowRoundUp />
@@ -96,8 +108,9 @@ function SectionPopover({ children, className, section }) {
             </span>
           </button>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveUp(section)}
+            disabled={isMovingUp}
           >
             <span className="text-xl">
               <GoArrowUpRight />
@@ -108,8 +121,9 @@ function SectionPopover({ children, className, section }) {
             </span>
           </button>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveBottom(section)}
+            disabled={isMovingToBottom}
           >
             <span className="text-xl">
               <GoArrowDown />
@@ -121,8 +135,9 @@ function SectionPopover({ children, className, section }) {
             </span>
           </button>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveDown(section)}
+            disabled={isMovingDown}
           >
             <span className="text-xl">
               <GoArrowDownRight />
@@ -131,12 +146,17 @@ function SectionPopover({ children, className, section }) {
               {isMovingDown ? "Loading..." : "Move Down"}
             </span>
           </button>
-          <button className="flex items-center gap-1 py-3 text-[#667185]">
+          <button
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
+            disabled={isDeleting}
+          >
             <span className="text-xl">
               <TrashCan />
             </span>
             <span className="text-sm" onClick={() => handleDelete(section)}>
-              Delete
+
+              {isDeleting ? "Loading..." : " Delete"}
+
             </span>
           </button>
         </div>

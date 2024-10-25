@@ -26,9 +26,10 @@ export async function fetchUserProfile() {
 
 export const addDemandSection = async (data) => {
   const token = Cookies.get('adminToken')
-  const courseId = localStorage.getItem("id");
+  const courseId = localStorage.getItem("courseId");
 
   return await axios.post(
+
     `${BASE_URL}/courses/${courseId}/on-demand-section`,
     data,
     {
@@ -39,6 +40,8 @@ export const addDemandSection = async (data) => {
     },
   );
 }
+
+
 
 export const addCourseInformation = async (data) => {
   const token = Cookies.get('adminToken')

@@ -11,8 +11,14 @@ import {
 
 import { cn } from "@/lib/utils";
 import { TrashCan } from "@/Components/Icon";
+import { useMoveRecordedVideo } from "@/hooks/course-management/recorded-section/use-move-video";
+import { useState } from "react";
 
 function VideoSectionPopover({ children, className, id, section }) {
+  const { moveVideo, isMovingVideo } = useMoveRecordedVideo();
+  const [direction, setDirection] = useState("");
+
+
   const handleMoveUp = (id, sect) => {
     console.log("move up", id, sect);
 
@@ -20,32 +26,65 @@ function VideoSectionPopover({ children, className, id, section }) {
       videoId: id,
       direction: "forward",
     };
+
+
+    setDirection("up");
+
+    moveVideo({
+      data,
+      section: sect,
+    });
+
   };
 
   const handleMoveDown = (id, sect) => {
     console.log("move up", id, sect);
 
+    setDirection("down");
     const data = {
       videoId: id,
       direction: "backward",
     };
+
+
+    moveVideo({
+      data,
+      section: sect,
+    });
+
   };
   const handleMoveTop = (id, sect) => {
     console.log("move up", id, sect);
 
+    setDirection("to-top");
     const data = {
       videoId: id,
       direction: "toFront",
     };
+
+
+    moveVideo({
+      data,
+      section: sect,
+    });
+
   };
 
   const handleMoveBottom = (id, sect) => {
-    console.log("move up", id, sect);
+    setDirection("to-bottom");
 
     const data = {
       videoId: id,
       direction: "toBack",
     };
+
+    
+
+    moveVideo({
+      data,
+      section: sect,
+    });
+
   };
 
   const handleDelete = (sect, id) => {};
@@ -68,7 +107,9 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-2xl">
               <IoIosArrowRoundUp />
             </span>
-            {/* {'moveTopStatus' === "pending" ? (
+
+            {isMovingVideo && direction === "to-top" ? (
+
               "loading..."
             ) : ( */}
             <span className="text-nowrap text-sm">
@@ -83,7 +124,7 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-xl">
               <GoArrowUpRight />
             </span>
-            {status === "pending" ? (
+            {isMovingVideo && direction === "up" ? (
               "loading"
             ) : (
               <span className="text-sm">Move up</span>
@@ -96,7 +137,9 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-xl">
               <GoArrowDown />
             </span>
-            {/* {moveBottomStatus === "pending" ? (
+
+            {isMovingVideo && direction === "to-bottom" ? (
+
               "loading..."
             ) : ( */}
             <span className="text-sm">Move to the bottom of the list</span>
@@ -109,7 +152,9 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-xl">
               <GoArrowDownRight />
             </span>
-            {/* {moveDownStatus === "pending" ? (
+
+            {isMovingVideo && direction === "down" ? (
+
               "loading..."
             ) : ( */}
             <span className="text-sm">Move down</span>

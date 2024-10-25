@@ -9,7 +9,7 @@ import {
 } from "@/Components/ui/accordion";
 import { useQuery } from "@tanstack/react-query";
 
-import { getSingleCohort } from "@/services/api";
+import { fetchDemandCourse } from "@/services/api";
 import VideoSectionPopover from "./VideoSectionPopover";
 
 const months = [
@@ -43,44 +43,35 @@ const formatDate = (date) => {
   return `${day} ${month}, ${year} | ${get12hrs}:${min}${amOrPm}`;
 };
 
-const CoursesRecordedLiveSession = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["get-single-cohort"],
-    queryFn: getSingleCohort,
+const CourseRecordedOndemandSection = () => {
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["get-demand-course"],
+    queryFn: fetchDemandCourse,
   });
 
   // console.log(isLoading, isError, data);
 
-  if (isLoading) return <p>loading...</p>;
-  if (error || !data) {
+  if (isLoading) return <p>loading....</p>;
+  if (isError && !data) {
     console.log(error);
 
-    return <p>{"something went wrong..."}</p>;
+    return <p>{error.response.data.message || "something went wrong"}</p>;
   }
-  if (data) {
-    data?.data?.data?.recorded_sessions.length < 1 &&
-      localStorage.setItem("recordedSection", 2);
+  if (data)
     return (
       <aside className="overflow-y-auto overflow-x-hidden">
-        {data?.data?.data?.recorded_sessions.length < 1 ? (
-          <p className="capitalize text-slate-400">
-            {" "}
-            No Recorded courses yet ....{" "}
-          </p>
+        {data?.data?.data.length < 1 ? (
+          <p className="text-slate-400"> No courses yet .... </p>
         ) : (
           <Accordion type="single" collapsible className="w-full">
-            {data?.data?.data?.recorded_sessions.map((course) => {
+            {data?.data?.data.map((course) => {
               return (
                 <AccordionItem key={course.id} value={course.id}>
                   <div className="grid grid-cols-[8fr_1fr] items-center">
                     <AccordionTrigger className="w-full">
                       Section {course.section}
                     </AccordionTrigger>
-                    <SectionPopover
-                      id={course.id}
-                      section={course.section}
-                      course={course}
-                    >
+                    <SectionPopover id={course.id} section={course.section}>
                       <span className="cursor-pointer justify-self-end">
                         <LiaEllipsisVSolid className="self-end text-2xl" />
                       </span>
@@ -91,7 +82,7 @@ const CoursesRecordedLiveSession = () => {
                       {course.title}
                     </h2>
                     <ul className="mt-6 space-y-6">
-                      {course.videos.map((item, i) => {
+                      {course.lessons.map((item, i) => {
                         return (
                           <li className="text-[#667185]" key={item.id}>
                             <article className="flex items-center justify-between">
@@ -116,16 +107,11 @@ const CoursesRecordedLiveSession = () => {
                               <VidIcon />
                               <article>
                                 <h3 className="font-medium capitalize">
-                                  Recorded Video
+                                  {item.video_title}
                                 </h3>
                                 <p className="text-sm font-light text-[#98A2B3]">
-                                  {formatDate(item.created_at)}{" "}
-                                  <span>
-                                    {Number.parseFloat(
-                                      item.video_url.size,
-                                    ).toFixed(2)}
-                                    MB
-                                  </span>
+                                  {formatDate(item.createdAt)}{" "}
+                                  <span>{item.video_url.size}MB</span>
                                 </p>
                               </article>
                             </div>
@@ -141,8 +127,7 @@ const CoursesRecordedLiveSession = () => {
         )}
       </aside>
     );
-  }
   return <p>something went wrong ...</p>;
 };
 
-export default CoursesRecordedLiveSession;
+export default CourseRecordedOndemandSection;
