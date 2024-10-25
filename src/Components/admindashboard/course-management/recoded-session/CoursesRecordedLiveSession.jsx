@@ -76,7 +76,11 @@ const CoursesRecordedLiveSession = () => {
                     <AccordionTrigger className="w-full">
                       Section {course.section}
                     </AccordionTrigger>
-                    <SectionPopover id={course.id} section={course.section}>
+                    <SectionPopover
+                      id={course.id}
+                      section={course.section}
+                      course={course}
+                    >
                       <span className="cursor-pointer justify-self-end">
                         <LiaEllipsisVSolid className="self-end text-2xl" />
                       </span>

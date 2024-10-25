@@ -6,7 +6,7 @@ import { editOnDemandSectionSchema } from "@/lib/form-schemas/forms-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-const EditOnDemandSectionForm = ({ sectionToEdit }) => {
+const EditRecordedSectionForm = ({ sectionToEdit = {} }) => {
   const { editOnDemandCourse, isEditing } = useEditOnDemandSection();
   console.log(sectionToEdit);
   const { title, overview, section } = sectionToEdit;
@@ -31,7 +31,7 @@ const EditOnDemandSectionForm = ({ sectionToEdit }) => {
             name="title"
             type="text"
             id="title"
-            label="Section Title"
+            label="Section Title recorded"
             control={form.control}
             placeholder="Business Analysis Agile Project Management Software Testing "
           />
@@ -67,4 +67,4 @@ const EditOnDemandSectionForm = ({ sectionToEdit }) => {
   );
 };
 
-export default EditOnDemandSectionForm;
+export default EditRecordedSectionForm;

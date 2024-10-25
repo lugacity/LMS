@@ -1,23 +1,16 @@
-import Button from "@/Components/Button";
 import { CommonButton } from "@/Components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/Components/ui/dialog";
-import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
-import CreateOndemandForm from "./CreateOnDemandForm";
-import EditOnDemandSectionForm from "./EditOnDemandSectionForm";
 
-const OnDemandEditModal = ({ children, section }) => {
+const EditModal = ({ children, form, header = "Edit on-demand section" }) => {
   return (
     <div>
-      {" "}
       <Dialog>
         <DialogTrigger asChild>
           <CommonButton variant="ghost" className="w-full text-left">
@@ -26,9 +19,9 @@ const OnDemandEditModal = ({ children, section }) => {
         </DialogTrigger>
         <DialogContent className="sm:max-w-[665px]">
           <DialogHeader>
-            <DialogTitle>Edit on-demand section</DialogTitle>
+            <DialogTitle>{header}</DialogTitle>
             <DialogDescription></DialogDescription>
-            <EditOnDemandSectionForm sectionToEdit={section} />
+            {form}
           </DialogHeader>
         </DialogContent>
       </Dialog>
@@ -36,4 +29,4 @@ const OnDemandEditModal = ({ children, section }) => {
   );
 };
 
-export default OnDemandEditModal;
+export default EditModal;

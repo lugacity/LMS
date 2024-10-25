@@ -17,8 +17,8 @@ import {
   useMoveDown,
   useMoveTop,
   useMoveUP,
-} from "@/hooks/course-management/use-move-demand-video";
-import { useDeleteOndemandVideo } from "@/hooks/course-management/use-mutate-ondemand-video";
+} from "@/hooks/course-management/on-demand-section/use-move-demand-video";
+import { useDeleteOndemandVideo } from "@/hooks/course-management/on-demand-section/use-mutate-ondemand-video";
 
 function OnDemandVideoPopover({ children, className, id, section }) {
   const { moveUP, status } = useMoveUP();

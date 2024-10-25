@@ -6,7 +6,7 @@ import { editOnDemandSectionSchema } from "@/lib/form-schemas/forms-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-const EditOnDemandSectionForm = ({ sectionToEdit }) => {
+const EditOndemandVideoForm = ({ sectionToEdit }) => {
   const { editOnDemandCourse, isEditing } = useEditOnDemandSection();
   console.log(sectionToEdit);
   const { title, overview, section } = sectionToEdit;
@@ -67,4 +67,4 @@ const EditOnDemandSectionForm = ({ sectionToEdit }) => {
   );
 };
 
-export default EditOnDemandSectionForm;
+export default EditOndemandVideoForm;

@@ -16,9 +16,10 @@ import {
   useMoveSectionToBotton,
   useMoveSectionToTop,
   useMoveSectionUP,
-} from "@/hooks/course-management/use-move-onDemand-section";
-import { useDeleteOndemandSection } from "@/hooks/course-management/use-mutate-ondemand-section";
-import OnDemandEditModal from "./OnDemadEditModal";
+} from "@/hooks/course-management/on-demand-section/use-move-onDemand-section";
+import { useDeleteOndemandSection } from "@/hooks/course-management/on-demand-section/use-mutate-ondemand-section";
+import EditModal from "./EditModal";
+import EditOnDemandSectionForm from "./EditOnDemandSectionForm";
 
 function OndemandSectionPopover({ children, className, section, course }) {
   const { moveUP, isMovingUP } = useMoveSectionUP();
@@ -76,14 +77,14 @@ function OndemandSectionPopover({ children, className, section, course }) {
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent className="mr-10 w-[259px] rounded-sm bg-white shadow-lg">
         <div className="px-3 py-[14px]">
-          <OnDemandEditModal section={course}>
+          <EditModal form={<EditOnDemandSectionForm sectionToEdit={course} />}>
             <span className="flex w-full items-center gap-1 py-3 text-left text-[#667185]">
               <span className="text-sm">
                 <HiOutlinePencil />
               </span>
               <span className="text-sm">Edit</span>
             </span>
-          </OnDemandEditModal>
+          </EditModal>
           <button
             className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveTop(section)}

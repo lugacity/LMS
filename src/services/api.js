@@ -41,6 +41,8 @@ export const addDemandSection = async (data) => {
   );
 }
 
+
+
 export const addCourseInformation = async (data) => {
   const token = Cookies.get('adminToken')
 
