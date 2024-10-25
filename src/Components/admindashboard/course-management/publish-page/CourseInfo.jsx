@@ -123,21 +123,19 @@ const CourseInfo = ({ editButton = false }) => {
               Tools and Technologies:
             </h3>
             <div className="mb-9 mt-6 space-y-6">
-            {data?.data?.data?.course?.tools_and_technologies?.flatMap((toolString, index) => 
-        toolString.split(',').map((tool, subIndex) => (  // Split each string by commas
-          <AvenueList 
-            key={`${index}-${subIndex}`}  // Use combined index for unique key
-            src={iconDark}
-            textColor={"#667185"}
-            className="items-start text-[16px] font-[300] lg:text-[18px]"
-            imgClass={"self-start mt-[6px]"}
-          >
-            <ul>
-              <li className="list-none normal-case">{tool.trim()}</li>  {/* Trim spaces */}
-            </ul>
-          </AvenueList>
-        ))
-      )}
+            {data?.data?.data?.course?.tools_and_technologies?.map((tool, index) => (
+              <AvenueList 
+                key={index}  // Use combined index for unique key
+                src={iconDark}
+                textColor={"#667185"}
+                className="items-start text-[16px] font-[300] lg:text-[18px]"
+                imgClass={"self-start mt-[6px]"}
+              >
+                <ul>
+                  <li className="list-none normal-case">{tool}</li>  {/* Trim spaces */}
+                </ul>
+              </AvenueList>
+              ))}
                 
               {/* <AvenueList
                 src={iconDark}
@@ -184,54 +182,24 @@ const CourseInfo = ({ editButton = false }) => {
           <p className="text-xl font-medium capitalize text-[#475367]">
             Benefit
           </p>
-          <p>{data?.data?.data.course.benefits}</p>
-          {/* <div className="mt-[14px] space-y-6">
-            <AvenueList
+          {data?.data?.data.course.benefits.map((benefit, index) =>(
+              <AvenueList 
+              key={index}
               src={iconDark}
               textColor={"#667185"}
-              className="text-[16px] font-[300] lg:text-[18px]"
+              className="items-start text-[16px] font-[300] lg:text-[18px]"
               imgClass={"self-start mt-[6px]"}
             >
-              <span className="font-[400]"> Career Advancement:</span> Open
-              doors to new career opportunities and promotions.
+              <ul>
+                <li className="list-none normal-case">{benefit}</li> 
+              </ul>
             </AvenueList>
-
-            <AvenueList
-              src={iconDark}
-              textColor={"#667185"}
-              className="text-[16px] font-[300] lg:text-[18px]"
-              imgClass={"self-start mt-[6px]"}
-            >
-              <span className="font-[400]"> Industry Recognition:</span> Gain
-              credibility and recognition as a certified project consultant.
-            </AvenueList>
-
-            <AvenueList
-              src={iconDark}
-              textColor={"#667185"}
-              className="text-[16px] font-[300] lg:text-[18px]"
-              imgClass={"self-start mt-[6px]"}
-            >
-              <span className="font-[400]">Networking Opportunities: </span>
-              Connect with peers, mentors, and industry experts.
-            </AvenueList>
-
-            <AvenueList
-              src={iconDark}
-              textColor={"#667185"}
-              className="text-[16px] font-[300] lg:text-[18px]"
-              imgClass={"self-start mt-[6px]"}
-            >
-              <span className="font-[400]">Lifetime Access:</span> Continue to
-              access course materials and updates even after the programme ends.
-            </AvenueList> */}
-          {/* </div> */}
+          ))}
+          
           <div className={"mt-9"}>
             <p className="text-xl font-medium text-[#475367]">Program Highlights</p>
 
-            {data?.data?.data?.course?.program_highlights
-                  ?.filter(highlight => highlight && highlight.trim() !== '')  // Filter out empty or whitespace-only strings
-                  .map((highlight, index) => (
+            {data?.data?.data?.course?.program_highlights.map((highlight, index) => (
                     <AvenueList 
                       key={index}
                       src={iconDark}
@@ -240,74 +208,10 @@ const CourseInfo = ({ editButton = false }) => {
                       imgClass={"self-start mt-[6px]"}
                     >
                       <ul>
-                        <li className="list-none normal-case">{highlight.trim()}</li> 
+                        <li className="list-none normal-case">{highlight}</li> 
                       </ul>
                     </AvenueList>
                   ))}
-            
-
-            {/* <div className="space-y-3 pt-3 lg:pt-9">
-              <div className="flex items-start">
-                <span className="mr-2 mt-1">
-                  <FaRegCircleCheck className="text-[#667185]" />
-                </span>
-                <div className="grid lg:grid-cols-[1fr_2fr]">
-                  <p className="text-[#3A4C6C]">Format:</p>
-                  <p>Blended learning with online and in-person sessions</p>
-                </div>
-              </div>
-
-              <div className="mt-2 flex items-start">
-                <span className="mr-2 mt-1">
-                  <FaRegCircleCheck className="text-[#667185]" />
-                </span>
-                <div className="grid flex-1 lg:grid-cols-[1fr_2fr] lg:gap-1">
-                  <p className="text-[#3A4C6C]">Modules:</p>
-                  <p>
-                    Comprehensive coverage of project management principles,
-                    methodologies, and tools
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-2 flex items-start">
-                <span className="mr-2 mt-1">
-                  <FaRegCircleCheck className="text-[#667185]" />
-                </span>
-                <div className="grid flex-1 lg:grid-cols-[1fr_2fr] lg:gap-1">
-                  <p className="text-[#3A4C6C]">Expert Instructors:</p>
-                  <p>
-                    Learn from industry-leading professionals and experienced
-                    consultants
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-2 flex items-start">
-                <span className="mr-2 mt-1">
-                  <FaRegCircleCheck className="text-[#667185]" />
-                </span>
-                <div className="grid flex-1 lg:grid-cols-[1fr_2fr] lg:gap-1">
-                  <p className="text-[#3A4C6C]">Practical Experience:</p>
-                  <p>
-                    Real-world projects and case studies to apply learned
-                    concepts
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-2 flex items-start">
-                <span className="mr-2 mt-1">
-                  <FaRegCircleCheck className="text-[#667185]" />
-                </span>
-                <div className="grid flex-1 lg:grid-cols-[1fr_2fr] lg:gap-1">
-                  <p className="text-[#3A4C6C]">Certification:</p>
-                  <p>
-                    Earn a recognized certification upon successful completion
-                  </p>
-                </div>
-              </div>
-            </div> */}
           </div>
         </section>
       </main>

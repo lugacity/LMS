@@ -18,6 +18,7 @@ function VideoSectionPopover({ children, className, id, section }) {
   const { moveVideo, isMovingVideo } = useMoveRecordedVideo();
   const [direction, setDirection] = useState("");
 
+
   const handleMoveUp = (id, sect) => {
     console.log("move up", id, sect);
 
@@ -26,12 +27,14 @@ function VideoSectionPopover({ children, className, id, section }) {
       direction: "forward",
     };
 
+
     setDirection("up");
 
     moveVideo({
       data,
       section: sect,
     });
+
   };
 
   const handleMoveDown = (id, sect) => {
@@ -43,10 +46,12 @@ function VideoSectionPopover({ children, className, id, section }) {
       direction: "backward",
     };
 
+
     moveVideo({
       data,
       section: sect,
     });
+
   };
   const handleMoveTop = (id, sect) => {
     console.log("move up", id, sect);
@@ -57,10 +62,12 @@ function VideoSectionPopover({ children, className, id, section }) {
       direction: "toFront",
     };
 
+
     moveVideo({
       data,
       section: sect,
     });
+
   };
 
   const handleMoveBottom = (id, sect) => {
@@ -71,11 +78,15 @@ function VideoSectionPopover({ children, className, id, section }) {
       direction: "toBack",
     };
 
+
     moveVideo({
       data,
       section: sect,
     });
-  };
+
+
+  const handleDelete = (sect, id) => {};
+
 
   const handleDelete = (sect, id) => {};
 
@@ -97,13 +108,15 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-2xl">
               <IoIosArrowRoundUp />
             </span>
+
             {isMovingVideo && direction === "to-top" ? (
+
               "loading..."
-            ) : (
-              <span className="text-nowrap text-sm">
-                Move to the top of the list
-              </span>
-            )}
+            ) : ( */}
+            <span className="text-nowrap text-sm">
+              Move to the top of the list
+            </span>
+            {/* )} */}
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
@@ -125,11 +138,13 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-xl">
               <GoArrowDown />
             </span>
+
             {isMovingVideo && direction === "to-bottom" ? (
+
               "loading..."
-            ) : (
-              <span className="text-sm">Move to the bottom of the list</span>
-            )}
+            ) : ( */}
+            <span className="text-sm">Move to the bottom of the list</span>
+            {/* )} */}
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
@@ -138,11 +153,13 @@ function VideoSectionPopover({ children, className, id, section }) {
             <span className="text-xl">
               <GoArrowDownRight />
             </span>
+
             {isMovingVideo && direction === "down" ? (
+
               "loading..."
-            ) : (
-              <span className="text-sm">Move down</span>
-            )}
+            ) : ( */}
+            <span className="text-sm">Move down</span>
+            {/* )} */}
           </button>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"

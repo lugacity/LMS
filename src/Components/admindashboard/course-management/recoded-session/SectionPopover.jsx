@@ -19,10 +19,12 @@ import {
 } from "@/hooks/course-management/recorded-section/use-move-recorded-section";
 
 import { useDeleteRecordedSection } from "@/hooks/course-management/recorded-section/use-delete-recorded-section";
+
 import EditModal from "../on-demand-section/EditModal";
 import EditRecordedSectionForm from "./EditRecordedSectionForm";
 
 function SectionPopover({ children, className, section, course }) {
+
   const { moveSectionUp, isMovingUp } = useMoveRecordedSectionUp();
   const { moveSectionDown, isMovingDown } = useMoveRecordedSectionDown();
   const { moveSectionToTop, isMovingToTop } = useMoveRecordedSectionToTop();
@@ -69,11 +71,13 @@ function SectionPopover({ children, className, section, course }) {
       direction: "toBack",
     };
     moveSectionToBottom(data);
+
   };
 
   const handleDelete = (sect) => {
     deleteRecordedSection(sect);
   };
+
 
   return (
     <Popover className={cn(className)}>
@@ -151,6 +155,7 @@ function SectionPopover({ children, className, section, course }) {
             </span>
             <span className="text-sm" onClick={() => handleDelete(section)}>
               {isDeleting ? "Loading..." : " Delete"}
+
             </span>
           </button>
         </div>

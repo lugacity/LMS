@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useState } from "react";
-import { FaCheck } from "react-icons/fa6";
+import { FaCheck, FaTrash } from "react-icons/fa6";
 
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 import SaveButton from "@/Components/admindashboard/course-management/courses/SaveButton";
@@ -303,30 +303,33 @@ const CourseType = () => {
                   Add
                 </CommonButton>
               </div>
-              {
-                <span
-                  className={cn(
-                    "text-primary-color-600",
-                    durationPrice.length > 0 && "hidden",
-                  )}
-                >
-                  {durationErr}
-                </span>
-              }
-              {durationPrice.map((data, i) => {
-                return (
-                  <p
-                    key={i}
-                    className="flex items-center gap-1 capitalize text-primary-color-600"
-                  >
-                    <FaCheck />
-                    <span>
-                      <span>{data.duration} </span>-{" "}
-                      <span>£ {formatCurrency(data.amount)}</span>
-                    </span>
-                  </p>
-                );
-              })}
+
+
+              <div>
+                {durationPrice.length > 0 && (
+                  <ul>
+                    {durationPrice.map((item, index) => (
+                      <li key={index} className="flex items-center justify-between border-b py-2">
+                        <span className="text-red-600">{`${item.duration} - ${formatCurrency(item.amount)}`}</span>
+                        <CommonButton
+                          className="h-8 rounded text-red-600 bg-white  hover:bg-white"
+                          type="button"
+                          onClick={() => {
+                            setDurationPrice((prev) => prev.filter((_, i) => i !== index));
+                          }}
+                        >
+                           <FaTrash /> 
+                        </CommonButton>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {durationErr && (
+                  <span className="mt-2 text-red-600">{durationErr}</span>
+                )}
+              </div>
+
+
             </div>
           </div>
 

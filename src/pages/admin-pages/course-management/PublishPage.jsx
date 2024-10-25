@@ -2,10 +2,14 @@ import CourseInfo from "@/Components/admindashboard/course-management/publish-pa
 import CourseType from "@/Components/admindashboard/course-management/publish-page/CourseType";
 import PublishCourseSection from "@/Components/admindashboard/course-management/publish-page/PublishCourseSection";
 import { CommonButton } from "@/Components/ui/button";
+import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 
 import { ScrollRestoration } from "react-router-dom";
 
 function PublishPage() {
+
+  const { setActiveTab } = useCourseManagementInfo();
+
   return (
     <>
       <ScrollRestoration />
@@ -18,16 +22,25 @@ function PublishPage() {
           Publish
         </button>
       </div>
+
       <div>
-        {/* <h2 className="mb-2 text-xl font-bold">Publish</h2> */}
         <div className="space-y-14">
           <CourseInfo />
           {/* <CourseType /> */}
           <PublishCourseSection />
         </div>
-        <CommonButton className="ml-auto mt-14 block w-full max-w-[182px] bg-primary-color-600">
-          Publish
-        </CommonButton>
+
+       <div className="flex justify-around items-center">
+          <CommonButton onClick={() => setActiveTab((prev) => prev - 1)} className="ml-auto mt-14 block w-full max-w-[182px] bg-gray-400 hover:bg-gray-600">
+            Back
+          </CommonButton>
+          
+          <CommonButton className="ml-auto mt-14 block w-full max-w-[182px] bg-primary-color-600">
+            Publish
+          </CommonButton>
+       </div>
+
+        
       </div>
     </>
   );

@@ -1,3 +1,4 @@
+
 import { LiaEllipsisVSolid } from "react-icons/lia";
 import { VidIcon } from "@/Components/Icon";
 import {
@@ -8,7 +9,9 @@ import {
 } from "@/Components/ui/accordion";
 import { useQuery } from "@tanstack/react-query";
 
+
 import { fetchDemandCourse } from "@/services/api";
+
 import OndemandSectionPopover from "./OndemandSectionPopover";
 import OnDemandVideoPopover from "./OnDemandVideoPopover";
 
@@ -44,14 +47,17 @@ const formatDate = (date) => {
 };
 
 const OnDemandRecordedSection = () => {
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["get-demand-course"],
     queryFn: fetchDemandCourse,
+
   });
 
   // console.log(isLoading, isError, data);
 
   if (isLoading) return <p>loading....</p>;
+
   if (error || !data) {
     console.log(error);
 
@@ -62,18 +68,23 @@ const OnDemandRecordedSection = () => {
           "something went wrong"}
       </p>
     );
+
   }
   if (data)
     return (
       <aside className="overflow-y-auto overflow-x-hidden">
+
         {data?.data?.data.length < 1 ? (
+
           <p className="capitalize text-slate-400">
             {" "}
             No Recorded courses yet ....{" "}
           </p>
         ) : (
           <Accordion type="single" collapsible className="w-full">
+
             {data?.data?.data.map((course) => {
+
               return (
                 <AccordionItem key={course.id} value={course.id}>
                   <div className="grid grid-cols-[8fr_1fr] items-center">
@@ -83,7 +94,9 @@ const OnDemandRecordedSection = () => {
                     <OndemandSectionPopover
                       id={course.id}
                       section={course.section}
+
                       course={course}
+
                     >
                       <span className="cursor-pointer justify-self-end">
                         <LiaEllipsisVSolid className="self-end text-2xl" />
@@ -95,7 +108,9 @@ const OnDemandRecordedSection = () => {
                       {course.title}
                     </h2>
                     <ul className="mt-6 space-y-6">
+
                       {course.lessons.map((item, i) => {
+
                         return (
                           <li className="text-[#667185]" key={item.id}>
                             <article className="flex items-center justify-between">
