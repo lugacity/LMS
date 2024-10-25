@@ -16,11 +16,12 @@ import {
   useMoveSectionToBotton,
   useMoveSectionToTop,
   useMoveSectionUP,
-
 } from "@/hooks/course-management/on-demand-section/use-move-onDemand-section";
 import { useDeleteOndemandSection } from "@/hooks/course-management/on-demand-section/use-mutate-ondemand-section";
 import EditModal from "./EditModal";
 import EditOnDemandSectionForm from "./EditOnDemandSectionForm";
+import { Video } from "lucide-react";
+import AddVideoForm from "./AddVideoForm";
 
 function OndemandSectionPopover({ children, className, section, course }) {
   const { moveUP, isMovingUP } = useMoveSectionUP();
@@ -28,7 +29,6 @@ function OndemandSectionPopover({ children, className, section, course }) {
   const { moveToTop, isMovingToTop } = useMoveSectionToTop();
   const { moveToBottom, isMovingToBottom } = useMoveSectionToBotton();
   const { deleteSection, isDeleting } = useDeleteOndemandSection();
-
 
   const handleMoveUp = (sect) => {
     console.log("move up", sect);
@@ -69,19 +69,16 @@ function OndemandSectionPopover({ children, className, section, course }) {
     moveToBottom(data);
   };
 
-
   const handleDelete = (sect) => {
     console.log("delete", sect);
     deleteSection(sect);
   };
-
 
   return (
     <Popover className={cn(className)}>
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent className="mr-10 w-[259px] rounded-sm bg-white shadow-lg">
         <div className="px-3 py-[14px]">
-
           <EditModal form={<EditOnDemandSectionForm sectionToEdit={course} />}>
             <span className="flex w-full items-center gap-1 py-3 text-left text-[#667185]">
               <span className="text-sm">
@@ -94,13 +91,11 @@ function OndemandSectionPopover({ children, className, section, course }) {
             className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveTop(section)}
             disabled={isMovingToTop}
-
           >
             <span className="text-2xl">
               <IoIosArrowRoundUp />
             </span>
             <span className="text-nowrap text-sm">
-
               {isMovingToTop ? "Loading..." : "Move to the top of the list"}
             </span>
           </button>
@@ -108,7 +103,6 @@ function OndemandSectionPopover({ children, className, section, course }) {
             className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveUp(section)}
             disabled={isMovingUP}
-
           >
             <span className="text-xl">
               <GoArrowUpRight />
@@ -123,7 +117,6 @@ function OndemandSectionPopover({ children, className, section, course }) {
             className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveBottom(section)}
             disabled={isMovingToBottom}
-
           >
             <span className="text-xl">
               <GoArrowDown />
@@ -139,7 +132,6 @@ function OndemandSectionPopover({ children, className, section, course }) {
             className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveDown(section)}
             disabled={isMovingDown}
-
           >
             <span className="text-xl">
               <GoArrowDownRight />
@@ -160,8 +152,18 @@ function OndemandSectionPopover({ children, className, section, course }) {
             <span className="text-sm">
               {isDeleting ? "Loading..." : "Delete"}{" "}
             </span>
-
           </button>
+          <EditModal
+            header="Add video"
+            form={<AddVideoForm sectionToAddVideo={course} />}
+          >
+            <span className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed">
+              <span className="text-xl">
+                <Video />
+              </span>
+              <span className="text-sm">Add video to section</span>
+            </span>
+          </EditModal>
         </div>
       </PopoverContent>
     </Popover>

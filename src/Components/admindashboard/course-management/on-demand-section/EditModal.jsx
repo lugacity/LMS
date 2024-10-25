@@ -21,8 +21,8 @@ const EditModal = ({ children, form, header = "Edit on-demand section" }) => {
           <DialogHeader>
             <DialogTitle>{header}</DialogTitle>
             <DialogDescription></DialogDescription>
-            {form}
           </DialogHeader>
+          <div className="baby max-h-[90vh] overflow-y-scroll">{form}</div>
         </DialogContent>
       </Dialog>
     </div>
