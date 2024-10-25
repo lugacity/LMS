@@ -154,7 +154,6 @@ function SectionPopover({ children, className, section, course }) {
               <TrashCan />
             </span>
             <span className="text-sm" onClick={() => handleDelete(section)}>
-
               {isDeleting ? "Loading..." : " Delete"}
 
             </span>

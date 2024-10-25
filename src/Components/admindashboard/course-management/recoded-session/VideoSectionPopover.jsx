@@ -78,14 +78,15 @@ function VideoSectionPopover({ children, className, id, section }) {
       direction: "toBack",
     };
 
-    
 
     moveVideo({
       data,
       section: sect,
     });
 
-  };
+
+  const handleDelete = (sect, id) => {};
+
 
   const handleDelete = (sect, id) => {};
 

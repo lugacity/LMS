@@ -1,6 +1,4 @@
 
-import SectionPopover from "./SectionPopover";
-
 import { LiaEllipsisVSolid } from "react-icons/lia";
 import { VidIcon } from "@/Components/Icon";
 import {
@@ -13,9 +11,6 @@ import { useQuery } from "@tanstack/react-query";
 
 
 import { fetchDemandCourse } from "@/services/api";
-
-import { getSingleCohort } from "@/services/api";
-import VideoSectionPopover from "./VideoSectionPopover";
 
 import OndemandSectionPopover from "./OndemandSectionPopover";
 import OnDemandVideoPopover from "./OnDemandVideoPopover";
