@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
 const moveVideo = async ({ data, section }) => {
-  const courseId = localStorage.getItem('id')
+  const courseId = localStorage.getItem('courseId')
   const token = Cookies.get('adminToken')
 
   console.log({

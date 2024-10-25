@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 const moveSection = async (data) => {
-  const courseId = localStorage.getItem("id");
+  const courseId = localStorage.getItem("courseId");
   const token = Cookies.get("adminToken");
 
   console.log({

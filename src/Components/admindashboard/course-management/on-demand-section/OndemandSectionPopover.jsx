@@ -17,12 +17,15 @@ import {
   useMoveSectionToTop,
   useMoveSectionUP,
 } from "@/hooks/course-management/use-move-onDemand-section";
+import { useDeleteOndemandSection } from "@/hooks/course-management/use-mutate-ondemand-section";
+import OnDemandEditModal from "./OnDemadEditModal";
 
 function OndemandSectionPopover({ children, className, section }) {
-  const { moveUP } = useMoveSectionUP();
-  const { moveDown } = useMoveSectionDown();
-  const { moveToTop } = useMoveSectionToTop();
-  const { moveToBottom } = useMoveSectionToBotton();
+  const { moveUP, isMovingUP } = useMoveSectionUP();
+  const { moveDown, isMovingDown } = useMoveSectionDown();
+  const { moveToTop, isMovingToTop } = useMoveSectionToTop();
+  const { moveToBottom, isMovingToBottom } = useMoveSectionToBotton();
+  const { deleteSection, isDeleting } = useDeleteOndemandSection();
 
   const handleMoveUp = (sect) => {
     console.log("move up", sect);
@@ -62,60 +65,87 @@ function OndemandSectionPopover({ children, className, section }) {
     };
     moveToBottom(data);
   };
+
+  const handleDelete = (sect) => {
+    console.log("delete", sect);
+    deleteSection(sect);
+  };
+
   return (
     <Popover className={cn(className)}>
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent className="mr-10 w-[259px] rounded-sm bg-white shadow-lg">
         <div className="px-3 py-[14px]">
-          <button className="flex items-center gap-1 py-3 text-[#667185]">
-            <span className="text-sm">
-              <HiOutlinePencil />
+          <OnDemandEditModal>
+            <span className="flex w-full items-center gap-1 py-3 text-left text-[#667185]">
+              <span className="text-sm">
+                <HiOutlinePencil />
+              </span>
+              <span className="text-sm">Edit</span>
             </span>
-            <span className="text-sm">Edit</span>
-          </button>
+          </OnDemandEditModal>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveTop(section)}
+            disabled={isMovingToTop}
           >
             <span className="text-2xl">
               <IoIosArrowRoundUp />
             </span>
             <span className="text-nowrap text-sm">
-              Move to the top of the list
+              {isMovingToTop ? "Loading..." : "Move to the top of the list"}
             </span>
           </button>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveUp(section)}
+            disabled={isMovingUP}
           >
             <span className="text-xl">
               <GoArrowUpRight />
             </span>
-            <span className="text-sm">Move up</span>
+            <span className="text-sm">
+              {" "}
+              {isMovingUP ? "Loading..." : "Move up"}
+            </span>
           </button>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveBottom(section)}
+            disabled={isMovingToBottom}
           >
             <span className="text-xl">
               <GoArrowDown />
             </span>
-            <span className="text-sm">Move to the bottom of the list</span>
+            <span className="text-sm">
+              {isMovingToBottom
+                ? "Loading..."
+                : "Move to the bottom of the list"}
+            </span>
           </button>
           <button
-            className="flex items-center gap-1 py-3 text-[#667185]"
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
             onClick={() => handleMoveDown(section)}
+            disabled={isMovingDown}
           >
             <span className="text-xl">
               <GoArrowDownRight />
             </span>
-            <span className="text-sm">Move down</span>
+            <span className="text-sm">
+              {isMovingDown ? "Loading..." : "Move down"}
+            </span>
           </button>
-          <button className="flex items-center gap-1 py-3 text-[#667185]">
+          <button
+            className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
+            onClick={() => handleDelete(section)}
+            disabled={isDeleting}
+          >
             <span className="text-xl">
               <TrashCan />
             </span>
-            <span className="text-sm">Delete</span>
+            <span className="text-sm">
+              {isDeleting ? "Loading..." : "Delete"}{" "}
+            </span>
           </button>
         </div>
       </PopoverContent>

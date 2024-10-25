@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 const mutateSection = async (section) => {
   //https://avi-lms-backend.onrender.com/api/v1/admins/courses/:courseId/on-demand-section/:section
 
-  const courseId = localStorage.getItem("id");
+  const courseId = localStorage.getItem("courseId");
   const token = Cookies.get("adminToken");
 
   const url = `${BASE_URL}/courses/${courseId}/on-demand-section/${section}`;
@@ -18,10 +18,10 @@ const mutateSection = async (section) => {
   });
 };
 
-export const useDeleteOndemandVideo = () => {
+export const useDeleteOndemandSection = () => {
   const queryClient = useQueryClient();
 
-  const { mutate: deleteSection, status: deleteStatus } = useMutation({
+  const { mutate: deleteSection, isPending: isDeleting } = useMutation({
     mutationFn: mutateSection,
     onSuccess: (data) => {
       console.log(data);
@@ -32,5 +32,5 @@ export const useDeleteOndemandVideo = () => {
       toast.error(err.response.data.message || "something went wrong"),
   });
 
-  return { deleteSection, deleteStatus };
+  return { deleteSection, isDeleting };
 };
