@@ -1,6 +1,6 @@
 import CourseInfo from "@/Components/admindashboard/course-management/publish-page/CourseInfo";
 import CourseType from "@/Components/admindashboard/course-management/publish-page/CourseType";
-import PublishCourseSection from "@/Components/admindashboard/course-management/publish-page/PublishCourseSection";
+// import PublishCourseSection from "@/Components/admindashboard/course-management/publish-page/PublishCourseSection";
 import { CommonButton } from "@/Components/ui/button";
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 
