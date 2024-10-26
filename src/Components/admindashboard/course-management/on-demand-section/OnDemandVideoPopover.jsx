@@ -19,14 +19,17 @@ import {
   useMoveUP,
 } from "@/hooks/course-management/on-demand-section/use-move-demand-video";
 import { useDeleteOndemandVideo } from "@/hooks/course-management/on-demand-section/use-mutate-ondemand-video";
+import EditModal from "./EditModal";
+import EditOndemandVideoForm from "./EditOndemandVideoForm";
 
-
-function OnDemandVideoPopover({ children, className, id, section }) {
+function OnDemandVideoPopover({ children, className, id, section, video }) {
   const { moveUP, status } = useMoveUP();
   const { moveDown, moveDownStatus } = useMoveDown();
   const { moveTop, moveTopStatus } = useMoveTop();
   const { moveToBottom, moveBottomStatus } = useMoveBottom();
   const { deleteVideo, deleteStatus } = useDeleteOndemandVideo();
+
+  console.log(video);
 
   const handleMoveUp = (id, sect) => {
     console.log("move up", id, sect);
@@ -88,12 +91,18 @@ function OnDemandVideoPopover({ children, className, id, section }) {
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent className="mr-10 w-[259px] rounded-sm bg-white shadow-lg">
         <div className="px-3 py-[14px]">
-          <button className="flex items-center gap-1 py-3 text-[#667185]">
-            <span className="text-sm">
-              <HiOutlinePencil />
+          <EditModal
+            form={
+              <EditOndemandVideoForm videoToEdit={video} section={section} />
+            }
+          >
+            <span className="flex w-full items-center gap-1 py-3 text-left text-[#667185]">
+              <span className="text-sm">
+                <HiOutlinePencil />
+              </span>
+              <span className="text-sm">Edit</span>
             </span>
-            <span className="text-sm">Edit</span>
-          </button>
+          </EditModal>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
             onClick={() => handleMoveTop(id, section)}

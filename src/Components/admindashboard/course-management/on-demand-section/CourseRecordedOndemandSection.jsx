@@ -44,7 +44,7 @@ const formatDate = (date) => {
 };
 
 const CourseRecordedOndemandSection = () => {
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, error, isSuccess } = useQuery({
     queryKey: ["get-demand-course"],
     queryFn: fetchDemandCourse,
   });
@@ -52,12 +52,16 @@ const CourseRecordedOndemandSection = () => {
   // console.log(isLoading, isError, data);
 
   if (isLoading) return <p>loading....</p>;
-  if (isError && !data) {
+  if (error && !data) {
     console.log(error);
 
-    return <p>{error.response.data.message || "something went wrong"}</p>;
+    return <p>{error?.response?.data?.message || "something went wrong"}</p>;
   }
-  if (data)
+  if (data) {
+    data?.data?.data.length < 1 &&
+      localStorage.setItem("demandSectionNumber", 2);
+    console.log(data?.data?.data.length);
+
     return (
       <aside className="overflow-y-auto overflow-x-hidden">
         {data?.data?.data.length < 1 ? (
@@ -127,6 +131,7 @@ const CourseRecordedOndemandSection = () => {
         )}
       </aside>
     );
+  }
   return <p>something went wrong ...</p>;
 };
 

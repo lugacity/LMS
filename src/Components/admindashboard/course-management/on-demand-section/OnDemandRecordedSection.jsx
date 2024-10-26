@@ -65,7 +65,12 @@ const OnDemandRecordedSection = () => {
       </p>
     );
   }
-  if (data)
+  if (data) {
+    if (data?.data?.data.length < 1) {
+      localStorage.setItem("demandSectionNumber", 1);
+    }
+    localStorage.setItem("demandSectionNumber", data?.data?.data.length + 1);
+
     return (
       <aside className="overflow-y-auto overflow-x-hidden">
         {data?.data?.data.length < 1 ? (
@@ -108,6 +113,7 @@ const OnDemandRecordedSection = () => {
                                 <OnDemandVideoPopover
                                   id={item.id}
                                   section={course.section}
+                                  video={item}
                                 >
                                   <span className="cursor-pointer justify-self-end">
                                     <LiaEllipsisVSolid className="self-end text-2xl" />
@@ -144,6 +150,7 @@ const OnDemandRecordedSection = () => {
         )}
       </aside>
     );
+  }
   return <p>something went wrong ...</p>;
 };
 

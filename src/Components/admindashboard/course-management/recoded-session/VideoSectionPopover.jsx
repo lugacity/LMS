@@ -14,8 +14,10 @@ import { TrashCan } from "@/Components/Icon";
 import { useMoveRecordedVideo } from "@/hooks/course-management/recorded-section/use-move-video";
 import { useState } from "react";
 import { useDeleteRecordedVideo } from "@/hooks/course-management/recorded-section/use-delete-recorded-video";
+import EditModal from "../on-demand-section/EditModal";
+import EditRecordedVideoForm from "./EditRecordedVideoForm";
 
-function VideoSectionPopover({ children, className, id, section }) {
+function VideoSectionPopover({ children, className, id, section, record }) {
   const [direction, setDirection] = useState("");
   const { moveVideo, isMovingVideo } = useMoveRecordedVideo();
   const { deleteVideo, isDeleting } = useDeleteRecordedVideo();
@@ -88,12 +90,17 @@ function VideoSectionPopover({ children, className, id, section }) {
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent className="mr-10 w-[259px] rounded-sm bg-white shadow-lg">
         <div className="px-3 py-[14px]">
-          <button className="flex items-center gap-1 py-3 text-[#667185]">
-            <span className="text-sm">
-              <HiOutlinePencil />
+          <EditModal
+            form={<EditRecordedVideoForm section={section} record={record} />}
+            header="Edit Recorded Video"
+          >
+            <span className="flex w-full items-center gap-1 py-3 text-left text-[#667185]">
+              <span className="text-sm">
+                <HiOutlinePencil />
+              </span>
+              <span className="text-sm">Edit</span>
             </span>
-            <span className="text-sm">Edit</span>
-          </button>
+          </EditModal>
           <button
             className="flex items-center gap-1 py-3 text-[#667185]"
             onClick={() => handleMoveTop(id, section)}
