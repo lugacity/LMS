@@ -32,7 +32,15 @@ function OnDemandCourseSection() {
           <OnDemandRecordedSection />
         </div>
       </main>
-      <div>
+
+      <div className="flex items-center justify-around">
+        <CommonButton
+          onClick={() => setActiveTab((prev) => prev - 1)}
+          className="ml-auto mt-14 block w-full max-w-[182px] bg-gray-400 hover:bg-gray-600"
+        >
+          Back
+        </CommonButton>
+
         <CommonButton
           className="ml-auto mt-8 block bg-primary-color-600 font-normal"
           onClick={() => setActiveTab((prev) => prev + 1)}
@@ -40,6 +48,7 @@ function OnDemandCourseSection() {
           Save and Continue
         </CommonButton>
       </div>
+
     </>
   );
 }
