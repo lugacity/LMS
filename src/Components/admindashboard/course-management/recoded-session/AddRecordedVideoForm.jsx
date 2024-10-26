@@ -2,7 +2,8 @@ import { ImgUploadIcon } from "@/Components/Icon";
 import { CommonButton } from "@/Components/ui/button";
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
-import { useCreateOnDemandCourse } from "@/hooks/course-management/use-create-demand-course";
+import { useCreateRecordedSession } from "@/hooks/course-management/recorded-section/use-create-recorded-session";
+
 import { onDemandSessionSchema } from "@/lib/form-schemas/forms-schema";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,15 +11,15 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-const AddVideoForm = ({ sectionToAddVideo }) => {
-  const { title, overview, section } = sectionToAddVideo;
+const AddRecordedVideoForm = ({ sectionToAddVideo }) => {
   const cohort = localStorage.getItem("cohorts");
+  const { title, overview, section } = sectionToAddVideo;
 
   const [video, setVideo] = useState({ file: null, preview: null });
   const [errorMessage, setErrorMessage] = useState("");
 
   const videoRef = useRef();
-  const { createOnDemandCourse, isCreating } = useCreateOnDemandCourse();
+  const { createRecordedSession, isCreating } = useCreateRecordedSession();
 
   const form = useForm({
     resolver: zodResolver(onDemandSessionSchema),
@@ -64,17 +65,17 @@ const AddVideoForm = ({ sectionToAddVideo }) => {
         title,
         video_title,
         overview,
-        section,
+        cohort,
         video: video.file,
       };
     } else {
       recorded = {
         ...data,
-        section,
+        cohort,
       };
     }
 
-    createOnDemandCourse(recorded, {
+    createRecordedSession(recorded, {
       onSuccess: () => {
         form.reset();
         setVideo((prev) => {
@@ -109,75 +110,70 @@ const AddVideoForm = ({ sectionToAddVideo }) => {
           </div>
         }
 
-        {
-          <div className="space-y-2">
-            <p className="text-sm font-medium capitalize text-[#101928]">
-              upload video
-            </p>
-            <div
-              className={cn(
-                "flex min-h-52 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#23314A]",
-                form.watch("video_from_url").length >= 1 &&
-                  "cursor-not-allowed opacity-45",
-              )}
-              onClick={() => {
-                videoRef.current.click();
-              }}
-            >
-              {video.preview ? (
-                <video
-                  src={video.preview}
-                  alt="Cover Video"
-                  className="h-[200px] w-full rounded-md object-cover"
-                  controls
-                />
-              ) : (
-                <button className="flex gap-2 text-[#98A2B3]">
-                  <ImgUploadIcon />
-                  <span>upload</span>
-                </button>
-              )}
-              <input
-                type="file"
-                name=""
-                id=""
-                hidden
-                ref={videoRef}
-                onChange={handleVideoUpload}
-                disabled={form.watch("video_from_url").length >= 1}
-              />
-            </div>
-            {errorMessage && (
-              <p className="text-primary-color-600">{errorMessage}</p>
+        <div className="space-y-2">
+          <p className="text-sm font-medium capitalize text-[#101928]">
+            upload video
+          </p>
+          <div
+            className={cn(
+              "flex min-h-52 w-full items-center justify-center rounded-lg border-2 border-dashed border-[#23314A]",
+              form.watch("video_from_url").length >= 1 &&
+                "cursor-not-allowed opacity-45",
             )}
-
-            <p className="mb-1 mt-2 text-sm text-[#667185]">
-              Max 200MB files are allowed
-            </p>
-          </div>
-        }
-        {
-          <div className="mt-4 flex items-center gap-2">
-            <div className="h-px w-full bg-[#E7E7E7]" />
-
-            <span className="text-[#6D6D6D]">OR</span>
-            <div className="h-px w-full bg-[#E7E7E7]" />
-          </div>
-        }
-
-        {
-          <div className="flex flex-col gap-y-4">
-            <FormInput
-              name="video_from_url"
-              type="text"
-              id="video_from_url"
-              label="Video from URL"
-              control={form.control}
-              placeholder="Input file URL "
-              disabled={video.file ? true : false}
+            onClick={() => {
+              videoRef.current.click();
+            }}
+          >
+            {video.preview ? (
+              <video
+                src={video.preview}
+                alt="Cover Video"
+                className="h-[200px] w-full rounded-md object-cover"
+                controls
+              />
+            ) : (
+              <button className="flex gap-2 text-[#98A2B3]">
+                <ImgUploadIcon />
+                <span>upload</span>
+              </button>
+            )}
+            <input
+              type="file"
+              name=""
+              id=""
+              hidden
+              ref={videoRef}
+              onChange={handleVideoUpload}
+              disabled={form.watch("video_from_url").length >= 1}
             />
           </div>
-        }
+          {errorMessage && (
+            <p className="text-primary-color-600">{errorMessage}</p>
+          )}
+
+          <p className="mb-1 mt-2 text-sm text-[#667185]">
+            Max 200MB files are allowed
+          </p>
+        </div>
+
+        <div className="mt-4 flex items-center gap-2">
+          <div className="h-px w-full bg-[#E7E7E7]" />
+
+          <span className="text-[#6D6D6D]">OR</span>
+          <div className="h-px w-full bg-[#E7E7E7]" />
+        </div>
+
+        <div className="flex flex-col gap-y-4">
+          <FormInput
+            name="video_from_url"
+            type="text"
+            id="video_from_url"
+            label="Video from URL"
+            control={form.control}
+            placeholder="Input file URL "
+            disabled={video.file ? true : false}
+          />
+        </div>
 
         <div>
           <div className="ml-auto mt-6 w-max">
@@ -195,4 +191,4 @@ const AddVideoForm = ({ sectionToAddVideo }) => {
   );
 };
 
-export default AddVideoForm;
+export default AddRecordedVideoForm;

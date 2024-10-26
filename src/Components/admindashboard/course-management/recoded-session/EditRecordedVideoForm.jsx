@@ -2,51 +2,32 @@ import { ImgUploadIcon } from "@/Components/Icon";
 import { CommonButton } from "@/Components/ui/button";
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
-import { useCreateOnDemandCourse } from "@/hooks/course-management/use-create-demand-course";
-import { onDemandSessionSchema } from "@/lib/form-schemas/forms-schema";
+import { useEditRecordedVideo } from "@/hooks/course-management/recorded-section/use-edit-recorded-video";
+
+import { editOnDemandVideoSchema } from "@/lib/form-schemas/forms-schema";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 
-let section = localStorage.getItem("demandSectionNumber")
-  ? localStorage.getItem("demandSectionNumber")
-  : 2;
-
-const CreateOndemandForm = () => {
+const EditRecordedVideoForm = ({ section, record }) => {
   const [video, setVideo] = useState({ file: null, preview: null });
   const [errorMessage, setErrorMessage] = useState("");
-  const [disabled, setDisabled] = useState(true);
-  const [disableInput, setDisableInput] = useState(false);
+  console.log(section, record);
 
   const videoRef = useRef();
-  const { createOnDemandCourse, isCreating } = useCreateOnDemandCourse();
-
-  const handleCreateNewSection = () => {
-    section = Number(section) + 1;
-    localStorage.setItem("demandSectionNumber", +section);
-    toast.success(`section ${section} is created`);
-    setDisabled(true);
-    setDisableInput(false);
-    form.setValue("title", "");
-    form.setValue("overview", "");
-  };
+  const { editRecordedVideo, isEditing } = useEditRecordedVideo();
 
   const form = useForm({
-    resolver: zodResolver(onDemandSessionSchema),
+    resolver: zodResolver(editOnDemandVideoSchema),
     defaultValues: {
-      title: "",
-      video_title: "",
-      overview: "",
+      video_title: record.video_title,
       video_from_url: "",
     },
   });
 
   const handleVideoUpload = (e) => {
     const file = e.target.files[0];
-
-    if (!file) return;
 
     if (file.size > 200 * 1024 * 1024) {
       return setErrorMessage("file has exceed 200MB");
@@ -64,82 +45,46 @@ const CreateOndemandForm = () => {
     reader.readAsDataURL(file);
   };
 
-  const handleCreateSection = async (data) => {
-    const { title, video_title, overview } = data;
-
-    if (!video.file && form.watch("video_from_url").length < 1)
-      return toast.error("Please insert a video or video url");
+  const handleEditRecordedVideo = (data) => {
+    const { video_title, video_from_url } = data;
 
     let recorded;
 
     if (video.file) {
       recorded = {
-        title,
         video_title,
-        overview,
-        section,
+
         video: video.file,
+      };
+    } else if (video_from_url) {
+      recorded = {
+        ...data,
       };
     } else {
       recorded = {
-        ...data,
-        section,
+        video_title,
       };
     }
 
-    createOnDemandCourse(recorded, {
-      onSuccess: ({ data }) => {
-        form.reset();
-
-        form.setValue("title", data.data.title);
-        form.setValue("overview", data.data.overview);
-        setDisableInput((prev) => !prev);
-
-        setDisabled(false);
-        setVideo((prev) => {
-          return { ...prev, file: null, preview: null };
-        });
+    editRecordedVideo(
+      { data: recorded, id: record.id, section },
+      {
+        onSuccess: () => {
+          form.reset();
+          setVideo((prev) => {
+            return { ...prev, file: null, preview: null };
+          });
+        },
       },
-    });
+    );
   };
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleCreateSection)}
+        onSubmit={form.handleSubmit(handleEditRecordedVideo)}
         className="w-full"
       >
-        <div>
-          <FormInput
-            name="title"
-            type="text"
-            id="title"
-            label="Section Title"
-            control={form.control}
-            placeholder="Business Analysis Agile Project Management Software Testing "
-            disabled={disableInput}
-          />
-          <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
-            {form.watch("title") ? `${form.watch("title").length}` : 0}
-            /70
-          </p>
-        </div>
-        <div>
-          <FormInput
-            name="overview"
-            id="overview"
-            type="text"
-            label="Section overview"
-            control={form.control}
-            placeholder="Enter text here "
-            textarea={true}
-            disabled={disableInput}
-          />
-          <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
-            {form.watch("overview") ? `${form.watch("overview").length}` : 0}
-            /450
-          </p>
-        </div>
         {
           <div>
             <FormInput
@@ -231,23 +176,12 @@ const CreateOndemandForm = () => {
 
         <div>
           <div className="ml-auto mt-6 w-max">
-            {
-              <CommonButton
-                variant="outline"
-                type="button"
-                disabled={disabled}
-                className="disabled:cursor-not-allowed"
-                onClick={handleCreateNewSection}
-              >
-                Create New Section
-              </CommonButton>
-            }
             <CommonButton
               className="ml-6 bg-primary-color-600"
               type="submit"
-              disabled={isCreating}
+              disabled={isEditing}
             >
-              Add Content
+              Save
             </CommonButton>
           </div>
         </div>
@@ -256,4 +190,4 @@ const CreateOndemandForm = () => {
   );
 };
 
-export default CreateOndemandForm;
+export default EditRecordedVideoForm;

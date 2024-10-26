@@ -60,7 +60,7 @@ const EditOnDemandSectionForm = ({ sectionToEdit }) => {
           type="submit"
           disabled={isEditing}
         >
-          Add Content
+          Save
         </CommonButton>
       </form>
     </Form>

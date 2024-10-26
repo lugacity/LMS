@@ -65,7 +65,7 @@ const CoursesRecordedLiveSession = () => {
         {data?.data?.data?.recorded_sessions.length < 1 ? (
           <p className="capitalize text-slate-400">
             {" "}
-            No Recorded courses yet ....{" "}
+            No Recorded Videos yet ....{" "}
           </p>
         ) : (
           <Accordion type="single" collapsible className="w-full">
@@ -103,6 +103,7 @@ const CoursesRecordedLiveSession = () => {
                               </div>
                               <div>
                                 <VideoSectionPopover
+                                  record={item}
                                   id={item.id}
                                   section={course.section}
                                 >
