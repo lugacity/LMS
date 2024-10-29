@@ -51,7 +51,7 @@ const EditOndemandVideoForm = ({ videoToEdit, section }) => {
   };
 
   const handleCreateSection = async (data) => {
-    const { video_title } = data;
+    const { video_title, video_from_url } = data;
 
     let recorded;
 
@@ -59,13 +59,15 @@ const EditOndemandVideoForm = ({ videoToEdit, section }) => {
       recorded = {
         video_title,
 
-        section,
         video: video.file,
+      };
+    } else if (video_from_url) {
+      recorded = {
+        ...data,
       };
     } else {
       recorded = {
-        ...data,
-        section,
+        video_title,
       };
     }
 

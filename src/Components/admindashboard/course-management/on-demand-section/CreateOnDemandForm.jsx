@@ -148,7 +148,7 @@ const CreateOndemandForm = () => {
               id="video_title"
               label="Video Title"
               control={form.control}
-              placeholder="Introduction to Project Consulting Recordings "
+              placeholder="Enter Video Title"
             />
             <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
               {form.watch("video_title")

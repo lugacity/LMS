@@ -12,10 +12,13 @@ import { liveSessionSchema } from "@/lib/form-schemas/forms-schema";
 
 import LiveSessionContent from "@/Components/admindashboard/course-management/live-session/liveSessionContent";
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
+import { useState } from "react";
 
 const LiveSession = () => {
   const { createLiveSession, isCreating } = useCreateLiveSession();
   const { setSubTab } = useCourseManagementInfo();
+  const [disabledButton, setDisabledButton] = useState(null);
+  const { setActiveTab } = useCourseManagementInfo();
 
   const form = useForm({
     resolver: zodResolver(liveSessionSchema),
@@ -31,7 +34,11 @@ const LiveSession = () => {
   });
 
   const onSubmit = async (data) => {
-    createLiveSession(data, { onSuccess: () => form.reset() });
+    createLiveSession(data, {
+      onSuccess: () => {
+        form.reset()
+        setDisabledButton(true);
+    } });
   };
 
   return (
@@ -133,18 +140,6 @@ const LiveSession = () => {
                     placeholder="19:00"
                   />
                 </div>
-                <div className="flex-1 text-[#475367]">
-                  <FormInput
-                    label={"Time"}
-                    className="w-full rounded border border-gray-300 p-2"
-                    type="time"
-                    control={form.control}
-                    name="times"
-                    labelClass={"text-base font-medium"}
-                    id="times"
-                    defaultValue="19:00"
-                  />
-                </div>
               </div>
 
               {/* Meeting Date and Time */}
@@ -181,14 +176,10 @@ const LiveSession = () => {
               </div>
 
               <div className="flex items-center justify-end gap-6 pt-10">
-                <CommonButton type="button" variant={"outline"} className="">
-                  Create New Section
-                </CommonButton>
-
                 <CommonButton
                   type="submit"
                   className="bg-primary-color-600"
-                  disabled={isCreating}
+                  disabled={isCreating || disabledButton}
                 >
                   {isCreating ? (
                     <span className="min-w-[89.3px]">
@@ -206,7 +197,14 @@ const LiveSession = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-end gap-6 pt-10">
+      <div className="flex items-center  my-5 justify-end gap-6">
+        <CommonButton
+          onClick={() => setActiveTab((prev) => prev - 1)}
+          className="ml-auto text-white bg-gray-500 hover:bg-gray-700"
+        >
+          Back
+        </CommonButton>
+
         <DashButton
           className="rounded px-4 py-2 text-white"
           onClick={() => setSubTab((prev) => prev + 1)}
