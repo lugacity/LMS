@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { useCreateRecordedSession } from "@/hooks/course-management/recorded-section/use-create-recorded-session";
 import { ClipLoader } from "react-spinners";
 import CoursesRecordedLiveSession from "@/Components/admindashboard/course-management/recoded-session/CoursesRecordedLiveSession";
+import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 
 function RecordedSession() {
   const [video, setVideo] = useState({ file: null, preview: null });
@@ -21,8 +22,8 @@ function RecordedSession() {
   const videoRef = useRef();
   const [disabled, setDisabled] = useState(true);
 
-  const { createRecordedSession, isCreating, form } =
-    useCreateRecordedSession();
+  const { createRecordedSession, isCreating, form } = useCreateRecordedSession();
+  const { setActiveTab } = useCourseManagementInfo();
 
   const handleVideoUpload = (e) => {
     const file = e.target.files[0];
@@ -145,7 +146,7 @@ function RecordedSession() {
                   id="video_title"
                   label="Video Title"
                   control={form.control}
-                  placeholder="Introduction to Project Consulting Recordings "
+                  placeholder="Enter Video Title"
                 />
                 <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
                   {form.watch("video_title")
@@ -253,9 +254,17 @@ function RecordedSession() {
           <CoursesRecordedLiveSession />
         </div>
       </main>
-      <div>
+
+      <div className="my-6 flex justify-between gap-6">
         <CommonButton
-          className="ml-auto mt-8 block bg-primary-color-600 font-normal"
+          onClick={() => setActiveTab((prev) => prev - 1)}
+          className="ml-auto bg-gray-500 text-white hover:bg-gray-700"
+        >
+          Back
+        </CommonButton>
+
+        <CommonButton
+          className="bg-primary-color-600 font-normal"
           // onClick={() => setActiveTab((prev) => prev + 1)}
         >
           Save and Continue

@@ -79,12 +79,26 @@ function OndemandSectionPopover({ children, className, section, course }) {
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent className="mr-10 w-[259px] rounded-sm bg-white shadow-lg">
         <div className="px-3 py-[14px]">
+          <EditModal
+            header="Add video"
+            form={<AddVideoForm sectionToAddVideo={course} />}
+          >
+            <span className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed">
+              <span className="text-lg">
+                <Video />
+              </span>
+              <span className="text-nowrap text-sm font-[400]">
+                Add video to section
+              </span>
+            </span>
+          </EditModal>
+
           <EditModal form={<EditOnDemandSectionForm sectionToEdit={course} />}>
-            <span className="flex w-full items-center gap-1 py-3 text-left text-[#667185]">
+            <span className="flex w-full items-center gap-3 py-3 text-left text-[#667185]">
               <span className="text-sm">
                 <HiOutlinePencil />
               </span>
-              <span className="text-sm">Edit</span>
+              <span className="text-sm font-[400]">Edit</span>
             </span>
           </EditModal>
           <button
@@ -153,17 +167,6 @@ function OndemandSectionPopover({ children, className, section, course }) {
               {isDeleting ? "Loading..." : "Delete"}{" "}
             </span>
           </button>
-          <EditModal
-            header="Add video"
-            form={<AddVideoForm sectionToAddVideo={course} />}
-          >
-            <span className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed">
-              <span className="text-xl">
-                <Video />
-              </span>
-              <span className="text-sm">Add video to section</span>
-            </span>
-          </EditModal>
         </div>
       </PopoverContent>
     </Popover>

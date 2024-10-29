@@ -7,6 +7,12 @@ import { HiOutlinePencil } from "react-icons/hi";
 import { ClipLoader } from "react-spinners";
 
 const writeDay = (dayString) => {
+
+   if (!dayString || typeof dayString !== "string") {
+     console.warn("Invalid day string:", dayString);
+     return "Unavailable";
+  }
+  
   const str = dayString.split("-");
   const day = {
     mon: "Monday",

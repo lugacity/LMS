@@ -33,22 +33,21 @@ function OnDemandCourseSection() {
         </div>
       </main>
 
-      <div className="flex items-center justify-around">
+      <div className="my-6 flex items-center justify-between gap-6">
         <CommonButton
           onClick={() => setActiveTab((prev) => prev - 1)}
-          className="ml-auto mt-14 block w-full max-w-[182px] bg-gray-400 hover:bg-gray-600"
+          className="ml-auto bg-gray-500 text-white hover:bg-gray-700"
         >
           Back
         </CommonButton>
 
         <CommonButton
-          className="ml-auto mt-8 block bg-primary-color-600 font-normal"
+          className=" block bg-primary-color-600 font-normal"
           onClick={() => setActiveTab((prev) => prev + 1)}
         >
           Save and Continue
         </CommonButton>
       </div>
-
     </>
   );
 }
