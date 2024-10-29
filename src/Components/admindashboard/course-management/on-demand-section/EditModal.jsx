@@ -13,7 +13,7 @@ const EditModal = ({ children, form, header = "Edit on-demand section" }) => {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <CommonButton variant="ghost" className="w-full padding-0 text-left -p-1">
+          <CommonButton variant="ghost" className="w-full padding-0 text-left pl-1">
             {children}
           </CommonButton>
         </DialogTrigger>
