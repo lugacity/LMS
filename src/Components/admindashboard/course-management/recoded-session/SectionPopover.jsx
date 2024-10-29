@@ -84,14 +84,28 @@ function SectionPopover({ children, className, section, course }) {
       <PopoverContent className="mr-10 w-[259px] rounded-sm bg-white shadow-lg">
         <div className="px-3 py-[14px]">
           <EditModal
+            form={<AddRecordedVideoForm sectionToAddVideo={course} />}
+            header="Add More video"
+          >
+            <span
+              className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
+              disabled={isDeleting}
+            >
+              <span className="text-sm">
+                <Video />
+              </span>
+              <span className="text-sm font-[400]">Add Content</span>
+            </span>
+          </EditModal>
+          <EditModal
             header="Edit Recorded Section"
             form={<EditRecordedSectionForm sectionToEdit={course} />}
           >
-            <span className="flex w-full items-center gap-1 py-3 text-left text-[#667185]">
+            <span className="flex w-full items-center gap-3 py-3 text-left text-[#667185]">
               <span className="text-sm">
                 <HiOutlinePencil />
               </span>
-              <span className="text-sm">Edit</span>
+              <span className="text-sm font-[400]">Edit</span>
             </span>
           </EditModal>
           <button
@@ -156,20 +170,6 @@ function SectionPopover({ children, className, section, course }) {
               {isDeleting ? "Loading..." : " Delete"}
             </span>
           </button>
-          <EditModal
-            form={<AddRecordedVideoForm sectionToAddVideo={course} />}
-            header="Add More video"
-          >
-            <span
-              className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
-              disabled={isDeleting}
-            >
-              <span className="text-xl">
-                <Video />
-              </span>
-              <span className="text-sm">Add Content</span>
-            </span>
-          </EditModal>
         </div>
       </PopoverContent>
     </Popover>

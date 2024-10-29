@@ -8,7 +8,7 @@ import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCreateCourseInformation } from "@/hooks/course-management/use-create-course-information";
+import { useCreateCourseInformation, useEditCourseInformation } from "@/hooks/course-management/use-create-course-information";
 import toast from "react-hot-toast";
 
 import { ClipLoader } from "react-spinners";
@@ -17,11 +17,30 @@ import { courseInformationSchema } from "@/lib/form-schemas/forms-schema";
 // import MyCKEditor from '../Components/pages/CDKEditor'
 
 const CourseManagementPage = () => {
-  const { setActiveTab } = useCourseManagementInfo();
-
   const [image, setImage] = useState({ file: null, preview: null });
   const [video, setVideo] = useState({ file: null, preview: null });
   const { createCourseInformation, isCreating } = useCreateCourseInformation();
+  const { editCourseInformation, isEditing } = useEditCourseInformation();
+  const { setActiveTab } = useCourseManagementInfo();
+  const courseId = localStorage.getItem("id");
+  const courseInformation = localStorage.getItem("course-information")
+    ? JSON.parse(localStorage.getItem("course-information"))
+    : {};
+  console.log(courseInformation);
+
+  const dataToEdit = localStorage.getItem("course-information") && {
+    courseTitle: courseInformation.title,
+    benefits: courseInformation.benefits.join("\n"),
+    courseIncludes: courseInformation.course_includes.join("\n"),
+    highlight: courseInformation.program_highlights.join("\n"),
+    technologies: courseInformation.tools_and_technologies.join("\n"),
+    overview: courseInformation.overview,
+    url: "",
+  };
+
+  console.log("DaTA", dataToEdit);
+
+  const isEdit = Boolean(courseId);
 
   const [message, setMessage] = useState({
     error: "",
@@ -32,18 +51,20 @@ const CourseManagementPage = () => {
 
   const form = useForm({
     resolver: zodResolver(courseInformationSchema),
-    defaultValues: {
-      courseTitle: "",
-      benefits: "",
-      courseIncludes: "",
-      highlight: "",
-      technologies: "",
-      overview: "",
-      url: "",
-    },
+    defaultValues: isEdit
+      ? dataToEdit
+      : {
+          courseTitle: "",
+          benefits: "",
+          courseIncludes: "",
+          highlight: "",
+          technologies: "",
+          overview: "",
+          url: "",
+        },
   });
 
-  const onSubmit = async (data) => {
+  const editCourse = (data) => {
     const {
       courseTitle,
       benefits,
@@ -93,13 +114,65 @@ const CourseManagementPage = () => {
       };
     }
 
-    console.log(courseToUpload);
+    editCourseInformation(courseToUpload, {
+      onSuccess: () => setActiveTab((prev) => prev + 1),
+    });
+  };
+
+  const CreateCourse = async (data) => {
+    const {
+      courseTitle,
+      benefits,
+      courseIncludes,
+      highlight,
+      technologies,
+      overview,
+      url,
+    } = data;
+
+    if (!image.file) {
+      toast.error("Please insert an image");
+
+      return setMessage((prev) => {
+        return {
+          ...prev,
+          error: "Please insert image",
+          success: "",
+        };
+      });
+    }
+
+    if (!video.file && form.watch("url").length < 1)
+      return toast.error("Please insert an taster video or video url");
+
+    const courses = {
+      title: courseTitle,
+      tools_and_technologies: technologies.split("\n"),
+      benefits: benefits.split("\n"),
+      program_highlights: highlight.split("\n"),
+      course_includes: courseIncludes.split("\n"),
+      overview: overview,
+      coverImage: image.file,
+    };
+
+    let courseToUpload;
+
+    if (video.file) {
+      courseToUpload = {
+        ...courses,
+        taster_video: video.file,
+      };
+    } else {
+      courseToUpload = {
+        ...courses,
+        upload_from_url: url,
+      };
+    }
 
     createCourseInformation(courseToUpload, {
       onSuccess: () => setActiveTab((prev) => prev + 1),
     });
   };
-
   return (
     <>
       <ScrollRestoration />
@@ -116,7 +189,7 @@ const CourseManagementPage = () => {
       <Form {...form}>
         <form
           className="mx-auto grid max-w-6xl grid-cols-12 gap-8 pt-5"
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(isEdit ? editCourse : CreateCourse)}
         >
           <div className="col-span-8">
             {/* Course Title */}
@@ -274,10 +347,12 @@ const CourseManagementPage = () => {
             <div className="flex items-center justify-end pt-10">
               <CommonButton
                 className="min-w-32 rounded bg-primary-color-600"
-                disabled={isCreating}
+                disabled={isCreating || isEditing}
               >
-                {isCreating ? (
+                {isCreating || isEditing ? (
                   <ClipLoader size={20} color={"#fff"} />
+                ) : isEdit ? (
+                  "Edit info"
                 ) : (
                   "Save & Continue"
                 )}
@@ -301,6 +376,7 @@ const CourseManagementPage = () => {
       </Form>
     </>
   );
+
 };
 
 export default CourseManagementPage;
