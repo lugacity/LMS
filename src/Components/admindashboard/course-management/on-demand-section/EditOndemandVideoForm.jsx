@@ -14,8 +14,6 @@ const EditOndemandVideoForm = ({ videoToEdit, section }) => {
   const [video, setVideo] = useState({ file: null, preview: null });
   const [errorMessage, setErrorMessage] = useState("");
 
-  console.log(videoToEdit, section);
-
   const videoRef = useRef();
   const { editOnDemandVideo, isEditing } = useEditOnDemandVideo();
 

@@ -29,11 +29,7 @@ function OnDemandVideoPopover({ children, className, id, section, video }) {
   const { moveToBottom, moveBottomStatus } = useMoveBottom();
   const { deleteVideo, deleteStatus } = useDeleteOndemandVideo();
 
-  console.log(video);
-
   const handleMoveUp = (id, sect) => {
-    console.log("move up", id, sect);
-
     const data = {
       videoId: id,
       direction: "forward",
@@ -45,8 +41,6 @@ function OnDemandVideoPopover({ children, className, id, section, video }) {
   };
 
   const handleMoveDown = (id, sect) => {
-    console.log("move up", id, sect);
-
     const data = {
       videoId: id,
       direction: "backward",
@@ -57,8 +51,6 @@ function OnDemandVideoPopover({ children, className, id, section, video }) {
     });
   };
   const handleMoveTop = (id, sect) => {
-    console.log("move up", id, sect);
-
     const data = {
       videoId: id,
       direction: "toFront",
@@ -70,8 +62,6 @@ function OnDemandVideoPopover({ children, className, id, section, video }) {
   };
 
   const handleMoveBottom = (id, sect) => {
-    console.log("move up", id, sect);
-
     const data = {
       videoId: id,
       direction: "toBack",

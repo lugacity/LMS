@@ -57,7 +57,6 @@ const LiveSessionMentoringCourseType = () => {
         setSubTab((prev) => prev + 1);
         localStorage.setItem("cohorts", cohort);
         localStorage.setItem("cohortId", data.data.cohorts.at(-1).id);
-        console.log(data);
       },
     });
   };
@@ -81,7 +80,6 @@ const LiveSessionMentoringCourseType = () => {
   //     setDuration("");
   //   };
 
-  
   const form = useForm({
     resolver: zodResolver(courseTypeSchema),
     defaultValues: {
@@ -205,11 +203,10 @@ const LiveSessionMentoringCourseType = () => {
             <CommonButton
               className="min-w-32 rounded bg-primary-color-600"
               disabled={isCreating}
-              >
+            >
               {isCreating ? (
-                  <ClipLoader size={20} color={"#fff"} />
-                ) : (
-                  
+                <ClipLoader size={20} color={"#fff"} />
+              ) : (
                 "Save & Continue"
               )}
             </CommonButton>

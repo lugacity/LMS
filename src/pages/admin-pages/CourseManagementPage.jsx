@@ -8,7 +8,10 @@ import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCreateCourseInformation, useEditCourseInformation } from "@/hooks/course-management/use-create-course-information";
+import {
+  useCreateCourseInformation,
+  useEditCourseInformation,
+} from "@/hooks/course-management/use-create-course-information";
 import toast from "react-hot-toast";
 
 import { ClipLoader } from "react-spinners";
@@ -26,7 +29,6 @@ const CourseManagementPage = () => {
   const courseInformation = localStorage.getItem("course-information")
     ? JSON.parse(localStorage.getItem("course-information"))
     : {};
-  console.log(courseInformation);
 
   const dataToEdit = localStorage.getItem("course-information") && {
     courseTitle: courseInformation.title,
@@ -37,8 +39,6 @@ const CourseManagementPage = () => {
     overview: courseInformation.overview,
     url: "",
   };
-
-  console.log("DaTA", dataToEdit);
 
   const isEdit = Boolean(courseId);
 
@@ -376,7 +376,6 @@ const CourseManagementPage = () => {
       </Form>
     </>
   );
-
 };
 
 export default CourseManagementPage;

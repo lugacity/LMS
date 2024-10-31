@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 
 const EditOnDemandSectionForm = ({ sectionToEdit }) => {
   const { editOnDemandCourse, isEditing } = useEditOnDemandSection();
-  console.log(sectionToEdit);
   const { title, overview, section } = sectionToEdit;
 
   const form = useForm({
