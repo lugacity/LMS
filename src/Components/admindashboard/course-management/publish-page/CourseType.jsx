@@ -8,9 +8,12 @@ import { HiOutlinePencil } from "react-icons/hi";
 import { ClipLoader } from "react-spinners";
 
 const writeDay = (dayString) => {
-  if (!dayString || typeof dayString !== "string") {
-    return "No duration available";
+
+  if (!dayString || !dayString.includes("-")) {
+    return "Invalid duration format";
   }
+
+  // Convert dayString to lowercase to match keys in the day object
 
   const str = dayString.toLowerCase().split("-");
   const day = {
@@ -28,6 +31,7 @@ const writeDay = (dayString) => {
     saturday: "Saturday",
   };
 
+
   return `${day[str[0].trim()]} to ${day[str[1].trim()]}`;
 };
 
@@ -37,7 +41,8 @@ const calcDiscountPercecntage = (price, discount) => {
   return percent.toFixed(2);
 };
 
-calcDiscountPercecntage(3333, 21);
+
+
 
 function CourseType({ editButton = false }) {
   const { data, isLoading, isError } = useQuery({
@@ -55,6 +60,8 @@ function CourseType({ editButton = false }) {
 
   if (isError) return <p>error..</p>;
 
+  console.log(data?.data?.data.course.live_class_price.duration);
+
   return (
     <section className="rounded-md border-2 border-[#F0F2F5] p-12 pr-6">
       <div className="flex items-center justify-between">
@@ -69,12 +76,14 @@ function CourseType({ editButton = false }) {
         )}
       </div>
       <main className="mt-8 grid grid-cols-2">
+
         {!data?.data?.data.course.live_class_price ? (
           "NO Live Course ...."
         ) : (
           <section className="border-r border-r-[#F0F2F5] pr-11">
             <h3 className="w-full max-w-[530px] text-xl font-light text-[#23314A]">
               Live session + Mentoring ({cohort?.data?.data.cohort})
+
             </h3>
             <div className="mb-3 mt-[42px] flex gap-6">
               <span className="text-xl font-semibold text-[#23314A]">

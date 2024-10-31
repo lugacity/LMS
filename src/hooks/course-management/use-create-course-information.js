@@ -33,3 +33,5 @@ export const useEditCourseInformation = () => {
 
   return { editCourseInformation, isEditing };
 };
+
+

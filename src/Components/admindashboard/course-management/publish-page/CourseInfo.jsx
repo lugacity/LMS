@@ -149,7 +149,7 @@ const CourseInfo = ({ editButton = false }) => {
           <div className="flex gap-6 *:space-y-[14px]">
             <div>
               <h4 className="text-xl font-medium text-[#475367]">
-                cover image
+                Cover Image
               </h4>
               <img
                 src={data?.data?.data.course.cover_image ?? img}
@@ -157,16 +157,16 @@ const CourseInfo = ({ editButton = false }) => {
                 className="h-[153px] w-full max-w-[200px] rounded-lg"
               />
             </div>
-            <div>
+            {/* <div>
               <h4 className="text-xl font-medium text-[#475367]">
-                cover image
+                Cover Image
               </h4>
               <img
                 src={img}
                 alt="people sitting around the table"
                 className="h-[153px] w-full max-w-[200px] rounded-lg"
               />
-            </div>
+            </div> */}
           </div>
         </div>
 
