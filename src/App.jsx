@@ -11,7 +11,7 @@ import DataSolution from "./pages/DataSolution";
 import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
 import AVI from "./pages/AVI";
 import PreviewCourse from "./pages/previewCourse";
-import PreviewVideoCourse from "./pages/previewVideoCourse";
+import PreviewVideoCourse from "./pages/PreviewVideoCourse";
 import Component from "./Components/Component";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/Signup";
