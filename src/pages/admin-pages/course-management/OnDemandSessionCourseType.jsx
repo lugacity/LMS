@@ -62,7 +62,6 @@ const OnDemandSessionCourseType = () => {
     const courseType = {
       on_demand_session: [...durationPrice],
     };
-    console.log(courseType);
 
     createCourseType(courseType, {
       onSuccess: () => {

@@ -31,8 +31,6 @@ function OndemandSectionPopover({ children, className, section, course }) {
   const { deleteSection, isDeleting } = useDeleteOndemandSection();
 
   const handleMoveUp = (sect) => {
-    console.log("move up", sect);
-
     const data = {
       section: sect,
       direction: "forward",
@@ -41,8 +39,6 @@ function OndemandSectionPopover({ children, className, section, course }) {
   };
 
   const handleMoveDown = (sect) => {
-    console.log("move up", sect);
-
     const data = {
       section: sect,
       direction: "backward",
@@ -50,8 +46,6 @@ function OndemandSectionPopover({ children, className, section, course }) {
     moveDown(data);
   };
   const handleMoveTop = (sect) => {
-    console.log("move up", sect);
-
     const data = {
       section: sect,
       direction: "toFront",
@@ -60,8 +54,6 @@ function OndemandSectionPopover({ children, className, section, course }) {
   };
 
   const handleMoveBottom = (sect) => {
-    console.log("move up", sect);
-
     const data = {
       section: sect,
       direction: "toBack",

@@ -27,7 +27,6 @@ export const useDeleteOndemandVideo = () => {
   const { mutate: deleteVideo, status: deleteStatus } = useMutation({
     mutationFn: mutateVideo,
     onSuccess: (data) => {
-      console.log(data);
       toast.success(data.data.message)
       queryClient.invalidateQueries("get-demand-course")
 

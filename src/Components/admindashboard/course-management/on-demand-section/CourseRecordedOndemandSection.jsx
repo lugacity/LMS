@@ -49,18 +49,13 @@ const CourseRecordedOndemandSection = () => {
     queryFn: fetchDemandCourse,
   });
 
-  // console.log(isLoading, isError, data);
-
   if (isLoading) return <p>loading....</p>;
   if (error && !data) {
-    console.log(error);
-
     return <p>{error?.response?.data?.message || "something went wrong"}</p>;
   }
   if (data) {
     data?.data?.data.length < 1 &&
       localStorage.setItem("demandSectionNumber", 2);
-    console.log(data?.data?.data.length);
 
     return (
       <aside className="overflow-y-auto overflow-x-hidden">
