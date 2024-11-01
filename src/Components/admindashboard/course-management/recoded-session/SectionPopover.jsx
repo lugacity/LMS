@@ -24,8 +24,12 @@ import EditModal from "../on-demand-section/EditModal";
 import EditRecordedSectionForm from "./EditRecordedSectionForm";
 import { Video } from "lucide-react";
 import AddRecordedVideoForm from "./AddRecordedVideoForm";
+import { useState } from "react";
 
 function SectionPopover({ children, className, section, course }) {
+  const [addVideoModal, setAddVideoModal] = useState(false);
+  const [editSectionModal, setEditSectionModal] = useState(false);
+
   const { moveSectionUp, isMovingUp } = useMoveRecordedSectionUp();
   const { moveSectionDown, isMovingDown } = useMoveRecordedSectionDown();
   const { moveSectionToTop, isMovingToTop } = useMoveRecordedSectionToTop();
@@ -84,13 +88,17 @@ function SectionPopover({ children, className, section, course }) {
       <PopoverContent className="mr-10 w-[259px] rounded-sm bg-white shadow-lg">
         <div className="px-3 py-[14px]">
           <EditModal
-            form={<AddRecordedVideoForm sectionToAddVideo={course} />}
+            open={addVideoModal}
+            setOpen={setAddVideoModal}
+            form={
+              <AddRecordedVideoForm
+                sectionToAddVideo={course}
+                setVideoModal={setAddVideoModal}
+              />
+            }
             header="Add More video"
           >
-            <span
-              className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed"
-              disabled={isDeleting}
-            >
+            <span className="flex w-full items-center gap-1 py-3 text-[#667185] hover:bg-accent disabled:cursor-not-allowed">
               <span className="text-sm">
                 <Video />
               </span>
@@ -98,10 +106,17 @@ function SectionPopover({ children, className, section, course }) {
             </span>
           </EditModal>
           <EditModal
+            open={editSectionModal}
+            setOpen={setEditSectionModal}
             header="Edit Recorded Section"
-            form={<EditRecordedSectionForm sectionToEdit={course} />}
+            form={
+              <EditRecordedSectionForm
+                sectionToEdit={course}
+                setEditModal={setEditSectionModal}
+              />
+            }
           >
-            <span className="flex w-full items-center gap-3 py-3 text-left text-[#667185]">
+            <span className="hover:bg-accenttext-left flex w-full items-center gap-3 py-3 text-[#667185] hover:bg-accent">
               <span className="text-sm">
                 <HiOutlinePencil />
               </span>

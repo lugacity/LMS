@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import UploadCourseManagement from "./UploadCourseManagement";
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
-import SaveButton from "@/Components/admindashboard/course-management/courses/SaveButton";
+
 import { ScrollRestoration } from "react-router-dom";
 import { Form } from "@/Components/ui/form";
 
@@ -22,10 +22,15 @@ import { courseInformationSchema } from "@/lib/form-schemas/forms-schema";
 const CourseManagementPage = () => {
   const [image, setImage] = useState({ file: null, preview: null });
   const [video, setVideo] = useState({ file: null, preview: null });
+
   const { createCourseInformation, isCreating } = useCreateCourseInformation();
   const { editCourseInformation, isEditing } = useEditCourseInformation();
+
+  const imageRef = useRef(null);
+  const btnRef = useRef(null);
+
   const { setActiveTab } = useCourseManagementInfo();
-  const courseId = localStorage.getItem("id");
+  const courseId = localStorage.getItem("courseId");
   const courseInformation = localStorage.getItem("course-information")
     ? JSON.parse(localStorage.getItem("course-information"))
     : {};
@@ -46,8 +51,6 @@ const CourseManagementPage = () => {
     error: "",
     success: "",
   });
-
-  const imageRef = useRef(null);
 
   const form = useForm({
     resolver: zodResolver(courseInformationSchema),
@@ -75,20 +78,20 @@ const CourseManagementPage = () => {
       url,
     } = data;
 
-    if (!image.file) {
-      toast.error("Please insert an image");
+    // if (!image.file) {
+    //   toast.error("Please insert an image");
 
-      return setMessage((prev) => {
-        return {
-          ...prev,
-          error: "Please insert image",
-          success: "",
-        };
-      });
-    }
+    //   return setMessage((prev) => {
+    //     return {
+    //       ...prev,
+    //       error: "Please insert image",
+    //       success: "",
+    //     };
+    //   });
+    // }
 
-    if (!video.file && form.watch("url").length < 1)
-      return toast.error("Please insert an taster video or video url");
+    // if (!video.file && form.watch("url").length < 1)
+    //   return toast.error("Please insert an taster video or video url");
 
     const courses = {
       title: courseTitle,
@@ -107,10 +110,14 @@ const CourseManagementPage = () => {
         ...courses,
         taster_video: video.file,
       };
-    } else {
+    } else if (url) {
       courseToUpload = {
         ...courses,
         upload_from_url: url,
+      };
+    } else {
+      courseToUpload = {
+        ...courses,
       };
     }
 
@@ -173,6 +180,7 @@ const CourseManagementPage = () => {
       onSuccess: () => setActiveTab((prev) => prev + 1),
     });
   };
+  console.log(btnRef.current);
   return (
     <>
       <ScrollRestoration />
@@ -182,9 +190,14 @@ const CourseManagementPage = () => {
           Course Information
         </h2>
 
-        <SaveButton onClick={() => setActiveTab((prev) => prev + 1)}>
+        <CommonButton
+          variant={"outline"}
+          className="font-normal text-[#667185]"
+          ref={btnRef}
+          onClick={console.log(btnRef.current)}
+        >
           Save and Continue
-        </SaveButton>
+        </CommonButton>
       </div>
       <Form {...form}>
         <form
@@ -348,6 +361,7 @@ const CourseManagementPage = () => {
               <CommonButton
                 className="min-w-32 rounded bg-primary-color-600"
                 disabled={isCreating || isEditing}
+                ref={btnRef}
               >
                 {isCreating || isEditing ? (
                   <ClipLoader size={20} color={"#fff"} />
