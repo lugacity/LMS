@@ -28,7 +28,7 @@ export const onDemandSessionSchema = z.object({
   overview: z
     .string()
     .min(1, { message: "This field is required" })
-    .max(70, { message: "you've reach the max character length" }),
+    .max(450, { message: "you've reach the max character length" }),
   video_from_url: z.union([z.literal(""), z.string().trim().url()]),
 });
 export const editOnDemandVideoSchema = z.object({
@@ -50,7 +50,7 @@ export const editOnDemandSectionSchema = z.object({
   overview: z
     .string()
     .min(1, { message: "This field is required" })
-    .max(70, { message: "you've reach the max character length" }),
+    .max(450, { message: "you've reach the max character length" }),
 });
 
 export const liveSessionSchema = z.object({

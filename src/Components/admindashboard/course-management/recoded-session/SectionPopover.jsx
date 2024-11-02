@@ -29,6 +29,7 @@ import { useState } from "react";
 function SectionPopover({ children, className, section, course }) {
   const [addVideoModal, setAddVideoModal] = useState(false);
   const [editSectionModal, setEditSectionModal] = useState(false);
+  const [openPopover, setOpenPopover] = useState(false);
 
   const { moveSectionUp, isMovingUp } = useMoveRecordedSectionUp();
   const { moveSectionDown, isMovingDown } = useMoveRecordedSectionDown();
@@ -46,7 +47,9 @@ function SectionPopover({ children, className, section, course }) {
       direction: "forward",
     };
 
-    moveSectionUp(data);
+    moveSectionUp(data, {
+      onSuccess: () => setOpenPopover(false),
+    });
   };
 
   const handleMoveDown = (sect) => {
@@ -56,7 +59,9 @@ function SectionPopover({ children, className, section, course }) {
       section: sect,
       direction: "backward",
     };
-    moveSectionDown(data);
+    moveSectionDown(data, {
+      onSuccess: () => setOpenPopover(false),
+    });
   };
   const handleMoveTop = (sect) => {
     console.log("move up", sect);
@@ -65,7 +70,9 @@ function SectionPopover({ children, className, section, course }) {
       section: sect,
       direction: "toFront",
     };
-    moveSectionToTop(data);
+    moveSectionToTop(data, {
+      onSuccess: () => setOpenPopover(false),
+    });
   };
 
   const handleMoveBottom = (sect) => {
@@ -75,15 +82,23 @@ function SectionPopover({ children, className, section, course }) {
       section: sect,
       direction: "toBack",
     };
-    moveSectionToBottom(data);
+    moveSectionToBottom(data, {
+      onSuccess: () => setOpenPopover(false),
+    });
   };
 
   const handleDelete = (sect) => {
-    deleteRecordedSection(sect);
+    deleteRecordedSection(sect, {
+      onSuccess: () => setOpenPopover(false),
+    });
   };
 
   return (
-    <Popover className={cn(className)}>
+    <Popover
+      className={cn(className)}
+      open={openPopover}
+      onOpenChange={setOpenPopover}
+    >
       <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent className="mr-10 w-[259px] rounded-sm bg-white shadow-lg">
         <div className="px-3 py-[14px]">
