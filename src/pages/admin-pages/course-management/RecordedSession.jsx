@@ -195,6 +195,7 @@ function RecordedSession() {
                   <input
                     type="file"
                     name=""
+                    accept="video/*"
                     id=""
                     hidden
                     ref={videoRef}
