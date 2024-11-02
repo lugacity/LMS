@@ -6,7 +6,7 @@ import { editOnDemandSectionSchema } from "@/lib/form-schemas/forms-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-const EditOnDemandSectionForm = ({ sectionToEdit }) => {
+const EditOnDemandSectionForm = ({ sectionToEdit, setModal }) => {
   const { editOnDemandCourse, isEditing } = useEditOnDemandSection();
   const { title, overview, section } = sectionToEdit;
 
@@ -19,7 +19,15 @@ const EditOnDemandSectionForm = ({ sectionToEdit }) => {
   });
 
   const onSubmit = (data) => {
-    editOnDemandCourse({ data, section }, { onSuccess: () => form.reset() });
+    editOnDemandCourse(
+      { data, section },
+      {
+        onSuccess: () => {
+          setModal(false);
+          form.reset();
+        },
+      },
+    );
   };
 
   return (

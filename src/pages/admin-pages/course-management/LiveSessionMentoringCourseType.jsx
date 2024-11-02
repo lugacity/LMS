@@ -92,8 +92,6 @@ const LiveSessionMentoringCourseType = () => {
 
   return (
     <>
-      <ScrollRestoration />
-
       <Form {...form}>
         <form action="" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="mb-4 mt-5 grid grid-cols-12 gap-10 rounded border border-gray-300 p-10 md:mb-0">

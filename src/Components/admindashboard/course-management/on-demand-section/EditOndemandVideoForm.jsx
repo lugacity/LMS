@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
-const EditOndemandVideoForm = ({ videoToEdit, section }) => {
+const EditOndemandVideoForm = ({ videoToEdit, section, setModal }) => {
   const [video, setVideo] = useState({ file: null, preview: null });
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -77,6 +77,7 @@ const EditOndemandVideoForm = ({ videoToEdit, section }) => {
           setVideo((prev) => {
             return { ...prev, file: null, preview: null };
           });
+          setModal(false);
           if (!localStorage.getItem("demandSectionNumber"))
             return localStorage.setItem("demandSectionNumber", section);
         },
