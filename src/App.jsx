@@ -11,7 +11,7 @@ import DataSolution from "./pages/DataSolution";
 import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
 import AVI from "./pages/AVI";
 import PreviewCourse from "./pages/previewCourse";
-import PreviewVideoCourse from "./pages/PreviewVideoCourse";
+// import PreviewVideoCourse from "./pages/PreviewVideoCourse";
 import Component from "./Components/Component";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/Signup";
@@ -94,6 +94,7 @@ import CourseWorkAreaDocument from "./pages/admin-pages/course-work-area/CourseW
 import CourseWorkAssignment from "./pages/admin-pages/course-work-area/CourseWorkAssignment";
 import CourseWorkShareDocs from "./pages/admin-pages/course-work-area/CourseWorkShareDocs";
 import CourseCohortPreview from "./pages/admin-pages/course-management/CourseCohortPreview";
+import PreviewVideoCourse from "./pages/PreviewVideoCourse";
 
 const queryClient = new QueryClient();
 
@@ -102,11 +103,11 @@ function App() {
 
   const routes = createBrowserRouter([
     {
-      path: "/preview-course",
+      path: "/preview-course/:courseId",
       element: <PreviewCourse />,
     },
     {
-      path: "/PreviewVideoCourse",
+      path: "/PreviewVideoCourse/",
       element: <PreviewVideoCourse />,
     },
 
