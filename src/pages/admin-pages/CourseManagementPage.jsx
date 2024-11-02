@@ -30,10 +30,11 @@ const CourseManagementPage = () => {
   const btnRef = useRef(null);
 
   const { setActiveTab } = useCourseManagementInfo();
-  const courseId = localStorage.getItem("courseId");
   const courseInformation = localStorage.getItem("course-information")
     ? JSON.parse(localStorage.getItem("course-information"))
     : {};
+  const courseId =
+    localStorage.getItem("course-information") && courseInformation.id;
 
   const dataToEdit = localStorage.getItem("course-information") && {
     courseTitle: courseInformation.title,
@@ -77,21 +78,6 @@ const CourseManagementPage = () => {
       overview,
       url,
     } = data;
-
-    // if (!image.file) {
-    //   toast.error("Please insert an image");
-
-    //   return setMessage((prev) => {
-    //     return {
-    //       ...prev,
-    //       error: "Please insert image",
-    //       success: "",
-    //     };
-    //   });
-    // }
-
-    // if (!video.file && form.watch("url").length < 1)
-    //   return toast.error("Please insert an taster video or video url");
 
     const courses = {
       title: courseTitle,
@@ -180,7 +166,7 @@ const CourseManagementPage = () => {
       onSuccess: () => setActiveTab((prev) => prev + 1),
     });
   };
-  console.log(btnRef.current);
+
   return (
     <>
       <ScrollRestoration />
@@ -194,7 +180,7 @@ const CourseManagementPage = () => {
           variant={"outline"}
           className="font-normal text-[#667185]"
           ref={btnRef}
-          onClick={console.log(btnRef.current)}
+          onClick={() => console.log("btnRef.current")}
         >
           Save and Continue
         </CommonButton>
