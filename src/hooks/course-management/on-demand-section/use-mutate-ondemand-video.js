@@ -24,7 +24,7 @@ export const useDeleteOndemandVideo = () => {
 
   const queryClient = useQueryClient()
 
-  const { mutate: deleteVideo, status: deleteStatus } = useMutation({
+  const { mutate: deleteVideo, isPending: isDeleting } = useMutation({
     mutationFn: mutateVideo,
     onSuccess: (data) => {
       toast.success(data.data.message)
@@ -35,5 +35,5 @@ export const useDeleteOndemandVideo = () => {
 
   })
 
-  return { deleteVideo, deleteStatus }
+  return { deleteVideo, isDeleting }
 }
