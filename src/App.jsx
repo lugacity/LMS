@@ -91,7 +91,9 @@ import CourseWorkArea from "./pages/admin-pages/course-work-area/CourseWorkArea"
 import CourseWorkAreaDocument from "./pages/admin-pages/course-work-area/CourseWorkAreaDocument";
 import CourseWorkAssignment from "./pages/admin-pages/course-work-area/CourseWorkAssignment";
 import CourseWorkShareDocs from "./pages/admin-pages/course-work-area/CourseWorkShareDocs";
-import PreviewVideoCourse from "./pages/previewVideoCourse";
+import CourseCohortPreview from "./pages/admin-pages/course-management/CourseCohortPreview";
+import PreviewVideoCourse from "./pages/PreviewVideoCourse";
+
 
 const queryClient = new QueryClient();
 
@@ -100,11 +102,11 @@ function App() {
 
   const routes = createBrowserRouter([
     {
-      path: "/preview-course",
+      path: "/preview-course/:courseId",
       element: <PreviewCourse />,
     },
     {
-      path: "/PreviewVideoCourse",
+      path: "/PreviewVideoCourse/",
       element: <PreviewVideoCourse />,
     },
 

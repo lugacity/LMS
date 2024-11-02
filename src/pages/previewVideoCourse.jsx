@@ -8,7 +8,7 @@ import SocialMediaLinks, {
 } from "../Components/SocialMediaLink";
 import { WhiteLogo } from "../Components/Logo";
 import { PreviewVideoNav } from "../Components/avi/AviNav";
-import { ScrollRestoration, useParams } from "react-router-dom";
+import { ScrollRestoration } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import Container from "@/Components/Container";
 import DashButton from "./auth/ButtonDash";
@@ -25,11 +25,8 @@ const PreviewVideoCourse = () => {
   // const { previewCourse, isLoading } = usePreviewCourses();
   // console.log("previewCourse", previewCourse);
   // console.log("isLoading", isLoading);
-  
 
-  let { courseId } = useParams();
-
-  const {isLoading, previewCourse} = usePreviewCourses()
+  // let { courseId } = useParams();
 
   const [selectedOption, setSelectedOption] = useState("");
 

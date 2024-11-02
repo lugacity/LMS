@@ -107,13 +107,13 @@ const DiscoverCourses = () => {
             : allCourses.data.data.courses.map((course) => (
                 <CourseCard
                   key={course.id}
-                  imgSrc={joinTeam}
+                  joinTeam={course.cover_image}
                   altText="joinTeam"
                   title={course.title}
                   rating="4.3"
                   numRatings="45,345"
                   previewButtonText="Preview this course"
-                  path={`/preview/${course.id}`}
+                  path={`/preview-course/${course.id}`}
                 />
               ))}
         </div>

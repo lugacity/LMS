@@ -38,7 +38,6 @@ export const useFetchAllCourses = () => {
 
 // Preview Courses
 export const previewCourses = async (courseId) => {
-  // const courseId = localStorage.getItem("courseId");
   const token = Cookies.get("token");
 
   // https://avi-lms-backend.onrender.com/api/v1/courses/:courseId?promocode=854B019880
@@ -52,10 +51,10 @@ export const previewCourses = async (courseId) => {
   );
 };
 
-export const usePreviewCourses = () => {
+export const usePreviewCourses = (courseId) => {
   const { data: previewCourse, isLoading: isLoading } = useQuery({
-    queryKey: ["preview-courses"],
-    queryFn: previewCourses,
+    queryKey: ["preview-courses", courseId],
+    queryFn: ()=>previewCourses(courseId),
   });
   return { previewCourse, isLoading };
 };
