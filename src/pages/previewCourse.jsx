@@ -25,7 +25,7 @@ import { industriesItems, professionalItems } from "@/lib/professionalItems";
 import RenderStars from "@/Components/RenderStars";
 import { useFetchAllCourses, usePreviewCourses } from "@/hooks/students/use-fetch-all-courses";
 
-const PreviewCourse = ({ features }) => {
+const PreviewCourse = () => {
   const navigate = useNavigate();
   const { allCourses, isFetchingAllCourses } = useFetchAllCourses();
   
@@ -37,12 +37,12 @@ const PreviewCourse = ({ features }) => {
   console.log("isLoading", isLoading);
 
   // Ensure features is defined, falling back to default courseFeatures
-  const courseFeatures = features || [
-    "18 hours on-demand video",
-    "Access on mobile and TV",
-    "Full lifetime access",
-    "Certificate of completion",
-  ];
+  // const courseFeatures = features || [
+  //   "18 hours on-demand video",
+  //   "Access on mobile and TV",
+  //   "Full lifetime access",
+  //   "Certificate of completion",
+  // ];
 
   return (
     <>
@@ -81,7 +81,7 @@ const PreviewCourse = ({ features }) => {
               <Container>
                 <div className="mb-4 flex items-center lg:hidden lg:pt-9">
                   <button
-                    onClick={() => navigate("/avi")}
+                    onClick={() => navigate(-1)}
                     className="text-white"
                   >
                     <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
@@ -109,7 +109,7 @@ const PreviewCourse = ({ features }) => {
                       <div className="text-white">
                         <p className="py-2 text-2xl">This course Includes:</p>
                         <ul className="m-0 list-none p-0">
-                          {courseFeatures.map((feature, index) => (
+                          {previewCourse?.data?.data.course.course_includes.map((feature, index) => (
                             <li key={index} className="mb-2">
                               <FontAwesomeIcon
                                 icon={faCheckCircle}
@@ -126,7 +126,7 @@ const PreviewCourse = ({ features }) => {
                       <CourseCardPreview
                         imgSrc={previewCourse?.data?.data.course.cover_image}
                         previewButtonText={"Enroll now"}
-                        path="/PreviewVideoCourse"
+                        path={`/preview-video-course/${courseId}/enroll`}
                       />
                     </div>
                   </div>

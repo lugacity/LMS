@@ -1,7 +1,8 @@
 import { STUDENT_BASE_URL } from "@/constant";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 
 // https://avi-lms-backend.onrender.com/api/v1/courses?perPage=10&page=1&searchQuery
 const fetchAllCourses = () => {
@@ -58,3 +59,64 @@ export const usePreviewCourses = (courseId) => {
   });
   return { previewCourse, isLoading };
 };
+
+
+
+
+
+// Preview VIDEO
+// export const previewVideo = async (courseId, videoId) => {
+//   const token = Cookies.get("token");
+
+//   // https://avi-lms-backend.onrender.com/api/v1/courses/:courseId/stream-video/:videoId
+//   return await axios.get(`${STUDENT_BASE_URL}/courses/${courseId}/stream-video/${videoId}`, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+// };
+
+
+
+// export const usePreviewVideo = (courseId, videoId) => {
+//   const { data: previewVideo, isLoading: isLoadingVideo } = useQuery({
+//     queryKey: ["preview-video", courseId, videoId],
+//     queryFn: ()=>previewVideo(courseId, videoId),
+//   });
+//   return { previewVideo, isLoadingVideo};
+// };
+
+
+
+
+// export const enrollNow = async (data) => {
+//   const token = Cookies.get("token");
+//   const courseId = localStorage.getItem("courseId");
+
+//   // https://avi-lms-backend.onrender.com/api/v1/courses/:courseId/enroll
+
+//   return await axios.post(
+//     `${STUDENT_BASE_URL}/courses/${courseId}/enroll`,
+//     data,
+//     {
+//       headers: {
+//         "Content-Type": "multipart/form-data",
+//         Authorization: `Bearer ${token}`,
+//       },
+//     },
+//   );
+// };
+
+
+// export const useEnrollNow = () => {
+//   const { mutate:createEnrollNow, isPending:isLoading } = useMutation({
+//     mutationFn: enrollNow(),
+//     onSuccess: ({ data }) => {
+//       toast.success(data.message);
+//       localStorage.setItem("courseId", data.data.id);
+
+//       localStorage.setItem("enroll-now", JSON.stringify(data.data));
+//     }
+//   });
+//   return {createEnrollNow, isLoading};
+// }

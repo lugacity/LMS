@@ -104,7 +104,7 @@ function App() {
       element: <PreviewCourse />,
     },
     {
-      path: "/PreviewVideoCourse/",
+      path: "/preview-video-course/:courseId/enroll",
       element: <PreviewVideoCourse />,
     },
 

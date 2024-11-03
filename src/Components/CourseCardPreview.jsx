@@ -10,7 +10,7 @@ const CourseCardPreview = ({
   return (
     <div className={`${styles.previewCourses1} `}>
       <div className={`${styles.courseImg} `}>
-        <img className="rounded-lg" src={imgSrc} alt="Course" />
+        <img className="rounded-lg w-full" src={imgSrc} alt="Course" />
       </div>
       <div className="pt-4 text-center">
         <Link to={path}>
