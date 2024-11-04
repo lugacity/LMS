@@ -23,18 +23,20 @@ import Container from "@/Components/Container";
 import CourseCardPreview from "@/Components/CourseCardPreview";
 import { industriesItems, professionalItems } from "@/lib/professionalItems";
 import RenderStars from "@/Components/RenderStars";
-import { useFetchAllCourses, usePreviewCourses } from "@/hooks/students/use-fetch-all-courses";
+import {
+  useFetchAllCourses,
+  usePreviewCourses,
+} from "@/hooks/students/use-fetch-all-courses";
 
 const PreviewCourse = () => {
   const navigate = useNavigate();
   const { allCourses, isFetchingAllCourses } = useFetchAllCourses();
-  
 
   let { courseId } = useParams();
 
   const { previewCourse, isLoading } = usePreviewCourses(courseId);
   console.log("previewCourse", previewCourse);
-  console.log("isLoading", isLoading);
+  // console.log("isLoading", isLoading);
 
   // Ensure features is defined, falling back to default courseFeatures
   // const courseFeatures = features || [
@@ -80,10 +82,7 @@ const PreviewCourse = () => {
               {/* Back Button for Mobile View */}
               <Container>
                 <div className="mb-4 flex items-center lg:hidden lg:pt-9">
-                  <button
-                    onClick={() => navigate(-1)}
-                    className="text-white"
-                  >
+                  <button onClick={() => navigate(-1)} className="text-white">
                     <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
                   </button>
                 </div>
@@ -109,7 +108,7 @@ const PreviewCourse = () => {
                       <div className="text-white">
                         <p className="py-2 text-2xl">This course Includes:</p>
                         <ul className="m-0 list-none p-0">
-                          {previewCourse?.data?.data.course.course_includes.map((feature, index) => (
+                          {/* {previewCourse?.data?.data.course.course_includes.map((feature, index) => (
                             <li key={index} className="mb-2">
                               <FontAwesomeIcon
                                 icon={faCheckCircle}
@@ -117,14 +116,14 @@ const PreviewCourse = () => {
                               />
                               <span>{feature}</span>
                             </li>
-                          ))}
+                          ))} */}
                         </ul>
                       </div>
                     </div>
 
                     <div className={styles.project_consult1}>
                       <CourseCardPreview
-                        imgSrc={previewCourse?.data?.data.course.cover_image}
+                        // imgSrc={previewCourse?.data?.data.course.cover_image}
                         previewButtonText={"Enroll now"}
                         path={`/preview-video-course/${courseId}/enroll`}
                       />
@@ -292,7 +291,7 @@ const PreviewCourse = () => {
 
               {/* Preview this Course */}
               <div className="grid grid-cols-2 gap-5 md:gap-5 lg:grid-cols-4 lg:gap-[18.34px]">
-                {isFetchingAllCourses
+                {/* {isFetchingAllCourses
                   ? "Loading"
                   : allCourses.data.data.courses.map((course) => (
                       <CourseCard
@@ -305,7 +304,7 @@ const PreviewCourse = () => {
                         previewButtonText="Preview this course"
                         path={`/preview-course/${course.id}`}
                       />
-                    ))}
+                    ))} */}
 
                 {/* <CourseCard
                   imgSrc={joinTeam}
