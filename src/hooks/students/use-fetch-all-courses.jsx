@@ -1,68 +1,35 @@
 import { STUDENT_BASE_URL } from "@/constant";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Cookies from "js-cookie";
-import toast from "react-hot-toast";
 
-// https://avi-lms-backend.onrender.com/api/v1/courses?perPage=10&page=1&searchQuery
 const fetchAllCourses = () => {
-  const token = Cookies.get("token");
+  const url = `${STUDENT_BASE_URL}/courses?perPage=10&page=1`;
 
-  const url = `${STUDENT_BASE_URL}/courses?perPage=10&page=1&searchQuery`;
-  const response = axios.get(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return response;
+  return axios.get(url);
 };
 
-
-
-
-
-
 export const useFetchAllCourses = () => {
-  const { data: allCourses, isLoading: isFetchingAllCourses } = useQuery({
+  return useQuery({
     queryKey: ["fetch-all-courses"],
     queryFn: fetchAllCourses,
   });
-  return { allCourses, isFetchingAllCourses };
 };
-
-
-
-
-
-
 
 // Preview Courses
 export const previewCourses = async (courseId) => {
-  const token = Cookies.get("token");
-
   // https://avi-lms-backend.onrender.com/api/v1/courses/:courseId?promocode=854B019880
-  return await axios.get(
-    `${STUDENT_BASE_URL}/courses/${courseId}?promocode=`,
-       {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  );
+  //avi-lms-backend.onrender.com/api/v1/courses/:courseId
+  https: return await axios.get(`${STUDENT_BASE_URL}/courses/${courseId}`);
 };
 
 export const usePreviewCourses = (courseId) => {
   const { data: previewCourse, isLoading: isLoading } = useQuery({
     queryKey: ["preview-courses", courseId],
-    queryFn: ()=>previewCourses(courseId),
+    queryFn: () => previewCourses(courseId),
   });
   return { previewCourse, isLoading };
 };
-
-
-
-
 
 // Preview VIDEO
 // export const previewVideo = async (courseId, videoId) => {
@@ -76,8 +43,6 @@ export const usePreviewCourses = (courseId) => {
 //   });
 // };
 
-
-
 // export const usePreviewVideo = (courseId, videoId) => {
 //   const { data: previewVideo, isLoading: isLoadingVideo } = useQuery({
 //     queryKey: ["preview-video", courseId, videoId],
@@ -85,9 +50,6 @@ export const usePreviewCourses = (courseId) => {
 //   });
 //   return { previewVideo, isLoadingVideo};
 // };
-
-
-
 
 // export const enrollNow = async (data) => {
 //   const token = Cookies.get("token");
@@ -106,7 +68,6 @@ export const usePreviewCourses = (courseId) => {
 //     },
 //   );
 // };
-
 
 // export const useEnrollNow = () => {
 //   const { mutate:createEnrollNow, isPending:isLoading } = useMutation({
