@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { usePreviewCourses } from "@/hooks/students/use-fetch-all-courses";
 import { useFetchVideo } from "@/hooks/students/use-fetch-taster-video";
+import { Skeleton } from "@/Components/ui/skeleton";
 // import DiscoverCourses from "../pages/dashboard/DashboardDiscover";
 
 const PreviewVideoCourse = () => {
@@ -271,7 +272,12 @@ const PreviewVideo = () => {
 
   console.log({ data, isLoading });
 
-  if (isLoading) return <p>loading</p>;
+  if (isLoading)
+    return (
+      <div className="max-h-[690px] w-full text-white">
+        <Skeleton className={"h-[690px] w-full"} />
+      </div>
+    );
 
   const blob = data && URL.createObjectURL(data?.data);
 
