@@ -17,6 +17,7 @@ import { faHeart, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { usePreviewCourses } from "@/hooks/students/use-fetch-all-courses";
+import { useFetchVideo } from "@/hooks/students/use-fetch-taster-video";
 // import DiscoverCourses from "../pages/dashboard/DashboardDiscover";
 
 const PreviewVideoCourse = () => {
@@ -26,29 +27,22 @@ const PreviewVideoCourse = () => {
   // console.log("createEnrollNow", createEnrollNow);
   // console.log("isLoading", isLoading);
 
-
-  let { courseId} = useParams();
+  let { courseId } = useParams();
   const { previewCourse, isLoading } = usePreviewCourses(courseId);
   console.log("previewCourse", previewCourse);
   console.log("isLoading", isLoading);
 
-
-//   const { previewVideo, isLoadingVideo } = usePreviewVideo(videoId);
-//   console.log("previewVideo", previewVideo);
-// console.log("isLoadingVideo", isLoadingVideo);
-
-  
-  
-  
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
-  const original_price = previewCourse?.data?.data.course.live_class_price.original_price.amount
-  const discounted_price = previewCourse?.data?.data.course.live_class_price.discounted_price.amount
-  
+  const original_price =
+    previewCourse?.data?.data.course.live_class_price.original_price.amount;
+  const discounted_price =
+    previewCourse?.data?.data.course.live_class_price.discounted_price.amount;
+
   const finalAmount =
     original_price - (original_price * discounted_price) / 100;
 
@@ -76,11 +70,13 @@ const PreviewVideoCourse = () => {
                     Project Consultant Training Programme (Bundle)
                   </p>
 
-                  <video
+                  <PreviewVideo />
+
+                  {/* <video
                     src={previewCourse?.data?.data.course.preview_video}
                     controls
                     className="h-auto w-full shadow-lg lg:rounded-3xl"
-                  ></video>
+                  ></video> */}
                 </div>
               </Container>
             </div>
@@ -213,7 +209,6 @@ const PreviewVideoCourse = () => {
                       </label>
                     ),
                   )}
-                 
                 </div>
 
                 <div className="space-y-2">
@@ -266,6 +261,26 @@ const PreviewVideoCourse = () => {
         </div>
       </section>
     </>
+  );
+};
+
+const PreviewVideo = () => {
+  const { courseId } = useParams();
+
+  const { data, isLoading } = useFetchVideo(courseId);
+
+  console.log({ data, isLoading });
+
+  if (isLoading) return <p>loading</p>;
+
+  const blob = data && URL.createObjectURL(data?.data);
+
+  return (
+    <video
+      src={blob}
+      controls
+      className="max-h-[699px] w-full object-cover shadow-lg lg:rounded-3xl"
+    ></video>
   );
 };
 
