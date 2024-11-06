@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styles from "./pages.module.css";
 import ImageOverlay from "../Components/ImageOverlay";
 import { PreviewVideoSelect } from "./auth/components/DashSelect";
-import PreviewCourseVideo from "../assets/video/aca3d49307cab662ec1e91becdd52cb4-720p-preview.mp4";
 import SocialMediaLinks, {
   socialMediaData,
 } from "../Components/SocialMediaLink";
@@ -19,14 +18,9 @@ import { Link } from "react-router-dom";
 import { usePreviewCourses } from "@/hooks/students/use-fetch-all-courses";
 import { useFetchVideo } from "@/hooks/students/use-fetch-taster-video";
 import { Skeleton } from "@/Components/ui/skeleton";
-// import DiscoverCourses from "../pages/dashboard/DashboardDiscover";
 
 const PreviewVideoCourse = () => {
   const navigate = useNavigate();
-
-  // const { createEnrollNow, isLoading } = useEnrollNow(courseId);
-  // console.log("createEnrollNow", createEnrollNow);
-  // console.log("isLoading", isLoading);
 
   let { courseId } = useParams();
   const { previewCourse, isLoading } = usePreviewCourses(courseId);
@@ -68,7 +62,7 @@ const PreviewVideoCourse = () => {
 
                 <div className="mx-auto flex flex-col items-center justify-center lg:text-center">
                   <p className="pb-6 text-[24px] font-[300] text-[white] lg:text-[40px]">
-                    Project Consultant Training Programme (Bundle)
+                    {previewCourse?.data?.data.course.title ?? ""}
                   </p>
 
                   <PreviewVideo />
