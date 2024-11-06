@@ -10,7 +10,7 @@ import DigitalTransformation from "./pages/DigitalTransformation";
 import DataSolution from "./pages/DataSolution";
 import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
 import AVI from "./pages/AVI";
-import PreviewCourse from "./pages/previewCourse";
+import PreviewCourse from "./pages/PreviewCourse";
 import Component from "./Components/Component";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/Signup";
@@ -155,10 +155,7 @@ function App() {
         {
           path: "",
           element: <AuthLayout />,
-          // loader: async () => {
-          //   const token = Cookies.get("token");
-          //   if (token) return (window.location.href = "/dashboard");
-          // },
+
           children: [
             {
               path: "/AVI",
@@ -191,10 +188,7 @@ function App() {
     },
     {
       element: <ProtectedRoute tokin={"token"} path={"/login"} />,
-      // loader: async () => {
-      //   const token = Cookies.get("token");
-      //   if (!token) return (window.location.href = "/login");
-      // },
+
       children: [
         {
           path: "/dashboard",
