@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getSingleCohort } from "@/services/api";
 import VideoSectionPopover from "./VideoSectionPopover";
+import { useGetSingleCohort } from "@/hooks/course-management/use-get-singleCohorts";
 
 const months = [
   "Jan",
@@ -44,10 +45,10 @@ const formatDate = (date) => {
 };
 
 const CoursesRecordedLiveSession = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["get-single-cohort"],
-    queryFn: getSingleCohort,
-  });
+  const courseId = localStorage.getItem("courseId");
+  const cohortId = localStorage.getItem("cohortId");
+
+  const { data, isLoading, error } = useGetSingleCohort(courseId, cohortId);
 
   // console.log(isLoading, isError, data);
 

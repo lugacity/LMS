@@ -1,6 +1,15 @@
+import { useParams, useSearchParams } from "react-router-dom";
 import AdminCoursesSection from "./AdminCousesSection";
+import { useGetSingleCohort } from "@/hooks/course-management/use-get-singleCohorts";
 
 function CourseManagementSection() {
+  const [queryString] = useSearchParams();
+
+  const { courseId } = useParams();
+  const cohortId = queryString.get("cohortId");
+
+  const { data, isLoading } = useGetSingleCohort(courseId, cohortId);
+
   return (
     <div className="mt-6 grid grid-cols-[3fr_1.7fr]">
       <div>

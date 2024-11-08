@@ -1,19 +1,16 @@
-import { getSingleCohort } from "@/services/api";
-import { useQuery } from "@tanstack/react-query";
+import { useGetSingleCohort } from "@/hooks/course-management/use-get-singleCohorts";
 import { Copy } from "lucide-react";
-import React from "react";
 import toast from "react-hot-toast";
 
 const LiveSessionContent = () => {
-  
+  const courseId = localStorage.getItem("courseId");
+  const cohortId = localStorage.getItem("cohortId");
+
   const {
     data: cohortData,
     isLoading,
     isError,
-  } = useQuery({
-    queryKey: ["get-single-cohort"],
-    queryFn: getSingleCohort,
-  });
+  } = useGetSingleCohort(courseId, cohortId);
   if (isLoading) return <p>Loading....</p>;
 
   if (isError) return <p>something went wrong!!</p>;

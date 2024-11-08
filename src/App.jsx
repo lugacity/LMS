@@ -340,11 +340,11 @@ function App() {
                       element: <CreatedCourse />,
                     },
                     {
-                      path: "edit",
+                      path: "preview/:courseId",
                       element: <EditCourse />,
                     },
                     {
-                      path: "info",
+                      path: "info/:courseId",
                       element: <CourseInfomation />,
                     },
                   ],

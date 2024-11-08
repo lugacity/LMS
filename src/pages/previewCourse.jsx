@@ -43,7 +43,7 @@ const PreviewCourse = () => {
   const { previewCourse, isLoading } = usePreviewCourses(courseId);
   const path = !user
     ? "/signup"
-    : `/preview-video-course/${courseId}/enroll?${previewCourse?.data?.data.course.title}`;
+    : `/preview-video-course/${courseId}/enroll?title=${previewCourse?.data?.data.course.title}`;
   console.log("previewCourse", previewCourse);
 
   return (

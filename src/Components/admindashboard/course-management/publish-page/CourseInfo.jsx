@@ -1,14 +1,11 @@
-import { FaRegCircleCheck } from "react-icons/fa6";
-
 import AvenueList from "@/Components/Assets/AvenueList";
 
+import { CommonButton } from "@/Components/ui/button";
+import { useFetchCourseInfo } from "@/hooks/course-management/use-fetch-course-information";
+import { HiOutlinePencil } from "react-icons/hi";
+import { ClipLoader } from "react-spinners";
 import iconDark from "../../../../assets/icons/icon-dark.png";
 import img from "../../../../assets/images/join_team.png";
-import { CommonButton } from "@/Components/ui/button";
-import { HiOutlinePencil } from "react-icons/hi";
-import { useQuery } from "@tanstack/react-query";
-import { fetchCourseInformation } from "@/services/api";
-import { ClipLoader } from "react-spinners";
 
 // const data = {
 //   course: {
@@ -58,11 +55,8 @@ import { ClipLoader } from "react-spinners";
 //   applied: [],
 // };
 
-const CourseInfo = ({ editButton = false }) => {
-  const { data, isLoading, isError, error } = useQuery({
-    queryFn: fetchCourseInformation,
-    queryKey: ["get-course-info"],
-  });
+const CourseInfo = ({ editButton = false, courseId }) => {
+  const { data, isLoading, isError } = useFetchCourseInfo(courseId);
 
   if (isLoading)
     return (
