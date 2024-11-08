@@ -8,7 +8,7 @@ const CreatedCourseCard = ({
   altText,
   title,
   path = "/admin/course/management/edit", // Setting the default path to a string route
-  date = "Created 18/09/2024",
+  date = "18/09/2024",
   rating,
   review,
 }) => {
@@ -27,13 +27,15 @@ const CreatedCourseCard = ({
 
         {path ? (
           <Link to={path}>
-            <p className="py-[10px] text-[12px] font-medium text-[#CC1747]">
-              {date}
+            <p className="flex space-x-1 py-[10px] text-[12px] font-medium text-[#CC1747]">
+              <span>Created</span>
+              <span>{date}</span>
             </p>
           </Link>
         ) : (
           <p className="py-[10px] text-[12px] font-medium text-[#CC1747]">
-            {date}
+            <span>Created</span>
+            <span>{date}</span>
           </p>
         )}
 

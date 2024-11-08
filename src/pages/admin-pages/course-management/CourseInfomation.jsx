@@ -10,10 +10,11 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 function CourseInfomation() {
   const [queryString] = useSearchParams();
   const navigate = useNavigate();
+
+  const cohort = queryString.get("cohort");
+
   const [active, setActive] = useState("course-section");
 
-  const month = queryString.get("month");
-  const year = queryString.get("year");
   return (
     <div className="mt-12">
       <header className="flex items-center justify-between">
@@ -33,7 +34,7 @@ function CourseInfomation() {
             </span>
           </button>
           <p className="text-xl font-medium text-black lg:text-2xl 2xl:text-2xl">
-            {month} {year}
+            {cohort}
           </p>
         </div>
         <ul className="flex items-center gap-4 *:capitalize">

@@ -1,6 +1,7 @@
 import BorderCard from "@/Components/BorderCard";
+import { useGetAllCohorts } from "@/hooks/course-management/use-fetch-all-cohorts";
 import DashButton from "@/pages/auth/ButtonDash";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const cohorts = [
   {
@@ -30,6 +31,16 @@ const cohorts = [
 ];
 
 const CourseCohortsPreview = () => {
+  const formatDate = (date) => {
+    const createdAt = new Date(date);
+    const locale = navigator.language;
+
+    return new Intl.DateTimeFormat(locale).format(createdAt);
+  };
+  const { courseId } = useParams();
+
+  const { data, isLoading } = useGetAllCohorts(courseId);
+
   return (
     <div>
       {/* Live Session + Mentoring */}
@@ -45,22 +56,26 @@ const CourseCohortsPreview = () => {
           </DashButton>
         </div>
 
-        <div className="w-full max-w-[612px] space-y-4 justify-self-end">
-          {cohorts.map((cohort) => (
-            <Link
-              to={`/admin/course/management/info?month=${cohort.month}&year=${cohort.year}`}
-              key={cohort.id}
-              className="block w-full rounded-lg border px-4 py-6 text-left hover:border-primary-color-600 hover:bg-[#FFEBF0]"
-            >
-              <span className="mb-3 block text-lg font-semibold text-tertiary-color-700">
-                {`${cohort.month} ${cohort.year}`}
-              </span>
-              <span className="block text-xs text-primary-color-600">
-                {cohort.created}
-              </span>
-            </Link>
-          ))}
-        </div>
+        {isLoading ? (
+          "loading..."
+        ) : (
+          <div className="w-full max-w-[612px] space-y-4 justify-self-end">
+            {data?.data?.data?.map((cohort) => (
+              <Link
+                to={`/admin/course/management/info/${courseId}?cohort=${cohort.cohort}&cohortId=${cohort.id}`}
+                key={cohort.id}
+                className="block w-full rounded-lg border px-4 py-6 text-left hover:border-primary-color-600 hover:bg-[#FFEBF0]"
+              >
+                <span className="mb-3 block text-lg font-semibold text-tertiary-color-700">
+                  {`${cohort.cohort}`}
+                </span>
+                <span className="block text-xs text-primary-color-600">
+                  Created {formatDate(cohort.created_at)}
+                </span>
+              </Link>
+            ))}
+          </div>
+        )}
       </BorderCard>
     </div>
   );
