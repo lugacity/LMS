@@ -26,7 +26,7 @@ const EditModal = ({
             {children}
           </CommonButton>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[665px]">
+        <DialogContent className="w-max">
           <DialogHeader>
             <DialogTitle>{header}</DialogTitle>
             <DialogDescription></DialogDescription>

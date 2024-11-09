@@ -1,5 +1,6 @@
 import AdminCoursesSection from "@/Components/admindashboard/course-management/courses/AdminCousesSection";
 import liveSession from "../../../assets/images/dashboard/live-session.png";
+import OnDemandAdminSection from "@/Components/admindashboard/course-management/on-demand-section/OnDemandAdminSection";
 
 function OndemandSection() {
   return (
@@ -26,7 +27,7 @@ function OndemandSection() {
         </div>
       </main>
       <aside>
-        <AdminCoursesSection />
+        <OnDemandAdminSection />
       </aside>
     </div>
   );

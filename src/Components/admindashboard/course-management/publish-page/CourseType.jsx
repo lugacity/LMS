@@ -142,7 +142,7 @@ function CourseType({ editButton = false, courseId }) {
               return (
                 <div
                   className="flex items-center space-x-2 rounded-md border border-[#E0E0E0] px-3 py-[18px]"
-                  key={item._id}
+                  key={item.duration}
                 >
                   <RadioGroupItem
                     value={item.duration}

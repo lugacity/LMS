@@ -1,4 +1,3 @@
-// import { BASE_URL } from "@/constant";
 import { BASE_URL } from "@/constant";
 import axios from "axios";
 import Cookies from "js-cookie";
