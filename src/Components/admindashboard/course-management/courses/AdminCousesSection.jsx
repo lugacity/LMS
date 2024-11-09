@@ -19,12 +19,15 @@ function AdminCoursesSection() {
   const { courseId } = useParams();
   const cohortId = queryString.get("cohortId");
 
-  const { data, isLoading } = useGetSingleCohort(courseId, cohortId);
+  const { data, isLoading, error } = useGetSingleCohort(courseId, cohortId);
 
-  console.log({ data, isLoading });
-  console.log(data.data.data.recorded_sessions);
+  console.log({ data, isLoading, error });
+  // console.log(data.data.data.recorded_sessions);
 
   if (isLoading) return <p>loading...</p>;
+
+  if (error)
+    return <p>{error.response.data.message ?? "Something went wrong"}</p>;
 
   if (!data) return <p>no data yet!!</p>;
 

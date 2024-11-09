@@ -13,8 +13,9 @@ const CreatedCourse = () => {
     return new Intl.DateTimeFormat(locale).format(createdAt);
   };
 
-  const { data, isLoading } = useFetchAllAdminCourses(1, 10, true);
-  console.log(data);
+  const { data, isLoading, error } = useFetchAllAdminCourses(1, 10, true);
+
+  console.log(error);
 
   return (
     <div>
@@ -37,9 +38,11 @@ const CreatedCourse = () => {
 
       {isLoading ? (
         "Loading..."
+      ) : error ? (
+        <p>{error?.response?.data?.message ?? "Something went wrong"}</p>
       ) : (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {data.data.data.courses.map((course) => (
+          {data?.data?.data?.courses.map((course) => (
             <CreatedCourseCard
               key={course.id}
               imgSrc={course.cover_image}

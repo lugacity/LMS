@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import CourseManagementSection from "@/Components/admindashboard/course-management/courses/CourseManagementSection";
-import StudentManagement from "@/Components/admindashboard/course-management/courses/StudentManagement";
 import LinkList from "@/Components/LinkList";
 
+import LiveSessionStudentManagement from "@/Components/admindashboard/course-management/courses/LiveSessionStudentManagement";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
@@ -55,7 +55,7 @@ function CourseInfomation() {
         </ul>
       </header>
       {active === "course-section" && <CourseManagementSection />}
-      {active === "course-management" && <StudentManagement />}
+      {active === "course-management" && <LiveSessionStudentManagement />}
     </div>
   );
 }
