@@ -138,7 +138,15 @@ export const fetchCourseInformation = async (courseId) => {
 };
 
 // Fetch cohorts
-export const fetchCohorts = async (courseId) => await axiosAdmin.get(`/courses/${courseId}/cohorts`)
+export const fetchCohorts = async (courseId) => {
+
+  const token = Cookies.get('adminToken')
+  return await axios.get(`${BASE_URL}/courses/${courseId}/cohorts`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
 
 
 // Add a single cohort

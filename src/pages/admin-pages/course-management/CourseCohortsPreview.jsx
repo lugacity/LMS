@@ -3,7 +3,7 @@ import Error from "@/Components/Error";
 import { CommonButton } from "@/Components/ui/button";
 import { useGetAllCohorts } from "@/hooks/course-management/use-fetch-all-cohorts";
 import DashButton from "@/pages/auth/ButtonDash";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 
 // const cohorts = [
@@ -41,6 +41,7 @@ const CourseCohortsPreview = () => {
     return new Intl.DateTimeFormat(locale).format(createdAt);
   };
   const { courseId } = useParams();
+  const [queryString] = useSearchParams();
 
   const { data, isLoading, error, refetch } = useGetAllCohorts(courseId);
   console.log(error);
@@ -86,7 +87,7 @@ const CourseCohortsPreview = () => {
             )}
             {data?.data?.data?.map((cohort) => (
               <Link
-                to={`/admin/course/management/info/${courseId}?cohort=${cohort.cohort}&cohortId=${cohort.id}`}
+                to={`/admin/course/management/info/${courseId}?title=${queryString.get("title")}&cohort=${cohort.cohort}&cohortId=${cohort.id}`}
                 key={cohort.id}
                 className="block w-full rounded-lg border px-4 py-6 text-left hover:border-primary-color-600 hover:bg-[#FFEBF0]"
               >
