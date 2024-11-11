@@ -2,13 +2,13 @@ import { CommonButton } from "@/Components/ui/button";
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
 import {
-  SelectTrigger,
   Select,
-  SelectValue,
   SelectContent,
   SelectGroup,
-  SelectLabel,
   SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
 } from "@/Components/ui/select";
 import { Skeleton } from "@/Components/ui/skeleton";
 import { useFetchCourseInfo } from "@/hooks/course-management/use-fetch-course-information";
@@ -16,31 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { SkewLoader } from "react-spinners";
 import { z } from "zod";
-
-const access = [
-  {
-    id: 1,
-    access: "One Month Access",
-  },
-  {
-    id: 2,
-    access: "3 Months Access",
-  },
-  {
-    id: 3,
-    access: "6 Months Access",
-  },
-  {
-    id: 4,
-    access: "Annual Subscription",
-  },
-  {
-    id: 5,
-    access: "Lifetime Access",
-  },
-];
 
 const addStudentSchema = z.object({
   email: z
@@ -50,12 +26,11 @@ const addStudentSchema = z.object({
 });
 const AddStudentOnDemandForm = () => {
   const [duration, setDuration] = useState("");
+  const [durationErr, setDurationErr] = useState("");
 
   const { courseId } = useParams();
 
   const { data, isLoading } = useFetchCourseInfo(courseId);
-
-  console.log(data?.data?.data.course.pre_recorded_price);
 
   const form = useForm({
     resolver: zodResolver(addStudentSchema),
@@ -65,7 +40,8 @@ const AddStudentOnDemandForm = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    if (!duration) return setDurationErr("Input duration");
+    console.table(data, { duration });
   };
 
   return (
@@ -109,6 +85,9 @@ const AddStudentOnDemandForm = () => {
                 </SelectGroup>
               </SelectContent>
             </Select>
+            <p className="mt-3 text-primary-color-600">
+              {!duration ? durationErr : duration}
+            </p>
           </div>
         )}
 
