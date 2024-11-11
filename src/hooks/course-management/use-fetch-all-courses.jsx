@@ -1,9 +1,17 @@
-import { axiosAdmin } from "@/services/api";
+import { BASE_URL } from "@/constant";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const fetchAllCourses = async (page = 1, perPage = 7, isPublish = true) => {
-  return await axiosAdmin.get(
-    `/courses?page=${page}&perPage=${perPage}&published=${isPublish}`,
+  const token = Cookies.get("adminToken");
+  return await axios.get(
+    `${BASE_URL}/courses?page=${page}&perPage=${perPage}&published=${isPublish}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
   );
 };
 

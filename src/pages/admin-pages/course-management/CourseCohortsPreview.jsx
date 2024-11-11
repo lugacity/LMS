@@ -7,9 +7,12 @@ import { useGetAllCohorts } from "@/hooks/course-management/use-fetch-all-cohort
 import { cohorts } from "@/lib/cohorts";
 import { cn } from "@/lib/utils";
 import DashButton from "@/pages/auth/ButtonDash";
+
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
-import { Link, useParams } from "react-router-dom";
+
+import { Link, useParams, useSearchParams } from "react-router-dom";
+
 import { ClipLoader } from "react-spinners";
 // import AllCohorts from "./AllCohorts";
 
@@ -67,11 +70,9 @@ const CourseCohortsPreview = () => {
 
     return new Intl.DateTimeFormat(locale).format(createdAt);
   };
-  
 
- 
-
-
+  const { courseId } = useParams();
+  const [queryString] = useSearchParams();
 
 
 
@@ -151,7 +152,7 @@ const CourseCohortsPreview = () => {
             )}
             {data?.data?.data?.map((cohort) => (
               <Link
-                to={`/admin/course/management/info/${courseId}?cohort=${cohort.cohort}&cohortId=${cohort.id}`}
+                to={`/admin/course/management/info/${courseId}?title=${queryString.get("title")}&cohort=${cohort.cohort}&cohortId=${cohort.id}`}
                 key={cohort.id}
                 
                 className="block w-full rounded-lg border px-4 py-6 text-left hover:border-primary-color-600 hover:bg-[#FFEBF0]"
