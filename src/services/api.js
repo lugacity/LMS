@@ -144,6 +144,7 @@ export const fetchCohorts = async (courseId) => await axiosAdmin.get(`/courses/$
 // Add a single cohort
 export const addSingleCohort = async (data) => {
   const courseId = localStorage.getItem('courseId');
+  
   const token = Cookies.get('adminToken');
 
   return await axios.post(

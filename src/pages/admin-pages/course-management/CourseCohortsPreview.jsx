@@ -1,10 +1,17 @@
+import CohortSelection from "@/Components/admindashboard/course-management/courses/CohortSelection";
 import BorderCard from "@/Components/BorderCard";
 import Error from "@/Components/Error";
 import { CommonButton } from "@/Components/ui/button";
+import { useCreateSingleCohort } from "@/hooks/course-management/use-create-single-cohorts";
 import { useGetAllCohorts } from "@/hooks/course-management/use-fetch-all-cohorts";
+import { cohorts } from "@/lib/cohorts";
+import { cn } from "@/lib/utils";
 import DashButton from "@/pages/auth/ButtonDash";
+import { useState } from "react";
+import { FaCheck } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+// import AllCohorts from "./AllCohorts";
 
 // const cohorts = [
 //   {
@@ -34,16 +41,39 @@ import { ClipLoader } from "react-spinners";
 // ];
 
 const CourseCohortsPreview = () => {
+
+  const [cohort, setCohort] = useState("");
+  // const [cohortId, setCohortId] = useState("");
+  const [cohortErr, setCohortErr] = useState("");
+
+  const { courseId } = useParams();
+  const { createSingleCohort, isCreating } = useCreateSingleCohort(courseId);
+  
+  const { data, isLoading, error, refetch } = useGetAllCohorts(courseId);
+    console.log(error);
+
+  
+  const handleAddCohort = () => {
+
+    if (!cohort) return setCohortErr("Add cohort");
+    createSingleCohort({
+      cohort,
+    });
+  };
+
   const formatDate = (date) => {
     const createdAt = new Date(date);
     const locale = navigator.language;
 
     return new Intl.DateTimeFormat(locale).format(createdAt);
   };
-  const { courseId } = useParams();
+  
 
-  const { data, isLoading, error, refetch } = useGetAllCohorts(courseId);
-  console.log(error);
+ 
+
+
+
+
 
   return (
     <div>
@@ -55,9 +85,44 @@ const CourseCohortsPreview = () => {
           </h3>
           <p>Add Course Cohort</p>
 
-          <DashButton className="rounded px-4 py-2 text-white">
-            Add Cohort
-          </DashButton>
+          <div className="w-full pt-3">
+            <CohortSelection
+              data={cohorts}
+              setCohort={setCohort}
+              text={"Select cohort"}
+            />
+            <div>
+              <span
+                className={cn("text-primary-color-600", cohort && "hidden")}
+              >
+                {cohortErr}
+              </span>
+              {cohort && (
+                <p className="mt-5 flex items-center gap-2 capitalize text-primary-color-600">
+                  <span>
+                    <FaCheck />
+                  </span>
+                  <span>{cohort} </span>
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="pt-4">
+            <DashButton
+              onClick={handleAddCohort}
+              disabled={isCreating}
+              className="text-white"
+            >
+              {isCreating ? (
+                <ClipLoader size={20} color={"#fff"} />
+              ) : (
+                "Add cohort"
+              )}
+            </DashButton>
+          </div>
+
+          {/* <AllCohorts setCohortId={setCohortId} cohortId={cohortId} /> */}
         </div>
 
         {isLoading ? (
@@ -88,6 +153,7 @@ const CourseCohortsPreview = () => {
               <Link
                 to={`/admin/course/management/info/${courseId}?cohort=${cohort.cohort}&cohortId=${cohort.id}`}
                 key={cohort.id}
+                
                 className="block w-full rounded-lg border px-4 py-6 text-left hover:border-primary-color-600 hover:bg-[#FFEBF0]"
               >
                 <span className="mb-3 block text-lg font-semibold text-tertiary-color-700">
