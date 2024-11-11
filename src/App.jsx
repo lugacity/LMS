@@ -10,7 +10,7 @@ import DigitalTransformation from "./pages/DigitalTransformation";
 import DataSolution from "./pages/DataSolution";
 import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
 import AVI from "./pages/AVI";
-import PreviewCourse from "./pages/PreviewCourse";
+// import PreviewCourse from "./pages/PreviewCourse";
 import Component from "./Components/Component";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/Signup";
@@ -91,7 +91,9 @@ import CourseWorkArea from "./pages/admin-pages/course-work-area/CourseWorkArea"
 import CourseWorkAreaDocument from "./pages/admin-pages/course-work-area/CourseWorkAreaDocument";
 import CourseWorkAssignment from "./pages/admin-pages/course-work-area/CourseWorkAssignment";
 import CourseWorkShareDocs from "./pages/admin-pages/course-work-area/CourseWorkShareDocs";
-import PreviewVideoCourse from "./pages/PreviewVideoCourse";
+// import PreviewVideoCourse from "./pages/PreviewVideoCourse";
+import PreviewCourse from "./pages/previewCourse";
+import PreviewVideoCourse from "./pages/previewVideoCourse";
 
 const queryClient = new QueryClient();
 
