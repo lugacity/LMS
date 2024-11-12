@@ -148,8 +148,8 @@ export const fetchCohorts = async (courseId) => {
 
 
 // Add a single cohort
-export const addSingleCohort = async (data) => {
-  const courseId = localStorage.getItem('courseId');
+export const addSingleCohort = async ({courseId, data}) => {
+  // const courseId = localStorage.getItem('courseId');
   
   const token = Cookies.get('adminToken');
 
