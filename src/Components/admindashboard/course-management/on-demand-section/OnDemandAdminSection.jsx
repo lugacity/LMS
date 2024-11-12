@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from "@/Components/ui/accordion";
 import { CommonButton } from "@/Components/ui/button";
+import { useFetchondemandCourse } from "@/hooks/course-management/on-demand-section/use-fetch-ondemand-course";
 import { useGetSingleCohort } from "@/hooks/course-management/use-get-singleCohorts";
 import { courseSections } from "@/lib/courseSection";
 import { cn } from "@/lib/utils";
@@ -17,9 +18,8 @@ function OnDemandAdminSection() {
   const [queryString] = useSearchParams();
 
   const { courseId } = useParams();
-  const cohortId = queryString.get("cohortId");
 
-  const { data, isLoading, error } = useGetSingleCohort(courseId, cohortId);
+  const { data, isLoading, error } = useFetchondemandCourse(courseId);
 
   console.log({ data, isLoading, error });
 
@@ -31,6 +31,7 @@ function OnDemandAdminSection() {
   if (!data) return <p>no data yet!!</p>;
 
   return (
+    // <div>hi</div>
     <div className="rounded-2xl border border-lms-border px-2 py-6">
       <aside className="h-screen overflow-y-auto">
         <div className={cn("mb-4 flex items-center justify-between")}>
@@ -49,7 +50,7 @@ function OnDemandAdminSection() {
           </CommonButton>
         </div>
         <Accordion type="single" collapsible className="w-full">
-          {data?.data?.data?.recorded_sessions.map((section) => {
+          {data?.data?.data?.map((section) => {
             return (
               <AccordionItem value={section.title} key={section.id}>
                 <AccordionTrigger
@@ -74,7 +75,7 @@ function OnDemandAdminSection() {
                     </p>
                   </div>
                 </AccordionTrigger>
-                {section?.videos?.map((video, i) => {
+                {section?.lessons?.map((video, i) => {
                   return (
                     <AccordionContent
                       key={video.id}

@@ -1,19 +1,8 @@
 import { CommonButton } from "@/Components/ui/button";
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/Components/ui/select";
-import { Skeleton } from "@/Components/ui/skeleton";
-import { useFetchCourseInfo } from "@/hooks/course-management/use-fetch-course-information";
+import { useAddOndemandStudent } from "@/hooks/course-management/on-demand-section/use-add-ondemand-student";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { z } from "zod";
@@ -24,13 +13,13 @@ const addStudentSchema = z.object({
     .min(1, { message: "This field has to be filled." })
     .email("This is not a valid email."),
 });
-const AddStudentOnDemandForm = () => {
-  const [duration, setDuration] = useState("");
-  const [durationErr, setDurationErr] = useState("");
+const AddStudentOnDemandForm = ({ setOpen }) => {
+  // const [duration, setDuration] = useState("");
+  // const [durationErr, setDurationErr] = useState("");
 
   const { courseId } = useParams();
 
-  const { data, isLoading } = useFetchCourseInfo(courseId);
+  const { addStudent, isPending } = useAddOndemandStudent();
 
   const form = useForm({
     resolver: zodResolver(addStudentSchema),
@@ -40,8 +29,16 @@ const AddStudentOnDemandForm = () => {
   });
 
   const onSubmit = (data) => {
-    if (!duration) return setDurationErr("Input duration");
-    console.table(data, { duration });
+    // if (!duration) return setDurationErr("Input duration");
+    addStudent(
+      {
+        data,
+        courseId,
+      },
+      {
+        onSuccess: () => setOpen(false),
+      },
+    );
   };
 
   return (
@@ -58,7 +55,7 @@ const AddStudentOnDemandForm = () => {
           id="email"
         />
 
-        {isLoading ? (
+        {/* {isLoading ? (
           <Skeleton className={"mt-6 h-10 w-full"} />
         ) : (
           <div className="mt-6">
@@ -89,10 +86,23 @@ const AddStudentOnDemandForm = () => {
               {!duration ? durationErr : duration}
             </p>
           </div>
-        )}
+        )} */}
 
-        <CommonButton className="mt-6 w-full bg-primary-color-600">
+        <CommonButton
+          className="mt-6 w-full bg-primary-color-600"
+          disabled={isPending}
+        >
           Add Student
+        </CommonButton>
+        <CommonButton
+          variant={"outline"}
+          className="mt-4 w-full"
+          type="button"
+          onClick={() => {
+            setOpen(false);
+          }}
+        >
+          Cancel
         </CommonButton>
       </form>
     </Form>
