@@ -106,10 +106,8 @@ export const addRecordedSession = async (data) => {
   );
 }
 
-export const fetchDemandCourse = async () => {
+export const fetchDemandCourse = async (courseId) => {
   const token = Cookies.get('adminToken')
-  const courseId = localStorage.getItem('courseId')
-
 
   return await axios.get(
     `${BASE_URL}/courses/${courseId}/on-demand-section`,
@@ -168,7 +166,7 @@ export const addSingleCohort = async (data) => {
 export const getSingleCohort = async (courseId, cohortId) => {
   const token = Cookies.get('adminToken')
 
-  return await axios.get(`${BASE_URL}//courses/${courseId}/cohorts/${cohortId}`, {
+  return await axios.get(`${BASE_URL}/courses/${courseId}/cohorts/${cohortId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

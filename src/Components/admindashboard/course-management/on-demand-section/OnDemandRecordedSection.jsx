@@ -12,6 +12,7 @@ import { fetchDemandCourse } from "@/services/api";
 
 import OndemandSectionPopover from "./OndemandSectionPopover";
 import OnDemandVideoPopover from "./OnDemandVideoPopover";
+import { useFetchondemandCourse } from "@/hooks/course-management/on-demand-section/use-fetch-ondemand-course";
 
 const months = [
   "Jan",
@@ -45,10 +46,8 @@ const formatDate = (date) => {
 };
 
 const OnDemandRecordedSection = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["get-demand-course"],
-    queryFn: fetchDemandCourse,
-  });
+  const courseId = localStorage.getItem("courseId");
+  const { data, isLoading, error } = useFetchondemandCourse(courseId);
 
   // console.log(isLoading, isError, data);
 
