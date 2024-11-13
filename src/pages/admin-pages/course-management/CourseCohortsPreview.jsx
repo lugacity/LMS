@@ -44,20 +44,17 @@ import { ClipLoader } from "react-spinners";
 // ];
 
 const CourseCohortsPreview = () => {
-
   const [cohort, setCohort] = useState("");
   // const [cohortId, setCohortId] = useState("");
   const [cohortErr, setCohortErr] = useState("");
 
   const { courseId } = useParams();
   const { createSingleCohort, isCreating } = useCreateSingleCohort(courseId);
-  
+
   const { data, isLoading, error, refetch } = useGetAllCohorts(courseId);
-    console.log(error);
+  console.log(error);
 
-  
   const handleAddCohort = () => {
-
     if (!cohort) return setCohortErr("Add cohort");
     createSingleCohort({
       data: {
@@ -75,9 +72,8 @@ const CourseCohortsPreview = () => {
   };
 
 
+  
   const [queryString] = useSearchParams();
-
-
 
   return (
     <div>
@@ -157,7 +153,6 @@ const CourseCohortsPreview = () => {
               <Link
                 to={`/admin/course/management/info/${courseId}?title=${queryString.get("title")}&cohort=${cohort.cohort}&cohortId=${cohort.id}`}
                 key={cohort.id}
-                
                 className="block w-full rounded-lg border px-4 py-6 text-left hover:border-primary-color-600 hover:bg-[#FFEBF0]"
               >
                 <span className="mb-3 block text-lg font-semibold text-tertiary-color-700">

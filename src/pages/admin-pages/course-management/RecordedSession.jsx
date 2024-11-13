@@ -16,6 +16,7 @@ import { ClipLoader } from "react-spinners";
 import CoursesRecordedLiveSession from "@/Components/admindashboard/course-management/recoded-session/CoursesRecordedLiveSession";
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 import { useQuery } from "@tanstack/react-query";
+import { useGetSingleCohort } from "@/hooks/course-management/use-get-singleCohorts";
 
 function RecordedSession() {
   const [video, setVideo] = useState({ file: null, preview: null });
@@ -23,9 +24,9 @@ function RecordedSession() {
   const videoRef = useRef();
   const [disabled, setDisabled] = useState(true);
 
-  const { data } = useQuery({
-    queryKey: ["get-single-cohort"],
-  });
+  const courseId = localStorage.getItem("courseId");
+  const cohortId = localStorage.getItem("cohortId");
+  const { data } = useGetSingleCohort(courseId, cohortId);
 
   const { createRecordedSession, isCreating, form } =
     useCreateRecordedSession();

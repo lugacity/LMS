@@ -47,8 +47,7 @@ export const addCourseInformation = async (data) => {
 }
 
 
-export const editCourseInformationApi = async (data) => {
-  const courseId = localStorage.getItem('courseId')
+export const editCourseInformationApi = async ({ data, courseId }) => {
 
   return axiosAdmin.patch(`/courses/${courseId}/course-informations`, data, {
     headers: {
@@ -62,9 +61,9 @@ export const editCourseInformationApi = async (data) => {
 export const addCourseType = async (data) => {
   const courseId = localStorage.getItem('courseId')
 
-  return axiosAdmin.post(`/courses/${courseId}/coursetype`, data, {
+  return axios.post(`${BASE_URL}/courses/${courseId}/coursetype`, data, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${Cookies.get('adminToken')}`
     },
   })
 }
@@ -148,9 +147,10 @@ export const fetchCohorts = async (courseId) => {
 
 
 // Add a single cohort
-export const addSingleCohort = async ({courseId, data}) => {
-  // const courseId = localStorage.getItem('courseId');
-  
+export const addSingleCohort = async (data) => {
+  const courseId = localStorage.getItem('courseId');
+
+
   const token = Cookies.get('adminToken');
 
   return await axios.post(
