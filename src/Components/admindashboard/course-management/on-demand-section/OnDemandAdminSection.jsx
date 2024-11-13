@@ -5,30 +5,12 @@ import {
   AccordionTrigger,
 } from "@/Components/ui/accordion";
 import { CommonButton } from "@/Components/ui/button";
-import { useFetchondemandCourse } from "@/hooks/course-management/on-demand-section/use-fetch-ondemand-course";
-import { useGetSingleCohort } from "@/hooks/course-management/use-get-singleCohorts";
-import { courseSections } from "@/lib/courseSection";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { HiOutlinePencil } from "react-icons/hi";
-import { useParams, useSearchParams } from "react-router-dom";
 
-function OnDemandAdminSection() {
+function OnDemandAdminSection({ data, setSectionDetails }) {
   const [active, setActive] = useState("1");
-  const [queryString] = useSearchParams();
-
-  const { courseId } = useParams();
-
-  const { data, isLoading, error } = useFetchondemandCourse(courseId);
-
-  console.log({ data, isLoading, error });
-
-  if (isLoading) return <p>loading...</p>;
-
-  if (error)
-    return <p>{error.response.data.message ?? "Something went wrong"}</p>;
-
-  if (!data) return <p>no data yet!!</p>;
 
   return (
     // <div>hi</div>
@@ -80,6 +62,14 @@ function OnDemandAdminSection() {
                     <AccordionContent
                       key={video.id}
                       className="group/topic cursor-pointer px-5 py-[10px] hover:bg-primary-color-300/20"
+                      onClick={() =>
+                        setSectionDetails((prev) => ({
+                          ...prev,
+                          topic: section.title,
+                          section: section.section,
+                          videoTitle: video.video_title,
+                        }))
+                      }
                     >
                       <div className="flex items-start gap-3 text-sm group-hover/topic:text-primary-color-600 md:text-base">
                         <span>0{i + 1}.</span>

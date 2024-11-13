@@ -6,6 +6,8 @@ import { HiOutlinePencil } from "react-icons/hi";
 import { ClipLoader } from "react-spinners";
 import iconDark from "../../../../assets/icons/icon-dark.png";
 import img from "../../../../assets/images/join_team.png";
+import EditModal from "../on-demand-section/EditModal";
+import EditCourseInformationForm from "../courses/EditCourseInformationForm";
 
 // const data = {
 //   course: {
@@ -75,12 +77,24 @@ const CourseInfo = ({ editButton = false, courseId }) => {
           Course Information
         </h2>
         {editButton && (
-          <CommonButton variant="outline" className="space-x-2 text-[#667185]">
-            <span className="text-lg">
-              <HiOutlinePencil />
-            </span>
-            <span>Edit section</span>
-          </CommonButton>
+          <EditModal
+            header="Edit course Information"
+            form={
+              <EditCourseInformationForm
+                courseInformation={data?.data?.data?.course}
+              />
+            }
+          >
+            <CommonButton
+              variant="outline"
+              className="space-x-2 text-[#667185]"
+            >
+              <span className="text-lg">
+                <HiOutlinePencil />
+              </span>
+              <span>Edit section</span>
+            </CommonButton>
+          </EditModal>
         )}
       </div>
       <main className="mt-8 grid grid-cols-2 gap-9">

@@ -1,9 +1,8 @@
 import CreatedCourseCard from "../../../Components/admindashboard/course-management/CreatedCourseCard";
 
-import joinTeam from "../../../assets/images/join_team.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useFetchAllAdminCourses } from "@/hooks/course-management/use-fetch-all-courses";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CreatedCourse = () => {
   const formatDate = (date) => {

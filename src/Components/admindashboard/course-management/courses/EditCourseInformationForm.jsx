@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import UploadCourseManagement from "./UploadCourseManagement";
+import UploadCourseManagement from "../../../../pages/admin-pages/UploadCourseManagement";
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 
-import { ScrollRestoration } from "react-router-dom";
+import { ScrollRestoration, useParams } from "react-router-dom";
 import { Form } from "@/Components/ui/form";
 
 import FormInput from "@/Components/ui/form-input";
@@ -28,9 +28,11 @@ const stringToArray = (str) => {
   return arr.split("\n");
 };
 
-const CourseManagementPage = () => {
+const EditCourseInformationForm = ({ courseInformation }) => {
   const [image, setImage] = useState({ file: null, preview: null });
   const [video, setVideo] = useState({ file: null, preview: null });
+
+  console.log(courseInformation);
 
   const { createCourseInformation, isCreating } = useCreateCourseInformation();
   const { editCourseInformation, isEditing } = useEditCourseInformation();
@@ -38,14 +40,9 @@ const CourseManagementPage = () => {
   const imageRef = useRef(null);
   const btnRef = useRef(null);
 
-  const { setActiveTab } = useCourseManagementInfo();
-  const courseInformation = localStorage.getItem("course-information")
-    ? JSON.parse(localStorage.getItem("course-information"))
-    : {};
-  const courseId =
-    localStorage.getItem("course-information") && courseInformation.id;
+  const { courseId } = useParams();
 
-  const dataToEdit = localStorage.getItem("course-information") && {
+  const dataToEdit = courseInformation && {
     courseTitle: courseInformation.title,
     benefits: courseInformation.benefits.join("\n"),
     courseIncludes: courseInformation.course_includes.join("\n"),
@@ -117,96 +114,20 @@ const CourseManagementPage = () => {
     }
 
     editCourseInformation(
-      {
-        data: courseToUpload,
-        courseId: courseId,
-      },
-      {
-        onSuccess: (data) => {
-          setActiveTab((prev) => prev + 1);
-          localStorage.setItem("course-information", JSON.stringify(data.data));
-        },
-      },
+      { data: courseToUpload, courseId: courseId },
+
+      // , {
+      // onSuccess: () => setActiveTab((prev) => prev + 1),
+      // }
     );
   };
 
-  const CreateCourse = async (data) => {
-    const {
-      courseTitle,
-      benefits,
-      courseIncludes,
-      highlight,
-      technologies,
-      overview,
-      url,
-    } = data;
-
-    if (!image.file) {
-      toast.error("Please insert an image");
-
-      return setMessage((prev) => {
-        return {
-          ...prev,
-          error: "Please insert image",
-          success: "",
-        };
-      });
-    }
-
-    if (!video.file && form.watch("url").length < 1)
-      return toast.error("Please insert an taster video or video url");
-
-    const courses = {
-      title: courseTitle,
-      tools_and_technologies: stringToArray(technologies),
-      benefits: stringToArray(benefits),
-      program_highlights: stringToArray(highlight),
-      course_includes: stringToArray(courseIncludes),
-      overview: overview,
-      coverImage: image.file,
-    };
-
-    let courseToUpload;
-
-    if (video.file) {
-      courseToUpload = {
-        ...courses,
-        taster_video: video.file,
-      };
-    } else {
-      courseToUpload = {
-        ...courses,
-        upload_from_url: url,
-      };
-    }
-
-    createCourseInformation(courseToUpload, {
-      onSuccess: () => setActiveTab((prev) => prev + 1),
-    });
-  };
-
   return (
-    <>
-      <ScrollRestoration />
-
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="mb-2 mt-5 text-[24px] font-[500] text-[#344054]">
-          Course Information
-        </h2>
-
-        <CommonButton
-          variant={"outline"}
-          className="font-normal text-[#667185]"
-          ref={btnRef}
-          onClick={() => console.log("btnRef.current")}
-        >
-          Save and Continue
-        </CommonButton>
-      </div>
+    <div className="w-full">
       <Form {...form}>
         <form
-          className="mx-auto grid max-w-6xl grid-cols-12 gap-8 pt-5"
-          onSubmit={form.handleSubmit(isEdit ? editCourse : CreateCourse)}
+          className="mx-auto grid grid-cols-12 gap-8 pt-5"
+          onSubmit={form.handleSubmit(editCourse)}
         >
           <div className="col-span-8">
             {/* Course Title */}
@@ -367,13 +288,9 @@ const CourseManagementPage = () => {
                 disabled={isCreating || isEditing}
                 ref={btnRef}
               >
-                {isCreating || isEditing ? (
-                  <ClipLoader size={20} color={"#fff"} />
-                ) : isEdit ? (
-                  "Edit info"
-                ) : (
-                  "Save & Continue"
-                )}
+                {isCreating ||
+                  (isEditing && <ClipLoader size={20} color={"#fff"} />)}
+                Edit info
               </CommonButton>
             </div>
           </div>
@@ -392,8 +309,8 @@ const CourseManagementPage = () => {
           </div>
         </form>
       </Form>
-    </>
+    </div>
   );
 };
 
-export default CourseManagementPage;
+export default EditCourseInformationForm;
