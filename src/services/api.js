@@ -150,6 +150,7 @@ export const fetchCohorts = async (courseId) => {
 export const addSingleCohort = async (data) => {
   const courseId = localStorage.getItem('courseId');
 
+
   const token = Cookies.get('adminToken');
 
   return await axios.post(
