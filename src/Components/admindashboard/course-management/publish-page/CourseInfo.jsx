@@ -8,56 +8,11 @@ import iconDark from "../../../../assets/icons/icon-dark.png";
 import img from "../../../../assets/images/join_team.png";
 import EditModal from "../on-demand-section/EditModal";
 import EditCourseInformationForm from "../courses/EditCourseInformationForm";
-
-// const data = {
-//   course: {
-//     id: "66ffa21a424d1743f5b173d0",
-//     title: "the course title",
-//     coverImage:
-//       "https://res.cloudinary.com/dttt6lb9g/image/upload/v1728029212/courses/66ffa21a424d1743f5b173d0_xofxee.png",
-//     course_includes: "course includes",
-//     tools_and_technologies: "the tool and tecnlogy",
-//     benefits: "the benefit",
-//     program_highlights: "the program",
-//     preview_video: "",
-//     enrolledSudents: [],
-//     enrollmentOptions: [],
-//     reviews: [],
-//     total_discount: 0,
-//     live_class_price: {
-//       original_price: {
-//         amount: 3333,
-//         currency: "Pounds",
-//         currency_symbol: "£",
-//         price_string: "£ 3333",
-//       },
-//       discounted_price: {
-//         amount: 100,
-//         currency: "Pounds",
-//         currency_symbol: "£",
-//         price_string: "£ 100",
-//       },
-//       cohort: ["September Cohort 2024"],
-//       duration: "mon-fri",
-//       time: "3:42pm",
-//     },
-//     pre_recorded_price: [
-//       {
-//         duration: "One Month Access",
-//         amount: 100,
-//         currency: "Pounds",
-//         price_string: "£100",
-//         currency_symbol: "£",
-//         _id: "66fffec9068e6acd2b2f1af0",
-//       },
-//     ],
-//     is_publishe: false,
-//     cohorts: ["66fffec9068e6acd2b2f1af3"],
-//   },
-//   applied: [],
-// };
+import { useState } from "react";
 
 const CourseInfo = ({ editButton = false, courseId }) => {
+  const [onOpenChange, setOnOpenChange] = useState(false);
+
   const { data, isLoading, isError } = useFetchCourseInfo(courseId);
 
   if (isLoading)
@@ -78,10 +33,13 @@ const CourseInfo = ({ editButton = false, courseId }) => {
         </h2>
         {editButton && (
           <EditModal
+            open={onOpenChange}
+            setOpen={setOnOpenChange}
             header="Edit course Information"
             form={
               <EditCourseInformationForm
                 courseInformation={data?.data?.data?.course}
+                setOnOpenChange={setOnOpenChange}
               />
             }
           >

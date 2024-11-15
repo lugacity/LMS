@@ -17,7 +17,7 @@ const EditModal = ({
 }) => {
   return (
     <div>
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={setOpen} className="py-10">
         <DialogTrigger asChild>
           <CommonButton
             variant="ghost"

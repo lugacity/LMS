@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { HiOutlinePencil } from "react-icons/hi";
 
-function OnDemandAdminSection({ data, setSectionDetails }) {
+function OnDemandAdminSection({ data, setSectionDetails, setEdit }) {
   const [active, setActive] = useState("1");
 
   return (
@@ -24,6 +24,7 @@ function OnDemandAdminSection({ data, setSectionDetails }) {
           <CommonButton
             variant="outline"
             className="space-x-1 px-[6px] py-2 text-xs text-[#667185]"
+            onClick={() => setEdit(true)}
           >
             <span className="text-xs">
               <HiOutlinePencil />

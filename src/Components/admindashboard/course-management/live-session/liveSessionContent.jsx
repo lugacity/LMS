@@ -1,10 +1,15 @@
 import { useGetSingleCohort } from "@/hooks/course-management/use-get-singleCohorts";
 import { Copy } from "lucide-react";
 import toast from "react-hot-toast";
+import { useParams, useSearchParams } from "react-router-dom";
 
 const LiveSessionContent = () => {
-  const courseId = localStorage.getItem("courseId");
-  const cohortId = localStorage.getItem("cohortId");
+  const params = useParams();
+  const [queryString] = useSearchParams();
+
+  const courseId = params.courseId ?? localStorage.getItem("courseId");
+  const cohortId =
+    queryString.get("cohortId") ?? localStorage.getItem("cohortId");
 
   const {
     data: cohortData,

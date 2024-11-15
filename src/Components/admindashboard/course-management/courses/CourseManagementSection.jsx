@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/format-date";
 import { useState } from "react";
 import liveSession from "../../../../assets/images/dashboard/live-session.png";
+import EditLiveSessionForm from "../live-session/EditLiveSession";
+import EditLiveSession from "../live-session/EditLiveSession";
 
 const amOrPm = (timeString) => {
   const hour = timeString.split(":")[0];
@@ -19,6 +21,7 @@ function CourseManagementSection() {
     topic: "",
     videoTitle: "",
   });
+  const [isEdit, setIsEdit] = useState(false);
   const [queryString] = useSearchParams();
 
   const [showLive, setShowLive] = useState("");
@@ -38,18 +41,25 @@ function CourseManagementSection() {
     return <p>{error.response.data.message ?? "Something went wrong"}</p>;
 
   return (
-    <div className="mt-6 grid grid-cols-[3fr_1.7fr]">
-      {showLive === "live" && <LiveContent data={data} />}
-      {showLive === "contents" && (
-        <VideoContents sectionDetails={sectionDetails} />
-      )}
-      {showLive === "" && <>click to show content</>}
+    <div>
+      {isEdit ? (
+        <EditLiveSession setIsEdit={setIsEdit} />
+      ) : (
+        <div className="mt-6 grid grid-cols-[3fr_1.7fr]">
+          {showLive === "live" && <LiveContent data={data} />}
+          {showLive === "contents" && (
+            <VideoContents sectionDetails={sectionDetails} />
+          )}
+          {showLive === "" && <>click to show content</>}
 
-      <AdminCoursesSection
-        data={data}
-        setShowLive={setShowLive}
-        setSectionDetails={setSectionDetails}
-      />
+          <AdminCoursesSection
+            data={data}
+            setShowLive={setShowLive}
+            setSectionDetails={setSectionDetails}
+            setIsEdit={setIsEdit}
+          />
+        </div>
+      )}
     </div>
   );
 }

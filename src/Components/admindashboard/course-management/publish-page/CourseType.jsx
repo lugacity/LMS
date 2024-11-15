@@ -5,6 +5,8 @@ import { useFetchCourseInfo } from "@/hooks/course-management/use-fetch-course-i
 
 import { HiOutlinePencil } from "react-icons/hi";
 import { ClipLoader } from "react-spinners";
+import EditModal from "../on-demand-section/EditModal";
+import EditCourseType from "../courses/edit-course-type/EditCourseType";
 
 const writeDay = (dayString) => {
   if (!dayString || !dayString.includes("-")) {
@@ -55,12 +57,20 @@ function CourseType({ editButton = false, courseId }) {
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-medium text-[#344054]">Course Type</h2>
         {editButton && (
-          <CommonButton variant="outline" className="space-x-2 text-[#667185]">
-            <span className="text-lg">
-              <HiOutlinePencil />
-            </span>
-            <span>Edit section</span>
-          </CommonButton>
+          <EditModal
+            header="Edit course type"
+            form={<EditCourseType data={data} />}
+          >
+            <CommonButton
+              variant="outline"
+              className="space-x-2 text-[#667185]"
+            >
+              <span className="text-lg">
+                <HiOutlinePencil />
+              </span>
+              <span>Edit section</span>
+            </CommonButton>
+          </EditModal>
         )}
       </div>
       <main className="mt-8 grid grid-cols-2">
