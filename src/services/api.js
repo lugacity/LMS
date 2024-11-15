@@ -24,8 +24,8 @@ export const fetchUserProfile = async () => {
 
 }
 
-export const addDemandSection = async (data) => {
-  const courseId = localStorage.getItem("courseId");
+export const addDemandSection = async ({ data, courseId }) => {
+
 
   return axiosAdmin.post(`/courses/${courseId}/on-demand-section`, data, {
     headers: {
@@ -37,10 +37,12 @@ export const addDemandSection = async (data) => {
 
 
 export const addCourseInformation = async (data) => {
+  const token = Cookies.get('adminToken')
 
-  return axiosAdmin.post(`/courses/course-informations`, data, {
+  return axios.post(`${BASE_URL}/courses/course-informations`, data, {
     headers: {
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
     },
   })
 
@@ -49,17 +51,20 @@ export const addCourseInformation = async (data) => {
 
 export const editCourseInformationApi = async ({ data, courseId }) => {
 
-  return axiosAdmin.patch(`/courses/${courseId}/course-informations`, data, {
+  const token = Cookies.get('adminToken')
+
+  return axios.patch(`${BASE_URL}/courses/${courseId}/course-informations`, data, {
     headers: {
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
     },
   })
 }
 
 
 
-export const addCourseType = async (data) => {
-  const courseId = localStorage.getItem('courseId')
+export const addCourseType = async ({ data, courseId }) => {
+
 
   return axios.post(`${BASE_URL}/courses/${courseId}/coursetype`, data, {
     headers: {
@@ -85,12 +90,12 @@ export const addLiveSession = async (data) => {
   );
 }
 
-export const addRecordedSession = async (data) => {
-  const courseId = localStorage.getItem('courseId')
+export const addRecordedSession = async ({ data, courseId, section }) => {
+
   const token = Cookies.get('adminToken')
-  let section = localStorage.getItem("recordedSection")
-    ? localStorage.getItem("recordedSection")
-    : 2;
+  // let section = localStorage.getItem("recordedSection")
+  //   ? localStorage.getItem("recordedSection")
+  //   : 2;
   // https://avi-lms-backend.onrender.com/api/v1/admins/courses/:courseId/sections/:section/recorded-session
 
   return await axios.post(

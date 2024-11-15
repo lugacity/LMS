@@ -52,13 +52,16 @@ const LiveSessionMentoringCourseType = () => {
     };
     // console.log(courseType);
 
-    createCourseType(courseType, {
-      onSuccess: ({ data }) => {
-        setSubTab((prev) => prev + 1);
-        localStorage.setItem("cohorts", cohort);
-        localStorage.setItem("cohortId", data.data.cohorts.at(-1).id);
+    createCourseType(
+      { data: courseType, courseId: localStorage.getItem("courseId") },
+      {
+        onSuccess: ({ data }) => {
+          setSubTab((prev) => prev + 1);
+          localStorage.setItem("cohorts", cohort);
+          localStorage.setItem("cohortId", data.data.cohorts.at(-1).id);
+        },
       },
-    });
+    );
   };
 
   //   const handleAddPrice = () => {

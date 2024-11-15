@@ -9,7 +9,12 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { HiOutlinePencil } from "react-icons/hi";
 
-function AdminCoursesSection({ data, setShowLive, setSectionDetails }) {
+function AdminCoursesSection({
+  data,
+  setShowLive,
+  setSectionDetails,
+  setIsEdit,
+}) {
   const [active, setActive] = useState("1");
 
   if (!data) return <p>no data yet!!</p>;
@@ -25,6 +30,7 @@ function AdminCoursesSection({ data, setShowLive, setSectionDetails }) {
           <CommonButton
             variant="outline"
             className="space-x-1 px-[6px] py-2 text-xs text-[#667185]"
+            onClick={() => setIsEdit((prev) => !prev)}
           >
             <span className="text-xs">
               <HiOutlinePencil />
