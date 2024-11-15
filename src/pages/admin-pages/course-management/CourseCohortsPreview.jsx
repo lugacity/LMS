@@ -11,7 +11,7 @@ import DashButton from "@/pages/auth/ButtonDash";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 
-import { Link, useParams, useSearchParams} from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 
 import { ClipLoader } from "react-spinners";
 // import AllCohorts from "./AllCohorts";
@@ -60,7 +60,7 @@ const CourseCohortsPreview = () => {
       data: {
         cohort,
       },
-      courseId
+      courseId,
     });
   };
 
@@ -71,8 +71,6 @@ const CourseCohortsPreview = () => {
     return new Intl.DateTimeFormat(locale).format(createdAt);
   };
 
-
-  
   const [queryString] = useSearchParams();
 
   return (
