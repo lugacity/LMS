@@ -13,6 +13,7 @@ const CreatedCourse = () => {
   };
 
   const { data, isLoading, error } = useFetchAllAdminCourses(1, 10, true);
+  console.log("project area", data);
 
   console.log(error);
 

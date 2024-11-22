@@ -4,10 +4,16 @@ import { GroupIcon } from "@/Components/Icon";
 import { LayoutDashboard } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa6";
 
-function ProjectAreaTools({ setModalTab, setModal, id }) {
+function ProjectAreaTools({
+  setModalTab,
+  setModal,
+  id,
+  selectedCourse,
+  cohorts,
+}) {
   const navigate = useNavigate();
   const handleSelect = (path) => {
-    navigate(path);
+    navigate(path, { state: { selectedCourse, cohorts } });
     setModal((prev) => !prev);
   };
 
@@ -21,8 +27,9 @@ function ProjectAreaTools({ setModalTab, setModal, id }) {
           <FaArrowLeft />
         </button>
         <h2 className="text-2xl font-bold text-[#101928]">
-          Project Area and Tools & resources
-          {id}
+          {/* Project Area and Tools & resources */}
+          {selectedCourse.title}
+          {/* {id} */}
         </h2>
       </div>
       <p className="mb-6 mt-3 text-[#667185]">

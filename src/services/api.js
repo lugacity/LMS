@@ -154,8 +154,6 @@ export const fetchCohorts = async (courseId) => {
 // Add a single cohort
 export const addSingleCohort = async ({ data, courseId }) => {
 
-
-
   const token = Cookies.get('adminToken');
 
   return await axios.post(
@@ -178,3 +176,7 @@ export const getSingleCohort = async (courseId, cohortId) => {
     },
   })
 }
+
+
+
+

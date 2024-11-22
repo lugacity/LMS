@@ -40,6 +40,7 @@ function Groups() {
           </button>
           <h2 className="text-2xl font-medium text-[#344054]">
             Project Consultant Training Programme (Bundle) | May Cohort 2024
+            {/* {selectedCourse.title} */}
           </h2>
         </div>
         <div className="flex items-center justify-between">

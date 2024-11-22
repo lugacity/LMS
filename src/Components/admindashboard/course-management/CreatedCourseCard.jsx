@@ -34,17 +34,18 @@ const CreatedCourseCard = ({
           </Link>
         ) : (
           <p className="py-[10px] text-[12px] font-medium text-[#CC1747]">
-            <span>Created</span>
-            <span>{date}</span>
+            <span>Created</span> <span>{date}</span>
           </p>
         )}
 
-        {rating && (
+        {rating ? (
           <div className="flex items-center gap-[10px]">
             <span className="text-sm text-[#667185]">{rating}</span>
             <StarRating rating={rating} />
             <span>{review}</span>
           </div>
+        ) : (
+          <p className="text-sm italic text-gray-400">No reviews yet...</p>
         )}
       </div>
     </div>
