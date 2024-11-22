@@ -1,4 +1,5 @@
 import ProjectAreaNav from "@/Components/admindashboard/project-area/ProjectAreaNav";
+import { useFetchAllAdminCourses } from "@/hooks/course-management/use-fetch-all-courses";
 import { cn } from "@/lib/utils";
 import { FaArrowLeft } from "react-icons/fa6";
 import {
@@ -11,8 +12,19 @@ import {
 
 function General() {
   const { pathname } = useLocation();
+   const { state } = useLocation();
   const { id } = useParams();
+  // console.log("ID PROJECT AREA", id);
   const navigate = useNavigate();
+
+  // const { data, isLoading, error, refetch } = useFetchAllAdminCourses(id);
+  // console.log("General Project", data);
+
+  const selectedCourse = state?.selectedCourse;
+  // const cohort = state?.cohorts;
+
+  // console.log("Selected Course in Cohort:", cohort);
+  // console.log("Selected Course in General:", selectedCourse);
 
   return (
     <div>
@@ -28,8 +40,10 @@ function General() {
             </span>
             <span className="capitalize text-[#667185]">Go back</span>
           </button>
-          <h2 className="text-2xl font-medium text-[#344054]">
-            Project Consultant Training Programme (Bundle) | May Cohort 2024
+          <h2 className="text-2xl font-medium text-[rgb(52,64,84)]">
+            {/* {selectedCourse?.title || "Default Title"} */}
+            {selectedCourse ? selectedCourse.title : "No course selected"} 
+            {/* Project Consultant Training Programme (Bundle) | May Cohort 2024 */}
           </h2>
         </div>
         <div className="w-max border-b border-b-[#E4E7EC]">
