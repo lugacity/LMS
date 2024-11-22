@@ -14,8 +14,10 @@ function AdminCoursesSection({
   setShowLive,
   setSectionDetails,
   setIsEdit,
+  setVideoId,
 }) {
   const [active, setActive] = useState("1");
+  const [videoActive, setvideoActive] = useState("");
 
   if (!data) return <p>no data yet!!</p>;
 
@@ -99,7 +101,10 @@ function AdminCoursesSection({
                     return (
                       <AccordionContent
                         key={video.id}
-                        className="group/topic cursor-pointer px-5 py-[10px] hover:bg-primary-color-300/20"
+                        className={cn(
+                          "group/topic cursor-pointer px-5 py-[10px] hover:bg-primary-color-300/20",
+                          videoActive === video.id && "bg-primary-color-300/20",
+                        )}
                         onClick={() => {
                           setSectionDetails((prev) => ({
                             ...prev,
@@ -108,9 +113,17 @@ function AdminCoursesSection({
                             videoTitle: video.video_title,
                           }));
                           setShowLive("contents");
+                          setVideoId(video.id);
+                          setvideoActive(video.id);
                         }}
                       >
-                        <div className="flex items-start gap-3 text-sm group-hover/topic:text-primary-color-600 md:text-base">
+                        <div
+                          className={cn(
+                            "flex items-start gap-3 text-sm group-hover/topic:text-primary-color-600 md:text-base",
+                            videoActive === video.id &&
+                              "text-primary-color-600",
+                          )}
+                        >
                           <span>0{i + 1}.</span>
                           <p>{video.video_title}</p>
                         </div>

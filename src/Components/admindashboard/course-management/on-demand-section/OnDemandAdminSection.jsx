@@ -9,8 +9,14 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { HiOutlinePencil } from "react-icons/hi";
 
-function OnDemandAdminSection({ data, setSectionDetails, setEdit }) {
+function OnDemandAdminSection({
+  data,
+  setSectionDetails,
+  setEdit,
+  setVideoId,
+}) {
   const [active, setActive] = useState("1");
+  const [videoActive, setVideoActive] = useState("");
 
   return (
     // <div>hi</div>
@@ -62,17 +68,27 @@ function OnDemandAdminSection({ data, setSectionDetails, setEdit }) {
                   return (
                     <AccordionContent
                       key={video.id}
-                      className="group/topic cursor-pointer px-5 py-[10px] hover:bg-primary-color-300/20"
-                      onClick={() =>
+                      className={cn(
+                        "group/topic cursor-pointer px-5 py-[10px] hover:bg-primary-color-300/20",
+                        videoActive === video.id && "bg-primary-color-300/20",
+                      )}
+                      onClick={() => {
                         setSectionDetails((prev) => ({
                           ...prev,
                           topic: section.title,
                           section: section.section,
                           videoTitle: video.video_title,
-                        }))
-                      }
+                        }));
+                        setVideoId(video.id);
+                        setVideoActive(video.id);
+                      }}
                     >
-                      <div className="flex items-start gap-3 text-sm group-hover/topic:text-primary-color-600 md:text-base">
+                      <div
+                        className={cn(
+                          "flex items-start gap-3 text-sm group-hover/topic:text-primary-color-600 md:text-base",
+                          videoActive === video.id && "text-primary-color-600",
+                        )}
+                      >
                         <span>0{i + 1}.</span>
                         <p>{video.video_title}</p>
                       </div>

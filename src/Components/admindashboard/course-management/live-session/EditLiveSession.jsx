@@ -1,11 +1,13 @@
 import { CommonButton } from "@/Components/ui/button";
 import EditLiveRecordedSectionForm from "./EditLiveRecordedSectionForm";
+import { useState } from "react";
+import EditLiveSectionForm from "./EditLiveSectionForm";
 
 function EditLiveSession({ setIsEdit }) {
-  // const [tab, setTab] = useState(1);
+  const [tab, setTab] = useState(1);
   return (
     <div className="mt-6">
-      {/* <div className="mb-4 flex w-max gap-4 border-b border-[#98A2B3]">
+      <div className="mb-4 flex w-max gap-4 border-b border-[#98A2B3]">
         <button
           className={`border-b-2 px-4 py-2 font-[600] ${tab === 1 ? "border-b-2 border-[#CC1747] text-[#CC1747]" : "border-b-transparent text-[#344054]"} `}
           onClick={() => setTab(1)}
@@ -19,9 +21,9 @@ function EditLiveSession({ setIsEdit }) {
         >
           Recorded
         </button>
-      </div> */}
+      </div>
 
-      {/* {tab === 1 && <EditLiveSectionForm />} */}
+      {tab === 1 && <EditLiveSectionForm />}
       <CommonButton
         onClick={() => {
           localStorage.removeItem("recordedSection");
@@ -33,7 +35,7 @@ function EditLiveSession({ setIsEdit }) {
         Back
       </CommonButton>
 
-      {<EditLiveRecordedSectionForm />}
+      {tab === 2 && <EditLiveRecordedSectionForm />}
     </div>
   );
 }
