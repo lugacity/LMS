@@ -7,6 +7,8 @@ import { useState } from "react";
 import liveSession from "../../../../assets/images/dashboard/live-session.png";
 import EditLiveSessionForm from "../live-session/EditLiveSession";
 import EditLiveSession from "../live-session/EditLiveSession";
+import { useStreamRecordedVideo } from "@/hooks/course-management/recorded-section/use-stream-recorded-video";
+import { Skeleton } from "@/Components/ui/skeleton";
 
 const amOrPm = (timeString) => {
   const hour = timeString.split(":")[0];
@@ -21,6 +23,7 @@ function CourseManagementSection() {
     topic: "",
     videoTitle: "",
   });
+  const [videoId, setVideoId] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [queryString] = useSearchParams();
 
@@ -48,7 +51,7 @@ function CourseManagementSection() {
         <div className="mt-6 grid grid-cols-[3fr_1.7fr]">
           {showLive === "live" && <LiveContent data={data} />}
           {showLive === "contents" && (
-            <VideoContents sectionDetails={sectionDetails} />
+            <VideoContents sectionDetails={sectionDetails} videoId={videoId} />
           )}
           {showLive === "" && <>click to show content</>}
 
@@ -57,6 +60,7 @@ function CourseManagementSection() {
             setShowLive={setShowLive}
             setSectionDetails={setSectionDetails}
             setIsEdit={setIsEdit}
+            setVideoId={setVideoId}
           />
         </div>
       )}
@@ -122,7 +126,7 @@ const LiveContent = ({ data }) => {
   );
 };
 
-const VideoContents = ({ sectionDetails }) => {
+const VideoContents = ({ sectionDetails, videoId }) => {
   return (
     <main>
       <div>
@@ -135,17 +139,45 @@ const VideoContents = ({ sectionDetails }) => {
           </p>
         </div>
         <div className="w-full max-w-[600px] overflow-hidden rounded-lg">
-          <img
-            src={liveSession}
-            alt="live session"
-            width={897}
-            height={532}
-            className="w-full max-w-[651px] object-cover"
+          <PreviewVideoCourse
+            section={sectionDetails.section}
+            videoId={videoId}
           />
           <p className="mt-6 capitalize">{sectionDetails.videoTitle}</p>
         </div>
       </div>
     </main>
+  );
+};
+
+const PreviewVideoCourse = ({ videoId, section }) => {
+  const { courseId } = useParams();
+  const [queryString] = useSearchParams();
+  const cohortId = queryString.get("cohortId");
+  const { data, isLoading, error } = useStreamRecordedVideo(
+    courseId,
+    cohortId,
+    section,
+    videoId,
+  );
+
+  if (isLoading)
+    return (
+      <div className="max-h-[690px] w-full text-white">
+        <Skeleton className={"h-[400px] w-full"} />
+      </div>
+    );
+
+  if (error) return <p className="text-primary-color-500"> video not found </p>;
+
+  const blob = data && URL.createObjectURL(data?.data);
+
+  return (
+    <video
+      src={blob}
+      controls
+      className="max-h-[699px] w-full object-cover shadow-lg lg:rounded-3xl"
+    ></video>
   );
 };
 

@@ -6,11 +6,13 @@ import { useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { useState } from "react";
 import EditOndemandCourseSectionForm from "@/Components/admindashboard/course-management/on-demand-section/EditOndemandCourseSectionForm";
+import { useStreamVideo } from "@/hooks/course-management/on-demand-section/use-stream-ondemand-video";
+import { Skeleton } from "@/Components/ui/skeleton";
 
 function OndemandSection() {
   const [edit, setEdit] = useState(false);
+  const [videoId, setVideoId] = useState();
   const { courseId } = useParams();
-
   const [sectionDetails, setSectionDetails] = useState({
     section: "",
     topic: "",
@@ -50,12 +52,9 @@ function OndemandSection() {
                   </p>
                 </div>
                 <div className="w-full max-w-[600px] overflow-hidden rounded-lg">
-                  <img
-                    src={liveSession}
-                    alt="live session"
-                    width={897}
-                    height={532}
-                    className="w-full max-w-[651px] object-cover"
+                  <PreviewVideo
+                    section={sectionDetails.section}
+                    videoId={videoId}
                   />
                   <p className="mt-6 capitalize">{sectionDetails.videoTitle}</p>
                 </div>
@@ -69,6 +68,7 @@ function OndemandSection() {
               data={data}
               setSectionDetails={setSectionDetails}
               setEdit={setEdit}
+              setVideoId={setVideoId}
             />
           </aside>
         </div>
@@ -78,3 +78,27 @@ function OndemandSection() {
 }
 
 export default OndemandSection;
+
+const PreviewVideo = ({ videoId, section }) => {
+  const { courseId } = useParams();
+  const { data, isLoading, error } = useStreamVideo(courseId, section, videoId);
+
+  if (isLoading)
+    return (
+      <div className="max-h-[690px] w-full text-white">
+        <Skeleton className={"h-[400px] w-full"} />
+      </div>
+    );
+
+  if (error) return <p className="text-primary-color-500"> video not found </p>;
+
+  const blob = data && URL.createObjectURL(data?.data);
+
+  return (
+    <video
+      src={blob}
+      controls
+      className="max-h-[699px] w-full object-cover shadow-lg lg:rounded-3xl"
+    ></video>
+  );
+};
