@@ -69,9 +69,10 @@ function ProjectCohortSelection({
         className="ml-auto mt-6 block w-28 bg-primary-color-600"
         onClick={() => {
           console.log("Selected cohort ID:", selectedCohort);
-          onClick(); // Move to the next step
+          onClick();
         }}
         disabled={!selectedCohort}
+        selectedCohort={selectedCohort}
       >
         Next
       </CommonButton>

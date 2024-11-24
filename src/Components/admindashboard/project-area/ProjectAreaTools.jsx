@@ -9,11 +9,17 @@ function ProjectAreaTools({
   setModal,
   id,
   selectedCourse,
-  cohorts,
+  selectedCohort,
 }) {
   const navigate = useNavigate();
   const handleSelect = (path) => {
-    navigate(path, { state: { selectedCourse, cohorts } });
+    navigate(path, {
+      state: {
+        id,
+        selectedCourse,
+        selectedCohort, // Include selected cohort
+      },
+    });
     setModal((prev) => !prev);
   };
 
