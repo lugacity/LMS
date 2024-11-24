@@ -21,9 +21,11 @@ function General() {
   // console.log("General Project", data);
 
   const selectedCourse = state?.selectedCourse;
+  const selectedCohort = state?.selectedCohort;
+  console.log("Selected Course in Cohort of Month:", selectedCohort);
+
   // const cohort = state?.cohorts;
 
-  // console.log("Selected Course in Cohort:", cohort);
   // console.log("Selected Course in General:", selectedCourse);
 
   return (
@@ -42,7 +44,10 @@ function General() {
           </button>
           <h2 className="text-2xl font-medium text-[rgb(52,64,84)]">
             {/* {selectedCourse?.title || "Default Title"} */}
-            {selectedCourse ? selectedCourse.title : "No course selected"} 
+            {selectedCourse
+              ? selectedCourse.title
+              : "No course selected"} |{" "}
+            {selectedCohort ? selectedCohort : "No cohort selected"}
             {/* Project Consultant Training Programme (Bundle) | May Cohort 2024 */}
           </h2>
         </div>
