@@ -8,22 +8,43 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/Components/ui/select";
-import { FaArrowLeft } from "react-icons/fa6";
 import { useState } from "react";
+import { FaArrowLeft } from "react-icons/fa6";
+import { useSearchParams } from "react-router-dom";
 
 function ProjectCohortSelection({
   setModal,
   onClick,
   cohorts,
   selectedCourse,
+  selectedCohort,
+  setSelectedCohort,
 }) {
-  const [selectedCohort, setSelectedCohort] = useState(null);
+  console.log(selectedCohort);
+
+  const handleSelectCohort = (id) => {
+    const selectedCohort = cohorts.find((cohort) => cohort.id === id);
+    setSelectedCohort((prev) => ({
+      ...prev,
+      cohort: selectedCohort.cohort,
+      cohortId: selectedCohort.id,
+    }));
+  };
 
   return (
     <section>
       <div className="flex items-start gap-2">
         <button
-          onClick={() => setModal((prev) => !prev)}
+          onClick={() => {
+            setSelectedCohort((prev) => {
+              return {
+                ...prev,
+                cohort: "",
+                cohortId: "",
+              };
+            });
+            setModal((prev) => !prev);
+          }}
           className="rounded-sm border border-[#E4E7EC] px-[9px] py-[7.7px]"
           aria-label="back button"
         >
@@ -38,41 +59,39 @@ function ProjectCohortSelection({
         Select a cohort for this project area
       </p>
       <div>
-        <p className="text-sm font-medium text-[#475367]">Select cohort: </p>
+        {cohorts.length > 0 && (
+          <p className="text-sm font-medium text-[#475367]">Select cohort: </p>
+        )}
         <div>
-          <Select
-            className="w-full"
-            onValueChange={(value) => setSelectedCohort(value)}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a cohort" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Cohorts</SelectLabel>
-                {cohorts.length > 0 ? (
-                  cohorts.map((cohort, i) => (
+          {cohorts.length > 0 ? (
+            <Select
+              className="w-full"
+              onValueChange={(value) => handleSelectCohort(value)}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a cohort" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Cohorts</SelectLabel>
+                  {cohorts.map((cohort, i) => (
                     <SelectItem key={i} value={cohort.id}>
                       {cohort.cohort}{" "}
                       {/* Assuming 'time' is a property in your cohort data */}
                     </SelectItem>
-                  ))
-                ) : (
-                  <p>No cohorts available.</p>
-                )}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          ) : (
+            <p className="italic text-slate-400">No cohort for this course</p>
+          )}
         </div>
       </div>
       <CommonButton
         className="ml-auto mt-6 block w-28 bg-primary-color-600"
-        onClick={() => {
-          console.log("Selected cohort ID:", selectedCohort);
-          onClick();
-        }}
-        disabled={!selectedCohort}
-        selectedCohort={selectedCohort}
+        onClick={onClick}
+        disabled={!selectedCohort.cohort}
       >
         Next
       </CommonButton>

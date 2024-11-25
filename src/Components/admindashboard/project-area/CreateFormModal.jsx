@@ -2,23 +2,69 @@ import BorderCard from "@/Components/BorderCard";
 import { CommonButton } from "@/Components/ui/button";
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
+import { useCreateCard } from "@/hooks/project-area/use-create-course-card";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useParams, useSearchParams } from "react-router-dom";
 import { z } from "zod";
 
+const u = {
+  title: "Whatsapp Group",
+  description:
+    "This is a general whatsapp group for students enrolled in this course",
+  subtitle: "Join Team A",
+  link: "https://api.whatsapp.com",
+  button_text: "Join Whatsappp",
+};
 const sessionSchema = z.object({
-  sessionTitle: z
+  title: z
+    .string()
+    .min(1, { message: "This field is required" })
+    .max(70, { message: "you've reach the max character length" }),
+  subtitle: z
+    .string()
+    .min(1, { message: "This field is required" })
+    .max(70, { message: "you've reach the max character length" }),
+  description: z
+    .string()
+    .min(1, { message: "This field is required" })
+    .max(450, { message: "you've reach the max character length" }),
+  link: z.string().url(),
+  button_text: z
     .string()
     .min(1, { message: "This field is required" })
     .max(70, { message: "you've reach the max character length" }),
 });
 
 export default function CreateFormModal({ setModal }) {
+  const { create, isPending } = useCreateCard();
+  const { courseId } = useParams();
+  const [queryString] = useSearchParams();
+  const cohortId = queryString.get("cohortId");
+  const handleSubmit = (data) => {
+    create(
+      {
+        data,
+        courseId,
+        cohortId,
+      },
+      {
+        onSuccess: () => {
+          setModal((prev) => !prev);
+        },
+      },
+    );
+  };
+
   const form = useForm({
     resolver: zodResolver(sessionSchema),
     defaultValues: {
-      sessionTitle: "",
+      title: "",
+      subtitle: "",
+      description: "",
+      link: "",
+      button_text: "",
     },
   });
   return (
@@ -41,69 +87,82 @@ export default function CreateFormModal({ setModal }) {
       </div>
       <div className="w-full max-w-[503px]">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit((values) => console.log(values))}>
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
             <div>
               <FormInput
-                name="sessionTiltle"
-                id="sessionTilte"
+                name="title"
+                id="title"
                 label="Title:"
                 control={form.control}
                 placeholder="WhatsApp Group "
               />
               <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
-                0/70
+                {form.watch("title") ? `${form.watch("title").length}` : 0}/70
               </p>
             </div>
             <div>
               <FormInput
-                name="sectionOverview"
-                id="sectionOverview"
+                name="subtitle"
+                id="subtitle"
                 label="Subtitle :"
                 control={form.control}
                 placeholder="Join Team A"
               />
               <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
-                0/70
+                {form.watch("subtitle")
+                  ? `${form.watch("subtitle").length}`
+                  : 0}
+                /70
               </p>
             </div>
             <div>
               <FormInput
-                name="sectionOverview"
-                id="sectionOverview"
+                name="description"
+                id="description"
                 label="Description"
                 control={form.control}
                 placeholder="Enter text here..."
                 textarea={true}
               />
               <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
-                0/450
+                {form.watch("description")
+                  ? `${form.watch("description").length}`
+                  : 0}
+                /450
               </p>
             </div>
             <div>
               <FormInput
-                name="sessionTiltle"
-                id="sessionTilte"
+                name="link"
+                id="link"
                 label="link :"
                 control={form.control}
                 placeholder="https://meet.google.com/rmz-wrmk-hhy"
               />
               <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
-                0/70
+                {form.watch("link") ? `${form.watch("link").length}` : 0}
+                /70
               </p>
             </div>
             <div>
               <FormInput
-                name="sessionTiltle"
-                id="sessionTilte"
+                name="button_text"
+                id="button_text"
                 label="Button text :"
                 control={form.control}
                 placeholder="WhatsApp Group"
               />
               <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
-                0/70
+                {form.watch("button_text")
+                  ? `${form.watch("button_text").length}`
+                  : 0}
+                /70
               </p>
             </div>
-            <CommonButton className="ml-auto mt-7 block bg-primary-color-600">
+            <CommonButton
+              className="ml-auto mt-7 block bg-primary-color-600"
+              disabled={isPending}
+            >
               Create Card
             </CommonButton>
           </form>

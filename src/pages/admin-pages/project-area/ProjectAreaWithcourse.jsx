@@ -5,21 +5,19 @@ import BorderCard from "@/Components/BorderCard";
 import CreatedCourseCard from "@/Components/admindashboard/course-management/CreatedCourseCard";
 import ProjectAreaTools from "@/Components/admindashboard/project-area/ProjectAreaTools";
 import ProjectCohortSelection from "./ProjectCohortSelection";
-import { useFetchAllAdminCourses } from "@/hooks/course-management/use-fetch-all-courses";
+
 import debounce from "lodash.debounce";
 
-const ProjectAreaWithcourse = () => {
+const ProjectAreaWithcourse = ({ data }) => {
   const [modal, setModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState({});
   const [modalTab, setModalTab] = useState("cohort");
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredCourses, setFilteredCourses] = useState([]);
-
-  const { data, isLoading, error, refetch } = useFetchAllAdminCourses(
-    1,
-    10,
-    true,
-  );
+  const [selectedCohort, setSelectedCohort] = useState({
+    cohort: "",
+    cohortId: "",
+  });
 
   // console.log("FetchALl", data);
 
@@ -35,7 +33,7 @@ const ProjectAreaWithcourse = () => {
   useEffect(() => {
     if (data) {
       const courses = data?.data?.data?.courses || [];
-      console.log("Courses", courses)
+      console.log("Courses", courses);
       if (searchQuery) {
         const searchResults = courses.filter((course) =>
           course.title.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -53,8 +51,6 @@ const ProjectAreaWithcourse = () => {
     const course = filteredCourses.find((course) => course.id === id);
     setSelectedCourse(course);
   };
-
-
 
   const debouncedSearch = debounce((value) => {
     setSearchQuery(value);
@@ -85,13 +81,13 @@ const ProjectAreaWithcourse = () => {
         </div>
       </header>
       <main className="grid grid-cols-3 gap-[18px]">
-        {isLoading ? (
-          "Loading...."
-        ) : error ? (
-          "Error loading courses"
-        ) : filteredCourses.length > 0 ? (
+        {filteredCourses.length > 0 ? (
           filteredCourses.map((course) => (
-            <div key={course.id} onClick={() => handleModal(course.id)}>
+            <div
+              key={course.id}
+              onClick={() => handleModal(course.id)}
+              className="cursor-pointer"
+            >
               <CreatedCourseCard
                 imgSrc={course.cover_image}
                 altText={course.title}
@@ -134,14 +130,15 @@ const ProjectAreaWithcourse = () => {
                     onClick={() => setModalTab("project-tools")}
                     cohorts={selectedCourse?.cohorts || []}
                     selectedCourse={selectedCourse}
+                    selectedCohort={selectedCohort}
+                    setSelectedCohort={setSelectedCohort}
                   />
                 ) : (
                   <ProjectAreaTools
                     setModalTab={setModalTab}
                     setModal={setModal}
-                    id={selectedCourse.id}
-                      selectedCourse={selectedCourse}
-                      cohorts={selectedCourse?.cohorts || []}
+                    selectedCourse={selectedCourse}
+                    selectedCohort={selectedCohort}
                   />
                 )
               ) : (

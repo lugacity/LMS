@@ -305,21 +305,21 @@ function App() {
                   element: <ProjectArea />,
                 },
                 {
-                  path: ":id/general",
+                  path: ":courseId/general",
                   element: <General />,
-                  children: [
-                    {
-                      index: true,
-                      element: <CourseProjectArea />,
-                    },
-                    {
-                      path: "course-tool",
-                      element: <CourseTools />,
-                    },
-                  ],
+                  // children: [
+                  //   {
+                  //     index: true,
+                  //     element: <CourseProjectArea />,
+                  //   },
+                  //   {
+                  //     path: "course-tool",
+                  //     element: <CourseTools />,
+                  //   },
+                  // ],
                 },
                 {
-                  path: ":id/group",
+                  path: ":courseId/group",
                   element: <Groups />,
                 },
               ],
@@ -413,59 +413,59 @@ function App() {
               ],
             },
 
-            {
-              element: <ProjectAreaLayout />,
-              path: "project-area",
-              children: [
-                {
-                  index: true,
-                  element: <ProjectArea />,
-                },
-                {
-                  path: ":id/general",
-                  element: <General />,
-                  children: [
-                    {
-                      index: true,
-                      element: <CourseProjectArea />,
-                    },
-                    {
-                      path: "course-tool",
-                      element: <CourseTools />,
-                    },
-                  ],
-                },
-                {
-                  path: ":id/group",
-                  element: <GroupLayout />,
-                  children: [
-                    {
-                      index: true,
-                      element: <Groups />,
-                    },
-                    {
-                      path: ":team",
-                      element: <TeamLayout />,
-                      children: [
-                        {
-                          index: true,
-                          path: "course-project-area",
-                          element: <CourseProjectArea />,
-                        },
-                        {
-                          path: "course-tools",
-                          element: <CourseTools />,
-                        },
-                        {
-                          path: "student-management",
-                          element: <StudentManagementTable />,
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
+            // {
+            //   element: <ProjectAreaLayout />,
+            //   path: "project-area",
+            //   children: [
+            //     {
+            //       index: true,
+            //       element: <ProjectArea />,
+            //     },
+            //     {
+            //       path: ":courseId/general",
+            //       element: <General />,
+            //       // children: [
+            //       //   {
+            //       //     index: true,
+            //       //     element: <CourseProjectArea />,
+            //       //   },
+            //       //   {
+            //       //     path: "course-tool",
+            //       //     element: <CourseTools />,
+            //       //   },
+            //       // ],
+            //     },
+            //     {
+            //       path: ":courseId/group",
+            //       element: <GroupLayout />,
+            //       children: [
+            //         {
+            //           index: true,
+            //           element: <Groups />,
+            //         },
+            //         {
+            //           path: ":team",
+            //           element: <TeamLayout />,
+            //           children: [
+            //             {
+            //               index: true,
+            //               path: "course-project-area",
+            //               element: <CourseProjectArea />,
+            //             },
+            //             {
+            //               path: "course-tools",
+            //               element: <CourseTools />,
+            //             },
+            //             {
+            //               path: "student-management",
+            //               element: <StudentManagementTable />,
+            //             },
+            //           ],
+            //         },
+            //       ],
+            //     },
+            //   ],
+            // },
             {
               path: "course-work-area",
               element: <CourseWorkAreaLayout />,
