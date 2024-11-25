@@ -1,35 +1,25 @@
+import CourseProjectArea from "@/Components/admindashboard/project-area/CourseProjectArea";
+import CourseTools from "@/Components/admindashboard/project-area/CourseTools";
 import ProjectAreaNav from "@/Components/admindashboard/project-area/ProjectAreaNav";
-import { useFetchAllAdminCourses } from "@/hooks/course-management/use-fetch-all-courses";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import {
-  Link,
-  Outlet,
-  useLocation,
+  ScrollRestoration,
   useNavigate,
-  useParams,
+  useSearchParams,
 } from "react-router-dom";
 
 function General() {
-  const { pathname } = useLocation();
-   const { state } = useLocation();
-  const { id } = useParams();
-  // console.log("ID PROJECT AREA", id);
+  const [tab, setTab] = useState(1);
+
+  const [queryString] = useSearchParams();
+
   const navigate = useNavigate();
-
-  // const { data, isLoading, error, refetch } = useFetchAllAdminCourses(id);
-  // console.log("General Project", data);
-
-  const selectedCourse = state?.selectedCourse;
-  const selectedCohort = state?.selectedCohort;
-  console.log("Selected Course in Cohort of Month:", selectedCohort);
-
-  // const cohort = state?.cohorts;
-
-  // console.log("Selected Course in General:", selectedCourse);
 
   return (
     <div>
+      <ScrollRestoration />
       <ProjectAreaNav title={"General Group"} />
       <section>
         <div className="my-12 flex items-center gap-3">
@@ -44,10 +34,8 @@ function General() {
           </button>
           <h2 className="text-2xl font-medium text-[rgb(52,64,84)]">
             {/* {selectedCourse?.title || "Default Title"} */}
-            {selectedCourse
-              ? selectedCourse.title
-              : "No course selected"} |{" "}
-            {selectedCohort ? selectedCohort : "No cohort selected"}
+            {queryString.get("courseTitle") ?? "no selected course"} |{" "}
+            {queryString.get("cohort") ?? "No cohort selected"}
             {/* Project Consultant Training Programme (Bundle) | May Cohort 2024 */}
           </h2>
         </div>
@@ -56,31 +44,26 @@ function General() {
             <li
               className={cn(
                 "after:contents-[''] relative h-full cursor-pointer py-4 text-sm font-medium capitalize text-[#344054] transition-colors duration-150 *:capitalize after:absolute after:-bottom-[2px] after:left-0 after:m-auto after:h-[2px] after:w-0 after:bg-primary-color-600 after:transition-all after:duration-150 hover:text-primary-color-600 hover:after:w-full",
-                pathname.endsWith("/general")
-                  ? "text-primary-color-600 after:w-full"
-                  : "",
+                tab == 1 ? "text-primary-color-600 after:w-full" : "",
               )}
+              onClick={() => setTab(1)}
             >
-              <Link to={`/admin/project-area/${id}/general`}>
-                course management
-              </Link>
+              <span>course management</span>
             </li>
             <li
               className={cn(
                 "after:contents-[''] relative h-full cursor-pointer py-4 text-sm font-medium capitalize text-[#344054] transition-colors duration-150 *:capitalize after:absolute after:-bottom-[2px] after:left-0 after:m-auto after:h-[2px] after:w-0 after:bg-primary-color-600 after:transition-all after:duration-150 hover:text-primary-color-600 hover:after:w-full",
-                pathname.endsWith("/general/course-tool")
-                  ? "text-primary-color-600 after:w-full"
-                  : "",
+                tab == 2 ? "text-primary-color-600 after:w-full" : "",
               )}
+              onClick={() => setTab(2)}
             >
-              <Link to={`/admin/project-area/${id}/general/course-tool`}>
-                Course Tools & Resources
-              </Link>
+              <span>Course Tools & Resources</span>
             </li>
           </ul>
         </div>
         <div className="mt-4">
-          <Outlet />
+          {tab === 1 && <CourseProjectArea />}
+          {tab === 2 && <CourseTools />}
         </div>
       </section>
     </div>
