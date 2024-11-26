@@ -2,22 +2,13 @@ import BorderCard from "@/Components/BorderCard";
 import { CommonButton } from "@/Components/ui/button";
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
-import { useCreateCard } from "@/hooks/project-area/use-create-course-card";
-import { useEditCard } from "@/hooks/project-area/use-edit-project-card";
+import { useCreateToolsCard } from "@/hooks/project-area/use-create-tools-card";
+import { useEditToolsCard } from "@/hooks/project-area/use-edit-tools-card";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useParams, useSearchParams } from "react-router-dom";
 import { z } from "zod";
 
-const u = {
-  title: "Whatsapp Group",
-  description:
-    "This is a general whatsapp group for students enrolled in this course",
-  subtitle: "Join Team A",
-  link: "https://api.whatsapp.com",
-  button_text: "Join Whatsappp",
-};
 const sessionSchema = z.object({
   title: z
     .string()
@@ -38,12 +29,10 @@ const sessionSchema = z.object({
     .max(70, { message: "you've reach the max character length" }),
 });
 
-export default function CreateFormModal({ setModal, edit, setEdit }) {
-  const { create, isPending } = useCreateCard();
-  const { editCard, isPending: isEditing } = useEditCard();
-  const { courseId } = useParams();
-  const [queryString] = useSearchParams();
-  const cohortId = queryString.get("cohortId");
+export default function CreateToolsFormModal({ setModal, edit, setEdit }) {
+  const { create, isPending } = useCreateToolsCard();
+  const { editCard, isPending: isEditing } = useEditToolsCard();
+
   const isEdit = Boolean(edit?.id);
   console.log(isEdit);
   console.log(edit);
@@ -52,9 +41,9 @@ export default function CreateFormModal({ setModal, edit, setEdit }) {
     editCard(
       {
         data,
-        courseId,
-        cohortId,
-        cardId: edit?.id,
+        courseId: edit.course_id,
+        cohortId: edit.cohort_id,
+        resourceId: edit?.id,
       },
       {
         onSuccess: () => {
@@ -68,8 +57,8 @@ export default function CreateFormModal({ setModal, edit, setEdit }) {
     create(
       {
         data,
-        courseId,
-        cohortId,
+        courseId: edit.course_id,
+        cohortId: edit.cohort_id,
       },
       {
         onSuccess: () => {

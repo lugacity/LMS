@@ -12,12 +12,36 @@ import CreateFormModal from "./CreateFormModal";
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useFetchAllProjectCards } from "@/hooks/project-area/use-fetch-all-project-cards";
+import { useDeleteCard } from "@/hooks/project-area/use-delete-card";
 
 function CourseProjectArea() {
   const [createFormModal, setCreateFormModal] = useState(false);
   const [succesModal, setSuccessModal] = useState(false);
-  const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
+  const [edit, setEdit] = useState(null);
+  const [confirmDeleteModal, setConfirmDeleteModal] = useState({
+    id: "",
+    show: false,
+  });
   const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const { courseId } = useParams();
+  const [queryString] = useSearchParams();
+  const cohortId = queryString.get("cohortId");
+  const { deleteCard, isPending } = useDeleteCard();
+
+  const handleDelete = () => {
+    deleteCard(
+      { courseId, cohortId, cardId: confirmDeleteModal.id },
+      {
+        onSuccess: () => {
+          setConfirmDeleteModal((prev) => ({
+            ...prev,
+            show: false,
+          }));
+          setDeleteSuccess((prev) => !prev);
+        },
+      },
+    );
+  };
 
   return (
     <>
@@ -37,13 +61,20 @@ function CourseProjectArea() {
             Create
           </CommonButton>
         </div>
-        <CreatedCard />
+        <CreatedCard
+          setConfirmDeleteModal={setConfirmDeleteModal}
+          setCreateFormModal={setCreateFormModal}
+          setEdit={setEdit}
+        />
 
-        {confirmDeleteModal && (
+        {confirmDeleteModal.show && (
           <Modal>
             <ConfirmDeleteModal
               setModal={setConfirmDeleteModal}
+              cardId={confirmDeleteModal.id}
               setDeleteSuccess={setDeleteSuccess}
+              handleDelete={handleDelete}
+              isPending={isPending}
             />
           </Modal>
         )}
@@ -63,7 +94,11 @@ function CourseProjectArea() {
 
       {createFormModal && (
         <Modal>
-          <CreateFormModal setModal={setCreateFormModal} />
+          <CreateFormModal
+            edit={edit}
+            setEdit={setEdit}
+            setModal={setCreateFormModal}
+          />
 
           {succesModal && (
             <Modal>
@@ -82,7 +117,11 @@ function CourseProjectArea() {
   );
 }
 
-const CreatedCard = () => {
+const CreatedCard = ({
+  setConfirmDeleteModal,
+  setCreateFormModal,
+  setEdit,
+}) => {
   const { courseId } = useParams();
 
   const [queryString] = useSearchParams();
@@ -121,14 +160,23 @@ const CreatedCard = () => {
                   <span
                     className="cursor-pointer text-lg hover:scale-110"
                     role="button"
-                    // onClick={() => setCreateFormModal((prev) => !prev)}
+                    onClick={() => {
+                      setCreateFormModal((prev) => !prev);
+                      setEdit(card);
+                    }}
                   >
                     <HiOutlinePencil />
                   </span>
                   <span
                     className="cursor-pointer text-xl text-primary-color-600 hover:scale-110"
                     role="button"
-                    // onClick={() => setConfirmDeleteModal((prev) => !prev)}
+                    onClick={() =>
+                      setConfirmDeleteModal((prev) => ({
+                        ...prev,
+                        show: true,
+                        id: card.id,
+                      }))
+                    }
                   >
                     <FontAwesomeIcon icon={faTrashCan} />
                   </span>
