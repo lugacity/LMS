@@ -7,6 +7,7 @@ import { useEditToolsCard } from "@/hooks/project-area/use-edit-tools-card";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useParams, useSearchParams } from "react-router-dom";
 import { z } from "zod";
 
 const sessionSchema = z.object({
@@ -32,6 +33,9 @@ const sessionSchema = z.object({
 export default function CreateToolsFormModal({ setModal, edit, setEdit }) {
   const { create, isPending } = useCreateToolsCard();
   const { editCard, isPending: isEditing } = useEditToolsCard();
+  const { courseId } = useParams();
+  const [queryString] = useSearchParams();
+  const cohortId = queryString.get("cohortId");
 
   const isEdit = Boolean(edit?.id);
   console.log(isEdit);
@@ -57,8 +61,8 @@ export default function CreateToolsFormModal({ setModal, edit, setEdit }) {
     create(
       {
         data,
-        courseId: edit.course_id,
-        cohortId: edit.cohort_id,
+        courseId,
+        cohortId,
       },
       {
         onSuccess: () => {
