@@ -1,26 +1,31 @@
 import BorderCard from "@/Components/BorderCard";
 import { CommonButton } from "@/Components/ui/button";
+import { useDeleteCard } from "@/hooks/project-area/use-delete-card";
 import { Heading, Paragraph } from "@/pages/auth/components/Text";
 import { faClose, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useParams, useSearchParams } from "react-router-dom";
 
 function ConfirmDeleteModal({
   setModal,
   setDeleteSuccess,
   title = "Delete WhatsApp Group",
   text = " Are you sure you want to delete this card? This action cannot be undone, and all associated will be permanently removed.",
+  handleDelete,
+  isPending,
+  cardId,
 }) {
-  const handleDelete = () => {
-    setModal((prev) => !prev);
-    setDeleteSuccess((prev) => !prev);
-  };
-
   return (
     <BorderCard className="relative w-full max-w-[731px] bg-white py-12">
       <button
         type="button"
         className="absolute right-4 top-4 w-fit cursor-pointer"
-        onClick={() => setModal((prev) => !prev)}
+        onClick={() =>
+          setModal((prev) => ({
+            ...prev,
+            show: false,
+          }))
+        }
       >
         <FontAwesomeIcon
           icon={faClose}
@@ -40,7 +45,12 @@ function ConfirmDeleteModal({
             className="rounded-sm border border-primary-color-600 text-primary-color-600"
             size="lg"
             variant="outline"
-            onClick={() => setModal((prev) => !prev)}
+            onClick={() =>
+              setModal((prev) => ({
+                ...prev,
+                show: false,
+              }))
+            }
           >
             Cancel
           </CommonButton>
@@ -48,6 +58,7 @@ function ConfirmDeleteModal({
             className="bg-primary-color-600"
             size="lg"
             onClick={handleDelete}
+            disabled={isPending}
           >
             Yes, Delete
           </CommonButton>

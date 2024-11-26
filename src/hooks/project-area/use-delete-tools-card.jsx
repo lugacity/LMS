@@ -4,8 +4,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
-const deleteCardApi = ({ courseId, cohortId, cardId }) => {
-  const url = `${BASE_URL}/courses/${courseId}/cohorts/${cohortId}/projects/general/cards/${cardId}`;
+const deleteToolsCardApi = ({ courseId, cohortId, resourceId }) => {
+  const url = `${BASE_URL}/courses/${courseId}/cohorts/${cohortId}/projects/general/resources/${resourceId}`;
   return axios.delete(url, {
     headers: {
       Authorization: `Bearer ${Cookies.get("adminToken")}`,
@@ -13,10 +13,10 @@ const deleteCardApi = ({ courseId, cohortId, cardId }) => {
   });
 };
 
-export const useDeleteCard = () => {
+export const useDeleteToolsCard = () => {
   const queryClient = useQueryClient();
   const { mutate: deleteCard, isPending } = useMutation({
-    mutationFn: deleteCardApi,
+    mutationFn: deleteToolsCardApi,
     onSuccess: () => {
       toast.success("card deleted successfully");
       queryClient.invalidateQueries("project-area-cards");
