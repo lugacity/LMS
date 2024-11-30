@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { FilterIcon } from "lucide-react";
 
 import { groupCourse } from "@/lib/groupcourse";
@@ -17,6 +17,8 @@ import BorderCard from "@/Components/BorderCard";
 import CreateGroupForm from "@/Components/admindashboard/project-area/CreateGroupForm";
 import RegisterSuccess from "@/pages/auth/components/RegisterSuccess";
 import CreateMultipleGroupForm from "@/Components/admindashboard/project-area/CreateMultipleGroupForm copy";
+import { useFetchAllProjectArea } from "@/hooks/project-area/use-fetch-all-project-area";
+import { useProjectGroups } from "@/hooks/project-area-groups/use-fetch-project-groups";
 
 function Groups() {
   const navigate = useNavigate();
@@ -24,6 +26,21 @@ function Groups() {
   const [modal, setModal] = useState(false);
   const [success, setSuccess] = useState(false);
   const [multipleModal, setMultipleModal] = useState(false);
+
+  const [queryString] = useSearchParams();
+  const cohortId = queryString.get("cohortId");
+  const { courseId } = useParams();
+  
+   
+
+   const { isLoading, data, error } = useProjectGroups(courseId, cohortId);
+
+  // const fetchDataGroups = 
+
+  // const { data, isLoading } = useFetchAllProjectArea()
+  
+  console.log("Fetch Project Area Groups", data);
+  console.log("Loading Project Area Groups", isLoading);
 
   return (
     <>
@@ -39,12 +56,13 @@ function Groups() {
             <span className="capitalize text-[#667185]">Go back</span>
           </button>
           <h2 className="text-2xl font-medium text-[#344054]">
-            Project Consultant Training Programme (Bundle) | May Cohort 2024
+            {queryString.get("courseTitle") ?? "no selected course"} |{" "}
+            {queryString.get("cohort") ?? "No cohort selected"}
             {/* {selectedCourse.title} */}
           </h2>
         </div>
         <div className="flex items-center justify-between">
-          <p>Groups({groupCourse.length})</p>
+          <p>Groups({data?.data?.length})</p>
           <div className="flex items-center gap-4">
             <div className="flex w-full max-w-[528px] items-center gap-x-4 rounded-md border border-[#D0D5DD] px-4 py-2">
               <label htmlFor="search">
@@ -87,7 +105,8 @@ function Groups() {
           </div>
         </div>
 
-        {groupCourse.length < 1 ? <EmptyGroup /> : <FilledGroup />}
+        {/* {groupCourse.length < 1 ? <EmptyGroup /> : <FilledGroup />} */}
+        {data?.data?.length < 1 ? <EmptyGroup /> : <FilledGroup groupData={data?.data} />}
       </section>
 
       {modal && (

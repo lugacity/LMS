@@ -48,7 +48,7 @@ function General() {
               )}
               onClick={() => setTab(1)}
             >
-              <span>course management</span>
+              <span>course project area</span>
             </li>
             <li
               className={cn(

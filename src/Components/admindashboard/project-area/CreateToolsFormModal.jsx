@@ -94,7 +94,7 @@ export default function CreateToolsFormModal({ setModal, edit, setEdit }) {
     <BorderCard className="grid h-screen max-h-[90vh] w-full max-w-[1126px] grid-cols-[1fr_2fr] gap-x-24 overflow-y-auto rounded-md bg-white p-12">
       <div>
         <h3 className="text-2xl font-medium text-[#344054]">
-          Course Project Area
+          Course Tools & Resources
         </h3>
         <p className="my-2 max-w-[297px] text-[#667185]">
           Create cards for the Course Project area that will be used by students
