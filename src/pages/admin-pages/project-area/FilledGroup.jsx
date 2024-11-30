@@ -1,12 +1,33 @@
 import { TrashCan } from "@/Components/Icon";
 import Table from "@/Components/Table";
 import { CommonButton } from "@/Components/ui/button";
-import { groupCourse } from "@/lib/groupcourse";
+import { useDeleteSingleProject } from "@/hooks/project-area/use-delete-single-project-group";
+// import { groupCourse } from "@/lib/groupcourse";
 import { Pencil } from "lucide-react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function FilledGroup() {
+function FilledGroup({ groupData = [] }) {
   const navigate = useNavigate();
+  
+  const formatDate = (date) => {
+    const createdAt = new Date(date);
+    const locale = navigator.language;
+
+    return new Intl.DateTimeFormat(locale, {
+      dateStyle: "medium", // Customize to "short", "long", or "full" as needed
+      timeStyle: "short", // Use "short", "medium", or "long" depending on desired granularity
+    }).format(createdAt);
+  };
+
+  const [deleteSuccess, SetDeleteSuccess] = useState(false);
+  
+  const { deleteSingleGroup, isPending } = useDeleteSingleProject()
+  
+  const handleDelete = () => {
+    deleteSingleGroup({courseId, cohortId, groupId,})
+  }
+
   return (
     <>
       <div className="mt-10">
@@ -19,33 +40,36 @@ function FilledGroup() {
             <h6>Action</h6>
           </Table.Header>
           <div className="divide-y">
-            {groupCourse.map((group) => {
+            {groupData.map((group, i) => {
               return (
                 <Table.Row
                   key={group.id}
                   className={"*:text-sm *:text-[#344054]"}
                 >
-                  <p>{group.id}</p>
-                  <p>{group.groupName}</p>
-                  <p>{`${group.createdDate} ${group.time}`}</p>
-                  <p>{group.numberOfStudent}</p>
+                  <p>{i + 1}</p>
+                  <p>{group.group_name}</p>
+                  <p>
+                    {group ? formatDate(group?.created_at) : "No Date & Time"}
+                  </p>
+
+                  <p>{group.max_number_of_students}</p>
                   <div className="flex gap-3">
                     <CommonButton
                       size="sm"
                       className="flex w-max gap-2 bg-primary-color-600"
-                      onClick={() =>
-                        navigate(`${group.groupName}/course-project-area`)
-                      }
+                      onClick={() => navigate(`${group.id}/edit-project-group`)}
                     >
                       <span>
                         <Pencil className="h-4 w-4" />
                       </span>
                       <span>Edit</span>
                     </CommonButton>
+
                     <CommonButton
                       variant="outline"
                       size="sm"
                       className="flex w-max gap-2"
+                      onClick={handleDelete}
                     >
                       <span>
                         <TrashCan />

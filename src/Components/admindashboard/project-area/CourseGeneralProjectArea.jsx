@@ -14,7 +14,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useFetchAllProjectCards } from "@/hooks/project-area/use-fetch-all-project-cards";
 import { useDeleteCard } from "@/hooks/project-area/use-delete-card";
 
-function CourseProjectArea() {
+function CourseGeneralProjectArea() {
   const [createFormModal, setCreateFormModal] = useState(false);
   const [succesModal, setSuccessModal] = useState(false);
   const [edit, setEdit] = useState(null);
@@ -189,4 +189,4 @@ const CreatedCard = ({
     </div>
   );
 };
-export default CourseProjectArea;
+export default CourseGeneralProjectArea;

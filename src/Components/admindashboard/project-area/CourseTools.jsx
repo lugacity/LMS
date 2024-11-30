@@ -151,7 +151,7 @@ const CreatedCard = ({
         return (
           <article key={card.id}>
             <h4 className="font-medium">{card.title}</h4>
-            <div className="mt-[10px] rounded-md border border-[#F0F2F5] px-4 py-6">
+            <div className="mt-[10px] rounded-md border-2 border-[#dadee3] px-4 py-6">
               <h5 className="font-bold text-[#101928]">{card.subtitle}</h5>
               <p className="mb-4 mt-[6px] text-[#667185]">{card.description}</p>
               <div className="flex items-center justify-between">
