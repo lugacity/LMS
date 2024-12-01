@@ -30,17 +30,15 @@ function Groups() {
   const [queryString] = useSearchParams();
   const cohortId = queryString.get("cohortId");
   const { courseId } = useParams();
-  
-   
 
-   const { isLoading, data, error } = useProjectGroups(courseId, cohortId);
+  const { isLoading, data, error } = useProjectGroups(courseId, cohortId);
 
-  // const fetchDataGroups = 
+  // const fetchDataGroups =
 
   // const { data, isLoading } = useFetchAllProjectArea()
-  
+
   console.log("Fetch Project Area Groups", data);
-  console.log("Loading Project Area Groups", isLoading);
+  console.log("Loading Project Area Groups");
 
   return (
     <>
@@ -61,52 +59,62 @@ function Groups() {
             {/* {selectedCourse.title} */}
           </h2>
         </div>
-        <div className="flex items-center justify-between">
-          <p>Groups({data?.data?.length})</p>
-          <div className="flex items-center gap-4">
-            <div className="flex w-full max-w-[528px] items-center gap-x-4 rounded-md border border-[#D0D5DD] px-4 py-2">
-              <label htmlFor="search">
-                <IoSearch className="text-xl text-[#667185]" />
-              </label>
+        {isLoading ? (
+          "Loading ...."
+        ) : (
+          <>
+            <div className="flex items-center justify-between">
+              <p>Groups({data?.data?.length})</p>
+              <div className="flex items-center gap-4">
+                <div className="flex w-full max-w-[528px] items-center gap-x-4 rounded-md border border-[#D0D5DD] px-4 py-2">
+                  <label htmlFor="search">
+                    <IoSearch className="text-xl text-[#667185]" />
+                  </label>
 
-              <input
-                type="text"
-                name="search"
-                id="search"
-                placeholder="Search here..."
-                className="w-full placeholder:text-[#667185]"
-              />
+                  <input
+                    type="text"
+                    name="search"
+                    id="search"
+                    placeholder="Search here..."
+                    className="w-full placeholder:text-[#667185]"
+                  />
+                </div>
+                <PopoverComponent
+                  trigger={
+                    <p className="flex items-center gap-2 rounded-md border p-2 text-sm font-bold text-[#344054]">
+                      <span>
+                        <FilterIcon />
+                      </span>
+                      <span>Filter</span>
+                    </p>
+                  }
+                >
+                  hello
+                </PopoverComponent>
+                <CommonButton
+                  className="bg-primary-color-600"
+                  onClick={() => setModal((prev) => !prev)}
+                >
+                  Create Single Group
+                </CommonButton>
+                <CommonButton
+                  variant="outline"
+                  className="text-[#475367]"
+                  onClick={() => setMultipleModal((prev) => !prev)}
+                >
+                  Create Multiple Group
+                </CommonButton>
+              </div>
             </div>
-            <PopoverComponent
-              trigger={
-                <p className="flex items-center gap-2 rounded-md border p-2 text-sm font-bold text-[#344054]">
-                  <span>
-                    <FilterIcon />
-                  </span>
-                  <span>Filter</span>
-                </p>
-              }
-            >
-              hello
-            </PopoverComponent>
-            <CommonButton
-              className="bg-primary-color-600"
-              onClick={() => setModal((prev) => !prev)}
-            >
-              Create Single Group
-            </CommonButton>
-            <CommonButton
-              variant="outline"
-              className="text-[#475367]"
-              onClick={() => setMultipleModal((prev) => !prev)}
-            >
-              Create Multiple Group
-            </CommonButton>
-          </div>
-        </div>
 
-        {/* {groupCourse.length < 1 ? <EmptyGroup /> : <FilledGroup />} */}
-        {data?.data?.length < 1 ? <EmptyGroup /> : <FilledGroup groupData={data?.data} />}
+            {/* {groupCourse.length < 1 ? <EmptyGroup /> : <FilledGroup />} */}
+            {data?.data?.length < 1 ? (
+              <EmptyGroup />
+            ) : (
+              <FilledGroup groupData={data?.data} />
+            )}
+          </>
+        )}
       </section>
 
       {modal && (
@@ -131,7 +139,7 @@ function Groups() {
               </CommonButton>
             </div>
             <div>
-              <CreateGroupForm />
+              <CreateGroupForm setModal={setModal} />
             </div>
           </BorderCard>
           {success && (

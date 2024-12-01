@@ -20,23 +20,19 @@ const sessionSchema = z.object({
     .optional(),
 });
 
-function CreateGroupForm() {
-  
-
+function CreateGroupForm({ setModal }) {
   const { courseId } = useParams();
   const [queryString] = useSearchParams();
   const cohortId = queryString.get("cohortId");
 
-  const {create, isPending: isCreating} = useCreateProjectGroup()
-
+  const { create, isPending: isCreating } = useCreateProjectGroup();
 
   const handleSubmit = (data) => {
     create(
       { data, courseId, cohortId },
       {
         onSuccess: () => {
-          // setModal((prev) => !prev);
-          toast.success("Succesfully created");
+          setModal((prev) => !prev);
         },
       },
     );
@@ -50,8 +46,6 @@ function CreateGroupForm() {
     },
   });
 
- 
-  
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>

@@ -28,12 +28,12 @@ const LiveSessionMentoringCourseType = () => {
   const { setActiveTab, setSubTab } = useCourseManagementInfo();
 
   const onSubmit = async (data) => {
-    const time = data.time.split(":");
-    const hour =
-      parseInt(time[0]) > 12 ? Number(time[0]) - 12 : parseInt(time[0]);
+    // const time = data.time.split(":");
+    // const hour =
+    //   parseInt(time[0]) > 12 ? Number(time[0]) - 12 : parseInt(time[0]);
 
-    const min = Number(time[1]) < 10 ? `${time[1]}` : Number(time[1]);
-    const amOrPm = Number(time[0]) >= 12 ? "pm" : "am";
+    // const min = Number(time[1]) < 10 ? `${time[1]}` : Number(time[1]);
+    // const amOrPm = Number(time[0]) >= 12 ? "pm" : "am";
     if (!cohort) return setCohortErr("Input  cohort");
 
     const courseType = {
@@ -41,7 +41,7 @@ const LiveSessionMentoringCourseType = () => {
         original_price: Number(data.coursePrice),
         discounted_price: Number(data.discountPrice),
         duration: data.duration,
-        time: `${hour}:${min}${amOrPm}`,
+        time: data.time,
         cohort,
         year: 2024,
         currency: "Pounds",
