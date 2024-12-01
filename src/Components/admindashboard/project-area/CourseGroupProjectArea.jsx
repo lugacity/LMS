@@ -13,8 +13,9 @@ import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useFetchAllProjectCards } from "@/hooks/project-area/use-fetch-all-project-cards";
 import { useDeleteCard } from "@/hooks/project-area/use-delete-card";
+import { useEditProjectGroup } from "@/hooks/project-area-groups/use-edit-project-group";
 
-function CourseGeneralProjectArea() {
+function CourseGroupProjectArea() {
   const [createFormModal, setCreateFormModal] = useState(false);
   const [succesModal, setSuccessModal] = useState(false);
   const [edit, setEdit] = useState(null);
@@ -23,10 +24,11 @@ function CourseGeneralProjectArea() {
     show: false,
   });
   const [deleteSuccess, setDeleteSuccess] = useState(false);
-  const { courseId } = useParams();
+  const { courseId, groupId } = useParams();
   const [queryString] = useSearchParams();
   const cohortId = queryString.get("cohortId");
   const { deleteCard, isPending } = useDeleteCard();
+  const {editGroupProject, isPending: isEditing} = useEditProjectGroup(groupId);
 
   const handleDelete = () => {
     deleteCard(
@@ -189,4 +191,4 @@ const CreatedCard = ({
     </div>
   );
 };
-export default CourseGeneralProjectArea;
+export default CourseGroupProjectArea;

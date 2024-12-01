@@ -1,11 +1,15 @@
+import ConfirmDeleteGeneralModal from "@/Components/admindashboard/project-area/ConfirmDeleteGeneralModal";
+import ConfirmDeleteModal from "@/Components/admindashboard/project-area/ConfirmDeleteModal";
 import { TrashCan } from "@/Components/Icon";
 import Table from "@/Components/Table";
 import { CommonButton } from "@/Components/ui/button";
-import { useDeleteSingleProject } from "@/hooks/project-area/use-delete-single-project-group";
+import { useDeleteSingleProject } from "@/hooks/project-area-groups/use-delete-single-project-group";
+import Modal from "@/pages/auth/components/Modal";
+import RegisterSuccess from "@/pages/auth/components/RegisterSuccess";
 // import { groupCourse } from "@/lib/groupcourse";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 function FilledGroup({ groupData = [] }) {
   const navigate = useNavigate();
@@ -20,13 +24,31 @@ function FilledGroup({ groupData = [] }) {
     }).format(createdAt);
   };
 
-  const [deleteSuccess, SetDeleteSuccess] = useState(false);
+  // const [deleteSuccess, SetDeleteSuccess] = useState(false);
   
   const { deleteSingleGroup, isPending } = useDeleteSingleProject()
+  const { courseId } = useParams();
+  const [queryString] = useSearchParams();
+  const cohortId = queryString.get("cohortId");
+  const [confirmDeleteModal, setConfirmDeleteModal] = useState({
+    id: "",
+    show: false,
+  });
+   const [deleteSuccess, setDeleteSuccess] = useState(false);
   
   const handleDelete = () => {
-    deleteSingleGroup({courseId, cohortId, groupId,})
-  }
+     deleteSingleGroup({ courseId, cohortId, groupId: confirmDeleteModal.id },
+      {
+        onSuccess: () => {
+          setConfirmDeleteModal((prev) => ({
+            ...prev,
+            show: false,
+          }));
+          setDeleteSuccess((prev) => !prev);
+        },
+      },
+    );
+  };
 
   return (
     <>
@@ -69,7 +91,9 @@ function FilledGroup({ groupData = [] }) {
                       variant="outline"
                       size="sm"
                       className="flex w-max gap-2"
-                      onClick={handleDelete}
+                      onClick={() =>
+                        setConfirmDeleteModal({ id: group.id, show: true })
+                      }
                     >
                       <span>
                         <TrashCan />
@@ -83,6 +107,30 @@ function FilledGroup({ groupData = [] }) {
           </div>
         </Table>
       </div>
+
+      {confirmDeleteModal.show && (
+        <Modal>
+          <ConfirmDeleteGeneralModal
+            setModal={setConfirmDeleteModal}
+            groupId={confirmDeleteModal.id}
+            setDeleteSuccess={setDeleteSuccess}
+            handleDelete={handleDelete}
+            isPending={isPending}
+          />
+        </Modal>
+      )}
+      {deleteSuccess && (
+        <Modal>
+          <RegisterSuccess
+            title={"Card Deleted Successfully"}
+            text={
+              "The card has been successfully deleted. All associated data has been permanently removed."
+            }
+            path={""}
+            setModal={setDeleteSuccess}
+          />
+        </Modal>
+      )}
     </>
   );
 }
