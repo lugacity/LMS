@@ -19,7 +19,7 @@ export const getSingleProjectGroup = async (courseId, cohortId, groupId) => {
     },
   );
 
-    console.log("groupID API", response);
+    // console.log("groupID API", response);
 
   return response.data;
 };

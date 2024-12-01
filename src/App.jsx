@@ -94,7 +94,7 @@ import CourseWorkShareDocs from "./pages/admin-pages/course-work-area/CourseWork
 // import PreviewVideoCourse from "./pages/PreviewVideoCourse";
 import PreviewCourse from "./pages/previewCourse";
 import PreviewVideoCourse from "./pages/previewVideoCourse";
-import CourseGeneralProjectArea from "./Components/admindashboard/project-area/CourseGeneralProjectArea";
+import CourseGroupProjectArea from "./Components/admindashboard/project-area/CourseGroupProjectArea";
 
 const queryClient = new QueryClient();
 
@@ -308,25 +308,25 @@ function App() {
                 {
                   path: ":courseId/general",
                   element: <General />,
-                  children: [
-                    {
-                      index: true,
-                      path: "edit-project-group",
-                      element: <CourseGeneralProjectArea />,
-                    },
-                    // {
-                    //   index: true,
-                    //   element: <CourseProjectArea />,
-                    // },
-                    // {
-                    //   path: "course-tool",
-                    //   element: <CourseTools />,
-                    // },
-                  ],
+                  // children: [
+                  //   {
+                  //     index: true,
+                  //     element: <CourseProjectArea />,
+                  //   },
+                  //   {
+                  //     path: "course-tool",
+                  //     element: <CourseTools />,
+                  //   },
+
+                  // ],
                 },
                 {
                   path: ":courseId/group",
                   element: <Groups />,
+                },
+                {       
+                  path: ":courseId/group/:groupId/edit-project-group",
+                  element: <CourseGroupProjectArea />,
                 },
               ],
             },
