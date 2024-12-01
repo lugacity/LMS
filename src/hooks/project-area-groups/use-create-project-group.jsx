@@ -1,4 +1,3 @@
-
 import { BASE_URL } from "@/constant";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -20,8 +19,8 @@ export const useCreateProjectGroup = () => {
   const queryClient = useQueryClient();
   const { mutate: create, isPending } = useMutation({
     mutationFn: createProjectGroup,
-    onSuccess: () => {
-      toast.success("group created");
+    onSuccess: ({ data }) => {
+      toast.success(data?.message ?? "group created successfully");
       queryClient.invalidateQueries("project-area-group");
     },
     onError: (error) => {
