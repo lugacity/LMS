@@ -5,9 +5,6 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
 const editProjectGroup = async ({ data, courseId, cohortId, groupId }) => {
-  
-  // https://avi-lms-backend.onrender.com/api/v1/admins/courses/:courseId/cohorts/:cohortId/projects/groups/:groupId
-
   const url = `${BASE_URL}/courses/${courseId}/cohorts/${cohortId}/projects/groups/${groupId}`;
   return axios.patch(url, data, {
     headers: {
@@ -22,10 +19,10 @@ export const useEditProjectGroup = () => {
     mutationFn: editProjectGroup,
     onSuccess: () => {
       toast.success("Edit Successfully");
-      queryClient.invalidateQueries("edit-project-group");
+      queryClient.invalidateQueries("fetch-project-groups");
     },
     onError: (error) => {
-      toast.error(error.response.data.message || "Something went wrong");
+      toast.error(error.response.data.message ?? "Something went wrong");
     },
   });
 

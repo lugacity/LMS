@@ -18,7 +18,7 @@ const u = {
   link: "https://api.whatsapp.com",
   button_text: "Join Whatsappp",
 };
-const sessionSchema = z.object({
+export const sessionSchema = z.object({
   title: z
     .string()
     .min(1, { message: "This field is required" })

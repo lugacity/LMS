@@ -11,9 +11,9 @@ import { Pencil } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
-function FilledGroup({ groupData = [] }) {
+function FilledGroup({ groupData = [], setModal, setEditGroup }) {
   const navigate = useNavigate();
-  
+
   const formatDate = (date) => {
     const createdAt = new Date(date);
     const locale = navigator.language;
@@ -25,8 +25,8 @@ function FilledGroup({ groupData = [] }) {
   };
 
   // const [deleteSuccess, SetDeleteSuccess] = useState(false);
-  
-  const { deleteSingleGroup, isPending } = useDeleteSingleProject()
+
+  const { deleteSingleGroup, isPending } = useDeleteSingleProject();
   const { courseId } = useParams();
   const [queryString] = useSearchParams();
   const cohortId = queryString.get("cohortId");
@@ -34,10 +34,11 @@ function FilledGroup({ groupData = [] }) {
     id: "",
     show: false,
   });
-   const [deleteSuccess, setDeleteSuccess] = useState(false);
-  
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+
   const handleDelete = () => {
-     deleteSingleGroup({ courseId, cohortId, groupId: confirmDeleteModal.id },
+    deleteSingleGroup(
+      { courseId, cohortId, groupId: confirmDeleteModal.id },
       {
         onSuccess: () => {
           setConfirmDeleteModal((prev) => ({
@@ -69,7 +70,16 @@ function FilledGroup({ groupData = [] }) {
                   className={"*:text-sm *:text-[#344054]"}
                 >
                   <p>{i + 1}</p>
-                  <p>{group.group_name}</p>
+                  <p
+                    className="cursor-pointer"
+                    onClick={() =>
+                      navigate(
+                        `${group.id}/edit-project-group?team=${group.group_name}&cohortId=${cohortId}`,
+                      )
+                    }
+                  >
+                    {group.group_name}
+                  </p>
                   <p>
                     {group ? formatDate(group?.created_at) : "No Date & Time"}
                   </p>
@@ -79,7 +89,10 @@ function FilledGroup({ groupData = [] }) {
                     <CommonButton
                       size="sm"
                       className="flex w-max gap-2 bg-primary-color-600"
-                      onClick={() => navigate(`${group.id}/edit-project-group`)}
+                      onClick={() => {
+                        setEditGroup(group);
+                        setModal((prev) => !prev);
+                      }}
                     >
                       <span>
                         <Pencil className="h-4 w-4" />

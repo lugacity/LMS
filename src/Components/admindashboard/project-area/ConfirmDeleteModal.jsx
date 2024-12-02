@@ -1,10 +1,8 @@
 import BorderCard from "@/Components/BorderCard";
 import { CommonButton } from "@/Components/ui/button";
-import { useDeleteCard } from "@/hooks/project-area/use-delete-card";
 import { Heading, Paragraph } from "@/pages/auth/components/Text";
 import { faClose, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useParams, useSearchParams } from "react-router-dom";
 
 function ConfirmDeleteModal({
   setModal,
