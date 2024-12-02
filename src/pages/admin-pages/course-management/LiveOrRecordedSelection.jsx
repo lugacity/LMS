@@ -5,16 +5,17 @@ import RecordedSession from "./RecordedSession";
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 import { useQuery } from "@tanstack/react-query";
 import LIveOrRecordedSelectionTabs from "./LIveOrRecordedSelectionTabs";
+import { useGetSingleCohort } from "@/hooks/course-management/use-get-singleCohorts";
 
 const LiveOrRecordedSelection = () => {
   const { setSubTab, subTab, setActiveTab } = useCourseManagementInfo();
   const handleSubTabClick = (subTabIndex) => {
     setSubTab(subTabIndex);
   };
+  const courseId = localStorage.getItem("courseId");
+  const cohortId = localStorage.getItem("cohortId");
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["get-single-cohort"],
-  });
+  const { data, isLoading } = useGetSingleCohort(courseId, cohortId);
 
   return (
     <div>

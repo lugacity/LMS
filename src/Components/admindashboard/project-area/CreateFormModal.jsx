@@ -47,38 +47,6 @@ export default function CreateFormModal({ setModal, edit, setEdit }) {
   const isEdit = Boolean(edit?.id);
   console.log(isEdit);
   console.log(edit);
-
-  const handleEditCard = (data) => {
-    editCard(
-      {
-        data,
-        courseId,
-        cohortId,
-        cardId: edit?.id,
-      },
-      {
-        onSuccess: () => {
-          setModal((prev) => !prev);
-        },
-      },
-    );
-  };
-
-  const handleSubmit = (data) => {
-    create(
-      {
-        data,
-        courseId,
-        cohortId,
-      },
-      {
-        onSuccess: () => {
-          setModal((prev) => !prev);
-        },
-      },
-    );
-  };
-
   const form = useForm({
     resolver: zodResolver(sessionSchema),
     defaultValues: isEdit
@@ -97,6 +65,40 @@ export default function CreateFormModal({ setModal, edit, setEdit }) {
           button_text: "",
         },
   });
+
+  const handleEditCard = (data) => {
+    editCard(
+      {
+        data,
+        courseId,
+        cohortId,
+        cardId: edit?.id,
+      },
+      {
+        onSuccess: () => {
+          setEdit(null);
+          setModal((prev) => !prev);
+        },
+      },
+    );
+  };
+
+  const handleSubmit = (data) => {
+    create(
+      {
+        data,
+        courseId,
+        cohortId,
+      },
+      {
+        onSuccess: () => {
+          setModal((prev) => !prev);
+          form.reset();
+        },
+      },
+    );
+  };
+
   return (
     <BorderCard className="grid h-screen max-h-[90vh] w-full max-w-[1126px] grid-cols-[1fr_2fr] gap-x-24 overflow-y-auto rounded-md bg-white p-12">
       <div>

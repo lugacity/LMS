@@ -29,6 +29,18 @@ function CreateGroupForm({ setModal, editGroup, setEditGroup }) {
   const { editGroupProject, isPending } = useEditProjectGroup();
 
   const isEdit = editGroup && Boolean(editGroup?.id);
+  const form = useForm({
+    resolver: zodResolver(sessionSchema),
+    defaultValues: isEdit
+      ? {
+          group_name: editGroup.group_name,
+          number_of_students: String(editGroup.max_number_of_students),
+        }
+      : {
+          group_name: "",
+          number_of_students: "",
+        },
+  });
 
   const handleSubmit = (data) => {
     create(
@@ -36,6 +48,7 @@ function CreateGroupForm({ setModal, editGroup, setEditGroup }) {
       {
         onSuccess: () => {
           setModal((prev) => !prev);
+          form.reset();
         },
       },
     );
@@ -51,25 +64,13 @@ function CreateGroupForm({ setModal, editGroup, setEditGroup }) {
       },
       {
         onSuccess: () => {
-          setModal((prev) => !prev);
           setEditGroup(null);
+          form.reset();
+          setModal((prev) => !prev);
         },
       },
     );
   };
-
-  const form = useForm({
-    resolver: zodResolver(sessionSchema),
-    defaultValues: isEdit
-      ? {
-          group_name: editGroup.group_name,
-          number_of_students: String(editGroup.max_number_of_students),
-        }
-      : {
-          group_name: "",
-          number_of_students: "",
-        },
-  });
 
   return (
     <Form {...form}>
