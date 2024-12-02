@@ -6,11 +6,8 @@ import Cookies from "js-cookie";
 // Function to fetch project area data
 export const getSingleProjectGroup = async (courseId, cohortId, groupId) => {
   const token = Cookies.get("adminToken");
-  //    const { courseId, cohortId } = JSON.parse(
-  //      localStorage.getItem("fetch-all-admin-courses") || "{}",
-  //     );
-  
-  const response = await axios.get(
+
+  return await axios.get(
     `${BASE_URL}/courses/${courseId}/cohorts/${cohortId}/projects/groups/${groupId}`,
     {
       headers: {
@@ -18,16 +15,13 @@ export const getSingleProjectGroup = async (courseId, cohortId, groupId) => {
       },
     },
   );
-
-    // console.log("groupID API", response);
-
-  return response.data;
 };
 
 // Custom hook to fetch all project area data using React Query
-export const useSingleProjectGroup = (courseId, cohortId, groupId) => {
+export const useGetSingleProjectGroup = (courseId, cohortId, groupId) => {
   return useQuery({
     queryKey: ["fetch-single-project-group", courseId, cohortId, groupId],
     queryFn: () => getSingleProjectGroup(courseId, cohortId, groupId),
+    enabled: !!courseId && !!cohortId && !!groupId,
   });
 };
