@@ -28,7 +28,8 @@ function CourseGroupProjectArea() {
   const [queryString] = useSearchParams();
   const cohortId = queryString.get("cohortId");
   const { deleteCard, isPending } = useDeleteCard();
-  const {editGroupProject, isPending: isEditing} = useEditProjectGroup(groupId);
+  const { editGroupProject, isPending: isEditing } =
+    useEditProjectGroup(groupId);
 
   const handleDelete = () => {
     deleteCard(
@@ -58,7 +59,10 @@ function CourseGroupProjectArea() {
           </p>
           <CommonButton
             className="bg-primary-color-600 font-normal"
-            onClick={() => setCreateFormModal((prev) => !prev)}
+            onClick={() => {
+              setEdit(null);
+              setCreateFormModal((prev) => !prev);
+            }}
           >
             Create
           </CommonButton>

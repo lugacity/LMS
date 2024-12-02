@@ -10,7 +10,7 @@ import CreateOndemandForm from "@/Components/admindashboard/course-management/on
 
 function OnDemandCourseSection() {
   const { setActiveTab } = useCourseManagementInfo();
-  const { courseId } = localStorage.getItem("courseId");
+  const courseId = localStorage.getItem("courseId");
 
   return (
     <>
