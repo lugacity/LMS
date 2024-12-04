@@ -14,7 +14,7 @@ const fetchStudent = (courseId, cohortId, groupId) =>
 
 export const useFetchStudentsInGroup = (courseId, cohortId, groupId) => {
   return useQuery({
-    queryKey: ["fetchStudentsInGroup", { courseId, cohortId, groupId }],
+    queryKey: ["fetch-student-in-group", { courseId, cohortId, groupId }],
     queryFn: () => fetchStudent(courseId, cohortId, groupId),
   });
 };

@@ -12,7 +12,7 @@ import { IoSearch } from "react-icons/io5";
 import { useParams, useSearchParams } from "react-router-dom";
 
 const GroupStudentManagement = () => {
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
   const { courseId, groupId } = useParams();
   const [queryString] = useSearchParams();
   const cohortId = queryString.get("cohortId");
@@ -67,17 +67,21 @@ const GroupStudentManagement = () => {
             <div>Email address</div>
             <div>Action</div>
           </Table.Header>
-          <Table.Row>
-            <p className="text-sm text-[#344054]">1</p>
-            <p className="text-sm text-[#344054]">John Doe</p>
-            <p className="text-sm text-[#344054]">johndoe@example.com</p>
-            <CommonButton className="flex items-center gap-1 bg-primary-color-600">
-              <span>
-                <Trash />
-              </span>
-              <span>Remove from group</span>
-            </CommonButton>
-          </Table.Row>
+          {data?.data?.data?.students.map((student, i) => (
+            <Table.Row key={student.id}>
+              <p className="text-sm text-[#344054]">{i}</p>
+              <p className="text-sm text-[#344054]">
+                {student.firstname} {student.lastname}
+              </p>
+              <p className="text-sm text-[#344054]">{student.email}</p>
+              <CommonButton className="flex items-center gap-1 bg-primary-color-600">
+                <span>
+                  <Trash />
+                </span>
+                <span>Remove from group</span>
+              </CommonButton>
+            </Table.Row>
+          ))}
         </Table>
       )}
       {modal && (
@@ -133,7 +137,9 @@ const StudentList = () => {
       courseId,
       cohortId,
       groupId,
-      data: students,
+      data: {
+        emails: students,
+      },
     });
   };
 
