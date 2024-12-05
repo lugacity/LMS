@@ -65,6 +65,9 @@ function RecordedSession() {
   const onSubmit = async (data) => {
     const { title, video_title, overview } = data;
     const cohort = localStorage.getItem("cohorts");
+    let section = localStorage.getItem("recordedSection")
+      ? localStorage.getItem("recordedSection")
+      : 2;
 
     if (!video.file && form.watch("video_from_url").length < 1)
       return toast.error("Please insert a video or video url");
@@ -87,15 +90,18 @@ function RecordedSession() {
     }
 
     console.log(recorded);
-    createRecordedSession(recorded, {
-      onSuccess: () => {
-        setDisabled(false);
-        form.reset();
-        setVideo((prev) => {
-          return { ...prev, file: null, preview: null };
-        });
+    createRecordedSession(
+      { data: recorded, courseId, section },
+      {
+        onSuccess: () => {
+          setDisabled(false);
+          form.reset();
+          setVideo((prev) => {
+            return { ...prev, file: null, preview: null };
+          });
+        },
       },
-    });
+    );
   };
 
   return (

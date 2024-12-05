@@ -1,11 +1,14 @@
 import BorderCard from "@/Components/BorderCard";
 import Table from "@/Components/Table";
 import { CommonButton } from "@/Components/ui/button";
-import { Checkbox } from "@/Components/ui/checkbox";
 import { useFetchAllLiveStudents } from "@/hooks/course-management/live-session/use-fetch-all-live-student";
 import { useAddStudentToGroup } from "@/hooks/project-area-groups/use-add-student-to-group";
+import { useDeleteStudentFromGroup } from "@/hooks/project-area-groups/use-delete-from-group";
 import { useFetchStudentsInGroup } from "@/hooks/project-area-groups/use-fetch-students-in-group";
 import Modal from "@/pages/auth/components/Modal";
+import { Heading, Paragraph } from "@/pages/auth/components/Text";
+import { faClose, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Trash } from "lucide-react";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
@@ -15,13 +18,32 @@ const GroupStudentManagement = () => {
   const [modal, setModal] = useState(false);
   const { courseId, groupId } = useParams();
   const [queryString] = useSearchParams();
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [studentToDelete, setStudentToDelete] = useState({});
   const cohortId = queryString.get("cohortId");
-
+  const { mutate: deleteStudent, isPending } = useDeleteStudentFromGroup();
   const { data, isLoading, error } = useFetchStudentsInGroup(
     courseId,
     cohortId,
     groupId,
   );
+
+  const handleDelete = (studentId) => {
+    deleteStudent(
+      {
+        courseId,
+        groupId,
+        cohortId,
+        studentId,
+      },
+      {
+        onSuccess: () => {
+          setDeleteModal((prev) => !prev);
+          setStudentToDelete({});
+        },
+      },
+    );
+  };
 
   if (isLoading) return <p>Loading...</p>;
   if (error) <p>{error?.response?.data?.message ?? "something went wrong"}</p>;
@@ -69,12 +91,20 @@ const GroupStudentManagement = () => {
           </Table.Header>
           {data?.data?.data?.students.map((student, i) => (
             <Table.Row key={student.id}>
-              <p className="text-sm text-[#344054]">{i}</p>
+              <p className="text-sm text-[#344054]">
+                {i + 1 < 9 ? `0${i + 1}` : i + 1}
+              </p>
               <p className="text-sm text-[#344054]">
                 {student.firstname} {student.lastname}
               </p>
               <p className="text-sm text-[#344054]">{student.email}</p>
-              <CommonButton className="flex items-center gap-1 bg-primary-color-600">
+              <CommonButton
+                className="flex items-center gap-1 bg-primary-color-600"
+                onClick={() => {
+                  setStudentToDelete(student);
+                  setDeleteModal((prev) => !prev);
+                }}
+              >
                 <span>
                   <Trash />
                 </span>
@@ -116,7 +146,62 @@ const GroupStudentManagement = () => {
                   className="w-full placeholder:text-[#667185]"
                 />
               </div>
-              <StudentList />
+              <StudentList setModal={setModal} />
+            </div>
+          </BorderCard>
+        </Modal>
+      )}
+      {deleteModal && (
+        <Modal>
+          <BorderCard className="relative w-full max-w-[731px] bg-white py-12">
+            <button
+              type="button"
+              className="absolute right-4 top-4 w-fit cursor-pointer"
+              onClick={() => setDeleteModal((prev) => !prev)}
+            >
+              <FontAwesomeIcon
+                icon={faClose}
+                className="text-2xl text-tertiary-color-700"
+              />
+            </button>
+            <div className="mx-auto max-w-[430px] space-y-8 text-center">
+              <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#F2A356] text-2xl text-white">
+                <FontAwesomeIcon icon={faQuestionCircle} />
+              </span>
+              <div className="space-y-6">
+                <Heading className="font-semibold text-[#23314A]">
+                  Remove Student from Group
+                </Heading>
+                <Paragraph className="font-light">
+                  Are you sure you want to remove{" "}
+                  <span className="font-normal text-[#23314A]">
+                    {studentToDelete.firstname} {studentToDelete.lastname}
+                  </span>{" "}
+                  from the{" "}
+                  <span className="font-normal text-[#23314A]">
+                    {queryString.get("team") ?? "no group selected"}
+                  </span>{" "}
+                  group
+                </Paragraph>
+              </div>
+              <div className="mx-auto flex w-max gap-[54.6px]">
+                <CommonButton
+                  className="rounded-sm border border-primary-color-600 text-primary-color-600"
+                  size="lg"
+                  variant="outline"
+                  onClick={() => setDeleteModal((prev) => !prev)}
+                >
+                  Cancel
+                </CommonButton>
+                <CommonButton
+                  className="bg-primary-color-600"
+                  size="lg"
+                  onClick={() => handleDelete(studentToDelete?.id)}
+                  disabled={isPending}
+                >
+                  Yes, Delete
+                </CommonButton>
+              </div>
             </div>
           </BorderCard>
         </Modal>
@@ -125,7 +210,7 @@ const GroupStudentManagement = () => {
   );
 };
 
-const StudentList = () => {
+const StudentList = ({ setModal }) => {
   const { courseId, groupId } = useParams();
   const [queryString] = useSearchParams();
   const cohortId = queryString.get("cohortId");
@@ -133,14 +218,20 @@ const StudentList = () => {
   const { mutate: addStudent, isPending } = useAddStudentToGroup();
 
   const handleAddStudent = () => {
-    addStudent({
-      courseId,
-      cohortId,
-      groupId,
-      data: {
-        emails: students,
+    addStudent(
+      {
+        courseId,
+        cohortId,
+        groupId,
+        data: {
+          emails: students,
+        },
       },
-    });
+      {
+        onSuccess: () => setModal(false),
+      },
+    );
+    setModal(false);
   };
 
   const handleCheckboxChange = (email, isChecked) => {
