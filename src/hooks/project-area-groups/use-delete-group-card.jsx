@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
 const deleteCardApi = ({ courseId, cohortId, cardId, groupId }) => {
-  // https://avi-lms-backend.onrender.com/api/v1/admins/courses/:courseId/cohorts/:cohortId/projects/groups/:groupId/cards/:cardId
   const url = `${BASE_URL}/courses/${courseId}/cohorts/${cohortId}/projects/groups/${groupId}/cards/${cardId}`;
   return axios.delete(url, {
     headers: {
