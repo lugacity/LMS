@@ -1,102 +1,96 @@
-import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
 
 import AppLayout from "./layouts/AppLayout";
-import Home from "./pages/Home";
 import About from "./pages/About";
-import Contact from "./pages/Contact";
-import DigitalTransformation from "./pages/DigitalTransformation";
-import DataSolution from "./pages/DataSolution";
 import AvenueImpactDevelopment from "./pages/AvenueImpactDevelopment";
 import AVI from "./pages/AVI";
+import Contact from "./pages/Contact";
+import DataSolution from "./pages/DataSolution";
+import DigitalTransformation from "./pages/DigitalTransformation";
+import Home from "./pages/Home";
 // import PreviewCourse from "./pages/PreviewCourse";
 import Component from "./Components/Component";
+import DashboardLayout from "./layouts/DashboardLayout";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/Signup";
-import ForgotPassword from "./pages/auth/ForgotPassword";
-import DashboardLayout from "./layouts/DashboardLayout";
 import EmptyPage from "./pages/dashboard/EmptyPage";
 import Notification from "./pages/dashboard/Notification";
 import Wishlist from "./pages/dashboard/Wishlist";
 
-import StudentSettings from "./pages/dashboard/StudentSettings";
-import Referral from "./pages/dashboard/Referral";
-import OtherLayout from "./layouts/OtherLayout";
 import AdminLayout from "./layouts/AdminLayout";
-import ShareDocument from "./pages/dashboard/ShareDocument";
-import Documents from "./pages/dashboard/Documents";
+import OtherLayout from "./layouts/OtherLayout";
 import Assignment from "./pages/dashboard/Assignment";
+import Documents from "./pages/dashboard/Documents";
 import Overview from "./pages/dashboard/Overview";
+import Referral from "./pages/dashboard/Referral";
+import ShareDocument from "./pages/dashboard/ShareDocument";
+import StudentSettings from "./pages/dashboard/StudentSettings";
 
 import DashboardDiscover from "./pages/dashboard/DashboardDiscover";
-import JoinProjectTeam from "./pages/dashboard/JoinProjectTeam";
-import EmptyJoinProjectTeam from "./pages/dashboard/EmptyJoinProjectTeam";
 import EmptyGetCertificate from "./pages/dashboard/EmptyGetCertificate";
+import EmptyJoinProjectTeam from "./pages/dashboard/EmptyJoinProjectTeam";
 import GetCertificate from "./pages/dashboard/GetCertificate";
+import JoinProjectTeam from "./pages/dashboard/JoinProjectTeam";
 import LeaveRating from "./pages/dashboard/LeaveRating";
 
+import { useState } from "react";
+import { Toaster } from "react-hot-toast";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import AuthLayout from "./layouts/AuthLayout";
 import ServiceLayout from "./layouts/ServiceLayout";
 import NewPassword from "./pages/auth/NewPassword";
 import DiscoverCourses from "./pages/dashboard/DiscoverCourses";
-import AuthLayout from "./layouts/AuthLayout";
-import { Toaster } from "react-hot-toast";
-import { useState } from "react";
-import ProtectedRoute from "./Components/ProtectedRoute";
 
-import AuthProtectedRoute from "./Components/AuthProtectedRoute";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AdminEmpty } from "./Components/admindashboard/AdminEmpty";
-import CourseManagement from "./pages/admin-pages/CourseManagement";
+import AdminPayment from "./Components/admindashboard/AdminPayment";
 import CourseCreation from "./Components/admindashboard/CourseCreation";
+import AuthProtectedRoute from "./Components/AuthProtectedRoute";
 import CoursesLayout from "./layouts/admin/CoursesLayout";
+import FinancialLayout from "./layouts/admin/FinancialLayout";
+import ProjectAreaLayout from "./layouts/admin/ProjectAreaLayout";
+import AdminLogin from "./pages/admin-pages/AdminLogin";
 import CreatedCourse from "./pages/admin-pages/course-management/CreatedCourse";
 import EditCourse from "./pages/admin-pages/course-management/EditCourse";
-import AdminLogin from "./pages/admin-pages/AdminLogin";
-import AdminPayment from "./Components/admindashboard/AdminPayment";
-import ProjectArea from "./pages/admin-pages/project-area/ProjectArea";
-import ProjectAreaLayout from "./layouts/admin/ProjectAreaLayout";
-import General from "./pages/admin-pages/project-area/Genral";
-import Groups from "./pages/admin-pages/project-area/Groups";
-import CourseProjectArea from "./Components/admindashboard/project-area/CourseProjectArea";
-import CourseTools from "./Components/admindashboard/project-area/CourseTools";
-import FinancialLayout from "./layouts/admin/FinancialLayout";
+import CourseManagement from "./pages/admin-pages/CourseManagement";
 import CreateCoupon from "./pages/admin-pages/financial-aid/CreateCoupon";
 import FinancialAidRequest from "./pages/admin-pages/financial-aid/FinancialAidRequest";
+import General from "./pages/admin-pages/project-area/Genral";
+import Groups from "./pages/admin-pages/project-area/Groups";
+import ProjectArea from "./pages/admin-pages/project-area/ProjectArea";
 
 import ViewDetails from "./Components/admindashboard/financial-aid/ViewDetails";
 
 import CourseInfomation from "./pages/admin-pages/course-management/CourseInfomation";
 
-import TeamLayout from "./layouts/admin/TeamLayout";
-import GroupLayout from "./layouts/admin/GroupLayout";
-import StudentManagementTable from "./pages/admin-pages/project-area/StudentManagementTable";
-
 import AdminCertificateLayout from "./layouts/admin/AdminCertificateLayout";
-import CertificateMainPage from "./pages/admin-pages/certificate/CertificateMainPage";
-import CertificateIssueHistory from "./pages/admin-pages/certificate/CertificateIssueHistory";
 import AffiliateLayout from "./layouts/admin/AffiliateLayout";
 import ReferralsAdmin from "./pages/admin-pages/affiliate/ReferralsAdmin";
 import WithdrawalRequest from "./pages/admin-pages/affiliate/WithdrawalRequest";
+import CertificateIssueHistory from "./pages/admin-pages/certificate/CertificateIssueHistory";
+import CertificateMainPage from "./pages/admin-pages/certificate/CertificateMainPage";
 
 import AccountManagLayout from "./layouts/admin/AccountManagLayout";
 import AccountMagament from "./pages/admin-pages/account-managemnet/AccountMagament";
 
-import DataManagementPage from "./pages/admin-pages/data-management/DataManagementPage";
-import DashboardAnalytics from "./pages/admin-pages/data-management/DashboardAnalytics";
-import DataCourseManagement from "./pages/admin-pages/data-management/DataCourseManagement";
-import AllStudent from "./pages/admin-pages/data-management/AllStudent";
 import CourseWorkAreaLayout from "./layouts/admin/CourseWorkAreaLayout";
 import CourseWorkArea from "./pages/admin-pages/course-work-area/CourseWorkArea";
 import CourseWorkAreaDocument from "./pages/admin-pages/course-work-area/CourseWorkAreaDocument";
 import CourseWorkAssignment from "./pages/admin-pages/course-work-area/CourseWorkAssignment";
 import CourseWorkShareDocs from "./pages/admin-pages/course-work-area/CourseWorkShareDocs";
+import AllStudent from "./pages/admin-pages/data-management/AllStudent";
+import DashboardAnalytics from "./pages/admin-pages/data-management/DashboardAnalytics";
+import DataCourseManagement from "./pages/admin-pages/data-management/DataCourseManagement";
+import DataManagementPage from "./pages/admin-pages/data-management/DataManagementPage";
 // import PreviewVideoCourse from "./pages/PreviewVideoCourse";
+import EditGroupPage from "./Components/admindashboard/project-area/EditGroupPage";
+import GroupDetails from "./Components/admindashboard/project-area/GroupDetails";
 import PreviewCourse from "./pages/previewCourse";
 import PreviewVideoCourse from "./pages/previewVideoCourse";
-import CourseGroupProjectArea from "./Components/admindashboard/project-area/CourseGroupProjectArea";
-import GroupDetails from "./Components/admindashboard/project-area/GroupDetails";
-import EditGroupPage from "./Components/admindashboard/project-area/EditGroupPage";
+import ZoomMeeting from "./pages/admin-pages/meeting/ZoomMeeting";
 
 const queryClient = new QueryClient();
 
@@ -288,7 +282,12 @@ function App() {
     },
     {
       element: <ProtectedRoute tokin={"adminToken"} path={"/admin/login"} />,
+
       children: [
+        {
+          element: <ZoomMeeting />,
+          path: "meeting",
+        },
         {
           element: <AdminLayout />,
           path: "/admin",
