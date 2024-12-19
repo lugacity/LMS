@@ -12,7 +12,7 @@ const sessionSchema = z.object({
   group_name: z
     .string()
     .min(1, { message: "This field is required" })
-    .max(70, { message: "you've reach the max character length" }),
+    .max(7, { message: "you've reach the max character length" }),
 
   number_of_students_per_group: z
     .string()
@@ -39,7 +39,7 @@ function CreateMultipleGroupForm() {
   const form = useForm({
     resolver: zodResolver(sessionSchema),
     defaultValues: {
-      group_name: "",
+      group_name: "Team",
       number_of_students_per_group: "",
       number_of_groups: "",
     },
@@ -70,6 +70,7 @@ function CreateMultipleGroupForm() {
           control={form.control}
           placeholder="Team A"
           className="mb-[18px]"
+          
         />
         <div className="flex items-center gap-5">
           <FormInput
