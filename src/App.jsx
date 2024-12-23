@@ -286,7 +286,7 @@ function App() {
       children: [
         {
           element: <ZoomMeeting />,
-          path: "meeting",
+          path: "meeting/:courseId",
         },
         {
           element: <AdminLayout />,

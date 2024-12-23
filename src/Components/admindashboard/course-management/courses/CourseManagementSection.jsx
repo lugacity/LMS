@@ -73,6 +73,7 @@ function CourseManagementSection() {
 const LiveContent = ({ data }) => {
   console.log(data?.data?.data?.live_session);
   const [meeting, setMeeting] = useState(false);
+  const { courseId } = useParams();
   const navigate = useNavigate();
 
   const {
@@ -133,7 +134,7 @@ const LiveContent = ({ data }) => {
             </button>
             <button
               onClick={() => {
-                navigate("/meeting");
+                navigate(`/meeting/${courseId}`);
               }}
             >
               join meeting
