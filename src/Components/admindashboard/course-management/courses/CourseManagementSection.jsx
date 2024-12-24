@@ -73,7 +73,10 @@ function CourseManagementSection() {
 const LiveContent = ({ data }) => {
   console.log(data?.data?.data?.live_session);
   const [meeting, setMeeting] = useState(false);
+  const [queryString] = useSearchParams();
+  const { courseId } = useParams();
   const navigate = useNavigate();
+  const cohortId = queryString.get("cohortId");
 
   const {
     title,
@@ -133,7 +136,9 @@ const LiveContent = ({ data }) => {
             </button>
             <button
               onClick={() => {
-                navigate("/meeting");
+                navigate(
+                  `/meeting/${courseId}??title=${queryString.get("title")}&cohort=${queryString.get("cohort")}&cohortId=${cohortId}`,
+                );
               }}
             >
               join meeting

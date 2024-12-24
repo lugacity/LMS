@@ -81,6 +81,7 @@
 import { useEffect, useState } from "react";
 import { ZoomMtg } from "@zoom/meetingsdk";
 import axios from "axios";
+import Cookies from "js-cookie";
 const ZoomMeeting = () => {
   const [meetingDetails, setMeetingDetails] = useState(null);
   const [loading, setloading] = useState(false);
@@ -99,22 +100,24 @@ const ZoomMeeting = () => {
         `https://avi-lms-backend.onrender.com/api/v1/admins/courses/6725c38cf96fa51479095277/cohorts/6725c3aff96fa5147909527f/live-session/start`,
         {
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZDg3MTliNDk5YTUxMjVhNzY0Yjc3MiIsImVtYWlsIjoib3hsZWU4MTQ5QGdtYWlsLmNvbSIsImlhdCI6MTczNDQ0MDU3OCwiZXhwIjoxNzM0NTI2OTc4fQ.Qq6VlVihTjs16-DVvfgY4cUFe3szuIpcgfDOwb0wnE8",
+            Authorization: `Bearer ${Cookies.get("adminToken")} `,
           },
         },
       );
-
+      console.log(res.data.status);
       if (res.data.status === "success") {
+        console.log("success", res.data.data);
         setloading(false);
         setMeetingDetails(res.data.data);
+
+        startMeeting(meetingDetails);
       }
     } catch (error) {
       console.log(error);
     } finally {
       setloading(false);
+
       console.log({ meetingDetails });
-      startMeeting();
     }
   };
 
@@ -122,22 +125,22 @@ const ZoomMeeting = () => {
   // 	getSignature();
   // }, []);
 
-  function startMeeting() {
+  function startMeeting(meetingDetailss) {
     document.getElementById("zmmtg-root").style.display = "block";
 
     ZoomMtg.init({
-      leaveUrl: "http://localhost:5173/",
+      leaveUrl: "http://localhost:5173",
       patchJsMedia: true,
       leaveOnPageUnload: true,
       success: (success) => {
-        console.log(success);
+        console.log(success, { meetingDetailss });
         // can this be async?
-        meetingDetails &&
+        meetingDetailss &&
           ZoomMtg.join({
-            signature: meetingDetails.signature,
-            sdkKey: "5EB_I90BRRyLljY4VJhC_A",
-            meetingNumber: meetingDetails.meetingNumber,
-            passWord: meetingDetails.passWord,
+            signature: meetingDetailss.signature,
+            sdkKey: "wdbCZxGORbyesUjR_bqjFg",
+            meetingNumber: meetingDetailss.meetingNumber,
+            passWord: meetingDetailss.passWord,
             userName: "meetingDetails.userName",
             userEmail: "meetingDetails.userEmail",
             tk: "",
