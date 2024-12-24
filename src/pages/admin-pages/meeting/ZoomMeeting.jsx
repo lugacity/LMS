@@ -104,17 +104,20 @@ const ZoomMeeting = () => {
           },
         },
       );
-
+      console.log(res.data.status);
       if (res.data.status === "success") {
+        console.log("success", res.data.data);
         setloading(false);
         setMeetingDetails(res.data.data);
+
+        startMeeting(meetingDetails);
       }
     } catch (error) {
       console.log(error);
     } finally {
       setloading(false);
+
       console.log({ meetingDetails });
-      startMeeting();
     }
   };
 
@@ -122,7 +125,7 @@ const ZoomMeeting = () => {
   // 	getSignature();
   // }, []);
 
-  function startMeeting() {
+  function startMeeting(meetingDetailss) {
     document.getElementById("zmmtg-root").style.display = "block";
 
     ZoomMtg.init({
@@ -130,14 +133,14 @@ const ZoomMeeting = () => {
       patchJsMedia: true,
       leaveOnPageUnload: true,
       success: (success) => {
-        console.log(success);
+        console.log(success, { meetingDetailss });
         // can this be async?
-        meetingDetails &&
+        meetingDetailss &&
           ZoomMtg.join({
-            signature: meetingDetails.signature,
+            signature: meetingDetailss.signature,
             sdkKey: "wdbCZxGORbyesUjR_bqjFg",
-            meetingNumber: meetingDetails.meetingNumber,
-            passWord: meetingDetails.passWord,
+            meetingNumber: meetingDetailss.meetingNumber,
+            passWord: meetingDetailss.passWord,
             userName: "meetingDetails.userName",
             userEmail: "meetingDetails.userEmail",
             tk: "",

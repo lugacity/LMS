@@ -91,6 +91,7 @@ import GroupDetails from "./Components/admindashboard/project-area/GroupDetails"
 import PreviewCourse from "./pages/previewCourse";
 import PreviewVideoCourse from "./pages/previewVideoCourse";
 import ZoomMeeting from "./pages/admin-pages/meeting/ZoomMeeting";
+import AdminMeeting from "./pages/admin-pages/meeting/AdminMeeting";
 
 const queryClient = new QueryClient();
 
@@ -285,7 +286,7 @@ function App() {
 
       children: [
         {
-          element: <ZoomMeeting />,
+          element: <AdminMeeting />,
           path: "meeting/:courseId",
         },
         {
