@@ -256,6 +256,7 @@ const LiveSessionCourses = () => {
               numRatings="45,345"
               courseProgress="0% in progress"
               review={"200"}
+              courseId={course.id}
             />
           );
         })}

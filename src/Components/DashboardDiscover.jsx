@@ -1,7 +1,4 @@
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { StarRating } from "./star-rating";
 
 const DashboardDiscover = ({
@@ -11,6 +8,7 @@ const DashboardDiscover = ({
   courseProgress,
   rating,
   review,
+  courseId,
 }) => {
   return (
     <div className="overflow-hidden rounded-t-lg bg-[rgb(252,252,252)]">
@@ -41,7 +39,7 @@ const DashboardDiscover = ({
 
         <div className="flex items-center justify-between px-[7px] pb-2">
           <p className="text-[10px]">{courseProgress}</p>
-          <Link to="/dashboard/share-documents">
+          <Link to={`/dashboard/${courseId}/share-documents`}>
             <p className="text-[10px] text-[#F53366] underline">Get started</p>
           </Link>
         </div>
