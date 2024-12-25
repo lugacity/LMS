@@ -8,7 +8,7 @@ function LiveSession() {
     <div className="mb-6">
       <div className="border-b border-b-[#E4E7EC] pb-4">
         <p className="mb-10 font-poppins text-lg font-medium capitalize text-tertiary-color-900 lg:text-xl">
-          Section 1
+          Section 1 oo
         </p>
         <p className="text-sm font-medium text-[#344054]">Join Live Session</p>
       </div>
