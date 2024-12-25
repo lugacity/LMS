@@ -10,6 +10,7 @@ const StartMeeting = ({
   apiKey,
   password,
   zak,
+  leaveUrl,
 }) => {
   const { courseId } = useParams();
   const [queryString] = useSearchParams();
@@ -19,7 +20,7 @@ const StartMeeting = ({
     ZoomMtg.prepareWebSDK();
 
     ZoomMtg.init({
-      leaveUrl: `http://localhost:5173/admin/course/management/info/${courseId}??title=${queryString.get("title")}&cohort=${queryString.get("cohort")}&cohortId=${queryString.get("cohortId")}`, // Redirect URL after leaving the meeting
+      leaveUrl, // Redirect URL after leaving the meeting
       patchJsMedia: true,
       success: () => {
         console.log("Zoom Meeting Initialized");

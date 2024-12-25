@@ -92,6 +92,7 @@ import PreviewCourse from "./pages/previewCourse";
 import PreviewVideoCourse from "./pages/previewVideoCourse";
 import ZoomMeeting from "./pages/admin-pages/meeting/ZoomMeeting";
 import AdminMeeting from "./pages/admin-pages/meeting/AdminMeeting";
+import UserJoinMeeting from "./pages/dashboard/UserJoinMeeting";
 
 const queryClient = new QueryClient();
 
@@ -191,6 +192,10 @@ function App() {
 
       children: [
         {
+          path: "/user/meeting/:courseId",
+          element: <UserJoinMeeting />,
+        },
+        {
           path: "/dashboard",
           element: <DashboardLayout userInfo={userInfo} />,
 
@@ -199,6 +204,7 @@ function App() {
               index: true,
               element: <EmptyPage />,
             },
+
             {
               path: "notification",
               element: <Notification />,
@@ -241,7 +247,7 @@ function App() {
           children: [
             {
               element: <ShareDocument />,
-              path: "/dashboard",
+              path: "/dashboard/:courseId",
               children: [
                 {
                   path: "share-documents",
