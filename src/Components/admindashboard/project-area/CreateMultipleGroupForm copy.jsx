@@ -9,6 +9,7 @@ import { useMultipleProjectGroup } from "@/hooks/project-area-groups/use-create-
 import { useParams, useSearchParams } from "react-router-dom";
 
 const sessionSchema = z.object({
+
   number_of_students_per_group: z
     .string()
     .regex(/^\d+$/, { message: "Must be a number" }) // Validate as a number (optional)
@@ -26,6 +27,7 @@ function CreateMultipleGroupForm({ setMultipleModal }) {
   const form = useForm({
     resolver: zodResolver(sessionSchema),
     defaultValues: {
+
       number_of_students_per_group: "",
     },
   });
@@ -52,9 +54,11 @@ function CreateMultipleGroupForm({ setMultipleModal }) {
           control={form.control}
           placeholder="Team A"
           className="mb-[18px]"
+
         /> */}
         {/* <div className="flex items-center gap-5"> */}
         {/* <FormInput
+
             name="number_of_students_per_group"
             id="number_of_students_per_group"
             label="Number of groups:"
