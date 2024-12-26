@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateLiveSession } from "@/hooks/course-management/use-create-live-session";
 
@@ -11,7 +10,21 @@ import { CommonButton } from "@/Components/ui/button";
 import { ClipLoader } from "react-spinners";
 import { liveSessionSchema } from "@/lib/form-schemas/forms-schema";
 
+import LiveSessionContent from "@/Components/admindashboard/course-management/live-session/liveSessionContent";
+import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useGetSingleCohort } from "@/hooks/course-management/use-get-singleCohorts";
+
 const LiveSession = () => {
+  const { createLiveSession, isCreating } = useCreateLiveSession();
+  const { setSubTab } = useCourseManagementInfo();
+  const [disabledButton, setDisabledButton] = useState(null);
+  const { setActiveTab } = useCourseManagementInfo();
+
+  const courseId = localStorage.getItem("courseId");
+  const cohortId = localStorage.getItem("cohortId");
+
   const form = useForm({
     resolver: zodResolver(liveSessionSchema),
     defaultValues: {
@@ -25,12 +38,16 @@ const LiveSession = () => {
     },
   });
 
-  const { createLiveSession, isCreating } = useCreateLiveSession();
-
   const onSubmit = async (data) => {
-    createLiveSession(data, { onSuccess: () => form.reset() });
+    createLiveSession(data, {
+      onSuccess: () => {
+        form.reset();
+        setDisabledButton(true);
+      },
+    });
   };
 
+  const { data } = useGetSingleCohort(courseId, cohortId);
   return (
     <div>
       <div className="mb-4 mt-5 rounded border border-gray-300 p-10 md:mb-0">
@@ -51,6 +68,7 @@ const LiveSession = () => {
                   label={"Session Title"}
                   labelClass={"mb-2 font-[500] text-[#475367] block text-base"}
                   className="h-[56px] w-full resize-none rounded border border-gray-300 p-2 outline-none"
+                  disabled={!data?.data?.data.cohort}
                 />
 
                 <p className="text-right text-gray-500">
@@ -70,6 +88,7 @@ const LiveSession = () => {
                   label={"Session Subtitle"}
                   labelClass={"mb-2 font-[500] text-[#475367] block text-base"}
                   className="h-[56px] w-full resize-none rounded border border-gray-300 p-2 outline-none"
+                  disabled={!data?.data?.data.cohort}
                 />
                 <p className="text-right text-gray-500">
                   {form.watch("subtitle")
@@ -91,6 +110,7 @@ const LiveSession = () => {
                   labelClass={"mb-2 font-[500] text-[#475367] block text-base"}
                   textarea={true}
                   className="h-[203px] w-full resize-none rounded border border-gray-300 p-2"
+                  disabled={!data?.data?.data.cohort}
                 />
                 <p className="text-right text-gray-500">
                   {form.watch("overview")
@@ -111,6 +131,7 @@ const LiveSession = () => {
                   label={"Course Content"}
                   labelClass={"mb-2 font-[500] text-[#475367] block text-base"}
                   className="h-[56px] w-full resize-none rounded border border-gray-300 p-2 outline-none"
+                  disabled={!data?.data?.data.cohort}
                 />
               </div>
 
@@ -128,18 +149,7 @@ const LiveSession = () => {
                     }
                     id="startedFrom"
                     placeholder="19:00"
-                  />
-                </div>
-                <div className="flex-1 text-[#475367]">
-                  <FormInput
-                    label={"Time"}
-                    className="w-full rounded border border-gray-300 p-2"
-                    type="time"
-                    control={form.control}
-                    name="times"
-                    labelClass={"text-base font-medium"}
-                    id="times"
-                    defaultValue="19:00"
+                    disabled={!data?.data?.data.cohort}
                   />
                 </div>
               </div>
@@ -159,6 +169,7 @@ const LiveSession = () => {
                     }
                     id="meetingDate"
                     placeholder="19:00"
+                    disabled={!data?.data?.data.cohort}
                   />
                 </div>
 
@@ -173,19 +184,18 @@ const LiveSession = () => {
                     labelClass={"text-base font-medium"}
                     id="time"
                     defaultValue="19:00"
+                    disabled={!data?.data?.data.cohort}
                   />
                 </div>
               </div>
 
               <div className="flex items-center justify-end gap-6 pt-10">
-                <CommonButton type="button" variant={"outline"} className="">
-                  Create New Section
-                </CommonButton>
-
                 <CommonButton
                   type="submit"
                   className="bg-primary-color-600"
-                  disabled={isCreating}
+                  disabled={
+                    !data?.data?.data.cohort || isCreating || disabledButton
+                  }
                 >
                   {isCreating ? (
                     <span className="min-w-[89.3px]">
@@ -199,27 +209,22 @@ const LiveSession = () => {
             </form>
           </Form>
 
-          <div className="col-span-4">
-            <div className="text-16px font-500 text-[#667185]">
-              <p>Section 1</p>
-              <p className="pt-4">Join Business Analysis Live Session</p>
-              <p className="py-4">
-                Business Analysis Agile Project Management Software Testing May
-                2024
-              </p>
-            </div>
-
-            <div>
-              <button className="rounded px-4 py-2 lg:bg-[#929db1] lg:text-white lg:hover:bg-[#727988] lg:hover:text-[#313335]">
-                https://meet.google.com/ohj-
-              </button>
-            </div>
-          </div>
+          <LiveSessionContent />
         </div>
       </div>
 
-      <div className="flex items-center justify-end gap-6 pt-10">
-        <DashButton className="rounded px-4 py-2 text-white">
+      <div className="my-5 flex items-center justify-end gap-6">
+        <CommonButton
+          onClick={() => setActiveTab((prev) => prev - 1)}
+          className="ml-auto bg-gray-500 text-white hover:bg-gray-700"
+        >
+          Back
+        </CommonButton>
+
+        <DashButton
+          className="rounded px-4 py-2 text-white"
+          onClick={() => setSubTab((prev) => prev + 1)}
+        >
           Continue
         </DashButton>
       </div>

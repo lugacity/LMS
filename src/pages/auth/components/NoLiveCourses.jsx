@@ -1,5 +1,5 @@
 import React from 'react';
-import DashButton from '../../auth/ButtonDash';
+import DashButton from '../ButtonDash';
 import NoCoursesImg from '../../../assets/images/no_courses.png'; 
 import { Link } from 'react-router-dom';
 // import EmptyJoinProjectTeam from '../components/EmptyJoinProjectTeam';

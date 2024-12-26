@@ -1,14 +1,17 @@
 import { useRef, useState } from "react";
 import UploadCourseManagement from "./UploadCourseManagement";
 import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
-import SaveButton from "@/Components/admindashboard/course-management/courses/SaveButton";
+
 import { ScrollRestoration } from "react-router-dom";
 import { Form } from "@/Components/ui/form";
 
 import FormInput from "@/Components/ui/form-input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCreateCourseInformation } from "@/hooks/course-management/use-create-course-information";
+import {
+  useCreateCourseInformation,
+  useEditCourseInformation,
+} from "@/hooks/course-management/use-create-course-information";
 import toast from "react-hot-toast";
 
 import { ClipLoader } from "react-spinners";
@@ -16,39 +19,125 @@ import { CommonButton } from "@/Components/ui/button";
 import { courseInformationSchema } from "@/lib/form-schemas/forms-schema";
 // import MyCKEditor from '../Components/pages/CDKEditor'
 
-const CourseManagementPage = () => {
-  const { setActiveTab } = useCourseManagementInfo();
+const stringToArray = (str) => {
+  let arr = str;
+  if (arr.endsWith("\n")) {
+    arr = arr.slice(0, -1);
+    return arr.split("\n");
+  }
+  return arr.split("\n");
+};
 
+const CourseManagementPage = () => {
   const [image, setImage] = useState({ file: null, preview: null });
   const [video, setVideo] = useState({ file: null, preview: null });
+
   const { createCourseInformation, isCreating } = useCreateCourseInformation();
+  const { editCourseInformation, isEditing } = useEditCourseInformation();
+
+  const imageRef = useRef(null);
+  const btnRef = useRef(null);
+
+  const { setActiveTab } = useCourseManagementInfo();
+  const courseInformation = localStorage.getItem("course-information")
+    ? JSON.parse(localStorage.getItem("course-information"))
+    : {};
+  const courseId =
+    localStorage.getItem("course-information") && courseInformation.id;
+
+  const dataToEdit = localStorage.getItem("course-information") && {
+    courseTitle: courseInformation.title,
+    benefits: courseInformation.benefits.join("\n"),
+    courseIncludes: courseInformation.course_includes.join("\n"),
+    highlight: courseInformation.program_highlights.join("\n"),
+    technologies: courseInformation.tools_and_technologies.join("\n"),
+    overview: courseInformation.overview,
+    url: "",
+  };
+
+  const isEdit = Boolean(courseId);
 
   const [message, setMessage] = useState({
     error: "",
     success: "",
   });
 
-  const imageRef = useRef(null);
-
   const form = useForm({
     resolver: zodResolver(courseInformationSchema),
-    defaultValues: {
-      courseTitle: "",
-      benefits: "",
-      courseIncludes: "",
-      highlight: "",
-      technologies: "",
-      url: "",
-    },
+    defaultValues: isEdit
+      ? dataToEdit
+      : {
+          courseTitle: "",
+          benefits: "",
+          courseIncludes: "",
+          highlight: "",
+          technologies: "",
+          overview: "",
+          url: "",
+        },
   });
 
-  const onSubmit = async (data) => {
+  const editCourse = (data) => {
     const {
       courseTitle,
       benefits,
       courseIncludes,
       highlight,
       technologies,
+      overview,
+      url,
+    } = data;
+
+    const courses = {
+      title: courseTitle,
+      tools_and_technologies: stringToArray(technologies),
+      benefits: stringToArray(benefits),
+      program_highlights: stringToArray(highlight),
+      course_includes: stringToArray(courseIncludes),
+      overview: overview,
+      coverImage: image.file,
+    };
+
+    let courseToUpload;
+
+    if (video.file) {
+      courseToUpload = {
+        ...courses,
+        taster_video: video.file,
+      };
+    } else if (url) {
+      courseToUpload = {
+        ...courses,
+        upload_from_url: url,
+      };
+    } else {
+      courseToUpload = {
+        ...courses,
+      };
+    }
+
+    editCourseInformation(
+      {
+        data: courseToUpload,
+        courseId: courseId,
+      },
+      {
+        onSuccess: (data) => {
+          setActiveTab((prev) => prev + 1);
+          localStorage.setItem("course-information", JSON.stringify(data.data));
+        },
+      },
+    );
+  };
+
+  const CreateCourse = async (data) => {
+    const {
+      courseTitle,
+      benefits,
+      courseIncludes,
+      highlight,
+      technologies,
+      overview,
       url,
     } = data;
 
@@ -69,10 +158,11 @@ const CourseManagementPage = () => {
 
     const courses = {
       title: courseTitle,
-      tools_and_technologies: technologies,
-      benefits: benefits,
-      program_highlights: highlight,
-      course_includes: courseIncludes,
+      tools_and_technologies: stringToArray(technologies),
+      benefits: stringToArray(benefits),
+      program_highlights: stringToArray(highlight),
+      course_includes: stringToArray(courseIncludes),
+      overview: overview,
       coverImage: image.file,
     };
 
@@ -90,8 +180,6 @@ const CourseManagementPage = () => {
       };
     }
 
-    console.log(courseToUpload);
-
     createCourseInformation(courseToUpload, {
       onSuccess: () => setActiveTab((prev) => prev + 1),
     });
@@ -106,14 +194,19 @@ const CourseManagementPage = () => {
           Course Information
         </h2>
 
-        <SaveButton onClick={() => setActiveTab((prev) => prev + 1)}>
+        <CommonButton
+          variant={"outline"}
+          className="font-normal text-[#667185]"
+          ref={btnRef}
+          onClick={() => console.log("btnRef.current")}
+        >
           Save and Continue
-        </SaveButton>
+        </CommonButton>
       </div>
       <Form {...form}>
         <form
           className="mx-auto grid max-w-6xl grid-cols-12 gap-8 pt-5"
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(isEdit ? editCourse : CreateCourse)}
         >
           <div className="col-span-8">
             {/* Course Title */}
@@ -243,13 +336,41 @@ const CourseManagementPage = () => {
               </p>
             </div>
 
+            {/* Overview */}
+            <div>
+              <FormInput
+                name="overview"
+                id="overview"
+                label={
+                  <p className="mb-2 font-[500] text-[#475367]">
+                    Overview: <span className="text-[#CC1747]">*</span>{" "}
+                  </p>
+                }
+                type="text"
+                labelClass={"text-base text-[#475367]"}
+                textarea={true}
+                control={form.control}
+                placeholder="Enter text here..."
+                className="h-[203px] w-full resize-none rounded border border-gray-300 p-2 outline-none placeholder:text-base"
+              />
+              <p className="text-right text-gray-500">
+                {form.watch("overview")
+                  ? `${form.watch("overview").length}`
+                  : 0}
+                /405
+              </p>
+            </div>
+
             <div className="flex items-center justify-end pt-10">
               <CommonButton
                 className="min-w-32 rounded bg-primary-color-600"
-                disabled={isCreating}
+                disabled={isCreating || isEditing}
+                ref={btnRef}
               >
-                {isCreating ? (
+                {isCreating || isEditing ? (
                   <ClipLoader size={20} color={"#fff"} />
+                ) : isEdit ? (
+                  "Edit info"
                 ) : (
                   "Save & Continue"
                 )}

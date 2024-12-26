@@ -1,9 +1,4 @@
-import Cookies from "js-cookie";
 import { useRef, useState } from "react";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 
 import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
@@ -11,32 +6,32 @@ import { CommonButton } from "@/Components/ui/button";
 
 import { ImgUploadIcon } from "@/Components/Icon";
 
-import CoursesRecordedSection from "@/Components/admindashboard/course-management/recoded-session/CoursesRecordedSection";
-
 // import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
 import { ScrollRestoration } from "react-router-dom";
 
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
-import { useCreateRecordedSession } from "@/hooks/course-management/use-create-recorded-session";
+import { useCreateRecordedSession } from "@/hooks/course-management/recorded-section/use-create-recorded-session";
 import { ClipLoader } from "react-spinners";
-import { RecordedSessionSchema } from "@/lib/form-schemas/forms-schema";
+import CoursesRecordedLiveSession from "@/Components/admindashboard/course-management/recoded-session/CoursesRecordedLiveSession";
+import { useCourseManagementInfo } from "@/hooks/useCourseManagementInfo";
+import { useQuery } from "@tanstack/react-query";
+import { useGetSingleCohort } from "@/hooks/course-management/use-get-singleCohorts";
 
 function RecordedSession() {
   const [video, setVideo] = useState({ file: null, preview: null });
   const [errorMessage, setErrorMessage] = useState("");
+  const videoRef = useRef();
+  const [disabled, setDisabled] = useState(true);
 
-  const { createRecordedSession, isCreating } = useCreateRecordedSession();
+  const courseId = localStorage.getItem("courseId");
+  const cohortId = localStorage.getItem("cohortId");
+  const { data } = useGetSingleCohort(courseId, cohortId);
 
-  const form = useForm({
-    resolver: zodResolver(RecordedSessionSchema),
-    defaultValues: {
-      title: "",
-      video_title: "",
-      overview: "",
-      video_from_url: "",
-    },
-  });
+  const { createRecordedSession, isCreating, form } =
+    useCreateRecordedSession();
+  const { setActiveTab } = useCourseManagementInfo();
+
   const handleVideoUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -54,13 +49,25 @@ function RecordedSession() {
     reader.readAsDataURL(file);
   };
 
-  const videoRef = useRef();
+  const handleCreateNewSection = () => {
+    let section = localStorage.getItem("recordedSection")
+      ? localStorage.getItem("recordedSection")
+      : 2;
 
-  // const { setActiveTab } = useCourseManagementInfo();
+    section = Number(section) + 1;
+
+    localStorage.setItem("recordedSection", +section);
+
+    toast.success(`section ${section} is created`);
+    setDisabled(true);
+  };
 
   const onSubmit = async (data) => {
     const { title, video_title, overview } = data;
     const cohort = localStorage.getItem("cohorts");
+    let section = localStorage.getItem("recordedSection")
+      ? localStorage.getItem("recordedSection")
+      : 2;
 
     if (!video.file && form.watch("video_from_url").length < 1)
       return toast.error("Please insert a video or video url");
@@ -83,28 +90,18 @@ function RecordedSession() {
     }
 
     console.log(recorded);
-    createRecordedSession(recorded, { onSuccess: () => form.reset() });
-    // try {
-    //   const response = await axios.post(
-    //     `${BASE_URL}/courses/${courseId}/recorded-session`,
-    //     recorded,
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     },
-    //   );
-    //   console.log(response);
-
-    //   if (response.data.status === "success") {
-    //     toast.success(response.data.message);
-    //     handleReset();
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-
-    //   toast.error(error.response.data.message || "something went wrong");
-    // }
+    createRecordedSession(
+      { data: recorded, courseId, section },
+      {
+        onSuccess: () => {
+          setDisabled(false);
+          form.reset();
+          setVideo((prev) => {
+            return { ...prev, file: null, preview: null };
+          });
+        },
+      },
+    );
   };
 
   return (
@@ -132,6 +129,7 @@ function RecordedSession() {
                   label="Section Title"
                   control={form.control}
                   placeholder="Business Analysis Agile Project Management Software Testing "
+                  disabled={!data?.data?.data.cohort}
                 />
                 <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
                   {form.watch("title") ? `${form.watch("title").length}` : 0}
@@ -147,6 +145,7 @@ function RecordedSession() {
                   control={form.control}
                   placeholder="Enter text here "
                   textarea={true}
+                  disabled={!data?.data?.data.cohort}
                 />
                 <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
                   {form.watch("overview")
@@ -162,7 +161,8 @@ function RecordedSession() {
                   id="video_title"
                   label="Video Title"
                   control={form.control}
-                  placeholder="Introduction to Project Consulting Recordings "
+                  placeholder="Enter Video Title"
+                  disabled={!data?.data?.data.cohort}
                 />
                 <p className="mb-1 mt-2 text-right text-sm text-[#667185]">
                   {form.watch("video_title")
@@ -202,11 +202,15 @@ function RecordedSession() {
                   <input
                     type="file"
                     name=""
+                    accept="video/*"
                     id=""
                     hidden
                     ref={videoRef}
                     onChange={handleVideoUpload}
-                    disabled={form.watch("video_from_url").length >= 1}
+                    disabled={
+                      !data?.data?.data.cohort ||
+                      form.watch("video_from_url").length >= 1
+                    }
                   />
                 </div>
                 {errorMessage && (
@@ -232,20 +236,28 @@ function RecordedSession() {
                   label="Video from URL"
                   control={form.control}
                   placeholder="Input file URL "
-                  disabled={video.file ? true : false}
+                  disabled={
+                    !data?.data?.data.cohort || video.file ? true : false
+                  }
                 />
               </div>
 
               <div>
                 <div className="ml-auto mt-6 w-max">
-                  <CommonButton variant="outline" type="button">
+                  <CommonButton
+                    variant="outline"
+                    type="button"
+                    className="disabled:cursor-not-allowed"
+                    onClick={handleCreateNewSection}
+                    disabled={disabled}
+                  >
                     {" "}
                     Create New Section
                   </CommonButton>
                   <CommonButton
                     className="ml-6 bg-primary-color-600"
                     type="submit"
-                    disabled={isCreating}
+                    disabled={!data?.data?.data.cohort || isCreating}
                   >
                     {isCreating ? (
                       <span className="min-w-[89.3px]">
@@ -261,12 +273,20 @@ function RecordedSession() {
           </Form>
         </div>
         <div className="overflow-y-hidden">
-          <CoursesRecordedSection />
+          <CoursesRecordedLiveSession />
         </div>
       </main>
-      <div>
+
+      <div className="my-6 flex justify-between gap-6">
         <CommonButton
-          className="ml-auto mt-8 block bg-primary-color-600 font-normal"
+          onClick={() => setActiveTab((prev) => prev - 1)}
+          className="ml-auto bg-gray-500 text-white hover:bg-gray-700"
+        >
+          Back
+        </CommonButton>
+
+        <CommonButton
+          className="bg-primary-color-600 font-normal"
           // onClick={() => setActiveTab((prev) => prev + 1)}
         >
           Save and Continue
