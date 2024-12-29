@@ -1,13 +1,11 @@
-import { useContext } from "react";
+import { formatDate } from "@/lib/format-date";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { CommonButton } from "../ui/button";
 import { MobileSlideNav } from "./DashboardSliderNav";
 import { MobileContent } from "./MobileContent";
-import { DocumentContext } from "@/pages/dashboard/ShareDocument";
-import { useViewEnrolledCourse } from "@/hooks/students/use-view-enrolled-course";
-import { useNavigate, useParams } from "react-router-dom";
-import { formatDate } from "@/lib/format-date";
-import { CommonButton } from "../ui/button";
 
 function LiveSession({ data }) {
+  const [queryString] = useSearchParams();
   const { courseId } = useParams();
   const navigate = useNavigate();
 
@@ -55,7 +53,13 @@ function LiveSession({ data }) {
         <button className="mt-5 rounded-md bg-tertiary-color-700 px-4 py-2 text-sm text-[#C7D7F4] hover:bg-[#C7D7F4] hover:text-tertiary-color-700 md:text-base lg:mt-8">
           Meeting hasn’t started yet
         </button>
-        <CommonButton onClick={() => navigate(`/user/meeting/${courseId}`)}>
+        <CommonButton
+          onClick={() =>
+            navigate(
+              `/user/meeting/${courseId}?title=${queryString.get("title")}`,
+            )
+          }
+        >
           join Meeting
         </CommonButton>
       </section>
