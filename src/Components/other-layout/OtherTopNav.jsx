@@ -1,24 +1,33 @@
 import { FaHeart, FaLongArrowAltLeft, FaRegHeart } from "react-icons/fa";
 import { TiGroupOutline } from "react-icons/ti";
 import { LiaTrophySolid } from "react-icons/lia";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const OtherTopNav = ({ setShowModal }) => {
+  const [queryString] = useSearchParams();
 
   const handleModal = () => setShowModal((prev) => !prev);
   const location = useLocation();
   const navigate = useNavigate();
 
-
-  const handleBack = () =>{
-    navigate(-1)
-  }
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
-    <nav className="flex gap-[97px] px-3 py-[25px] md:px-5">
+    <nav className="flex items-center justify-between gap-[97px] px-3 py-[25px] md:px-5">
       <div className="flex w-full items-center justify-between gap-1 md:gap-6 lg:w-max lg:justify-normal">
-        <button onClick={handleBack} type="button" className="flex items-center gap-1">
+        <button
+          onClick={handleBack}
+          type="button"
+          className="flex items-center gap-1"
+        >
           <span className="flex items-center justify-center rounded-sm border-[#E4E7EC] text-base text-black md:h-6 md:w-6 md:border md:text-[10px]">
             <FaLongArrowAltLeft />
           </span>
@@ -27,7 +36,8 @@ const OtherTopNav = ({ setShowModal }) => {
           </span>
         </button>
         <p className="text-sm font-medium text-black lg:text-lg 2xl:text-2xl">
-          Project Consultant Training Programme (Bundle)
+          {queryString.get("title") ||
+            "Project Consultant Training Programme (Bundle)"}
         </p>
       </div>
       <div className="hidden lg:block">

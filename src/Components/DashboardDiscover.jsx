@@ -39,7 +39,7 @@ const DashboardDiscover = ({
 
         <div className="flex items-center justify-between px-[7px] pb-2">
           <p className="text-[10px]">{courseProgress}</p>
-          <Link to={`/dashboard/${courseId}/share-documents`}>
+          <Link to={`/dashboard/${courseId}/share-documents?title=${title}`}>
             <p className="text-[10px] text-[#F53366] underline">Get started</p>
           </Link>
         </div>

@@ -7,15 +7,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { formatDate } from "@/lib/format-date";
 import { CommonButton } from "../ui/button";
 
-function LiveSession() {
+function LiveSession({ data }) {
   const { courseId } = useParams();
   const navigate = useNavigate();
-
-  const { data, isLoading, error } = useViewEnrolledCourse(courseId);
-
-  if (isLoading) return <p>Loading...</p>;
-
-  if (error) return <p>something went wrong</p>;
 
   const {
     title,
@@ -69,7 +63,7 @@ function LiveSession() {
         <MobileSlideNav />
       </div>
       <div className="lg:hidden">
-        <MobileContent />
+        <MobileContent data={data} />
       </div>
     </div>
   );
