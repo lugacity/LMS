@@ -4,7 +4,7 @@ import { DesktopContent, MobileContent } from "./MobileContent";
 import liveSession from "../../assets/images/dashboard/live-session.png";
 import { DocumentContext } from "@/pages/dashboard/ShareDocument";
 
-function CourseVideoSection() {
+function CourseVideoSection({ data }) {
   const { sectionDetails } = useContext(DocumentContext);
   return (
     <section>
@@ -18,7 +18,7 @@ function CourseVideoSection() {
         />
       </div>
       <h1 className="my-6 text-2xl font-semibold leading-[28px] text-black *:block *:capitalize">
-        <span>{sectionDetails.section}</span>
+        <span>Section {sectionDetails.section}</span>
         <span> {sectionDetails.topic} </span>
       </h1>
       <div className="hidden lg:block">
@@ -31,7 +31,7 @@ function CourseVideoSection() {
         <DesktopContent />
       </div>
       <div className="lg:hidden">
-        <MobileContent />
+        <MobileContent data={data} />
       </div>
     </section>
   );

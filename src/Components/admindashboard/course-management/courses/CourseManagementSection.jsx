@@ -29,7 +29,7 @@ function CourseManagementSection() {
   const [isEdit, setIsEdit] = useState(false);
   const [queryString] = useSearchParams();
 
-  const [showLive, setShowLive] = useState("");
+  const [showLive, setShowLive] = useState("live");
 
   const { courseId } = useParams();
 
@@ -55,7 +55,7 @@ function CourseManagementSection() {
           {showLive === "contents" && (
             <VideoContents sectionDetails={sectionDetails} videoId={videoId} />
           )}
-          {showLive === "" && <>click to show content</>}
+          {/* {showLive === "" && <>click to show content</>} */}
 
           <AdminCoursesSection
             data={data}
