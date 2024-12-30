@@ -1,12 +1,14 @@
 import { useState } from "react";
 
 import { useJoinSession } from "@/hooks/students/use-join-live-session";
+import { useSearchParams } from "react-router-dom";
 import StartMeeting from "../admin-pages/meeting/StartMeeting";
 
 const UserJoinMeeting = () => {
   const [meetingDetails, setMeetingDetails] = useState(null);
   const [courseId, setCourseId] = useState("672f600db2f3905e23f914e6");
   const [cohortId, setCohortId] = useState("6732f2f47a0ce8a492cc36e1");
+  const [queryString] = useSearchParams();
 
   const { isLoading, data, error } = useJoinSession(courseId, cohortId);
 
@@ -44,7 +46,7 @@ const UserJoinMeeting = () => {
           signature={data?.data?.data?.signature}
           apiKey={`${import.meta.env.VITE_ZOOM_API_KEY}`}
           password={data?.data?.data?.password}
-          leaveUrl={`http://localhost:5173/dashboard/${courseId}/share-documents`}
+          leaveUrl={`http://localhost:5173/dashboard/${courseId}/share-documents?title=${queryString.get("title")}`}
         />
       </div>
     );
