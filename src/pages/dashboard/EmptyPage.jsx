@@ -11,6 +11,7 @@ import { Filter } from "@/Components/dashboard/Filter";
 import NoDemandCourses from "../auth/components/NoDemandCourses";
 import DashboardDiscover from "@/Components/DashboardDiscover";
 import { useFetchEnrolledLiveSessionCourse } from "@/hooks/students/use-fetch-enroll-live-session-course";
+import { useFetchEnrolledPreRecordedCourse } from "@/hooks/students/use-fetch-enroll-ondemand-courses";
 // import Cookies from "js-cookie";
 // import { useProfile } from "@/services/queries";
 
@@ -92,7 +93,7 @@ const EmptyPage = () => {
         </div>
 
         <div>
-          <NoDemandCourses />
+          <OnDemandSessionCourses />
         </div>
       </div>
 
@@ -108,6 +109,42 @@ const EmptyPage = () => {
         </Modal>
       )}
     </div>
+  );
+};
+
+const OnDemandSessionCourses = () => {
+  const { isLoading, error, data } = useFetchEnrolledPreRecordedCourse();
+  if (isLoading) return <p>Loading...</p>;
+
+  if (error) return <p>something went wrong</p>;
+
+  if (data) console.log(data);
+  return (
+    <>
+      {data?.data?.data?.courses.length < 1 ? (
+        <NoDemandCourses />
+      ) : (
+        <div
+          className={`grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-6 lg:grid-cols-4`}
+        >
+          {data?.data?.data?.courses.map((course) => {
+            return (
+              <DashboardDiscover
+                key={course.id}
+                imgSrc={course.cover_image}
+                altText={course.title}
+                title={course.title}
+                rating={course.average_rating}
+                numRatings="45,345"
+                courseProgress="0% in progress"
+                review={"200"}
+                courseId={course.id}
+              />
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 };
 

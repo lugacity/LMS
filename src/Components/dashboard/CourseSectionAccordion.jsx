@@ -1,10 +1,5 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "../ui/accordion";
 import { cn } from "@/lib/utils";
+import { Accordion, AccordionItem, AccordionTrigger } from "../ui/accordion";
 //  active === section.section_id
 
 function CourseSectionAccordion({ onClick, active, sections }) {
