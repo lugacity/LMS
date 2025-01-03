@@ -18,7 +18,8 @@ import {
 function CourseSection({ editButton, data }) {
   const [active, setActive] = useState("1");
   const [videoActive, setvideoActive] = useState("");
-  const { setSession, setSectionDetails } = useContext(DocumentContext);
+  const { setSession, setSectionDetails, setVideoId } =
+    useContext(DocumentContext);
 
   return (
     <div>
@@ -128,7 +129,7 @@ function CourseSection({ editButton, data }) {
                             videoTitle: video.video_title,
                           }));
                           setSession("recorded");
-                          // setVideoId(video.id);
+                          setVideoId(video.id);
                           setvideoActive(video.id);
                         }}
                       >

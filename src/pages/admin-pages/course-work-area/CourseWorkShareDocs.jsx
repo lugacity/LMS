@@ -8,7 +8,7 @@ function CourseWorkShareDocs() {
   return (
     <div className="grid grid-cols-[3fr_1.5fr] gap-7">
       <div>
-        {documents.length > 0 ? <CourseWorkAreaWithDocs /> : <ShareDocsEmpty />}
+        {documents.length < 0 ? <CourseWorkAreaWithDocs /> : <ShareDocsEmpty />}
       </div>
 
       <aside className="overflow-y-hidden rounded-[12px] border border-[#E4E7EC] bg-white px-4 py-6 lg:block">

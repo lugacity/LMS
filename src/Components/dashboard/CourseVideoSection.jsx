@@ -7,8 +7,8 @@ import { Skeleton } from "../ui/skeleton";
 import { useParams } from "react-router-dom";
 import { useStreamVideo } from "@/hooks/course-management/on-demand-section/use-stream-ondemand-video";
 
-function CourseVideoSection({ data, section, videoId }) {
-  const { sectionDetails } = useContext(DocumentContext);
+function CourseVideoSection({ data }) {
+  const { sectionDetails, videoId } = useContext(DocumentContext);
   return (
     <section>
       <div className="overflow-hidden rounded-[10px] lg:h-[400px] lg:w-[700px]">
@@ -19,6 +19,7 @@ function CourseVideoSection({ data, section, videoId }) {
           height={532}
           className="object-cover"
         /> */}
+        {videoId}
         <PreviewVideo videoId={videoId} section={sectionDetails.section} />
       </div>
       <h1 className="my-6 text-2xl font-semibold leading-[28px] text-black *:block *:capitalize">
