@@ -1,9 +1,13 @@
 import AdminNav from "@/Components/admindashboard/AdminNav";
 import LinkList from "@/Components/LinkList";
+import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import CourseWorkShareDocs from "./CourseWorkShareDocs";
+import CourseWorkAssignment from "./CourseWorkAssignment";
 
 function CourseWorkAreaDocument() {
+  const [tab, setTab] = useState("share-docs");
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -29,21 +33,23 @@ function CourseWorkAreaDocument() {
         <ul className="mt-10 flex w-max items-center gap-4 border-b border-b-[#E4E7EC] *:capitalize">
           <LinkList
             className={"text-sm font-medium"}
-            onClick={() => navigate(`/admin/course-work-area/documents`)}
-            active={pathname.endsWith("documents")}
+            onClick={() => setTab("share-docs")}
+            active={tab === "share-docs"}
           >
             share documents
           </LinkList>
           <LinkList
             className={"text-sm font-medium"}
-            onClick={() => navigate("assignment")}
-            active={pathname.endsWith("assignment")}
+            onClick={() => setTab("assignments")}
+            active={tab === "assignments"}
           >
             assignments
           </LinkList>
         </ul>
         <div>
-          <Outlet />
+          {tab === "share-docs" && <CourseWorkShareDocs />}
+
+          {tab === "assignments" && <CourseWorkAssignment />}
         </div>
       </main>
     </div>

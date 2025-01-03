@@ -485,18 +485,18 @@ function App() {
                   element: <CourseWorkArea />,
                 },
                 {
-                  path: "documents",
+                  path: ":courseId/documents",
                   element: <CourseWorkAreaDocument />,
-                  children: [
-                    {
-                      index: true,
-                      element: <CourseWorkShareDocs />,
-                    },
-                    {
-                      path: "assignment",
-                      element: <CourseWorkAssignment />,
-                    },
-                  ],
+                  // children: [
+                  //   {
+                  //     index: true,
+                  //     element: <CourseWorkShareDocs />,
+                  //   },
+                  //   {
+                  //     path: "assignment",
+                  //     element: <CourseWorkAssignment />,
+                  //   },
+                  // ],
                 },
               ],
             },
