@@ -25,7 +25,7 @@ const CourseArea = () => {
     return <p>{error?.response?.data?.message ?? "Something went wrong"}</p>;
   return (
     <div>
-      {data?.data?.data?.courses.length < 1 ? (
+      {data?.data?.data?.courses?.length < 1 ? (
         <EmptyCourseArea />
       ) : (
         <CourseWorkAreaWithCourse data={data?.data?.data?.courses} />
