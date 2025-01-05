@@ -14,7 +14,7 @@ const fetchDocuments = async (courseId, cohortId, section) =>
 
 export const useFetchSharedResources = (courseId, cohortId, section) =>
   useQuery({
-    queryKey: ["fetch-shared-documents"],
+    queryKey: ["fetch-shared-documents", { courseId, cohortId, section }],
     queryFn: () => fetchDocuments(courseId, cohortId, section),
     enabled: !!courseId && !!cohortId && !!section,
   });

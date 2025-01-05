@@ -1,8 +1,7 @@
-import { CommonButton } from "@/Components/ui/button";
-import icon from "../../../assets/icons/book.png";
-import { useState } from "react";
-import ShareDocumentModal from "@/Components/admindashboard/course-work-area/ShareDocumentModal";
 import UploadDocumentModal from "@/Components/admindashboard/course-work-area/UploadDocumentModal";
+import { CommonButton } from "@/Components/ui/button";
+import { useState } from "react";
+import icon from "../../../assets/icons/book.png";
 
 function ShareDocsEmpty() {
   const [modal, setModal] = useState(false);

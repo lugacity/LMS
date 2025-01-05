@@ -42,15 +42,15 @@ const SharedDocs = () => {
   const { courseId } = useParams();
   const [queryString] = useSearchParams();
   const cohortId = queryString.get("cohortId");
-  const { active, setActive } = useContext(ShareDocContext);
+  const { active } = useContext(ShareDocContext);
 
-  const { isLoading, data, error } = useFetchSharedResources(
+  const { isLoading, data, error, isRefetching } = useFetchSharedResources(
     courseId,
     cohortId,
     active,
   );
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading || isRefetching) return <p>Loading...</p>;
   if (error)
     return <p>{error?.response?.data?.message ?? "Something Went wrong"}</p>;
   return (
@@ -65,7 +65,18 @@ const SharedDocs = () => {
 };
 
 const CourseSection = ({ data }) => {
-  const { active } = useContext(ShareDocContext);
+  const { active, setActive } = useContext(ShareDocContext);
+  const { courseId } = useParams();
+  const [queryString] = useSearchParams();
+  const cohortId = queryString.get("cohortId");
+
+  const { refetch } = useFetchSharedResources(courseId, cohortId, active);
+
+  const handleChangeSection = (section) => {
+    setActive(section);
+    if (section === active) return;
+    refetch();
+  };
 
   if (data?.data?.data?.recorded_sessions.length < 1) {
     return <p>No video yet ...</p>;
@@ -82,6 +93,9 @@ const CourseSection = ({ data }) => {
               String(active) == section.section &&
                 "border border-b-primary-color-600 bg-primary-color-300/20",
             )}
+            onClick={() => {
+              handleChangeSection(section.section);
+            }}
           >
             <div className="text-left">
               <p className="font-poppins text-lg font-light capitalize text-tertiary-color-900 lg:text-xl">
