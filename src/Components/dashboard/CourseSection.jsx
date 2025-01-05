@@ -1,19 +1,14 @@
-import { courseSections } from "@/lib/courseSection";
-
-import { useContext, useState } from "react";
 import { cn } from "@/lib/utils";
-import { HiOutlinePencil } from "react-icons/hi";
-import { CommonButton } from "../ui/button";
-import CourseSectionAccordion from "./CourseSectionAccordion";
 import { DocumentContext } from "@/pages/dashboard/ShareDocument";
-import { useViewEnrolledCourse } from "@/hooks/students/use-view-enrolled-course";
-import { useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { HiOutlinePencil } from "react-icons/hi";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
+import { CommonButton } from "../ui/button";
 
 function CourseSection({ editButton, data }) {
   const [active, setActive] = useState("1");

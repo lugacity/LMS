@@ -8,7 +8,7 @@ import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { RxDownload } from "react-icons/rx";
 
-function CourseWorkAreaWithDocs() {
+function CourseWorkAreaWithDocs({ data }) {
   const [modal, setModal] = useState(false);
 
   return (
@@ -25,19 +25,19 @@ function CourseWorkAreaWithDocs() {
         Share new document
       </CommonButton>
       <div className="mt-8 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4">
-        {documents.map((document, i) => {
+        {data?.data?.data?.documents.map((document, i) => {
           return (
             <div key={i} className="">
               <div className="h-32 overflow-hidden rounded-tl-xl rounded-tr-xl md:h-36">
                 <img
-                  src={document.img}
+                  src={document.url}
                   alt={document.title}
                   className="h-full w-full object-cover"
                 />
               </div>
-              <div className="flex items-center gap-1 px-2 py-[10px] sm:gap-2 md:px-3">
-                <p className="text-[10px] font-light text-tertiary-color-700 md:text-sm">
-                  {document.title}
+              <div className="flex items-center justify-between gap-1 px-2 py-[10px] sm:gap-2 md:px-3">
+                <p className="truncate text-[10px] font-light text-tertiary-color-700 md:text-sm">
+                  Material for {data?.data?.data?.title}
                 </p>
                 <button
                   type="button"
