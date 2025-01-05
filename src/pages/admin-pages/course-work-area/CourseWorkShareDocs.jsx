@@ -1,8 +1,7 @@
-import { courseSections } from "@/lib/courseSection";
 import ShareDocsEmpty from "./ShareDocsEmpty";
 import { cn } from "@/lib/utils";
 import CourseWorkAreaWithDocs from "./CourseWorkAreaWithDocs";
-import { documents } from "@/lib/documents";
+
 import { useGetSingleCohort } from "@/hooks/course-management/use-get-singleCohorts";
 import { useParams, useSearchParams } from "react-router-dom";
 import { createContext, useContext, useState } from "react";
@@ -13,7 +12,37 @@ function CourseWorkShareDocs() {
   const [active, setActive] = useState(2);
   const { courseId } = useParams();
   const [queryString] = useSearchParams();
+
   const cohortId = queryString.get("cohortId");
+  const { isLoading, data, error } = useGetSingleCohort(courseId, cohortId);
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>something went wrong</p>;
+
+  return (
+    <ShareDocContext.Provider value={{ active, setActive }}>
+      <div className="grid grid-cols-[3fr_1.5fr] gap-7">
+        {data?.data?.data?.recorded_sessions.length < 1 || !active ? (
+          <>no document </>
+        ) : (
+          <SharedDocs />
+        )}
+
+        <aside className="overflow-y-hidden rounded-[12px] border border-[#E4E7EC] bg-white px-4 py-6 lg:block">
+          <h3 className={cn("text-2xl font-medium capitalize text-black")}>
+            Course section
+          </h3>
+          <CourseSection data={data} />
+        </aside>
+      </div>
+    </ShareDocContext.Provider>
+  );
+}
+
+const SharedDocs = () => {
+  const { courseId } = useParams();
+  const [queryString] = useSearchParams();
+  const cohortId = queryString.get("cohortId");
+  const { active, setActive } = useContext(ShareDocContext);
 
   const { isLoading, data, error } = useFetchSharedResources(
     courseId,
@@ -24,41 +53,24 @@ function CourseWorkShareDocs() {
   if (isLoading) return <p>Loading...</p>;
   if (error)
     return <p>{error?.response?.data?.message ?? "Something Went wrong"}</p>;
-
-  console.log(data);
-
   return (
-    <ShareDocContext.Provider value={{ active, setActive }}>
-      <div className="grid grid-cols-[3fr_1.5fr] gap-7">
-        <div>
-          {data?.data?.data?.documents?.length > 0 ? (
-            <CourseWorkAreaWithDocs data={data} />
-          ) : (
-            <ShareDocsEmpty />
-          )}
-        </div>
-
-        <aside className="overflow-y-hidden rounded-[12px] border border-[#E4E7EC] bg-white px-4 py-6 lg:block">
-          <h3 className={cn("text-2xl font-medium capitalize text-black")}>
-            Course section
-          </h3>
-          <CourseSection active={active} />
-        </aside>
-      </div>
-    </ShareDocContext.Provider>
+    <div>
+      {data?.data?.data?.documents?.length > 0 ? (
+        <CourseWorkAreaWithDocs data={data} />
+      ) : (
+        <ShareDocsEmpty />
+      )}
+    </div>
   );
-}
+};
 
-const CourseSection = () => {
+const CourseSection = ({ data }) => {
   const { active } = useContext(ShareDocContext);
-  const { courseId } = useParams();
-  const [queryString] = useSearchParams();
 
-  const cohortId = queryString.get("cohortId");
-  const { isLoading, data, error } = useGetSingleCohort(courseId, cohortId);
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>something went wrong</p>;
-  console.log(data);
+  if (data?.data?.data?.recorded_sessions.length < 1) {
+    return <p>No video yet ...</p>;
+  }
+
   return (
     <ul className="h-screen overflow-y-scroll">
       {data?.data?.data?.recorded_sessions.map((section) => {
