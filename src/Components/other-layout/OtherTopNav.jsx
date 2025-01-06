@@ -5,12 +5,14 @@ import {
   Link,
   useLocation,
   useNavigate,
+  useParams,
   useSearchParams,
 } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 const OtherTopNav = ({ setShowModal }) => {
   const [queryString] = useSearchParams();
+  const { courseId } = useParams();
 
   const handleModal = () => setShowModal((prev) => !prev);
   const location = useLocation();
@@ -51,7 +53,7 @@ const OtherTopNav = ({ setShowModal }) => {
             )}
           >
             <Link
-              to={"/dashboard/projects"}
+              to={`/dashboard/${courseId}/projects`}
               className="flex gap-2 2xl:gap-[13px]"
             >
               <span className="text-[22px]">
