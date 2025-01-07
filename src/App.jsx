@@ -268,7 +268,7 @@ function App() {
               element: <GetCertificate />,
             },
             {
-              path: "projects",
+              path: ":courseId/projects",
               element: <JoinProjectTeam />,
             },
           ],
