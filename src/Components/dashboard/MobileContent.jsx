@@ -14,15 +14,17 @@ export const MobileContent = ({ data }) => {
     return <CourseSection data={data?.data?.data?.recorded_sessions} />;
   if (sections.mobile === "project area") return <JoinProjectTeam />;
   if (sections.mobile === "share documents") return <Documents />;
-  if (sections.mobile === "assignments") return <Assignment />;
+  if (sections.mobile === "assignments")
+    return <Assignment data={data?.data?.data} />;
   if (sections.mobile === "get certification") return <GetCertificate />;
   if (sections.mobile === "overview") return <Overview />;
   if (sections.mobile === "leave a review") return <LeaveRating />;
 };
 
-export const DesktopContent = () => {
+export const DesktopContent = ({ data }) => {
   const { sections } = useContext(DocumentContext);
   if (sections.desktop === "share documents") return <Documents />;
-  if (sections.desktop === "assignments") return <Assignment />;
+  if (sections.desktop === "assignments")
+    return <Assignment data={data?.data?.data} />;
   if (sections.desktop === "overview") return <Overview />;
 };

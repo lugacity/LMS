@@ -47,7 +47,7 @@ const OtherTopNav = ({ setShowModal }) => {
           <li
             className={cn(
               "after:contents-[''] relative cursor-pointer capitalize text-tertiary-color-700 transition-colors duration-300 ease-linear after:absolute after:-bottom-2 after:left-0 after:block after:h-px after:w-0 after:bg-[#CC1747] hover:text-primary-color-600 hover:after:w-full",
-              location.pathname === "/dashboard/projects"
+              location.pathname.endsWith("projects")
                 ? "text-primary-color-600 after:w-full"
                 : "",
             )}
@@ -65,13 +65,13 @@ const OtherTopNav = ({ setShowModal }) => {
           <li
             className={cn(
               "after:contents-[''] relative cursor-pointer capitalize text-tertiary-color-700 transition-colors duration-300 ease-linear after:absolute after:-bottom-2 after:left-0 after:block after:h-px after:w-0 after:bg-[#CC1747] hover:text-primary-color-600 hover:after:w-full",
-              location.pathname === "/dashboard/certificate"
+              location.pathname.endsWith("certificate")
                 ? "text-primary-color-600 after:w-full"
                 : "",
             )}
           >
             <Link
-              to={"/dashboard/certificate"}
+              to={`/dashboard/${courseId}/certificate`}
               className="flex gap-2 2xl:gap-[13px]"
             >
               <span className="text-[22px]">

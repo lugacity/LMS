@@ -264,7 +264,7 @@ function App() {
               ],
             },
             {
-              path: "certificate",
+              path: ":courseId/certificate",
               element: <GetCertificate />,
             },
             {
