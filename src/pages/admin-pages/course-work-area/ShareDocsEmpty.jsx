@@ -2,11 +2,9 @@ import UploadDocumentModal from "@/Components/admindashboard/course-work-area/Up
 import { CommonButton } from "@/Components/ui/button";
 import { useState } from "react";
 import icon from "../../../assets/icons/book.png";
-import ShareDocumentModal from "@/Components/admindashboard/course-work-area/ShareDocumentModal";
 
 function ShareDocsEmpty() {
   const [modal, setModal] = useState(false);
-  const [modalActive, setModalActive] = useState("students");
   return (
     <>
       <div className="flex h-[calc(100vh-100px)] w-full items-center justify-center">
@@ -28,12 +26,7 @@ function ShareDocsEmpty() {
           </CommonButton>
         </div>
       </div>
-      {modal &&
-        (modalActive === "student" ? (
-          <ShareDocumentModal setModal={setModal} />
-        ) : (
-          <UploadDocumentModal setModal={setModal} />
-        ))}
+      {modal && <UploadDocumentModal setModal={setModal} />}
     </>
   );
 }

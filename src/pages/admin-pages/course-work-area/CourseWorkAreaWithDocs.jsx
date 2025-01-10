@@ -1,14 +1,11 @@
 import ShareDocumentModal from "@/Components/admindashboard/course-work-area/ShareDocumentModal";
-import BorderCard from "@/Components/BorderCard";
+import UploadDocumentModal from "@/Components/admindashboard/course-work-area/UploadDocumentModal";
 import { CommonButton } from "@/Components/ui/button";
-import { documents } from "@/lib/documents";
-import Modal from "@/pages/auth/components/Modal";
-import { Input } from "postcss";
-import { useState } from "react";
-import { IoSearch } from "react-icons/io5";
+import { DocumentContext } from "@/pages/dashboard/ShareDocument";
+import { useContext, useState } from "react";
 import { RxDownload } from "react-icons/rx";
 
-function CourseWorkAreaWithDocs({ data }) {
+function CourseWorkAreaWithDocs({ data, modalActive, setModalActive }) {
   const [modal, setModal] = useState(false);
 
   return (
@@ -18,12 +15,26 @@ function CourseWorkAreaWithDocs({ data }) {
         Access and manage documents shared across courses and sections for
         streamlined collaboration.
       </p>
-      <CommonButton
-        variant={"outline"}
-        onClick={() => setModal((prev) => !prev)}
-      >
-        Share new document
-      </CommonButton>
+      <div className="flex items-center gap-6">
+        <CommonButton
+          variant={"outline"}
+          onClick={() => {
+            setModal((prev) => !prev);
+            setModalActive("upload");
+          }}
+        >
+          Share new document
+        </CommonButton>
+        <CommonButton
+          variant={"outline"}
+          onClick={() => {
+            setModal((prev) => !prev);
+            setModalActive("student");
+          }}
+        >
+          Share to students
+        </CommonButton>
+      </div>
       <div className="mt-8 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4">
         {data?.data?.data?.documents.map((document, i) => {
           return (
@@ -50,7 +61,12 @@ function CourseWorkAreaWithDocs({ data }) {
           );
         })}
       </div>
-      {modal && <ShareDocumentModal setModal={setModal} />}
+      {modal && modalActive === "student" && (
+        <ShareDocumentModal setModal={setModal} />
+      )}
+      {modal && modalActive === "upload" && (
+        <UploadDocumentModal setModal={setModal} />
+      )}
     </div>
   );
 }

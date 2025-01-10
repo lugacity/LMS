@@ -33,6 +33,8 @@ const SharedDocs = () => {
   const { courseId } = useParams();
   const [queryString] = useSearchParams();
   const cohortId = queryString.get("cohortId");
+  const [modalActive, setModalActive] = useState("student");
+
   const { active } = useContext(ShareDocContext);
 
   const { isLoading, data, error, isRefetching } = useFetchSharedResources(
@@ -47,9 +49,16 @@ const SharedDocs = () => {
   return (
     <div>
       {data?.data?.data?.documents?.length > 0 ? (
-        <CourseWorkAreaWithDocs data={data} />
+        <CourseWorkAreaWithDocs
+          data={data}
+          modalActive={modalActive}
+          setModalActive={setModalActive}
+        />
       ) : (
-        <ShareDocsEmpty />
+        <ShareDocsEmpty
+          modalActive={modalActive}
+          setModalActive={setModalActive}
+        />
       )}
     </div>
   );
