@@ -2,14 +2,26 @@ import AdminNav from "@/Components/admindashboard/AdminNav";
 import LinkList from "@/Components/LinkList";
 import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa6";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import CourseWorkShareDocs from "./CourseWorkShareDocs";
 import CourseWorkAssignment from "./CourseWorkAssignment";
+import { useGetSingleCohort } from "@/hooks/course-management/use-get-singleCohorts";
 
 function CourseWorkAreaDocument() {
   const [tab, setTab] = useState("share-docs");
+  const [active, setActive] = useState(2);
+  const [queryString] = useSearchParams();
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const { courseId } = useParams();
+
+  const cohortId = queryString.get("cohortId");
+  const { isLoading, data, error } = useGetSingleCohort(courseId, cohortId);
 
   return (
     <div>
@@ -25,7 +37,7 @@ function CourseWorkAreaDocument() {
             <span className="text-sm capitalize text-[#667185]">Go back</span>
           </button>
           <p className="text-lg font-medium text-[#344054]">
-            Project Consultant Training Programme (Bundle) | May Cohort 2024
+            {queryString?.get("title")} | {queryString.get("cohort")}
           </p>
         </div>
       </AdminNav>
@@ -47,9 +59,29 @@ function CourseWorkAreaDocument() {
           </LinkList>
         </ul>
         <div>
-          {tab === "share-docs" && <CourseWorkShareDocs />}
+          {isLoading && <p>Loading...</p>}
+          {error && (
+            <p>{error?.response?.data?.message ?? "Something went wrong"}</p>
+          )}
+          {data && (
+            <>
+              {tab === "share-docs" && (
+                <CourseWorkShareDocs
+                  data={data}
+                  active={active}
+                  setActive={setActive}
+                />
+              )}
 
-          {tab === "assignments" && <CourseWorkAssignment />}
+              {tab === "assignments" && (
+                <CourseWorkAssignment
+                  data={data}
+                  active={active}
+                  setActive={setActive}
+                />
+              )}
+            </>
+          )}
         </div>
       </main>
     </div>

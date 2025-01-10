@@ -264,7 +264,7 @@ function App() {
               ],
             },
             {
-              path: "certificate",
+              path: ":courseId/certificate",
               element: <GetCertificate />,
             },
             {
@@ -422,60 +422,6 @@ function App() {
               ],
             },
 
-            // {
-            //   element: <ProjectAreaLayout />,
-            //   path: "project-area",
-            //   children: [
-            //     {
-            //       index: true,
-            //       element: <ProjectArea />,
-            //     },
-            //     {
-            //       path: ":courseId/general",
-            //       element: <General />,
-            //       // children: [
-            //       //   {
-            //       //     index: true,
-            //       //     element: <CourseProjectArea />,
-            //       //   },
-            //       //   {
-            //       //     path: "course-tool",
-            //       //     element: <CourseTools />,
-            //       //   },
-            //       // ],
-            //     },
-            //     {
-            //       path: ":courseId/group",
-            //       element: <GroupLayout />,
-            //       children: [
-            //         {
-            //           index: true,
-            //           element: <Groups />,
-            //         },
-            //         {
-            //           path: ":team",
-            //           element: <TeamLayout />,
-            //           children: [
-            //             {
-            //               index: true,
-            //               path: "course-project-area",
-            //               element: <CourseProjectArea />,
-            //             },
-            //             {
-            //               path: "course-tools",
-            //               element: <CourseTools />,
-            //             },
-            //             {
-            //               path: "student-management",
-            //               element: <StudentManagementTable />,
-            //             },
-            //           ],
-            //         },
-            //       ],
-            //     },
-            //   ],
-            // },
-
             {
               path: "course-work-area",
               element: <CourseWorkAreaLayout />,
@@ -487,16 +433,6 @@ function App() {
                 {
                   path: ":courseId/documents",
                   element: <CourseWorkAreaDocument />,
-                  // children: [
-                  //   {
-                  //     index: true,
-                  //     element: <CourseWorkShareDocs />,
-                  //   },
-                  //   {
-                  //     path: "assignment",
-                  //     element: <CourseWorkAssignment />,
-                  //   },
-                  // ],
                 },
               ],
             },

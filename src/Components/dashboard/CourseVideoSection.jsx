@@ -33,7 +33,7 @@ function CourseVideoSection({ data }) {
         <MobileSlideNav />
       </div>
       <div className="hidden lg:block">
-        <DesktopContent />
+        <DesktopContent data={data} />
       </div>
       <div className="lg:hidden">
         <MobileContent data={data} />

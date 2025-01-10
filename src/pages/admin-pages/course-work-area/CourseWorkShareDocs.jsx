@@ -8,20 +8,11 @@ import { createContext, useContext, useState } from "react";
 import { useFetchSharedResources } from "@/hooks/course-work-area/use-fetch-shared-resources";
 
 export const ShareDocContext = createContext({});
-function CourseWorkShareDocs() {
-  const [active, setActive] = useState(2);
-  const { courseId } = useParams();
-  const [queryString] = useSearchParams();
-
-  const cohortId = queryString.get("cohortId");
-  const { isLoading, data, error } = useGetSingleCohort(courseId, cohortId);
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>something went wrong</p>;
-
+function CourseWorkShareDocs({ data, active, setActive }) {
   return (
     <ShareDocContext.Provider value={{ active, setActive }}>
       <div className="grid grid-cols-[3fr_1.5fr] gap-7">
-        {data?.data?.data?.recorded_sessions.length < 1 || !active ? (
+        {data?.data?.data?.recorded_sessions.length < 1 ? (
           <>no document </>
         ) : (
           <SharedDocs />

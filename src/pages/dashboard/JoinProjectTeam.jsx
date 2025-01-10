@@ -87,12 +87,16 @@ function ProjectWithGroup({ data }) {
               </h3>
               <div className="rounded-lg border-2 border-gray-100 px-8 py-10">
                 <h3 className="text-[20px] font-[600]">{project.subtitle}</h3>
-                <p className="py-2 font-[12px] text-[#667185]">
+                <p className="pb-3 pt-[6px] font-[12px] text-[#667185] md:pb-4">
                   {project.description}
                 </p>
-                <DashButton className="mt-2 h-[40px] w-[177px] bg-[#CC1747] text-white hover:bg-[#b30e3b]">
+                <a
+                  href={project.link}
+                  target="_blank"
+                  className="mt-2 h-[40px] w-[177px] cursor-pointer rounded bg-[#CC1747] px-4 py-2 text-white transition duration-300 hover:bg-[#b30e3b] disabled:hover:bg-slate-200 lg:hover:bg-[#B3123F]"
+                >
                   {project.button_text}
-                </DashButton>
+                </a>
               </div>
             </div>
           );
@@ -153,21 +157,22 @@ function ToolsAndResources({ data }) {
         </h3>
       </div>
 
-      <div className="mt-6 grid w-full rounded-lg md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-6 grid w-full gap-6 rounded-lg md:grid-cols-2 lg:grid-cols-3">
         {data?.data?.data?.tools_and_resources.map((tools) => {
           return (
-            <div
-              className="mb-4 w-full text-justify md:mb-0 md:w-2/4"
-              key={tools.id}
-            >
+            <div className="mb-4 w-full text-justify md:mb-0" key={tools.id}>
               <div className="w-full flex-col justify-between rounded-lg border-2 border-gray-100 px-8 py-10">
                 <h3 className="text-[20px] font-[600]">{tools.title}</h3>
-                <p className="py-2 font-[12px] text-[#667185]">
+                <p className="pb-3 pt-[6px] font-[12px] text-[#667185] md:pb-4">
                   {tools.subtitle}
                 </p>
-                <DashButton className="mt-2 h-[40px] w-[177px] bg-[#CC1747] text-white hover:bg-[#b30e3b]">
+                <a
+                  href={tools.link}
+                  target="_blank"
+                  className="mt-2 h-[40px] w-[177px] cursor-pointer rounded bg-[#CC1747] px-4 py-2 text-white transition duration-300 hover:bg-[#b30e3b] disabled:hover:bg-slate-200 lg:hover:bg-[#B3123F]"
+                >
                   {tools.button_text}
-                </DashButton>
+                </a>
               </div>
             </div>
           );
