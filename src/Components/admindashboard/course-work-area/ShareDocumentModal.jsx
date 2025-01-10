@@ -1,19 +1,21 @@
 import BorderCard from "@/Components/BorderCard";
 import { CommonButton } from "@/Components/ui/button";
 import { useFetchAllLiveStudents } from "@/hooks/course-management/live-session/use-fetch-all-live-student";
+import { useAddUserToShareDocument } from "@/hooks/course-work-area/use-add-user-to-shared-resources";
+import { ShareDocContext } from "@/pages/admin-pages/course-work-area/CourseWorkShareDocs";
 import Modal from "@/pages/auth/components/Modal";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { useParams, useSearchParams } from "react-router-dom";
 
-const ShareDocumentModal = ({ setModal }) => {
+const ShareDocumentModal = ({ setModal, setModalActive }) => {
   return (
     <Modal>
       <BorderCard className="w-full max-w-[603px] rounded-lg bg-white">
         <div className="mb-7 flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-medium text-[#344054]">
-              Shared documents kladsjlkfjlk
+              Shared documents
             </h2>
             <p className="mt-2 max-w-[297px] text-sm text-[#667185]">
               Access and manage documents shared across courses and sections for
@@ -27,7 +29,7 @@ const ShareDocumentModal = ({ setModal }) => {
             cancel
           </CommonButton>
         </div>
-        <AllStudent />
+        <AllStudent setModal={setModal} />
 
         {/* <div className="mt-7 space-y-4">
           <div className="flex items-center justify-between">
@@ -59,28 +61,18 @@ const ShareDocumentModal = ({ setModal }) => {
             />
           </div>
         </div> */}
-        <div className="ml-auto mt-7 flex w-min items-center gap-4">
-          <CommonButton
-            variant={"outline"}
-            className="w-[150px]"
-            onClick={() => setModal((prev) => !prev)}
-          >
-            Back
-          </CommonButton>
-          <CommonButton className="w-[150px] bg-primary-color-600">
-            Next
-          </CommonButton>
-        </div>
       </BorderCard>
     </Modal>
   );
 };
 
-const AllStudent = () => {
+const AllStudent = ({ setModal }) => {
   const [queryString] = useSearchParams();
   const { courseId } = useParams();
   const cohortId = queryString.get("cohortId");
   const [students, setStudents] = useState([]);
+  const { mutate: addUser, isPending } = useAddUserToShareDocument();
+  const { active } = useContext(ShareDocContext);
 
   const handleCheckboxChange = (email, isChecked) => {
     if (isChecked) {
@@ -91,19 +83,36 @@ const AllStudent = () => {
       setStudents((prev) => prev.filter((e) => e !== email));
     }
   };
+
   const { data, isLoading, error } = useFetchAllLiveStudents(
     courseId,
     cohortId,
   );
+  const handleSubmit = () => {
+    addUser(
+      {
+        courseId,
+        cohortId,
+        section: active,
+        data: {
+          listOfEmails: students,
+        },
+      },
+      {
+        onSuccess: () => {
+          setModal((prev) => !prev);
+          setStudents([]);
+        },
+      },
+    );
+  };
   if (isLoading) return <p>Loading...</p>;
   if (error)
     return <p>{error?.response?.data?.message ?? "something went wrong"}</p>;
   if (data?.data?.data?.length < 1)
     return <p className="mt-6">No students in this cohort</p>;
-  if (data?.data?.data?.length > 1) {
+  if (data?.data?.data?.length > 0) {
     const allmail = data?.data?.data?.map((student) => student.email);
-
-    console.log({ data, isLoading, error });
 
     return (
       <>
@@ -152,6 +161,23 @@ const AllStudent = () => {
               );
             })}
           </div>
+        </div>
+
+        <div className="ml-auto mt-7 flex w-min items-center gap-4">
+          <CommonButton
+            variant={"outline"}
+            className="w-[150px]"
+            onClick={() => setModal((prev) => !prev)}
+          >
+            Back
+          </CommonButton>
+          <CommonButton
+            className="w-[150px] bg-primary-color-600"
+            disabled={students.length < 1 || isPending}
+            onClick={handleSubmit}
+          >
+            Next
+          </CommonButton>
         </div>
       </>
     );
