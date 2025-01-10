@@ -5,12 +5,50 @@ import { EllipsisVertical } from "lucide-react";
 import { FaCheck } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 
-function Assignments() {
+function formatDateString(dateString) {
+  // Create a new Date object from the ISO date string
+  const date = new Date(dateString);
+
+  // Define an array of month names
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  // Get the month, day, and year
+  const month = months[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+
+  // Get the hours and minutes
+  let hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  // Determine AM/PM and adjust hours
+  const amPm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12; // Convert 24-hour format to 12-hour format
+
+  // Construct the formatted date string
+  const formattedDate = `${month} ${day}, ${year} ${hours}:${minutes}${amPm}`;
+
+  return formattedDate;
+}
+function Assignments({ data }) {
   return (
     <>
       <header className="mt-7 flex items-center justify-between px-4 py-5">
         <p className="text-xl text-[#475367]">
-          Assignments({assignment.length})
+          Assignments({data?.data?.data?.assignments.length})
         </p>
         <div className="flex gap-6">
           <div className="flex w-full max-w-[528px] items-center gap-x-4 rounded-md border border-[#D0D5DD] px-4 py-2">
@@ -29,8 +67,8 @@ function Assignments() {
           <CommonButton variant={"outline"}>Filter</CommonButton>
         </div>
       </header>
-      <Table cols={"0.5fr 1fr 1.02fr 1.7fr 0.79fr 1fr 1fr"}>
-        <Table.Header className={"gap-1 *:text-sm *:font-medium *:capitalize"}>
+      <Table cols={"0.5fr 1fr 1.02fr 1.5fr 0.8fr 1fr 1fr"}>
+        <Table.Header className={"gap-2 *:text-sm *:font-medium *:capitalize"}>
           <h4>S/N</h4>
           <h4>Name </h4>
           <h4>Filename</h4>
@@ -41,23 +79,24 @@ function Assignments() {
         </Table.Header>
 
         <div className="divide-y">
-          {assignment.map((ass, i) => {
+          {data?.data?.data?.assignments.map((assignment, i) => {
             return (
-              <Table.Row key={i} className={"gap-1 *:text-sm"}>
+              <Table.Row key={i} className={"gap-2 *:text-sm"}>
                 <p>{i + 1 < 9 ? `0${i + 1}` : i + 1}</p>
                 <p className="*:block">
                   <span className="text-sm font-medium text-[#101928]">
-                    {ass.name}
+                    {assignment?.student_id?.firstname}{" "}
+                    {assignment?.student_id?.lastname}
                   </span>
                   <span className="w-20 overflow-x-hidden truncate text-sm text-[#475367]">
-                    {ass.email}
+                    {assignment?.student_id?.email}
                   </span>
                 </p>
-                <p>{ass.fileName}</p>
-                <p>{ass.additionalMessage}</p>
-                <p>{ass.date}</p>
-                <p>{ass.document}</p>
-                {ass.status ? (
+                <p>{assignment?.title}</p>
+                <p>{assignment.additional_informations}</p>
+                <p>{formatDateString(assignment.created_at)}</p>
+                <p>{assignment.file_details.name}</p>
+                {assignment.status === "not reviewed" ? (
                   <span
                     role="button"
                     className="flex h-min cursor-pointer items-center justify-center rounded-full bg-primary-color-600 text-white"

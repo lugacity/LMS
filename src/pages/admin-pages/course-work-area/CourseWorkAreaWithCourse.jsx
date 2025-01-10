@@ -26,7 +26,9 @@ function CourseWorkAreaWithCourse({ data }) {
   };
 
   const handleNext = (id) => {
-    navigate(`${id}/documents?cohortId=${selectedCohort.cohortId}`);
+    navigate(
+      `${id}/documents?cohortId=${selectedCohort.cohortId}&title=${selectedCourse.title}&cohort=${selectedCohort.cohort}`,
+    );
   };
 
   return (

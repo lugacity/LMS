@@ -15,6 +15,8 @@ function ShareDocument({ editButton = false }) {
     topic: "",
   });
 
+  const [sectionActive, setSectionActive] = useState(2);
+
   const [videoId, setVideoId] = useState("");
 
   const [sections, setSections] = useState({
@@ -40,6 +42,8 @@ function ShareDocument({ editButton = false }) {
         setSections,
         videoId,
         setVideoId,
+        sectionActive,
+        setSectionActive,
       }}
     >
       <ScrollRestoration />

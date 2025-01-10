@@ -13,7 +13,7 @@ import { CommonButton } from "../ui/button";
 function CourseSection({ editButton, data }) {
   const [active, setActive] = useState("1");
   const [videoActive, setvideoActive] = useState("");
-  const { setSession, setSectionDetails, setVideoId } =
+  const { setSession, setSectionDetails, setVideoId, setSectionActive } =
     useContext(DocumentContext);
 
   return (
@@ -91,6 +91,7 @@ function CourseSection({ editButton, data }) {
                     )}
                     onClick={() => {
                       setActive(section.id);
+                      setSectionActive(section.section);
                     }}
                   >
                     <div className="text-left">

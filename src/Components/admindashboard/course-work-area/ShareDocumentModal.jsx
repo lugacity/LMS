@@ -13,7 +13,7 @@ const ShareDocumentModal = ({ setModal }) => {
         <div className="mb-7 flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-medium text-[#344054]">
-              Shared documents
+              Shared documents kladsjlkfjlk
             </h2>
             <p className="mt-2 max-w-[297px] text-sm text-[#667185]">
               Access and manage documents shared across courses and sections for
@@ -27,8 +27,8 @@ const ShareDocumentModal = ({ setModal }) => {
             cancel
           </CommonButton>
         </div>
-
         <AllStudent />
+
         {/* <div className="mt-7 space-y-4">
           <div className="flex items-center justify-between">
             <p className="text-sm text-[#667185]">thekdfisher@email.com</p>
@@ -59,9 +59,12 @@ const ShareDocumentModal = ({ setModal }) => {
             />
           </div>
         </div> */}
-
         <div className="ml-auto mt-7 flex w-min items-center gap-4">
-          <CommonButton variant={"outline"} className="w-[150px]">
+          <CommonButton
+            variant={"outline"}
+            className="w-[150px]"
+            onClick={() => setModal((prev) => !prev)}
+          >
             Back
           </CommonButton>
           <CommonButton className="w-[150px] bg-primary-color-600">
@@ -99,6 +102,8 @@ const AllStudent = () => {
     return <p className="mt-6">No students in this cohort</p>;
   if (data?.data?.data?.length > 1) {
     const allmail = data?.data?.data?.map((student) => student.email);
+
+    console.log({ data, isLoading, error });
 
     return (
       <>
