@@ -43,6 +43,7 @@ function formatDateString(dateString) {
 
   return formattedDate;
 }
+
 function Assignments({ data }) {
   return (
     <>
@@ -95,7 +96,19 @@ function Assignments({ data }) {
                 <p>{assignment?.title}</p>
                 <p>{assignment.additional_informations}</p>
                 <p>{formatDateString(assignment.created_at)}</p>
-                <p>{assignment.file_details.name}</p>
+
+                <p>
+                  <a
+                    href={assignment.file_details?.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download
+                    className="text-primary-color-600 underline transition duration-300 ease-in-out hover:text-primary-color-500"
+                  >
+                    {assignment.file_details?.name}
+                  </a>
+                </p>
+
                 {assignment.status === "not reviewed" ? (
                   <span
                     role="button"
