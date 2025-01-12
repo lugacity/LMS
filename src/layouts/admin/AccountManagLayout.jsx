@@ -1,21 +1,17 @@
-import { useState } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
 import AdminNav from "@/Components/admindashboard/AdminNav";
+import { useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 // import { cn } from "@/lib/utils";
+import CreateAdminRole from "@/Components/admindashboard/account-management/CreateAdminRole";
+import BorderCard from "@/Components/BorderCard";
 import DashButton from "@/pages/auth/ButtonDash";
 import Modal from "@/pages/auth/components/Modal";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BorderCard from "@/Components/BorderCard";
-import { Popover, PopoverContent } from "@/Components/ui/popover";
-import { AdminSelectOption } from "@/Components/admindashboard/account-management/AdminSelectOption";
-import CreateAdminRole from "@/Components/admindashboard/account-management/CreateAdminRole";
 
 const AccountManagLayout = () => {
   const { pathname } = useLocation();
-  const [adminModal, setAdminModal] = useState();
-
-
+  const [adminModal, setAdminModal] = useState(false);
 
   return (
     <div>
@@ -44,7 +40,7 @@ const AccountManagLayout = () => {
               <FontAwesomeIcon icon={faTimes} />
             </button>
 
-            <CreateAdminRole/>
+            <CreateAdminRole setModal={setAdminModal} />
           </BorderCard>
         </Modal>
       )}
@@ -53,4 +49,3 @@ const AccountManagLayout = () => {
 };
 
 export default AccountManagLayout;
-

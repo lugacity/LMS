@@ -1,6 +1,18 @@
 import BorderCard from "@/Components/BorderCard";
+import { TrashCan } from "@/Components/Icon";
+import Table from "@/Components/Table";
 import { CommonButton } from "@/Components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/Components/ui/select";
 import { useDeleteAdmin } from "@/hooks/account-management/use-delete-admin";
+import { useEditAdminRole } from "@/hooks/account-management/use-edit-admin-role";
 import { useFetchAccountManagement } from "@/hooks/account-management/use-fetch-all-account-management";
 import DashButton from "@/pages/auth/ButtonDash";
 import Modal from "@/pages/auth/components/Modal";
@@ -15,10 +27,12 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Save } from "lucide-react";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
 
-function formatDateString(dateString) {
+function formapateString(dateString) {
   const date = new Date(dateString);
 
   // Define an array of month names
@@ -39,7 +53,7 @@ function formatDateString(dateString) {
 
   // Get the month, day, and year
   const month = months[date.getMonth()];
-  const day = date.getDate();
+  const day = date.gepate();
   const year = date.getFullYear();
 
   // Get the hours and minutes
@@ -59,14 +73,13 @@ function formatDateString(dateString) {
 const AccountManagementPage = () => {
   const [modalDeleteAcc, setModalDeleteAcc] = useState(false);
   const [selectedAccount, setSelectedAccount] = useState(null);
+  const [adminToEdit, setAdminToEdit] = useState({});
 
-  const { adminData, isLoading, isError } = useFetchAccountManagement();
-  console.log(" Admin Info", adminData);
-  console.log("Is Loading Admin Ifon", isLoading);
+  const { data: adminData, isLoading, error } = useFetchAccountManagement();
 
-  const { delAdmin, isLoading: isDeleting } = useDeleteAdmin();
-  console.log("Delete Admin Info", delAdmin);
-  console.log("Is Pending Admin Ifon", isDeleting);
+  const { mutate, isPending: isEditing } = useEditAdminRole();
+
+  const { delAdmin, isPending } = useDeleteAdmin();
 
   // Function to delete account by id
   const handleDeleteAcc = () => {
@@ -77,6 +90,32 @@ const AccountManagementPage = () => {
       //   console.log("Deleted Admin",selectedAccount.id);
     }
   };
+
+  const handleEdit = (account) => {
+    if (account.id !== adminToEdit.id || !adminToEdit.id) {
+      toast.error("Select a role for the admin");
+      return;
+    }
+
+    const data = {
+      first_name: account.firstname,
+      last_name: account.lastname,
+      role: adminToEdit.role,
+    };
+
+    console.log(data);
+    mutate(
+      { data, adminId: adminToEdit.id },
+      {
+        onSuccess: () => setAdminToEdit({}),
+      },
+    );
+  };
+
+  if (isLoading) return <p>Loading...</p>;
+
+  if (error)
+    return <p>{error?.response?.data?.message ?? "Something went wrong"}</p>;
 
   return (
     <div>
@@ -129,60 +168,94 @@ const AccountManagementPage = () => {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-300 bg-white text-[13px] text-[#344054]">
-          <thead>
-            <tr className="min-w-full border-0 border-red-500 bg-[#E4E7EC]">
-              <th className="border-b p-4 text-left">S/N</th>
-              <th className="border-b p-4 text-left">Name</th>
-              <th className="border-b p-4 text-left">Email Address</th>
-              <th className="border-b p-4 text-left">Roles</th>
-              <th className="border-b p-4 text-left">Joined</th>
-              <th className="border-b p-4 text-left">Action</th>
-            </tr>
-          </thead>
-          {isError ? (
-            "Network issue"
-          ) : isLoading ? (
-            "Loading.."
-          ) : (
-            <tbody className="text-[14px]">
-              {adminData?.data?.data?.admins?.map((account, id) => (
-                <tr key={id}>
-                  <td className="border-b p-4">{id + 1}</td>
-                  <td className="border-b p-4">
+        <Table cols={"0.3fr 0.9fr 1fr 0.8fr 0.8fr 0.8fr"}>
+          <Table.Header
+            className={"gap-2 *:text-sm *:font-medium *:capitalize"}
+          >
+            <p>S/N</p>
+            <p>Name</p>
+            <p>Email Address</p>
+            <p>Roles</p>
+            <p>Joined</p>
+            <p>Action</p>
+          </Table.Header>
+          {
+            <div className="text-[14px]">
+              {adminData?.data?.data?.admins?.map((account, i) => (
+                <Table.Row
+                  key={account.id}
+                  className={"gap-2 border-b border-[#D0D5DD] *:text-sm"}
+                >
+                  <p className="text-[#344054]">
+                    {i + 1 < 9 ? `0${i + 1}` : i + 1}
+                  </p>
+                  <p className="text-sm font-medium text-[#101928]">
                     {account.firstname} {account.lastname}
-                  </td>
-                  <td className="border-b p-4">{account.email}</td>
-                  <td className="border-b p-4">{account.role}</td>
-                  <td className="border-b p-4">
+                  </p>
+                  <p className="truncate text-[#475367]">{account.email}</p>
+                  {/* <p>{account.role}</p> */}
+                  <div>
+                    <Select
+                      onValueChange={(value) => {
+                        setAdminToEdit({ id: account.id, role: value });
+                      }}
+                    >
+                      <SelectTrigger className="w-full items-start border-none p-0 ring-0 focus:ring-0 focus:ring-offset-0">
+                        <SelectValue placeholder={account.role} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          <SelectItem value="Financial Admin">
+                            Financial Admin
+                          </SelectItem>
+                          <SelectItem value="Content Manager">
+                            Content Manager
+                          </SelectItem>
+                          <SelectItem value="Course Admin">
+                            Course Admin
+                          </SelectItem>
+                          <SelectItem value="Super Admin">
+                            Super Admin
+                          </SelectItem>
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <p>
                     {account.joined_date
-                      ? formatDateString(account.joined_date)
+                      ? formapateString(account.joined_date)
                       : "N/A"}
-                  </td>
+                  </p>
 
-                  <td className="flex justify-between gap-2 border-b p-3">
-                    <DashButton className="rounded text-white">
-                      <FontAwesomeIcon icon={faEdit} /> {account.actionEdit}
-                    </DashButton>
+                  <div className="flex items-center justify-between">
+                    <button
+                      className="flex items-center gap-2 rounded bg-primary-color-600 px-3 py-2 font-normal text-white disabled:opacity-50"
+                      onClick={() => handleEdit(account)}
+                      disabled={isEditing || account.id !== adminToEdit.id}
+                    >
+                      <Save className="h-3 w-3" />
+                      <span className="text-sm">save</span>
+                    </button>
 
-                    <DashButton
+                    <button
+                      className="flex items-center gap-2 rounded border px-3 py-2 font-normal text-[#3A4C6C] disabled:opacity-50"
                       onClick={() => {
                         setSelectedAccount(account);
                         setModalDeleteAcc(true);
                       }}
-                      className="rounded border border-gray-500 bg-white text-gray-600 lg:hover:bg-white"
                     >
-                      <FontAwesomeIcon icon={faTrash} /> {account.actionDel}
-                    </DashButton>
-                  </td>
-                </tr>
+                      <TrashCan />
+                      Delete
+                    </button>
+                  </div>
+                </Table.Row>
               ))}
-            </tbody>
-          )}
-        </table>
+            </div>
+          }
+        </Table>
       </div>
 
-      {modalDeleteAcc && selectedAccount && (
+      {modalDeleteAcc && (
         <Modal>
           <BorderCard className="w-2/5 rounded-lg bg-white p-6 shadow-lg">
             <button
@@ -217,9 +290,9 @@ const AccountManagementPage = () => {
                 <CommonButton
                   onClick={handleDeleteAcc}
                   className="hover:bg-primary-color-700 ml-6 rounded-md bg-primary-color-600 px-9 py-2 text-white"
-                  disabled={isDeleting}
+                  disabled={isPending}
                 >
-                  {isDeleting ? "Deleting..." : "Delete"}
+                  {isPending ? "Deleting..." : "Delete"}
                 </CommonButton>
               </div>
             </div>

@@ -4,17 +4,14 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
-
 const BASE_URL = `https://avi-lms-backend.onrender.com/api/v1/admins`;
 
-const createAdminRole = async (data) => {
-  const url = `${BASE_URL}`;
-  return axios.post(url, data, {
+const createAdminRole = async (data) =>
+  await axios.post(BASE_URL, data, {
     headers: {
       Authorization: `Bearer ${Cookies.get("adminToken")}`,
     },
   });
-};
 
 export const useCreateAdminRole = () => {
   const queryClient = useQueryClient();
@@ -25,7 +22,7 @@ export const useCreateAdminRole = () => {
       queryClient.invalidateQueries("get-all-admins-account");
     },
     onError: (error) => {
-      toast.error(error.response.data.message || "Something went wrong");
+      toast.error(error?.response?.data?.message || "Something went wrong");
     },
   });
 
