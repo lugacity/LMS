@@ -1,11 +1,20 @@
-import React from "react";
-import { AdminSelectOption } from "./AdminSelectOption";
-import DashButton from "@/pages/auth/ButtonDash";
-import { useCreateAdminRole } from "@/hooks/account-management/use-create-admin-role";
-import { useForm, FormProvider } from "react-hook-form"; // Import FormProvider
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod"; // Add zod for schema validation
+import { Form } from "@/Components/ui/form";
 import FormInput from "@/Components/ui/form-input";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/Components/ui/select";
+import { useCreateAdminRole } from "@/hooks/account-management/use-create-admin-role";
+import DashButton from "@/pages/auth/ButtonDash";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form"; // Import FormProvider
+import { z } from "zod"; // Add zod for schema validation
 
 // Define schema for form validation using Zod
 const sessionSchema = z.object({
@@ -17,7 +26,7 @@ const sessionSchema = z.object({
     .string()
     .min(1, { message: "This field is required" })
     .max(70, { message: "you've reached the max character length" }),
- 
+
   email: z
     .string()
     .min(1, { message: "This field is required" })
@@ -25,10 +34,10 @@ const sessionSchema = z.object({
     .email({ message: "Invalid email address" }), // Add email validation
 });
 
-const CreateAdminRole = () => {
+const CreateAdminRole = ({ setModal }) => {
   const { create, isPending } = useCreateAdminRole();
-  console.log("successfully created", create);
-  console.log("is creating", isPending);
+  const [adminRole, setAdminRole] = useState("");
+  const [error, setError] = useState("");
 
   const form = useForm({
     resolver: zodResolver(sessionSchema), // Use schema for validation
@@ -41,8 +50,14 @@ const CreateAdminRole = () => {
   });
 
   const onSubmit = (data) => {
-    create(data); 
-    console.log("Form Data:", data);
+    if (!adminRole) return setError("select a role for the admin");
+    const adminData = {
+      ...data,
+      role: adminRole,
+    };
+    create(adminData, {
+      onSuccess: () => setModal(false),
+    });
   };
 
   return (
@@ -52,73 +67,87 @@ const CreateAdminRole = () => {
         <h3 className="text-[20px] font-[500] text-[#344054] lg:text-[24px]">
           Add New Admin
         </h3>
-        <p className="text-[#667185]">Enter credentials to create admin account</p>
+        <p className="text-[#667185]">
+          Enter credentials to create admin account
+        </p>
       </div>
 
-      <FormProvider {...form}>
+      <Form {...form}>
         {/* Wrap the form with FormProvider */}
         <form onSubmit={form.handleSubmit(onSubmit)}>
           {/* First Name Field */}
           <div className="mb-4">
             <p className="font-[500]">First Name</p>
             <FormInput
+              type="text"
               name="first_name"
+              id="first_name"
               control={form.control}
               placeholder="Enter First Name"
               className="w-full rounded border border-gray-300 p-3"
             />
-            {/* Show error message */}
-            {form.formState.errors.first_name && (
-              <p className="text-red-500 text-sm">
-                {form.formState.errors.first_name.message}
-              </p>
-            )}
           </div>
 
           {/* Last Name Field */}
           <div className="mb-4">
             <p className="font-[500]">Last Name</p>
             <FormInput
+              type="text"
               name="last_name"
+              id="last_name"
               control={form.control}
               placeholder="Enter Last Name"
               className="w-full rounded border border-gray-300 p-3"
             />
-            {/* Show error message */}
-            {form.formState.errors.last_name && (
-              <p className="text-red-500 text-sm">
-                {form.formState.errors.last_name.message}
-              </p>
-            )}
           </div>
 
           {/* Email Address Field */}
           <div className="mb-6">
             <p className="font-[500]">Email Address</p>
             <FormInput
+              type="email"
               name="email"
+              id="email"
               control={form.control}
               placeholder="Enter Email Address"
               className="w-full rounded border border-gray-300 p-3"
             />
-            {/* Show error message */}
-            {form.formState.errors.email && (
-              <p className="text-red-500 text-sm">
-                {form.formState.errors.email.message}
-              </p>
-            )}
           </div>
 
           {/* Admin Role Field */}
           <div className="mb-6">
             <p className="font-[500]">Select Admin Role</p>
-            <AdminSelectOption name="role" control={form.control} />
+            <Select
+              onValueChange={(value) => {
+                setError("");
+                setAdminRole(value);
+              }}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select Admin Role" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Select Admin Role</SelectLabel>
+                  <SelectItem value="Financial Admin">
+                    Financial Admin
+                  </SelectItem>
+                  <SelectItem value="Content Manager">
+                    Content Manager
+                  </SelectItem>
+                  <SelectItem value="Course Admin">Course Admin</SelectItem>
+                  <SelectItem value="Super Admin">Super Admin</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
             {/* Show error message */}
-            {form.formState.errors.role && (
-              <p className="text-red-500 text-sm">
-                {form.formState.errors.role.message}
-              </p>
-            )}
+            <p>
+              {error ? (
+                <span className="text-[#ff0000]">{error}</span>
+              ) : (
+                <span></span>
+              )}
+            </p>
           </div>
 
           {/* Submit Button */}
@@ -132,7 +161,7 @@ const CreateAdminRole = () => {
             </DashButton>
           </div>
         </form>
-      </FormProvider>
+      </Form>
     </div>
   );
 };

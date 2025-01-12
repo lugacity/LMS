@@ -16,7 +16,7 @@ const deleteAdmin = ({ adminId }) => {
 
 export const useDeleteAdmin = () => {
   const queryClient = useQueryClient();
-  const { mutate: delAdmin, isLoading } = useMutation({
+  const { mutate: delAdmin, isPending } = useMutation({
     mutationFn: deleteAdmin,
     onSuccess: () => {
       toast.success("Admin deleted successfully");
@@ -27,5 +27,5 @@ export const useDeleteAdmin = () => {
       toast.error(err?.response?.data?.message ?? "something went wrong");
     },
   });
-  return { delAdmin, isLoading };
+  return { delAdmin, isPending };
 };

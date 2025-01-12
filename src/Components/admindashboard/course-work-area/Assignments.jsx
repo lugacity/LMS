@@ -1,5 +1,6 @@
 import Table from "@/Components/Table";
 import { CommonButton } from "@/Components/ui/button";
+import { useUpdateAssignment } from "@/hooks/course-work-area/use-update-assignment-status";
 import { assignment } from "@/lib/assignment";
 import { EllipsisVertical } from "lucide-react";
 import { FaCheck } from "react-icons/fa6";
@@ -45,6 +46,19 @@ function formatDateString(dateString) {
 }
 
 function Assignments({ data }) {
+  const { mutate, isPending } = useUpdateAssignment();
+
+  const handleStatusUpdate = (courseId, cohortId, section, assignmentId) => {
+    mutate({
+      courseId,
+      cohortId,
+      assignmentId,
+      section,
+      data: {
+        status: "reviewed",
+      },
+    });
+  };
   return (
     <>
       <header className="mt-7 flex items-center justify-between px-4 py-5">
@@ -82,7 +96,7 @@ function Assignments({ data }) {
         <div className="divide-y">
           {data?.data?.data?.assignments.map((assignment, i) => {
             return (
-              <Table.Row key={i} className={"gap-2 *:text-sm"}>
+              <Table.Row key={assignment.id} className={"gap-2 *:text-sm"}>
                 <p>{i + 1 < 9 ? `0${i + 1}` : i + 1}</p>
                 <p className="*:block">
                   <span className="text-sm font-medium text-[#101928]">
@@ -110,12 +124,21 @@ function Assignments({ data }) {
                 </p>
 
                 {assignment.status === "not reviewed" ? (
-                  <span
+                  <button
                     role="button"
-                    className="flex h-min cursor-pointer items-center justify-center rounded-full bg-primary-color-600 text-white"
+                    className="flex h-min cursor-pointer items-center justify-center rounded-full bg-primary-color-600 text-white disabled:pointer-events-none disabled:opacity-50"
+                    onClick={() =>
+                      handleStatusUpdate(
+                        assignment.course_id,
+                        assignment.cohort_id,
+                        assignment.section,
+                        assignment.id,
+                      )
+                    }
+                    disabled={isPending}
                   >
                     Not reviewed
-                  </span>
+                  </button>
                 ) : (
                   <span className="flex h-min items-center justify-center space-x-1 rounded-full bg-[#F3FFF7] capitalize text-[#00A92F]">
                     <span>

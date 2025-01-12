@@ -9,13 +9,12 @@ const BASE_URL = `https://avi-lms-backend.onrender.com/api/v1/admins`;
 const fetchAccountManagement = async () => {
   const token = Cookies.get("adminToken");
 
-
   if (!token) {
     throw new Error("No token found. Please log in.");
   }
 
   // Return the axios request
-  return axios.get(BASE_URL, {
+  return await axios.get(BASE_URL, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -23,11 +22,8 @@ const fetchAccountManagement = async () => {
 };
 
 // Custom hook to fetch account management data
-export const useFetchAccountManagement = () => {
-  const { data: adminData, isLoading, isError } = useQuery({
+export const useFetchAccountManagement = () =>
+  useQuery({
     queryKey: ["get-all-admins-account"],
     queryFn: fetchAccountManagement,
   });
-
-  return { adminData, isLoading, isError };
-};
