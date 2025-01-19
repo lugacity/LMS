@@ -14,6 +14,7 @@ import DashButton from "@/pages/auth/ButtonDash";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form"; // Import FormProvider
+import { ScrollRestoration } from "react-router-dom";
 import { z } from "zod"; // Add zod for schema validation
 
 // Define schema for form validation using Zod
@@ -34,7 +35,7 @@ const sessionSchema = z.object({
     .email({ message: "Invalid email address" }), // Add email validation
 });
 
-const CreateAdminRole = ({ setModal }) => {
+const CreateAdminRole = ({ setTab }) => {
   const { create, isPending } = useCreateAdminRole();
   const [adminRole, setAdminRole] = useState("");
   const [error, setError] = useState("");
@@ -56,12 +57,13 @@ const CreateAdminRole = ({ setModal }) => {
       role: adminRole,
     };
     create(adminData, {
-      onSuccess: () => setModal(false),
+      onSuccess: () => setTab("confirm"),
     });
   };
 
   return (
     <div>
+      <ScrollRestoration />
       {/* Coupon Creation Content */}
       <div className="space-y-4 pb-8">
         <h3 className="text-[20px] font-[500] text-[#344054] lg:text-[24px]">
@@ -71,6 +73,8 @@ const CreateAdminRole = ({ setModal }) => {
           Enter credentials to create admin account
         </p>
       </div>
+
+      <button onClick={() => setTab("confirm")}>change tab</button>
 
       <Form {...form}>
         {/* Wrap the form with FormProvider */}
