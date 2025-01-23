@@ -8,11 +8,9 @@ import DashButton from "@/pages/auth/ButtonDash";
 import Modal from "@/pages/auth/components/Modal";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AdminConfirmationRole from "@/Components/admindashboard/account-management/AdminConfirmationRole";
 
 const AccountManagLayout = () => {
   const [adminModal, setAdminModal] = useState(false);
-  const [tab, setTab] = useState("create");
 
   return (
     <div>
@@ -40,12 +38,7 @@ const AccountManagLayout = () => {
             >
               <FontAwesomeIcon icon={faTimes} />
             </button>
-            {tab === "create" && (
-              <CreateAdminRole setModal={setAdminModal} setTab={setTab} />
-            )}
-            {tab === "confirm" && (
-              <AdminConfirmationRole setModal={setAdminModal} setTab={setTab} />
-            )}
+            <CreateAdminRole setModal={setAdminModal} />
 
             {/* <CreateAdminRole setModal={setAdminModal} /> */}
           </BorderCard>

@@ -31,7 +31,7 @@ const formSchema = z
     path: ["confirmPassword"],
   });
 
-export default function AdminConfirmationRole({ setAdminModal, setTab }) {
+export default function AdminConfirmationRole() {
   const { create, isPending } = useCreateAdminPassword();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -54,12 +54,7 @@ export default function AdminConfirmationRole({ setAdminModal, setTab }) {
       },
       {
         onSuccess: () => {
-          setAdminModal(false);
-          setTab("create");
-        },
-        onError: () => {
-          setAdminModal(false);
-          setTab("create");
+          form.reset();
         },
       },
     );
@@ -69,7 +64,10 @@ export default function AdminConfirmationRole({ setAdminModal, setTab }) {
     <>
       <ScrollRestoration />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-full max-w-[600px] space-y-8 py-16"
+        >
           <div className="space-y-4 pb-8">
             <h3 className="text-[20px] font-[500] text-[#344054] lg:text-[24px]">
               Create your password
@@ -103,14 +101,6 @@ export default function AdminConfirmationRole({ setAdminModal, setTab }) {
             control={form.control}
           />
           <div className="ml-auto flex w-max items-center gap-6">
-            <CommonButton
-              type="button"
-              className=""
-              disabled={isPending}
-              onClick={() => setTab("create")}
-            >
-              Back
-            </CommonButton>
             <CommonButton
               type="submit"
               className="ml-auto block w-max bg-primary-color-600"
