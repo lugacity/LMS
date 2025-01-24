@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { slice } from "lodash";
 
-function Courses({ wishlist, handleWishlist }) {
+function Courses({ wishlist, handleRemove }) {
   const {  title, average_rating, total_reviews, id } = wishlist;
   const renderStars = () => {
     const stars = [];
@@ -17,8 +17,12 @@ function Courses({ wishlist, handleWishlist }) {
   };
 
   return (
-    <div className="overflow-hidden  rounded-lg">
-      <img src={wishlist.cover_image} className="lg:h-[200px] h-[180px]" alt={title} />
+    <div className="overflow-hidden rounded-lg">
+      <img
+        src={wishlist.cover_image}
+        className="h-[180px] "
+        alt={title}
+      />
       <div className="bg-[#FCFCFC] px-[10px] py-3">
         <p className="text-xs text-tertiary-color-900 md:max-w-[190px] md:text-[14px]">
           {title.length > 24 ? `${title.slice(0, 22)}...` : title}
@@ -29,9 +33,7 @@ function Courses({ wishlist, handleWishlist }) {
           </span>
           <div className="flex items-center text-xs">{renderStars()}</div>
           <span className="text-xs font-light text-[#566B8E]">
-            {total_reviews
-              ? `(${total_reviews}-review)`
-              : "(No review)"}
+            {total_reviews ? `(${total_reviews}-review)` : "(No review)"}
           </span>
         </div>
         <div className="h-px w-full bg-primary-color-500" />
@@ -41,8 +43,8 @@ function Courses({ wishlist, handleWishlist }) {
             {wishlist.price}
           </span> */}
           <button
-            className=" font-light text-[#566b8e] "
-            onClick={() => handleWishlist(id)}
+            className="font-light text-[14px] text-[#566b8e]"
+            onClick={() => handleRemove(id)}
           >
             Remove
           </button>
