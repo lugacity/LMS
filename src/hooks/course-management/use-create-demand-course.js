@@ -8,13 +8,11 @@ export function useCreateOnDemandCourse() {
     mutationFn: addDemandSection,
     onSuccess: ({ data }) => {
       toast.success(data.message);
-      queryClient.invalidateQueries({
-        queryKey: ["get-demand-course"],
-      });
+      queryClient.invalidateQueries("get-demand-course");
     },
     onError: (err) =>
       toast.error(err.response.data.message || "something went wrong"),
   });
 
-  return { createOnDemandCourse, isCreating }
+  return { createOnDemandCourse, isCreating, }
 }

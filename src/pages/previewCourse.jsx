@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import styles from "./pages.module.css";
-import joinTeam from "../assets/images/join_team.png";
+// import joinTeam from "../assets/video/homeBG.mp4";
 import CourseCard from "../Components/CourseCard";
 import ImageOverlay from "../Components/ImageOverlay";
 import iconDark from "../assets/icons/icon-dark.png";
@@ -16,32 +16,45 @@ import { WhiteLogo } from "../Components/Logo";
 import certificate from "../assets/images/certificate.png";
 import professionalBG from "../assets/images/proffessional.png";
 import AviNav from "../Components/avi/AviNav";
-import { ScrollRestoration } from "react-router-dom";
+import { ScrollRestoration, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import Container from "@/Components/Container";
 import CourseCardPreview from "@/Components/CourseCardPreview";
 import { industriesItems, professionalItems } from "@/lib/professionalItems";
 import RenderStars from "@/Components/RenderStars";
+import {
+  useFetchAllCourses,
+  usePreviewCourses,
+} from "@/hooks/students/use-fetch-all-courses";
+import { Skeleton } from "@/Components/ui/skeleton";
+import Cookies from "js-cookie";
 
-const PreviewCourse = ({ features }) => {
+const PreviewCourse = () => {
   const navigate = useNavigate();
+  const { data, isLoading: isFetching } = useFetchAllCourses();
 
-  // Ensure features is defined, falling back to default courseFeatures
-  const courseFeatures = features || [
-    "18 hours on-demand video",
-    "Access on mobile and TV",
-    "Full lifetime access",
-    "Certificate of completion",
-  ];
+  const { courseId } = useParams();
+
+  const token = Cookies.get("token");
+
+  const user = Boolean(token);
+
+  const { previewCourse, isLoading } = usePreviewCourses(courseId);
+  const path = !user
+    ? "/signup"
+    : `/preview-video-course/${courseId}/enroll?title=${previewCourse?.data?.data.course.title}`;
+  console.log("previewCourse", previewCourse);
 
   return (
     <>
       <ScrollRestoration />
 
-      <div className="hidden lg:block">
-        <AviNav />
-      </div>
+      {!user && (
+        <div className="hidden lg:block">
+          <AviNav />
+        </div>
+      )}
 
       {/* Search for more {`${styles.checkout_courses}`} #23314A courses */}
       <section>
@@ -71,10 +84,7 @@ const PreviewCourse = ({ features }) => {
               {/* Back Button for Mobile View */}
               <Container>
                 <div className="mb-4 flex items-center lg:hidden lg:pt-9">
-                  <button
-                    onClick={() => navigate("/avi")}
-                    className="text-white"
-                  >
+                  <button onClick={() => navigate(-1)} className="text-white">
                     <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
                   </button>
                 </div>
@@ -91,32 +101,38 @@ const PreviewCourse = ({ features }) => {
 
                       <div className="flex items-center py-2 text-lg">
                         <p>4.3</p>
-                        <p>
+                        <div>
                           <RenderStars />
-                        </p>
+                        </div>
                         <p>43,55</p>
                       </div>
 
                       <div className="text-white">
                         <p className="py-2 text-2xl">This course Includes:</p>
                         <ul className="m-0 list-none p-0">
-                          {courseFeatures.map((feature, index) => (
-                            <li key={index} className="mb-2">
-                              <FontAwesomeIcon
-                                icon={faCheckCircle}
-                                className="mr-2"
-                              />
-                              <span>{feature}</span>
-                            </li>
-                          ))}
+                          {isLoading
+                            ? "loading"
+                            : previewCourse?.data?.data.course.course_includes.map(
+                                (feature, index) => (
+                                  <li key={index} className="mb-2">
+                                    <FontAwesomeIcon
+                                      icon={faCheckCircle}
+                                      className="mr-2"
+                                    />
+                                    <span>{feature}</span>
+                                  </li>
+                                ),
+                              )}
                         </ul>
                       </div>
                     </div>
 
                     <div className={styles.project_consult1}>
                       <CourseCardPreview
-                        imgSrc={joinTeam}
-                        previewButtonText="Enroll now"
+                        imgSrc={previewCourse?.data?.data.course.cover_image}
+                        previewButtonText={"Enroll now"}
+                        path={path}
+                        loading={isLoading}
                       />
                     </div>
                   </div>
@@ -130,221 +146,31 @@ const PreviewCourse = ({ features }) => {
         <Container>
           <div className="pt-[50px]">
             <div className={styles.overviewFlex}>
-              <div
-                className={`${styles.overviewCourses1} text-justify text-[#667185]`}
-              >
-                <p className="text-[24px] font-[300] capitalize lg:text-[40px]">
-                  Overview
-                </p>
+              <Overview
+                loading={isLoading}
+                overview={previewCourse?.data?.data.course.overview}
+              />
 
-                <div className="mt-2 hidden h-[1px] w-full bg-[#C7D7F4] lg:block" />
-
-                <p className="pt-3 text-[16px] font-[300] lg:pt-9 lg:text-[18px]">
-                  The 3.5 Months Project Consultant Training Programme (Bundle)
-                  is a comprehensive and intensive course designed for aspiring
-                  project consultants who aim to excel in the dynamic field of
-                  project management. Scheduled to commence in May 2024, this
-                  training programme equips participants with the essential
-                  skills, knowledge, and hands-on experience necessary to thrive
-                  as project consultants in various industries.
-                </p>
-              </div>
-
-              <div className={`${styles.overviewCourses1} text-[#667185]`}>
-                <p className="text-[24px] font-[300] lg:text-[40px]">
-                  Tools and Technologies:
-                </p>
-
-                <div className="mt-2 hidden h-[1px] w-full bg-[#C7D7F4] lg:block" />
-
-                <div className="pt-3 lg:pt-9">
-                  <div
-                    className={`${styles.AvenueList} flex items-start gap-4`}
-                  >
-                    <AvenueList
-                      src={iconDark}
-                      textColor={"#667185"}
-                      className="text-[16px] font-[300] lg:text-[18px]"
-                      imgClass={"self-start mt-[6px]"}
-                    >
-                      Mastery of project management software (e.g., MS Project,
-                      Jira, Asana)
-                    </AvenueList>
-                  </div>
-
-                  <div
-                    className={`${styles.AvenueList} flex items-start gap-4`}
-                  >
-                    <AvenueList
-                      src={iconDark}
-                      textColor={"#667185"}
-                      className="text-[16px] font-[300] lg:text-[18px]"
-                    >
-                      Data analysis and reporting tools
-                    </AvenueList>
-                  </div>
-
-                  <div
-                    className={`${styles.AvenueList} flex items-start gap-4`}
-                  >
-                    <AvenueList
-                      src={iconDark}
-                      textColor={"#667185"}
-                      className="text-[16px] font-[300] lg:text-[18px]"
-                    >
-                      Emerging technologies in project management
-                    </AvenueList>
-                  </div>
-                </div>
-              </div>
+              <Tools
+                tech={previewCourse?.data?.data.course.tools_and_technologies}
+                loading={isLoading}
+              />
             </div>
 
-            {/* Benefit & Programme Highlights: */}
-
             <div className={`${styles.overviewFlex} py-8`}>
-              <div
-                className={`${styles.overviewCourses1} text-justify text-[#667185]`}
-              >
-                <p className="text-[24px] font-[300] capitalize lg:text-[40px]">
-                  Benefit
-                </p>
-
-                <div className="mt-2 hidden h-[1px] w-full bg-[#C7D7F4] lg:block" />
-
-                <div className="pt-3 lg:pt-9">
-                  <div
-                    className={`${styles.AvenueList} flex items-start gap-4`}
-                  >
-                    <AvenueList
-                      src={iconDark}
-                      textColor={"#667185"}
-                      className="text-[16px] font-[300] lg:text-[18px]"
-                      imgClass={"self-start mt-[6px]"}
-                    >
-                      <span className="font-[400]"> Career Advancement:</span>{" "}
-                      Open doors to new career opportunities and promotions.
-                    </AvenueList>
-                  </div>
-
-                  <div
-                    className={`${styles.AvenueList} flex items-start gap-4`}
-                  >
-                    <AvenueList
-                      src={iconDark}
-                      textColor={"#667185"}
-                      className="text-[16px] font-[300] lg:text-[18px]"
-                      imgClass={"self-start mt-[6px]"}
-                    >
-                      <span className="font-[400]"> Industry Recognition:</span>{" "}
-                      Gain credibility and recognition as a certified project
-                      consultant.
-                    </AvenueList>
-                  </div>
-
-                  <div
-                    className={`${styles.AvenueList} flex items-start gap-4`}
-                  >
-                    <AvenueList
-                      src={iconDark}
-                      textColor={"#667185"}
-                      className="text-[16px] font-[300] lg:text-[18px]"
-                      imgClass={"self-start mt-[6px]"}
-                    >
-                      <span className="font-[400]">
-                        Networking Opportunities:{" "}
-                      </span>
-                      Connect with peers, mentors, and industry experts.
-                    </AvenueList>
-                  </div>
-
-                  <div className={`${styles.AvenueList} `}>
-                    <AvenueList
-                      src={iconDark}
-                      textColor={"#667185"}
-                      className="text-[16px] font-[300] lg:text-[18px]"
-                      imgClass={"self-start mt-[6px]"}
-                    >
-                      <span className="font-[400]">Lifetime Access:</span>{" "}
-                      Continue to access course materials and updates even after
-                      the programme ends.
-                    </AvenueList>
-                  </div>
-                </div>
-              </div>
+              {/* Benefit */}
+              <Benefit
+                benefits={previewCourse?.data?.data.course.benefits}
+                loading={isLoading}
+              />
 
               {/* Programme Highlight */}
-
-              <div className={`${styles.overviewCourses1} text-[#667185]`}>
-                <p className="text-[24px] font-[300] capitalize lg:text-[40px]">
-                  Programme Highlights:
-                </p>
-
-                <div className="mt-2 hidden h-[1px] w-full bg-[#C7D7F4] lg:block" />
-
-                <div className="space-y-3 pt-3 lg:pt-9">
-                  <div className="flex items-start">
-                    <span className="mr-2 mt-1">
-                      <FaRegCircleCheck />
-                    </span>
-                    <div className="grid flex-1 lg:grid-cols-[1fr_2fr]">
-                      <p className="font-bold">Format:</p>
-                      <p>Blended learning with online and in-person sessions</p>
-                    </div>
-                  </div>
-
-                  <div className="mt-2 flex items-start">
-                    <span className="mr-2 mt-1">
-                      <FaRegCircleCheck />
-                    </span>
-                    <div className="grid flex-1 lg:grid-cols-[1fr_2fr]">
-                      <p className="font-semibold">Modules:</p>
-                      <p>
-                        Comprehensive coverage of project management principles,
-                        methodologies, and tools
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-2 flex items-start">
-                    <span className="mr-2 mt-1">
-                      <FaRegCircleCheck />
-                    </span>
-                    <div className="grid flex-1 lg:grid-cols-[1fr_2fr]">
-                      <p className="font-semibold">Expert Instructors:</p>
-                      <p>
-                        Learn from industry-leading professionals and
-                        experienced consultants
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-2 flex items-start">
-                    <span className="mr-2 mt-1">
-                      <FaRegCircleCheck />
-                    </span>
-                    <div className="grid flex-1 lg:grid-cols-[1fr_2fr]">
-                      <p className="font-semibold">Practical Experience:</p>
-                      <p>
-                        Real-world projects and case studies to apply learned
-                        concepts
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-2 flex items-start">
-                    <span className="mr-2 mt-1">
-                      <FaRegCircleCheck />
-                    </span>
-                    <div className="grid flex-1 lg:grid-cols-[1fr_2fr]">
-                      <p className="font-semibold">Certification:</p>
-                      <p>
-                        Earn a recognized certification upon successful
-                        completion
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ProgramHighlights
+                programHighlights={
+                  previewCourse?.data?.data.course.program_highlights
+                }
+                loading={isLoading}
+              />
             </div>
           </div>
         </Container>
@@ -359,7 +185,7 @@ const PreviewCourse = ({ features }) => {
                   "mb-5 flex w-full items-center justify-between",
                 )}
               >
-                <div className="w-full">
+                <div className="lg:w-full">
                   <p className="text-left text-[14px] text-[#23314A] md:text-[24px] md:font-[300] lg:text-[40px]">
                     Checkout related courses
                   </p>
@@ -385,117 +211,21 @@ const PreviewCourse = ({ features }) => {
 
               {/* Preview this Course */}
               <div className="grid grid-cols-2 gap-5 md:gap-5 lg:grid-cols-4 lg:gap-[18.34px]">
-                <CourseCard
-                  imgSrc={joinTeam}
-                  altText="joinTeam"
-                  title={
-                    <>
-                      {" "}
-                      Project Consultant <br /> Training Programme (Bundle)
-                    </>
-                  }
-                  rating="4.3"
-                  numRatings="45,345"
-                  previewButtonText="Preview this course"
-                />
-
-                <CourseCard
-                  imgSrc={joinTeam}
-                  altText="joinTeam"
-                  title={
-                    <>
-                      {" "}
-                      Project Consultant <br /> Training Programme (Bundle)
-                    </>
-                  }
-                  rating="4.3"
-                  numRatings="45,345"
-                  previewButtonText="Preview this course"
-                />
-
-                <CourseCard
-                  imgSrc={joinTeam}
-                  altText="joinTeam"
-                  title={
-                    <>
-                      {" "}
-                      Project Consultant <br /> Training Programme (Bundle)
-                    </>
-                  }
-                  rating="4.3"
-                  numRatings="45,345"
-                  previewButtonText="Preview this course"
-                />
-
-                <CourseCard
-                  imgSrc={joinTeam}
-                  altText="joinTeam"
-                  title={
-                    <>
-                      {" "}
-                      Project Consultant <br /> Training Programme (Bundle)
-                    </>
-                  }
-                  rating="4.3"
-                  numRatings="45,345"
-                  previewButtonText="Preview this course"
-                />
-
-                <CourseCard
-                  imgSrc={joinTeam}
-                  altText="joinTeam"
-                  title={
-                    <>
-                      {" "}
-                      Project Consultant <br /> Training Programme (Bundle)
-                    </>
-                  }
-                  rating="4.3"
-                  numRatings="45,345"
-                  previewButtonText="Preview this course"
-                />
-
-                <CourseCard
-                  imgSrc={joinTeam}
-                  altText="joinTeam"
-                  title={
-                    <>
-                      {" "}
-                      Project Consultant <br /> Training Programme (Bundle)
-                    </>
-                  }
-                  rating="4.3"
-                  numRatings="45,345"
-                  previewButtonText="Preview this course"
-                />
-
-                <CourseCard
-                  imgSrc={joinTeam}
-                  altText="joinTeam"
-                  title={
-                    <>
-                      {" "}
-                      Project Consultant <br /> Training Programme (Bundle)
-                    </>
-                  }
-                  rating="4.3"
-                  numRatings="45,345"
-                  previewButtonText="Preview this course"
-                />
-
-                <CourseCard
-                  imgSrc={joinTeam}
-                  altText="joinTeam"
-                  title={
-                    <>
-                      {" "}
-                      Project Consultant <br /> Training Programme (Bundle)
-                    </>
-                  }
-                  rating="4.3"
-                  numRatings="45,345"
-                  previewButtonText="Preview this course"
-                />
+                {isFetching ? (
+                  <p>Loading...</p>
+                ) : (
+                  data.data.data.courses.map((course) => (
+                    <CourseCard
+                      key={course.id}
+                      imgSrc={course.cover_image}
+                      altText="joinTeam"
+                      title={course.title}
+                      rating={course.average_rating ?? 0}
+                      review={course.total_reviews}
+                      path={`/preview-course/${course.id}`}
+                    />
+                  ))
+                )}
               </div>
             </div>
           </Container>
@@ -577,6 +307,131 @@ const PreviewCourse = ({ features }) => {
         </div>
       </section>
     </>
+  );
+};
+
+const Overview = ({ overview, loading }) => {
+  return (
+    <div className={`${styles.overviewCourses1} text-justify text-[#667185]`}>
+      <p className="text-[24px] font-[300] capitalize lg:text-[40px]">
+        Overview
+      </p>
+      <div className="mt-2 hidden h-[1px] w-full bg-[#C7D7F4] lg:block" />
+
+      {loading ? (
+        <Skeleton className={"mt-2 h-[209px] w-full"} />
+      ) : (
+        <p className="pt-3 text-[16px] font-[300] lg:pt-9 lg:text-[18px]">
+          {overview}
+        </p>
+      )}
+    </div>
+  );
+};
+
+const ProgramHighlights = ({ programHighlights, loading }) => {
+  return (
+    <div className={`${styles.overviewCourses1} text-[#667185]`}>
+      <p className="text-[24px] font-[300] capitalize lg:text-[40px]">
+        Programme Highlights:
+      </p>
+      <div className="mt-2 hidden h-[1px] w-full bg-[#C7D7F4] lg:block" />
+      {loading ? (
+        <Skeleton className={"mt-2 h-[209px] w-full"} />
+      ) : (
+        <div className="pt-3 lg:pt-9">
+          {programHighlights.map((program_highlight, index) => (
+            <div
+              key={index}
+              className={`${styles.AvenueList} flex items-start gap-4`}
+            >
+              <AvenueList
+                src={iconDark}
+                textColor={"#667185"}
+                className="text-[16px] font-[300] lg:text-[18px]"
+                imgClass={"self-start mt-[6px]"}
+              >
+                <ul>
+                  <li className="list-none normal-case">{program_highlight}</li>{" "}
+                </ul>
+              </AvenueList>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const Benefit = ({ benefits, loading }) => {
+  return (
+    <div className={`${styles.overviewCourses1} text-justify text-[#667185]`}>
+      <p className="text-[24px] font-[300] capitalize lg:text-[40px]">
+        Benefit
+      </p>
+
+      <div className="mt-2 hidden h-[1px] w-full bg-[#C7D7F4] lg:block" />
+      {loading ? (
+        <Skeleton className={"mt-2 h-[209px] w-full"} />
+      ) : (
+        <div className="pt-3 lg:pt-9">
+          {benefits.map((benefit, index) => (
+            <div
+              key={index}
+              className={`${styles.AvenueList} flex items-start gap-4`}
+            >
+              <AvenueList
+                src={iconDark}
+                textColor={"#667185"}
+                className="text-[16px] font-[300] lg:text-[18px]"
+                imgClass={"self-start mt-[6px]"}
+              >
+                <ul>
+                  <li className="list-none normal-case">{benefit}</li>{" "}
+                </ul>
+              </AvenueList>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const Tools = ({ tech, loading }) => {
+  return (
+    <div className={`${styles.overviewCourses1} text-[#667185]`}>
+      <p className="text-[24px] font-[300] lg:text-[40px]">
+        Tools and Technologies:
+      </p>
+
+      <div className="mt-2 hidden h-[1px] w-full bg-[#C7D7F4] lg:block" />
+      {loading ? (
+        <Skeleton className={"mt-2 h-[209px] w-full"} />
+      ) : (
+        <div className="pt-3 lg:pt-9">
+          {tech.map((tool_and_technology, index) => (
+            <div
+              key={index}
+              className={`${styles.AvenueList} flex items-start gap-4`}
+            >
+              <AvenueList
+                src={iconDark}
+                textColor={"#667185"}
+                className="text-[16px] font-[300] lg:text-[18px]"
+                imgClass={"self-start mt-[6px]"}
+              >
+                <ul>
+                  <li className="list-none normal-case">
+                    {tool_and_technology}
+                  </li>{" "}
+                </ul>
+              </AvenueList>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 

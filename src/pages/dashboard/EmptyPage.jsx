@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import DashButton from "../auth/ButtonDash";
 import DashSelect from "../auth/components/DashSelect";
-import NoCoursesMessage from "../auth/components/NoCourses";
+import NoCoursesMessage from "../auth/components/NoLiveCourses";
 import Modal from "../auth/components/Modal";
 import BorderCard from "@/Components/BorderCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalContent from "../lms-pages/ReminderModalContent";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Filter } from "@/Components/dashboard/Filter";
-import Cookies from "js-cookie";
-import { useProfile } from "@/services/queries";
+import NoDemandCourses from "../auth/components/NoDemandCourses";
+import DashboardDiscover from "@/Components/DashboardDiscover";
+import { useFetchEnrolledLiveSessionCourse } from "@/hooks/students/use-fetch-enroll-live-session-course";
+import { useFetchEnrolledPreRecordedCourse } from "@/hooks/students/use-fetch-enroll-ondemand-courses";
+// import Cookies from "js-cookie";
+// import { useProfile } from "@/services/queries";
 
 // import ReminderModal from '../auth/components/ReminderModal';
 
@@ -66,7 +70,7 @@ const EmptyPage = () => {
         </div>
 
         <div>
-          <NoCoursesMessage />
+          <LiveSessionCourses />
         </div>
       </div>
 
@@ -89,7 +93,7 @@ const EmptyPage = () => {
         </div>
 
         <div>
-          <NoCoursesMessage />
+          <OnDemandSessionCourses />
         </div>
       </div>
 
@@ -106,6 +110,78 @@ const EmptyPage = () => {
       )}
     </div>
   );
+};
+
+const OnDemandSessionCourses = () => {
+  const { isLoading, error, data } = useFetchEnrolledPreRecordedCourse();
+  if (isLoading) return <p>Loading...</p>;
+
+  if (error) return <p>something went wrong</p>;
+
+  if (data) console.log(data);
+  return (
+    <>
+      {data?.data?.data?.courses.length < 1 ? (
+        <NoDemandCourses />
+      ) : (
+        <div
+          className={`grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-6 lg:grid-cols-4`}
+        >
+          {data?.data?.data?.courses.map((course) => {
+            return (
+              <DashboardDiscover
+                key={course.id}
+                imgSrc={course.cover_image}
+                altText={course.title}
+                title={course.title}
+                rating={course.average_rating}
+                numRatings="45,345"
+                courseProgress="0% in progress"
+                review={"200"}
+                courseId={course.id}
+              />
+            );
+          })}
+        </div>
+      )}
+    </>
+  );
+};
+
+const LiveSessionCourses = () => {
+  const { data, isLoading, error } = useFetchEnrolledLiveSessionCourse();
+
+  if (isLoading) return <p>Loading ...</p>;
+  if (error) return <p>Error ...</p>;
+  if (data) {
+    return (
+      <>
+        {data?.data?.data?.courses.length < 1 ? (
+          <NoCoursesMessage />
+        ) : (
+          <div
+            className={`grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-6 lg:grid-cols-4`}
+          >
+            {data?.data?.data?.courses.map((course) => {
+              return (
+                <DashboardDiscover
+                  key={course.id}
+                  imgSrc={course.cover_image}
+                  altText={course.title}
+                  title={course.title}
+                  rating={course.average_rating.toFixed(1)}
+                  numRatings="45,345"
+                  courseProgress="0% in progress"
+                  review={"200"}
+                  courseId={course.id}
+                />
+              );
+            })}
+          </div>
+        )}
+      </>
+    );
+  }
 };
 
 export default EmptyPage;

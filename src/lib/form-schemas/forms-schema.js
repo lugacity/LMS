@@ -28,8 +28,29 @@ export const onDemandSessionSchema = z.object({
   overview: z
     .string()
     .min(1, { message: "This field is required" })
-    .max(70, { message: "you've reach the max character length" }),
+    .max(450, { message: "you've reach the max character length" }),
   video_from_url: z.union([z.literal(""), z.string().trim().url()]),
+});
+export const editOnDemandVideoSchema = z.object({
+
+  video_title: z
+    .string()
+    .min(1, { message: "This field is required" })
+    .max(70, { message: "you've reach the max character length" }),
+
+  video_from_url: z.union([z.literal(""), z.string().trim().url()]),
+});
+
+export const editOnDemandSectionSchema = z.object({
+  title: z
+    .string()
+    .min(1, { message: "This field is required" })
+    .max(70, { message: "you've reach the max character length" }),
+
+  overview: z
+    .string()
+    .min(1, { message: "This field is required" })
+    .max(450, { message: "you've reach the max character length" }),
 });
 
 export const liveSessionSchema = z.object({
@@ -83,14 +104,14 @@ export const courseInformationSchema = z.object({
   benefits: z
     .string()
     .min(5, { message: "This field must be at least 5 character long" })
-    .max(405, { message: "Benefits character must not exceed 100 " }),
+    .max(405, { message: "Benefits character must not exceed 405 " }),
   overview: z
     .string()
     .min(5, { message: "This field must be at least 5 character long" })
-    .max(405, { message: "Benefits character must not exceed 100 " }),
+    .max(405, { message: "Benefits character must not exceed  405 " }),
   highlight: z
     .string()
     .min(5, { message: "This field must be at least 5 character long" })
-    .max(405, { message: "Highlight  character must not exceed 100 " }),
+    .max(405, { message: "Highlight  character must not exceed 405 " }),
   url: z.union([z.literal(""), z.string().trim().url()]),
 });
