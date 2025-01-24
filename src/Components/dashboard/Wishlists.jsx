@@ -1,10 +1,22 @@
 import PropTypes from "prop-types";
 import Courses from "./Courses";
+import { useRemoveFromWishlist } from "@/hooks/students/use-remove-from-wishlist";
 
 function Wishlists({ wishlist, setWishlists }) {
-  const handleWishlist = (id) => {
-    const newWishlists = wishlist.filter((item) => item.id !== id);
-    setWishlists(newWishlists);
+  const { removeFromList, isRemoving } = useRemoveFromWishlist();
+  console.log("The remove from list", removeFromList);
+  console.log("is removing from list", removeFromList);
+
+  const handleRemove = (courseId) => {
+    removeFromList({ courseId },
+      {
+        onSuccess: () => {
+          setWishlists((prevWishlist) =>
+            prevWishlist.filter((item) => item.id !== courseId),
+          );
+        },
+      },
+    );
   };
 
   return (
@@ -13,7 +25,8 @@ function Wishlists({ wishlist, setWishlists }) {
         <Courses
           key={item.id}
           wishlist={item}
-          handleWishlist={handleWishlist}
+          handleRemove={handleRemove}
+          isRemoving={isRemoving}
         />
       ))}
     </div>
@@ -21,8 +34,8 @@ function Wishlists({ wishlist, setWishlists }) {
 }
 
 Wishlists.propTypes = {
-  wishlist: PropTypes.array,
-  setWishlists: PropTypes.func,
+  wishlist: PropTypes.array.isRequired,
+  setWishlists: PropTypes.func.isRequired,
 };
 
 export default Wishlists;

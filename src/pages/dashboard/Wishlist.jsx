@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Heading } from "../auth/components/Text";
 import Wishlists from "@/Components/dashboard/Wishlists";
 import EmptyWishlist from "@/Components/dashboard/EmptyWishlist";
-import { useFetchWishlist } from "./use-fetch-wishlist";
+import { useFetchWishlist } from "../../hooks/wishlists/use-fetch-wishlist";
 
 function Wishlist() {
   const [wishlist, setWishlist] = useState([]);
