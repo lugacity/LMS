@@ -93,6 +93,7 @@ import PreviewVideoCourse from "./pages/previewVideoCourse";
 import ZoomMeeting from "./pages/admin-pages/meeting/ZoomMeeting";
 import AdminMeeting from "./pages/admin-pages/meeting/AdminMeeting";
 import UserJoinMeeting from "./pages/dashboard/UserJoinMeeting";
+import AdminConfirmationRole from "./pages/admin-pages/account-managemnet/AdminConfirmationRole";
 
 const queryClient = new QueryClient();
 
@@ -379,6 +380,7 @@ function App() {
                 },
               ],
             },
+            { element: <AdminConfirmationRole />, path: "set-admin-password" },
 
             // Fianancial Aid
             {
