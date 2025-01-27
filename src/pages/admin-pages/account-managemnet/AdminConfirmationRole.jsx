@@ -6,7 +6,7 @@ import { useCreateAdminPassword } from "@/hooks/account-management/use-create-ad
 import { passwordRegex } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { ScrollRestoration } from "react-router-dom";
+import { ScrollRestoration, useSearchParams } from "react-router-dom";
 import * as z from "zod";
 
 const formSchema = z
@@ -33,12 +33,13 @@ const formSchema = z
 
 export default function AdminConfirmationRole() {
   const { create, isPending } = useCreateAdminPassword();
+  const [queryString] = useSearchParams();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       password: "",
       confirmPassword: "",
-      confirmationCode: "",
+      confirmationCode: queryString.get("code") ?? "",
     },
   });
 

@@ -5,16 +5,14 @@ import EmptyWishlist from "@/Components/dashboard/EmptyWishlist";
 import { useFetchWishlist } from "./use-fetch-wishlist";
 
 function Wishlist() {
-  const [wishlist, setWishlist] = useState([]);
+  // const [wishlist, setWishlist] = useState([]);
   const { isLoading, data, error } = useFetchWishlist();
-  console.log("The wishlist", data);
 
-
-  useEffect(() => {
-    if (data?.data?.data) {
-      setWishlist(data.data.data);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data?.data?.data) {
+  //     setWishlist(data.data.data);
+  //   }
+  // }, [data]);
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -24,9 +22,8 @@ function Wishlist() {
 
   return (
     <article className="h-full">
-      <Heading className="text-left">Wishlist ({wishlist.length})</Heading>
-      {wishlist.length > 0 ? (
-        <Wishlists wishlist={wishlist} setWishlist={setWishlist} />
+      {data?.data?.data?.length > 0 ? (
+        <Wishlists wishlist={data?.data?.data} />
       ) : (
         <EmptyWishlist />
       )}

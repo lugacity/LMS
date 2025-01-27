@@ -380,7 +380,10 @@ function App() {
                 },
               ],
             },
-            { element: <AdminConfirmationRole />, path: "set-admin-password" },
+            {
+              element: <AdminConfirmationRole />,
+              path: "set-admin-password/create-password",
+            },
 
             // Fianancial Aid
             {
