@@ -2,11 +2,12 @@ import PropTypes from "prop-types";
 // import img from "../../assets/images/join_team.png";
 import { StarRating } from "../star-rating";
 import { useNavigate } from "react-router-dom";
+import { useDeleteWishlist } from "@/hooks/students/use-delete-wishlist";
 
 function Courses({ wishlist, handleWishlist }) {
   const { title, average_rating, total_reviews, id } = wishlist;
   const navigate = useNavigate();
-
+  const { isPending, mutate } = useDeleteWishlist();
   return (
     <div className="overflow-hidden rounded-lg">
       <div
@@ -53,7 +54,7 @@ function Courses({ wishlist, handleWishlist }) {
           </span> */}
           <button
             className="font-light text-[#566b8e]"
-            onClick={() => handleWishlist(id)}
+            onClick={() => mutate(id)}
           >
             Remove
           </button>
