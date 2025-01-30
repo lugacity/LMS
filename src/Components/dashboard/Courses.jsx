@@ -4,6 +4,7 @@ import { StarRating } from "../star-rating";
 import { useNavigate } from "react-router-dom";
 import { useDeleteWishlist } from "@/hooks/students/use-delete-wishlist";
 
+
 function Courses({ wishlist, handleWishlist }) {
   const { title, average_rating, total_reviews, id } = wishlist;
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ function Courses({ wishlist, handleWishlist }) {
           alt={title}
         />
       </div>
+
       <div className="bg-[#FCFCFC] px-[10px] py-3">
         <p className="text-xs text-tertiary-color-900 md:max-w-[190px] md:text-[14px]">
           {title.length > 24 ? `${title.slice(0, 22)}...` : title}
@@ -53,8 +55,10 @@ function Courses({ wishlist, handleWishlist }) {
             {wishlist.price}
           </span> */}
           <button
+
             className="font-light text-[#566b8e]"
             onClick={() => mutate(id)}
+
           >
             Remove
           </button>

@@ -1,3 +1,4 @@
+
 import PropTypes from "prop-types";
 import Courses from "./Courses";
 import { Heading } from "@/pages/auth/components/Text";
@@ -30,3 +31,4 @@ Wishlists.propTypes = {
 };
 
 export default Wishlists;
+
