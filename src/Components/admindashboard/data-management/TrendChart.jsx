@@ -23,7 +23,7 @@ const chartData = [
 
 const chartConfig = {
   desktop: {
-    label: "Desktop",
+    label: "Artificial Intelligence",
     color: "hsl(var(--chart-1))",
   },
 };

@@ -1,25 +1,16 @@
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/Components/ui/card";
-import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/Components/ui/chart";
-import { TrendingUp } from "lucide-react";
 import { Pie, PieChart } from "recharts";
 
 const chartData = [
-  { browser: "chrome", visitors: 275, fill: "#FFC6D5" },
-  { browser: "safari", visitors: 200, fill: "#FF5A85" },
-  { browser: "firefox", visitors: 187, fill: "#A3032D" },
-  { browser: "edge", visitors: 173, fill: "#CC1747" },
-  { browser: "other", visitors: 90, fill: "#F53366" },
+  { browser: "Artificial Intelligence", visitors: 275, fill: "#FFC6D5" },
+  { browser: "Artificial Intelligence", visitors: 200, fill: "#FF5A85" },
+  { browser: "Artificial Intelligence", visitors: 187, fill: "#A3032D" },
+  { browser: "Artificial Intelligence", visitors: 173, fill: "#CC1747" },
+  { browser: "Artificial Intelligence", visitors: 90, fill: "#F53366" },
 ];
 
 const chartConfig = {
