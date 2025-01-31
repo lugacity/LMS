@@ -17,12 +17,12 @@ export const useDeleteWishlist = () => {
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: deleteWishlist,
-    onSuccess: (data) => {
-      toast.success("Wishlist deleted successfully");
+    onSuccess: ({ data }) => {
+      toast.success(data?.message ?? "Wishlist deleted successfully");
       queryClient.invalidateQueries("fetch-wishlists");
     },
     onError: (error) => {
-      toast.error("Error deleting wishlist:");
+      toast.error(error?.response?.data?.message ?? "Error deleting wishlist:");
     },
   });
   return { mutate, isPending };
