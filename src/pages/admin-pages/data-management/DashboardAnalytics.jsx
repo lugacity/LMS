@@ -1,3 +1,4 @@
+import { PerformingCourses } from "@/Components/admindashboard/data-management/PerformingCourses";
 import { PieChartComponent } from "@/Components/admindashboard/data-management/PieChart";
 import { RadarChartDot } from "@/Components/admindashboard/data-management/RadarChart";
 import TopStudents from "@/Components/admindashboard/data-management/TopStudents";
@@ -8,7 +9,6 @@ import {
   RevenueIcon,
   TotalStudentIcon,
 } from "@/Components/Icon";
-import Table from "@/Components/Table";
 import { Skeleton } from "@/Components/ui/skeleton";
 import { useFetchRevenueAndPurchases } from "@/hooks/data-management/use-fetch-revenue-and-purchases";
 import { useFetchStudentAndEnrollment } from "@/hooks/data-management/use-fetch-student-and-enrollment";
@@ -49,49 +49,6 @@ export default function DashboardAnalytics() {
     </section>
   );
 }
-
-const PerformingCourses = () => {
-  const performingCourses = [
-    {
-      title: "Project Consultant Training Programme (Bundle)",
-      numberOfStudent: "121,799 ",
-    },
-    {
-      title: "Agile and Digital Business Analysis ",
-      numberOfStudent: "66,734 ",
-    },
-    {
-      title: "Digital Transformation Solutions",
-      numberOfStudent: "21,567 ",
-    },
-    {
-      title: "Product Management",
-      numberOfStudent: "11,387 ",
-    },
-    {
-      title: "Artificial Intelligence",
-      numberOfStudent: "7,387 ",
-    },
-  ];
-  return (
-    <>
-      {performingCourses.map((course, i) => {
-        return (
-          <div className="flex items-center justify-between" key={i}>
-            <div className="flex items-center gap-2">
-              <div className="size-2 rounded-full bg-[#FFC6D5]" />
-              <p className="text-sm text-[#667185]">{course.title}</p>
-            </div>
-            <p className="text-sm font-medium text-[#101928]">
-              <span>{course.numberOfStudent} </span>
-              <span>Students</span>
-            </p>
-          </div>
-        );
-      })}
-    </>
-  );
-};
 
 const StudentAndEnrollment = () => {
   const { isLoading, data, error } = useFetchStudentAndEnrollment();
