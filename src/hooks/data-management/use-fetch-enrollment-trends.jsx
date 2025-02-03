@@ -4,7 +4,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const fetchEnrollment = async (period) =>
-  await axios.get(`${BASE_URL}/data/enrollments-by-period?period=week`, {
+  await axios.get(`${BASE_URL}/data/enrollments-by-period?period=${period}`, {
     headers: {
       Authorization: `Bearer ${Cookies.get("adminToken")}`,
     },
@@ -12,8 +12,9 @@ const fetchEnrollment = async (period) =>
 
 export const useFetchEnrollment = (period) => {
   return useQuery({
-    queryKey: ["fetch-enrollment-trend"],
-    queryFn: fetchEnrollment,
+    queryKey: ["fetch-enrollment-trend", { period }],
+    queryFn: () => fetchEnrollment(period),
+    enabled: !!period,
   });
 };
 
