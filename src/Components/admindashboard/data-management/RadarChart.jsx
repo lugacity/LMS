@@ -1,81 +1,139 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/Components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/Components/ui/chart";
-import { EllipsisVertical, TrendingUp } from "lucide-react";
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
-
-const chartData = [
-  { month: "Jan", desktop: 186 },
-  { month: "Feb", desktop: 305 },
-  { month: "Mar", desktop: 237 },
-  { month: "Apr", desktop: 273 },
-  { month: "May", desktop: 209 },
-  { month: "Jun", desktop: 214 },
-  { month: "Jul", desktop: 186 },
-  { month: "Aug", desktop: 305 },
-  { month: "Sept", desktop: 237 },
-  { month: "Oct", desktop: 273 },
-  { month: "Nov", desktop: 209 },
-  { month: "Dec", desktop: 214 },
-];
+import { Skeleton } from "@/Components/ui/skeleton";
+import { useFetchEnrollment } from "@/hooks/data-management/use-fetch-enrollment-trends";
+import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
 const chartConfig = {
   desktop: {
-    label: "Desktop",
+    label: "",
     color: "hsl(var(--chart-1))",
   },
 };
 
 export function RadarChartDot() {
+  const [active, setActive] = useState("week");
+  const period = [
+    {
+      label: "Today",
+      action: "day",
+    },
+    {
+      label: "This week",
+      action: "week",
+    },
+    {
+      label: "This month",
+      action: "month",
+    },
+    {
+      label: "This year",
+      action: "year",
+    },
+  ];
+
+  const { refetch } = useFetchEnrollment(active);
+
+  const handleClick = (label) => {
+    setActive(label);
+    refetch();
+  };
   return (
     <Card>
-      <CardHeader className="items-center">
-        <div className="flex w-full items-center justify-between">
+      <CardHeader>
+        <div className="flex items-center justify-between">
           <CardTitle>Total Revenue</CardTitle>
-          <button aria-label="revenue menu button">
-            <EllipsisVertical className="size-4 text-[#667185]" />
-          </button>
+          {/* <div className="flex items-center gap-5">
+            {period.map((time) => {
+              return (
+                <button
+                  className={cn(
+                    "block rounded-[8.39px] px-[8.39px] py-[4.14px] text-xs capitalize text-[#1D2739] shadow-md hover:bg-[#CD0000] hover:text-white",
+                    active === time.action && "bg-[#CD0000] text-white",
+                  )}
+                  key={time.action}
+                  onClick={() => handleClick(time.action)}
+                >
+                  {time.label}
+                </button>
+              );
+            })}
+          </div> */}
         </div>
       </CardHeader>
-      <CardContent className="pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
-        >
-          <RadarChart data={chartData}>
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <PolarAngleAxis dataKey="month" />
-            <PolarGrid />
-            <Radar
-              dataKey="desktop"
-              fill="var(--color-desktop)"
-              fillOpacity={0.6}
-              dot={{
-                r: 4,
-                fillOpacity: 1,
-              }}
-            />
-          </RadarChart>
-        </ChartContainer>
-      </CardContent>
-      {/* <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="flex items-center gap-2 leading-none text-muted-foreground">
-          January - June 2024
-        </div>
-      </CardFooter> */}
+      <TheBarChart />
     </Card>
   );
 }
+
+const TheBarChart = () => {
+  const { isLoading, error, data, isFetching } = useFetchEnrollment("week");
+
+  if (isLoading || isFetching)
+    return <Skeleton className={"min-h-[382px] w-full"} />;
+  if (error)
+    return (
+      <p>Error: {error?.response?.data?.message ?? "Something went wrong"}</p>
+    );
+
+  console.log("data", { data });
+
+  const chartData = data?.data?.data?.map((enrollment) => {
+    return {
+      month: enrollment.date,
+      desktop: enrollment.enrollmentCount,
+    };
+  });
+  return (
+    <CardContent>
+      <ChartContainer config={chartConfig}>
+        <LineChart
+          accessibilityLayer
+          data={data?.data?.data?.map((enrollment) => {
+            return {
+              month: enrollment.date,
+              desktop: enrollment.enrollmentCount,
+            };
+          })}
+          margin={{
+            left: 12,
+            right: 12,
+          }}
+        >
+          <CartesianGrid vertical={false} />
+          <XAxis
+            dataKey="month"
+            tickLine={true}
+            axisLine={true}
+            tickMargin={8}
+            // tickFormatter={(value) => value.slice(0, 3)}
+          />
+          <YAxis
+            dataKey="desktop"
+            tickLine={false}
+            axisLine={false}
+            tickMargin={8}
+            // tickFormatter={(value) => value.slice(0, 3)}
+          />
+          <ChartTooltip
+            cursor={false}
+            content={<ChartTooltipContent hideLabel />}
+          />
+          <Line
+            dataKey="desktop"
+            type="linear"
+            stroke="var(--color-desktop)"
+            strokeWidth={2}
+            dot={false}
+          />
+        </LineChart>
+      </ChartContainer>
+    </CardContent>
+  );
+};

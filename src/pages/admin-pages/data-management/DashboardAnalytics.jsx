@@ -26,13 +26,13 @@ export default function DashboardAnalytics() {
         <div className="h-full min-h-[102px] w-px bg-[#E6EDFF]" />
         <RevenueAndPurchase />
       </div>
-      <div className="grid grid-cols-[2.7fr_1.3fr] gap-6">
+      <div className="space-y-6">
         <TrendChart />
         <RadarChartDot />
       </div>
       <div className="mt-7 grid grid-cols-[1.3fr_2.7fr] gap-6">
         <TopStudents />
-        <div className="rounded-[20px] border border-[#F0F2F5] p-6">
+        <div className="h-min rounded-[20px] border border-[#F0F2F5] p-6">
           <p className="mb-5 font-bold text-[#1D2739]">
             Top-performing courses
           </p>

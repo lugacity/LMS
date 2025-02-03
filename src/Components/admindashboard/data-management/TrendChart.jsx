@@ -10,30 +10,15 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
-const chartData = [
-  { month: "January", desktop: 3000 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 173 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-  { month: "July", desktop: 186 },
-  { month: "August", desktop: 305 },
-  { month: "September", desktop: 237 },
-  { month: "October", desktop: 173 },
-  { month: "November", desktop: 209 },
-  { month: "December", desktop: 214 },
-];
-
 const chartConfig = {
   desktop: {
-    label: "",
+    label: "enrollment count",
     color: "hsl(var(--chart-1))",
   },
 };
 
 export function TrendChart() {
-  const [active, setActive] = useState("day");
+  const [active, setActive] = useState("week");
   const period = [
     {
       label: "Today",
@@ -88,9 +73,10 @@ export function TrendChart() {
 }
 
 const TheBarChart = () => {
-  const { isLoading, error, data } = useFetchEnrollment("day");
+  const { isLoading, error, data, isFetching } = useFetchEnrollment("week");
 
-  if (isLoading) return <Skeleton className={"min-h-[382px] w-full"} />;
+  if (isLoading || isFetching)
+    return <Skeleton className={"min-h-[382px] w-full"} />;
   if (error)
     return (
       <p>Error: {error?.response?.data?.message ?? "Something went wrong"}</p>
@@ -109,7 +95,12 @@ const TheBarChart = () => {
       <ChartContainer config={chartConfig}>
         <LineChart
           accessibilityLayer
-          data={chartData}
+          data={data?.data?.data?.map((enrollment) => {
+            return {
+              month: enrollment.date,
+              desktop: enrollment.enrollmentCount,
+            };
+          })}
           margin={{
             left: 12,
             right: 12,
