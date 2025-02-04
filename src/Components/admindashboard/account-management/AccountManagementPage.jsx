@@ -53,7 +53,7 @@ function formapateString(dateString) {
 
   // Get the month, day, and year
   const month = months[date.getMonth()];
-  const day = date.gepate();
+  const day = date.getDate();
   const year = date.getFullYear();
 
   // Get the hours and minutes

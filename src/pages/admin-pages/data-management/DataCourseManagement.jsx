@@ -13,6 +13,7 @@ import { useFetchCourseStats } from "@/hooks/data-management/use-fetch-course-st
 export default function DataCourseManagement() {
   const [course, setCourse] = useState(courseManagement);
   const { isLoading, error, data } = useFetchCourseStats();
+  // console.log("The course Mangement", data);
 
   if (isLoading) {
     return (

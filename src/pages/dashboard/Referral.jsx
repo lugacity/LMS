@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DashButton from "../auth/ButtonDash";
 import ReferralImg from "../../assets/images/image_111.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,21 +7,75 @@ import Modal from "../auth/components/Modal";
 import BorderCard from "@/Components/BorderCard";
 import ReferralModalForm from "../lms-pages/ReferralFormModal";
 import DashSelect from "../auth/components/DashSelect";
+import { useFetchReferrals } from "@/hooks/students/use-fetch-referrals";
 
 const Referral = () => {
-  const [selectedOption, setSelectedOption] = useState("referral");
-
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
-    alert("Referral link copied to clipboard");
-  };
-
   const [modal, setShowModal] = useState(false);
 
   const [reason, setReason] = useState("");
   const [goal, setGoal] = useState("");
   const [accurateInfo, setAccurateInfo] = useState(false);
   const [commitment, setCommitment] = useState(false);
+  const [loading, setLoading] = useState();
+  const [error, setError] = useState();
+
+  const [selectedOption, setSelectedOption] = useState("referral");
+  
+
+  const { data } = useFetchReferrals();
+
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      if (data) {
+        setLoading(false);
+      }
+    } catch (error) {
+      setError(error.message || "Something went wrong");
+      setLoading(false);
+    }
+  }, [data]);
+
+  console.log("Fecth referral", data);
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    alert("Referral link copied to clipboard");
+  };
+
+
+   const referralCode = data?.data?.data?.referral_code;
+
+  const handleShare = async () => {
+    if (!referralCode) {
+      setError("No referral code available");
+      return;
+    }
+
+    const referralLink = `https://localhost:5173/dashboard/referral?code=${referralCode}`;
+    
+    const shareData = {
+      title: "Referral Code",
+      text: `Use my referral code: ${referralCode}`,
+      url: referralLink, 
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        setError("Failed to share the referral code.");
+      }
+    } else {
+      setError("Sharing is not supported on this device.");
+    }
+  };
+
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
@@ -51,7 +105,7 @@ const Referral = () => {
                     Available balance
                   </p>
                   <h1 className="mt-10 text-[75px] font-[600] lg:mt-2 lg:text-4xl">
-                    £100k
+                    £{data?.data?.data?.available_balance}
                   </h1>
                 </div>
 
@@ -60,7 +114,7 @@ const Referral = () => {
                     Total number of referrals
                   </p>
                   <h1 className="mt-2 text-[24px] font-[600] lg:text-4xl">
-                    09
+                    {/* 09 */} {data?.data?.data?.referrals.length}
                   </h1>
                 </div>
 
@@ -69,7 +123,7 @@ const Referral = () => {
                     Total amount
                   </p>
                   <h1 className="mt-2 text-[24px] font-[600] lg:text-4xl">
-                    £129k
+                    {/* £129k  */} £{data?.data?.data?.total_amount}
                   </h1>
                 </div>
 
@@ -78,7 +132,7 @@ const Referral = () => {
                     Total amount withdrawn
                   </p>
                   <h1 className="mt-2 text-[24px] font-[600] lg:text-4xl">
-                    £129k
+                    {/* £129k */} £{data?.data?.data?.total_amount_withdrawn}
                   </h1>
                 </div>
 
@@ -113,17 +167,24 @@ const Referral = () => {
                       <p className="text-sm text-gray-600">
                         Your referral link
                       </p>
-                      <p className="text-lg font-semibold">AVIWOCXZ11</p>
+                      <p className="text-lg font-semibold">
+                        {data?.data?.data?.referral_code}
+                      </p>
                     </div>
                     <button
                       className="ml-2 text-[#40B869] hover:text-[#48c674]"
-                      onClick={() => copyToClipboard("AVIWOCXZ11")}
+                      onClick={() =>
+                        copyToClipboard(`${data?.data?.data?.referral_code}`)
+                      }
                     >
                       <FontAwesomeIcon icon={faCopy} />
                     </button>
                   </div>
 
-                  <DashButton className="mt-2 w-full bg-[#CC1747] px-32 text-white hover:bg-[#b30e3b] lg:w-2/5">
+                  <DashButton
+                    onClick={handleShare}
+                    className="mt-2 w-full bg-[#CC1747] px-32 text-white hover:bg-[#b30e3b] lg:w-2/5"
+                  >
                     Share link
                   </DashButton>
                 </div>
