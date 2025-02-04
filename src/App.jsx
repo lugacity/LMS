@@ -94,6 +94,7 @@ import ZoomMeeting from "./pages/admin-pages/meeting/ZoomMeeting";
 import AdminMeeting from "./pages/admin-pages/meeting/AdminMeeting";
 import UserJoinMeeting from "./pages/dashboard/UserJoinMeeting";
 import AdminConfirmationRole from "./pages/admin-pages/account-managemnet/AdminConfirmationRole";
+import StudentDetails from "./pages/admin-pages/data-management/StudentDetails";
 
 const queryClient = new QueryClient();
 
@@ -457,6 +458,10 @@ function App() {
                   path: "all-student",
                   element: <AllStudent />,
                 },
+                // {
+                //   path: "student-details/:studentId",
+                //   element: <StudentDetails />,
+                // },
               ],
             },
 
