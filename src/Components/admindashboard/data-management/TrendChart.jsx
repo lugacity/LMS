@@ -38,11 +38,11 @@ export function TrendChart() {
     },
   ];
 
-  const { refetch } = useFetchEnrollment(active);
+  // const { refetch } = useFetchEnrollment(active);
 
   const handleClick = (label) => {
     setActive(label);
-    refetch();
+    // refetch();
   };
   return (
     <Card>
@@ -67,13 +67,13 @@ export function TrendChart() {
           </div>
         </div>
       </CardHeader>
-      <TheBarChart />
+      <TheBarChart period={active} />
     </Card>
   );
 }
 
-const TheBarChart = () => {
-  const { isLoading, error, data, isFetching } = useFetchEnrollment("week");
+const TheBarChart = ({ period }) => {
+  const { isLoading, error, data, isFetching } = useFetchEnrollment(period);
 
   if (isLoading || isFetching)
     return <Skeleton className={"min-h-[382px] w-full"} />;
@@ -95,12 +95,7 @@ const TheBarChart = () => {
       <ChartContainer config={chartConfig}>
         <LineChart
           accessibilityLayer
-          data={data?.data?.data?.map((enrollment) => {
-            return {
-              month: enrollment.date,
-              desktop: enrollment.enrollmentCount,
-            };
-          })}
+          data={chartData}
           margin={{
             left: 12,
             right: 12,
