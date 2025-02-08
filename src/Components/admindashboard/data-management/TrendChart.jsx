@@ -18,7 +18,7 @@ const chartConfig = {
 };
 
 export function TrendChart() {
-  const [active, setActive] = useState("week");
+  const [active, setActive] = useState("day");
   const period = [
     {
       label: "Today",
@@ -32,10 +32,10 @@ export function TrendChart() {
       label: "This month",
       action: "month",
     },
-    {
-      label: "This year",
-      action: "year",
-    },
+    // {
+    //   label: "This year",
+    //   action: "year",
+    // },
   ];
 
   // const { refetch } = useFetchEnrollment(active);
@@ -82,7 +82,15 @@ const TheBarChart = ({ period }) => {
       <p>Error: {error?.response?.data?.message ?? "Something went wrong"}</p>
     );
 
-  console.log("data", { data });
+  if (data?.data?.data.length < 1)
+    return (
+      <div className="flex min-h-[382px] w-full items-center justify-center">
+        <p className="text-xl italic text-slate-400">
+          No data available for the selected period. Please select a different
+          period.
+        </p>
+      </div>
+    );
 
   const chartData = data?.data?.data?.map((enrollment) => {
     return {
