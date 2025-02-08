@@ -5,14 +5,14 @@ import {
   ChartTooltipContent,
 } from "@/Components/ui/chart";
 import { Skeleton } from "@/Components/ui/skeleton";
-import { useFetchEnrollment } from "@/hooks/data-management/use-fetch-enrollment-trends";
+import { useFetchRevenue } from "@/hooks/data-management/use-fetch-total-revenue";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
 const chartConfig = {
   desktop: {
-    label: "",
+    label: "revenue",
     color: "hsl(var(--chart-1))",
   },
 };
@@ -38,18 +38,18 @@ export function RadarChartDot() {
     },
   ];
 
-  const { refetch } = useFetchEnrollment(active);
+  const { refetch } = useFetchRevenue(active);
 
   const handleClick = (label) => {
     setActive(label);
-    refetch();
+    // refetch();
   };
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>Total Revenue</CardTitle>
-          {/* <div className="flex items-center gap-5">
+          <div className="flex items-center gap-5">
             {period.map((time) => {
               return (
                 <button
@@ -64,16 +64,16 @@ export function RadarChartDot() {
                 </button>
               );
             })}
-          </div> */}
+          </div>
         </div>
       </CardHeader>
-      <TheBarChart />
+      <TheBarChart period={active} />
     </Card>
   );
 }
 
-const TheBarChart = () => {
-  const { isLoading, error, data, isFetching } = useFetchEnrollment("week");
+const TheBarChart = ({ period }) => {
+  const { isLoading, error, data, isFetching } = useFetchRevenue(period);
 
   if (isLoading || isFetching)
     return <Skeleton className={"min-h-[382px] w-full"} />;
@@ -84,10 +84,10 @@ const TheBarChart = () => {
 
   console.log("data", { data });
 
-  const chartData = data?.data?.data?.map((enrollment) => {
+  const chartData = data?.data?.data?.map((revenue) => {
     return {
-      month: enrollment.date,
-      desktop: enrollment.enrollmentCount,
+      month: revenue.date,
+      desktop: revenue.total_revenue,
     };
   });
   return (
@@ -95,12 +95,7 @@ const TheBarChart = () => {
       <ChartContainer config={chartConfig}>
         <LineChart
           accessibilityLayer
-          data={data?.data?.data?.map((enrollment) => {
-            return {
-              month: enrollment.date,
-              desktop: enrollment.enrollmentCount,
-            };
-          })}
+          data={chartData}
           margin={{
             left: 12,
             right: 12,
