@@ -491,7 +491,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <Toaster />
-        <RouterProvider router={routes} />;
+        <RouterProvider router={routes} />
       </QueryClientProvider>
     </>
   );
