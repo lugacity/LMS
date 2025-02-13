@@ -6,8 +6,8 @@ import StartMeeting from "../admin-pages/meeting/StartMeeting";
 
 const UserJoinMeeting = () => {
   const [meetingDetails, setMeetingDetails] = useState(null);
-  const [courseIds, setCourseId] = useState("672f600db2f3905e23f914e6");
-  const [cohortIds, setCohortId] = useState("6732f2f47a0ce8a492cc36e1");
+  // const [courseIds, setCourseId] = useState("672f600db2f3905e23f914e6");
+  // const [cohortIds, setCohortId] = useState("6732f2f47a0ce8a492cc36e1");
   const [queryString] = useSearchParams();
 
   const { courseId } = useParams();

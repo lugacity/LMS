@@ -10,7 +10,9 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons";
 const ReferralPage = () => {
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
+
   const { data } = useFetchReferrals();
+  console.log("This is user referral page", data);
 
   const [modal, setShowModal] = useState(false);
 
@@ -36,6 +38,7 @@ const ReferralPage = () => {
   };
 
   const referralCode = data?.data?.data?.referral_code;
+  console.log("This is second referral", referralCode);
 
   const handleShare = async () => {
     if (!referralCode) {
@@ -72,7 +75,8 @@ const ReferralPage = () => {
             Available balance
           </p>
           <h1 className="mt-10 text-[75px] font-[600] lg:mt-2 lg:text-4xl">
-            £{data?.data?.data?.available_balance}
+            {data?.data?.data?.available_balance.currency_symbol}
+            {data?.data?.data?.available_balance.value}
           </h1>
         </div>
 
@@ -90,7 +94,8 @@ const ReferralPage = () => {
             Total amount
           </p>
           <h1 className="mt-2 text-[24px] font-[600] lg:text-4xl">
-            {/* £129k  */} £{data?.data?.data?.total_amount}
+            {/* £129k  */} {data?.data?.data?.total_amount.currency_symbol}{" "}
+            {data?.data?.data?.total_amount.value}
           </h1>
         </div>
 
@@ -99,7 +104,9 @@ const ReferralPage = () => {
             Total amount withdrawn
           </p>
           <h1 className="mt-2 text-[24px] font-[600] lg:text-4xl">
-            {/* £129k */} £{data?.data?.data?.total_amount_withdrawn}
+            {/* £129k */}{" "}
+            {data?.data?.data?.total_amount_withdrawn.currency_symbol}
+            {data?.data?.data?.total_amount_withdrawn.value}
           </h1>
         </div>
 
