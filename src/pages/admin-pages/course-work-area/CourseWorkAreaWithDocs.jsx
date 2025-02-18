@@ -88,7 +88,7 @@ function CourseWorkAreaWithDocs({ data, modalActive, setModalActive }) {
               </button>
             </div>
           </div>
-        ))}
+        ))} 
       </div>
       {modal && modalActive === "student" && (
         <ShareDocumentModal setModal={setModal} />
