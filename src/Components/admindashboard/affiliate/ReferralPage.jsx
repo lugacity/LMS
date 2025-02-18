@@ -32,6 +32,7 @@ const setPercentage = z.object({
 
 const ReferralPage = () => {
   const { data: fetchpayout, isLoading } = useFetchPayoutStats();
+  console.log("Fetch the pay out", fetchpayout);
   const { data: fetchAffiliates, isLoading: isFecthing } = useFetchAffiliates();
 
   const { create, isPending } = useAffiliatePercentage();
@@ -87,7 +88,7 @@ const ReferralPage = () => {
                 <p className="text-[28px] font-[600] text-[#23314A]">
                   {/* £{totalAmount}{" "} */}
                   {fetchpayout?.data?.data?.total_payout.currency_symbol}{" "}
-                  {fetchpayout?.data?.data?.affiliate_percentage}
+                  {fetchpayout?.data?.data?.total_payout.value}
                 </p>
                 <p className="text-[14px] font-[400] text-[#667185]">
                   Total Payout
