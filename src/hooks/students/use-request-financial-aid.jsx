@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 const requestFinancialAid = async (data) => {
     return await axios.post(
-      //   https://avi-lms-backend.onrender.com/api/v1/users/me/financial-aid
+      
       `${STUDENT_BASE_URL}/users/me/financial-aid`,
       data,
       {

@@ -404,7 +404,7 @@ function App() {
             },
 
             {
-              path: "view-details",
+              path: "view-details/:id/:firstname/:lastname/:title/:email",
               element: <ViewDetails />,
             },
 
