@@ -12,17 +12,18 @@ const Documents = ({ data }) => {
   const { sectionActive } = useContext(DocumentContext);
 
   const {
-    data: documentss,
+    data: docs,
     isLoading,
     error,
+    isFetching,
   } = useFetchSharedDocuments(courseId, cohortId, sectionActive);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading || isFetching) return <p>Loading...</p>;
 
   if (error)
     return <p>{error?.response?.data?.message ?? "Something went wrong"}</p>;
 
-  console.log(documentss, sectionActive);
+  if (docs?.data?.data?.length < 1) return <NoDocument />;
   return (
     <section className="bg-white pb-6 pt-0 sm:px-[22px] md:px-10 md:py-8 lg:mt-2 lg:px-4">
       <h3 className="mb-5 text-2xl font-medium capitalize text-black">
