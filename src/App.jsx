@@ -94,6 +94,7 @@ import ZoomMeeting from "./pages/admin-pages/meeting/ZoomMeeting";
 import AdminMeeting from "./pages/admin-pages/meeting/AdminMeeting";
 import UserJoinMeeting from "./pages/dashboard/UserJoinMeeting";
 import AdminConfirmationRole from "./pages/admin-pages/account-managemnet/AdminConfirmationRole";
+import StudentDetails from "./pages/admin-pages/data-management/StudentDetails";
 
 const queryClient = new QueryClient();
 
@@ -380,7 +381,10 @@ function App() {
                 },
               ],
             },
-            { element: <AdminConfirmationRole />, path: "set-admin-password" },
+            {
+              element: <AdminConfirmationRole />,
+              path: "set-admin-password/create-password",
+            },
 
             // Fianancial Aid
             {
@@ -400,7 +404,7 @@ function App() {
             },
 
             {
-              path: "view-details",
+              path: "view-details/:id/:firstname/:lastname/:title/:email",
               element: <ViewDetails />,
             },
 
@@ -454,6 +458,10 @@ function App() {
                   path: "all-student",
                   element: <AllStudent />,
                 },
+                // {
+                //   path: "student-details/:studentId",
+                //   element: <StudentDetails />,
+                // },
               ],
             },
 
@@ -483,7 +491,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <Toaster />
-        <RouterProvider router={routes} />;
+        <RouterProvider router={routes} />
       </QueryClientProvider>
     </>
   );
