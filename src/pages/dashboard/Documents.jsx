@@ -1,8 +1,7 @@
 import { useFetchSharedDocuments } from "@/hooks/students/use-fetch-shared-document";
-import { documents } from "@/lib/documents";
 import { useContext } from "react";
 import { RxDownload } from "react-icons/rx";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { DocumentContext } from "./ShareDocument";
 
 const Documents = ({ data }) => {
@@ -30,19 +29,19 @@ const Documents = ({ data }) => {
         shared document
       </h3>
       <div className="grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4">
-        {documents.map((document, i) => {
+        {docs?.data?.data?.map((document) => {
           return (
-            <div key={i} className="">
+            <div key={document._id} className="">
               <div className="h-32 overflow-hidden rounded-tl-xl rounded-tr-xl md:h-36">
                 <img
-                  src={document.img}
-                  alt={document.title}
+                  src={document.url}
+                  alt={document.name}
                   className="h-full w-full object-cover"
                 />
               </div>
-              <div className="flex items-center gap-1 px-2 py-[10px] sm:gap-2 md:px-3">
+              <div className="flex items-center justify-between gap-1 px-2 py-[10px] sm:gap-2 md:px-3">
                 <p className="text-[10px] font-light text-tertiary-color-700 md:text-sm">
-                  {document.title}
+                  {document.name}
                 </p>
                 <button
                   type="button"
