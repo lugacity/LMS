@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 const fetchPayoutStats = async () =>
   // https://avi-lms-backend.onrender.com/api/v1/admins/affiliates/payout-stats
 
-  await axios.get(`${BASE_URL}/affiliates/payout-stats`, {
+  await axios.get(`${BASE_URL}/affiliates/payout-statse`, {
     headers: {
       Authorization: `Bearer ${Cookies.get("adminToken")}`,
     },
