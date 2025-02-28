@@ -3,12 +3,59 @@ import { useContext } from "react";
 import { RxDownload } from "react-icons/rx";
 import { useParams } from "react-router-dom";
 import { DocumentContext } from "./ShareDocument";
+import pdf from "../../assets/images/dashboard/pdf.png";
+import docsimg from "../../assets/images/dashboard/docs.png";
+import axios from "axios";
+import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 
 const Documents = ({ data }) => {
   const { courseId } = useParams();
 
   const cohortId = data.cohort_id;
   const { sectionActive } = useContext(DocumentContext);
+
+  const imageUrl = (filetype, url) => {
+    const file = filetype.split("/").pop();
+    if (file === "pdf") {
+      return pdf;
+    } else if (
+      filetype === "docs" ||
+      filetype === "docx" ||
+      filetype === "txt"
+    ) {
+      return docsimg;
+    } else {
+      return url;
+    }
+  };
+
+  const handleDownload = async (url, name) => {
+    try {
+      const response = await axios.get(url, {
+        responseType: "blob",
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
+      });
+
+      const blob = new Blob([response.data], {
+        type: response.headers["content-type"],
+      });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = name;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.log(error);
+      toast.error(
+        "Error downloading image:",
+        error?.response?.data?.message ?? "Something went wrong",
+      );
+    }
+  };
 
   const {
     data: docs,
@@ -34,7 +81,7 @@ const Documents = ({ data }) => {
             <div key={document._id} className="">
               <div className="h-32 overflow-hidden rounded-tl-xl rounded-tr-xl md:h-36">
                 <img
-                  src={document.url}
+                  src={imageUrl(document.file_type, document.url)}
                   alt={document.name}
                   className="h-full w-full object-cover"
                 />
@@ -46,6 +93,7 @@ const Documents = ({ data }) => {
                 <button
                   type="button"
                   className="cursor-pointer rounded-full bg-[#FFEBF0] p-1 text-primary-color-600 md:p-3 md:text-xl"
+                  onClick={() => handleDownload(document.url, document.name)}
                 >
                   <RxDownload />
                 </button>
