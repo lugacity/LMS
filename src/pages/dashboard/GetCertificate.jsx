@@ -4,16 +4,39 @@ import certificate from "../../assets/images/certificate.png";
 import AVIbg from "../../assets/images/live_coaching.png";
 import DashButton from "../auth/ButtonDash";
 import { cn } from "@/lib/utils";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useGetCertificate } from "@/hooks/students/use-get-certificate";
 
 export const GetCertificate = () => {
-  const [certificateReady, setCertificateReady] = useState(false);
-  
+  // const [certificateReady, setCertificateReady] = useState(true);
+  const { courseId } = useParams();
+  const [queryString] = useSearchParams();
+  const cohortId = queryString.get("cohortId");
+
+  const {
+    isLoading,
+    error,
+    data: certificateHTML,
+  } = useGetCertificate(courseId, cohortId);
+  const handleDownload = () => {
+    const blob = new Blob([certificateHTML.data], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "certificate.html";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div>
       <div className="w-full gap-6 rounded-lg lg:grid lg:grid-cols-12">
         {/* Certificate Image */}
         <div className="order-1 col-span-7 mb-4 text-justify md:mb-0">
-          <div className="relative">
+          <Cert />
+          {/* <div className="relative">
             <img
               src={certificate}
               alt="certificate"
@@ -29,7 +52,7 @@ export const GetCertificate = () => {
                 </div>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
 
         {/* Live Session */}
@@ -56,8 +79,8 @@ export const GetCertificate = () => {
           <div>
             <DashButton
               className="mt-4 h-[40px] w-[100%] text-white disabled:bg-slate-200"
-              onClick={() => setCertificateReady((prev) => !prev)}
-              disabled={!certificateReady}
+              disabled={isLoading}
+              onClick={handleDownload}
             >
               Download Certificate
             </DashButton>
@@ -73,7 +96,7 @@ export const GetCertificate = () => {
               <span className="text-[#F53366]">Maxwell Samantha</span>{" "}
               successfully completed the course
               <span className="text-[#F53366]">
-                "Project Consultant Training Programme (Bundle)"
+                Project Consultant Training Programme (Bundle)
               </span>{" "}
               on 12/06/2024, taught by Avenue Impact Academy. It confirms that
               the student completed the entire course. The course duration
@@ -94,5 +117,23 @@ export const GetCertificate = () => {
     </div>
   );
 };
+const Cert = () => {
+  const { courseId } = useParams();
+  const [queryString] = useSearchParams();
+  const cohortId = queryString.get("cohortId");
 
+  const {
+    isLoading,
+    error,
+    data: certificateHTML,
+  } = useGetCertificate(courseId, cohortId);
+
+  if (isLoading) return <p>loading...</p>;
+  if (error)
+    return <p>{error?.response?.data?.message ?? "something went wrong"}</p>;
+  if (certificateHTML) {
+    console.log(certificateHTML);
+    return <div dangerouslySetInnerHTML={{ __html: certificateHTML.data }} />;
+  }
+};
 export default GetCertificate;
